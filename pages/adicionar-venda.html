@@ -1,0 +1,64 @@
+<div class="header">
+
+  <div class="profile">
+    <div class="image">
+      <img src="./assets/images/profile-picture.svg" alt="User profile picture">
+    </div>
+
+    <div class="name">
+      <h3><span>Olá,</span> Genara</h3>
+      <a href="#">Sair</a>
+    </div>
+  </div>
+
+  <div class="back" onclick="route()"><a href="/lista-de-vendas">Voltar</a></div>
+  <!-- <img class="exit" src="./assets/images/exit-icon.svg" alt="Exit icon"> -->
+</div>
+
+<div class="content">
+  <section class="component-container">
+    <h1>Adicionar venda</h1>
+    <form action="">
+      <div class="sub-form">
+        <div>
+          <label for="cliente">Cliente</label>
+          <input type="text" name="cliente-input" id="cliente-input" class="input">
+        </div>
+        <div>
+          <label for="cliente">Data de faturamento</label>
+          <input type="text" name="data-faturamento-input" id="data-faturamento-input" class="input">
+        </div>
+      </div>
+      <div class="dashed"></div>
+      <h2>Itens do pedido</h2>
+      <div class="sub-form">
+        <div>
+          <label for="description">Descrição do item</label>
+          <input type="text" name="description-input" id="description-input" class="input">
+        </div>
+        <div>
+          <label for="=value">Valor unitário</label>
+          <input type="text" name="value-input" id="value-input" class="input">
+        </div>
+      </div>
+      <div class="sub-form">
+        <div>
+          <label for="quantity">Quantidade</label>
+          <input type="text" name="quantity-input" id="quantity-input" class="input">
+        </div>
+        <div>
+          <label for="=total-value">Valor total</label>
+          <input type="text" name="total-value-input" id="total-value-input" class="input">
+        </div>
+      </div>
+      <div class="align-right">
+        <button class="plus-items">+ Mais itens</button>
+      </div>
+      <div class="dashed"></div>
+      <div class="footer">
+        <div class="total-value">R$ 24.550,00</div>
+        <button class="save" type="submit">Salvar</button>
+      </div>
+    </form>
+  </section>
+</div>
