@@ -4,8 +4,11 @@
   box-sizing: border-box;
 }
 
-body {
+body, input, button, select, textarea {
   font-family: 'Jost', sans-serif;
+}
+
+body {
   background: var(--background);
 }
 

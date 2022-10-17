@@ -72,7 +72,7 @@
 }
 
 .header {
-  margin: 0px 18px;
+  margin: 0 18px;
   border-bottom: 2px solid #E5EBF1;
   display: flex;
   justify-content: space-between;
@@ -188,7 +188,7 @@
     grid-area: "menu";
 
     position: fixed;
-    bottom: 0px;
+    bottom: 0;
     width: 100%;
     padding: 15px;
 

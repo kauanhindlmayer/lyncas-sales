@@ -19,36 +19,40 @@
   <section class="component-container">
     <h1>Adicionar venda</h1>
     <form action="">
-      <div class="sub-form">
+      <div class="form-wrapper">
         <div>
           <label for="cliente-input">Cliente</label>
-          <input type="text" name="cliente-input" id="cliente-input" class="input">
+          <select class="select" name="cliente-input" id="cliente-input">
+            <option value="cliente-1">Genara Sousa</option>
+            <option value="cliente-2">Genara Sousa</option>
+            <option value="cliente-3">Genara Sousa</option>
+          </select>
         </div>
         <div>
           <label for="data-faturamento-input">Data de faturamento</label>
-          <input type="text" name="data-faturamento-input" id="data-faturamento-input" class="input">
+          <input type="date" name="data-faturamento-input" id="data-faturamento-input" class="input">
         </div>
       </div>
       <div class="dashed"></div>
       <h2>Itens do pedido</h2>
-      <div class="sub-form">
+      <div class="form-wrapper">
         <div>
           <label for="description-input">Descrição do item</label>
           <input type="text" name="description-input" id="description-input" class="input">
         </div>
         <div>
           <label for="value-input">Valor unitário</label>
-          <input type="text" name="value-input" id="value-input" class="input">
+          <input type="number" name="value-input" id="value-input" class="input">
         </div>
       </div>
-      <div class="sub-form">
+      <div class="form-wrapper">
         <div>
           <label for="quantity-input">Quantidade</label>
-          <input type="text" name="quantity-input" id="quantity-input" class="input">
+          <input type="number" name="quantity-input" id="quantity-input" class="input">
         </div>
         <div>
           <label for="total-value-input">Valor total</label>
-          <input type="text" name="total-value-input" id="total-value-input" class="input">
+          <input type="number" name="total-value-input" id="total-value-input" class="input">
         </div>
       </div>
       <div class="align-right">
