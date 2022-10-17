@@ -58,7 +58,7 @@
   top: 26.6rem;
 }
 
-.clientes {
+.customers {
   top: 31.5rem;
 }
 
@@ -69,10 +69,10 @@
 .main {
   display: grid;
   grid-template-rows: 12.5rem auto;
+  margin: 0 2rem;
 }
 
 .header {
-  margin: 0 1.8rem;
   border-bottom: 2px solid #E5EBF1;
   display: flex;
   justify-content: space-between;
@@ -135,7 +135,7 @@
 }
 
 .content {
-  margin: 4.9rem 2.6rem auto 2.6rem;
+  margin: 4.9rem 0 auto 0;
 }
 
 .heading {
