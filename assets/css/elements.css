@@ -4,12 +4,17 @@
   box-sizing: border-box;
 }
 
+html {
+  font-size: 62.5%;
+}
+
 body, input, button, select, textarea {
   font-family: 'Jost', sans-serif;
 }
 
 body {
   background: var(--background);
+  font-size: 1.6rem;
 }
 
 a {
