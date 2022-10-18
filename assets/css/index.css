@@ -31,7 +31,7 @@
   width: 12.6rem;
   margin-bottom: 1.4rem;
 
-  border: 1px solid #1C3B85;
+  border: 1px solid var(--border-blue);
   border-radius: 4px;
 
   display: flex;
@@ -73,7 +73,7 @@
 }
 
 .header {
-  border-bottom: 2px solid #E5EBF1;
+  border-bottom: 2px solid var(--border);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -82,7 +82,7 @@
 .header .image {
   width: 5.0rem;
   height: 5.0rem;
-  /* border: 2px solid #E5EBF1; */
+  /* border: 2px solid var(--border); */
   border-radius: 5px;
 }
 

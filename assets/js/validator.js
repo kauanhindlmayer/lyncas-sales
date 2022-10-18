@@ -16,6 +16,7 @@ export class Validator {
 
     for(let field of document.querySelectorAll('.field')) {
       if (!field.value) {
+        alert("Nenhum campo pode estar vazio!");
         return valid = false;
       }
     }
@@ -27,6 +28,7 @@ export class Validator {
     for(let field of document.querySelectorAll('.field')) {
       if (field.classList.contains('email')) {
         if(!field.value.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+          this.createError(field, "E-mail inválido!");
           return false;
         }
       }
@@ -39,7 +41,8 @@ export class Validator {
     for(let field of document.querySelectorAll('.field')) {
       if (field.classList.contains('tel')) {
         if(!field.value.match(/^(\(\d{2}\)\s*)?(9\s*)?(\d{4})-(\d{4})$/g)) {
-          return valid = false;
+          this.createError(field, "Telefone inválido!");
+          return false;
         }
       }
     }
@@ -51,6 +54,7 @@ export class Validator {
     for(let field of document.querySelectorAll('.field')) {
       if (field.classList.contains('cpf')) {
         if(!field.value.match(/(?:\d{3}\.){2}\d{3}-\d{2}/g)) {
+          this.createError(field, "CPF inválido!");
           return false;
         }
       }
@@ -61,28 +65,31 @@ export class Validator {
 
   clearInputs() {
     for(let field of document.querySelectorAll('.field')) {
+      field.classList.remove("error-input")
       field.value = "";
     }
   }
 
+  createError(field, message) {
+    // field.classList.add("error-input");
+    field.focus();
+    alert(message);
+  }
+
   validateFields() {
     if (!this.validateEmptyFields()) {
-      alert("Nenhum campo pode estar em branco!");
       return false;
     }
 
     if (!this.validateEmail()) {
-      alert("E-mail inválido!")
       return false;
     }
 
     if (!this.validateTel()) {
-      alert("Telefone inválido!")
       return false;
     }
 
     if (!this.validateCPF()) {
-      alert("CPF inválido!")
       return false;
     }
     
