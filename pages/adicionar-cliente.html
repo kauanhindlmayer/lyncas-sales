@@ -12,13 +12,12 @@
   </div>
 
   <div class="back" onclick="route()"><a href="/lista-de-clientes">Voltar</a></div>
-  <!-- <img class="exit" src="./assets/images/exit-icon.svg" alt="Exit icon"> -->
 </div>
 
 <div class="content">
   <section class="component-container">
     <h1>Adicionar cliente</h1>
-    <form>
+    <form class="formulary">
       <div class="form-wrapper">
         <div>
           <label for="name-input">Nome</label>
@@ -26,19 +25,34 @@
             type="text" 
             name="name-input" 
             id="name-input" 
-            class="input"
-            required  
+            class="input field"
+            required
+            maxlength="254"
           >
         </div>
         <div>
           <label for="email-input">E-mail</label>
-          <input type="email" name="email-input" id="email-input" class="input">
+          <input 
+            type="email" 
+            name="email-input" 
+            id="email-input" 
+            class="input field email"
+            required
+            maxlength="254"
+          >
         </div>
       </div>
       <div class="form-wrapper">
         <div>
           <label for="telefone-input">Telefone</label>
-          <input type="number" name="telefone-input" id="telefone-input" class="input">    
+          <input 
+            type="tel" 
+            name="telefone-input" 
+            id="telefone-input" 
+            class="input field tel"
+            required
+            maxlength="16"
+          >    
         </div>
         <div>
           <label for="cpf-input">CPF</label>
@@ -46,13 +60,14 @@
             type="text" 
             name="cpf-input" 
             id="cpf-input" 
-            class="input"
-            minlength="11"
+            class="input field cpf"
+            required
+            maxlength="14"
           >
         </div>
       </div>
       <div class="align-right">
-        <button class="save save-clients" type="submit">Salvar</button>
+        <button class="save save-clients" onclick="handleSubmit()">Salvar</button>
       </div>
     </form>
   </section>

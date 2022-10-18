@@ -12,17 +12,21 @@
   </div>
 
   <div class="back" onclick="route()"><a href="/lista-de-vendas">Voltar</a></div>
-  <!-- <img class="exit" src="./assets/images/exit-icon.svg" alt="Exit icon"> -->
 </div>
 
 <div class="content">
   <section class="component-container">
     <h1>Adicionar venda</h1>
-    <form action="">
+    <form class="formulary">
       <div class="form-wrapper">
         <div>
           <label for="customer-input">Cliente</label>
-          <select class="select" name="customer-input" id="customer-input">
+          <select 
+            class="select field" 
+            name="customer-input" 
+            id="customer-input"
+            required
+          >
             <option value="" data-default disabled selected></option>
             <option value="customer-1">Genara Sousa</option>
             <option value="customer-2">Genara Sousa</option>
@@ -31,7 +35,14 @@
         </div>
         <div>
           <label for="billing-date-input">Data de faturamento</label>
-          <input type="date" name="billing-date-input" id="billing-date-input" class="input">
+          <input 
+            type="date" 
+            name="billing-date-input" 
+            id="billing-date-input" 
+            class="input field"
+            required
+            maxlength="12"
+          >
         </div>
       </div>
       <div class="dashed"></div>
@@ -39,21 +50,49 @@
       <div class="form-wrapper">
         <div>
           <label for="description-input">Descrição do item</label>
-          <input type="text" name="description-input" id="description-input" class="input">
+          <input 
+            type="text" 
+            name="description-input" 
+            id="description-input" 
+            class="input field"
+            required
+            maxlength="254"  
+          >
         </div>
         <div>
           <label for="value-input">Valor unitário</label>
-          <input type="number" name="value-input" id="value-input" class="input">
+          <input 
+            type="number" 
+            name="value-input" 
+            id="value-input" 
+            class="input field"
+            required
+            maxlength="16"
+          >
         </div>
       </div>
       <div class="form-wrapper">
         <div>
           <label for="quantity-input">Quantidade</label>
-          <input type="number" name="quantity-input" id="quantity-input" class="input">
+          <input 
+            type="number" 
+            name="quantity-input" 
+            id="quantity-input" 
+            class="input field"
+            required
+            maxlength="16"  
+          >
         </div>
         <div>
           <label for="total-value-input">Valor total</label>
-          <input type="number" name="total-value-input" id="total-value-input" class="input">
+          <input 
+            type="number" 
+            name="total-value-input"
+            id="total-value-input" 
+            class="input field"
+            required
+            maxlength="16"  
+          >
         </div>
       </div>
       <div class="align-right">
@@ -63,7 +102,7 @@
       <div class="footer">
         <div class="total-value">R$ 24.550,00</div>
         <div class="align-right">
-          <button class="save save-sale" type="submit">Salvar</button>
+          <button class="save save-sale" onclick="handleSubmit()">Salvar</button>
         </div>
       </div>
     </form>

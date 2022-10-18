@@ -83,6 +83,8 @@
 
   width: calc(50% - 9px);
   height: 3.9rem;
+
+  cursor: pointer;
 }
 
 .component-container .save:hover {
@@ -235,6 +237,8 @@
   height: 3.9rem;
 
   margin: 1.8rem 0 2rem 0;
+
+  cursor: pointer;
 }
 
 .plus-items:hover {

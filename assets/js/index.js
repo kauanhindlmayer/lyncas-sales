@@ -1,4 +1,5 @@
 import { Router } from "./router.js";
+import { Validator } from "./validator.js";
 
 const router = new Router();
 
@@ -11,3 +12,7 @@ router.add(404, '/pages/404.html');
 
 window.onpopstate = () => router.handle();
 window.route = () => router.route();
+
+const validator = new Validator();
+
+window.handleSubmit = () =>  validator.handleSubmit();
