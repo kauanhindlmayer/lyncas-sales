@@ -71,8 +71,7 @@ export class Validator {
   }
 
   createError(field, message) {
-    // field.classList.add("error-input");
-    field.focus();
+    field.classList.add("error-input");
     alert(message);
   }
 
