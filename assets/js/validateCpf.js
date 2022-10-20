@@ -14,14 +14,14 @@ export class ValidateCpf {
     if(this.isSequency()) return false;
     
     const partialCpf = this.cleanCpf.slice(0, -2);
-    const digit1 = this.criaDigito(partialCpf);
-    const digit2 = this.criaDigito(partialCpf + digit1);
+    const digit1 = this.createDigit(partialCpf);
+    const digit2 = this.createDigit(partialCpf + digit1);
   
     const newCpf = partialCpf + digit1 + digit2;
     return newCpf === this.cleanCpf;
   }
 
-  criaDigito(partialCpf) {
+  createDigit(partialCpf) {
     const cpfArray = Array.from(partialCpf);
 
     let regressive = cpfArray.length + 1;
