@@ -2,6 +2,7 @@
   --primary-color: #274A9D;
   --secondary-color: #03C874;
   --tertiary-color: #072876;
+  --quaternary-color: #d93025;
 
   --background: #F8F8F8;
   --background-secondary: #FFFFFF;
@@ -19,5 +20,4 @@
   --border-blue: #1C3B85;
   --border-light-blue: #EEF1F7;
   --border-light-red: #F7EEEE;
-  --border-error: #d93025;
 }
