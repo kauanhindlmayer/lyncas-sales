@@ -1,3 +1,5 @@
+import { ValidateCpf } from "./validateCpf.js";
+
 export class Validator {
   handleSubmit(event) {
     event = event || window.event;
@@ -45,14 +47,22 @@ export class Validator {
   }
 
   validateCPF() {
-    const cpf = document.querySelector('.cpf');
+    const inputCpf = document.querySelector('.cpf');
+    const cpf = new ValidateCpf(inputCpf.value);
 
-    if(!cpf.value.match(/(?:\d{3}\.){2}\d{3}-\d{2}/g)) {
-      this.createError(cpf, "CPF inválido!");
+    if (!cpf.validate()) {
+      this.createError(inputCpf, "CPF inválido!");
       return false;
     }
-    
-    return true;
+
+    /*
+      if(!cpf.value.match(/(?:\d{3}\.){2}\d{3}-\d{2}/g)) {
+        this.createError(cpf, "CPF inválido!");
+        return false;
+      }
+    */
+
+   return true;
   }
 
   clearInputs() {
