@@ -222,12 +222,14 @@
   color: var(--text-tertiary);
   border: 1px solid var(--border-light-red);
   margin-right: 0.8rem;
+  cursor: pointer;
 }
 
 .component-container .edit {
   background-color: var(--background-quaternary);
   color: var(--text-quaternary);
   border: 1px solid var(--border-light-blue);
+  cursor: pointer;
 }
 
 .edit:hover, .delete:hover {

@@ -1,4 +1,5 @@
 import { ValidateCpf } from "./validateCpf.js";
+import { Router } from "./router.js";
 
 export class Validator {
   handleSubmit(event) {
@@ -10,6 +11,7 @@ export class Validator {
     if (validatedFields) {
       alert("Adicionado com sucesso!");
       this.clearInputs();
+      this.redirect();
     }
   }
 
@@ -27,20 +29,24 @@ export class Validator {
   validateEmail() {
     const email = document.querySelector('.email');
 
-    if(!email.value.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
-      this.createError(email, "E-mail inválido!");
-      return false;
+    if (email) {
+      if(!email.value.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+        this.createError(email, "E-mail inválido!");
+        return false;
+      }
     }
-    
+
     return true;
   }
 
   validatePhone() {
     const phone = document.querySelector('.phone');
 
-    if(!phone.value.match(/^(\(\d{2}\)\s*)?(9\s*)?(\d{4})-(\d{4})$/g)) {
-      this.createError(phone, "Telefone inválido!");
-      return false;
+    if (phone) {
+      if(!phone.value.match(/^(\(\d{2}\)\s*)?(9\s*)?(\d{4})-(\d{4})$/g)) {
+        this.createError(phone, "Telefone inválido!");
+        return false;
+      }
     }
 
     return true;
@@ -48,19 +54,15 @@ export class Validator {
 
   validateCPF() {
     const inputCpf = document.querySelector('.cpf');
-    const cpf = new ValidateCpf(inputCpf.value);
 
-    if (!cpf.validate()) {
-      this.createError(inputCpf, "CPF inválido!");
-      return false;
-    }
+    if (inputCpf) {
+      const cpf = new ValidateCpf(inputCpf.value);
 
-    /*
-      if(!cpf.value.match(/(?:\d{3}\.){2}\d{3}-\d{2}/g)) {
-        this.createError(cpf, "CPF inválido!");
+      if (!cpf.validate()) {
+        this.createError(inputCpf, "CPF inválido!");
         return false;
       }
-    */
+    }
 
    return true;
   }
@@ -70,6 +72,12 @@ export class Validator {
       field.classList.remove("error-input")
       field.value = "";
     }
+  }
+
+  redirect() {
+    const router = new Router();
+    const { pathname } = window.location;
+    router.handle(`/pages/lista-de-${pathname === '/lista-de-clientes' ? 'clientes' : 'vendas'}.html`);
   }
 
   createError(field, message) {

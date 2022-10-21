@@ -14,10 +14,11 @@ export class Router {
     this.handle();
   }
 
-  handle() {
+  handle(routeName) {
+    let route;
     const { pathname } = window.location;
-    const route = this.routes[pathname] || this.routes[404];
-  
+    routeName ? route = routeName : route = this.routes[pathname] || this.routes[404];
+
     fetch(route)
       .then(data => data.text())
       .then(html => {
