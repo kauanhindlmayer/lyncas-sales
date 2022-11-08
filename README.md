@@ -1,1 +1,0 @@
-# Lyncas Sales
