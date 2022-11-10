@@ -2,7 +2,7 @@
 
 namespace PressStart2.Domain.Entities
 {
-    public abstract class EntidadeBase : Notifiable
+    public abstract class BaseEntity : Notifiable
     {
         public Guid Id { get; private set; }
     }
