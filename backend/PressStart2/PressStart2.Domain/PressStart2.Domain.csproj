@@ -12,9 +12,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\" />
-    <Folder Include="DTOs\" />
-    <Folder Include="Interfaces\" />
+    <Folder Include="Commands\CreateSale\" />
+    <Folder Include="Commands\DeleteCustomer\" />
+    <Folder Include="Commands\DeleteSale\" />
+    <Folder Include="Commands\GetCustomer\" />
+    <Folder Include="Commands\GetAllSales\" />
+    <Folder Include="Commands\GetSale\" />
+    <Folder Include="Commands\UpdateSale\" />
+    <Folder Include="Commands\UpdateCustomer\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PressStart2.Infra.CrossCutting\PressStart2.Infra.CrossCutting.csproj" />
   </ItemGroup>
 
 </Project>
