@@ -1,6 +1,6 @@
 ﻿namespace PressStart2.Infra.CrossCutting.Constants
 {
-    public struct Notifications
+    public struct NotificationsConstants
     {
         public const string CUSTOMER_MODULE = "Cliente";
         public const string SALE_MODULE = "Venda";
