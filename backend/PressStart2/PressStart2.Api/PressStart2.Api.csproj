@@ -19,8 +19,4 @@
     <ProjectReference Include="..\PressStart2.Infra.Data\PressStart2.Infra.Data.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 </Project>
