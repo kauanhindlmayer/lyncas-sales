@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PressStart2.Domain.Entities;
+using PressStart2.Infra.Data.Configurations;
 using prmToolkit.NotificationPattern;
 
 namespace PressStart2.Infra.Data.Context
@@ -15,7 +16,11 @@ namespace PressStart2.Infra.Data.Context
         {
             modelBuilder.Ignore<Notification>();
 
-            // modelBuilder.ApplyConfigurationsFromAssembly(typeof(PressStart2Context).Assembly);
+            //modelBuilder.ApplyConfiguration(new CustomerConfiguration());
+            //modelBuilder.ApplyConfiguration(new SaleConfiguration());
+            //modelBuilder.ApplyConfiguration(new SaleItemConfiguration());
+
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(PressStart2Context).Assembly);
 
             base.OnModelCreating(modelBuilder);
         }
