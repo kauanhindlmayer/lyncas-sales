@@ -10,6 +10,11 @@ namespace PressStart2.Infra.Data.Repositories
         {
             
         }
+
+        public bool AlreadyExistsCPF(string cpf, Guid customerId)
+        {
+            return _context.CustomerDbSet.Any(p => p.Cpf == cpf && p.Id != customerId);
+        }
     }
 }
  
