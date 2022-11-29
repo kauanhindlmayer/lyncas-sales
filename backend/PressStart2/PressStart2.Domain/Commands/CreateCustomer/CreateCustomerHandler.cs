@@ -8,7 +8,7 @@ using prmToolkit.NotificationPattern;
 namespace PressStart2.Domain.Commands.CreateCustomer
 {
     //                                                                 Request object         Response object
-    internal class CreateCustomerHandler : Notifiable, IRequestHandler<CreateCustomerRequest, CommandResponse>
+    public class CreateCustomerHandler : Notifiable, IRequestHandler<CreateCustomerRequest, CommandResponse>
     {
         private readonly IRepositoryCustomer _repositoryCustomer;
 
@@ -22,7 +22,7 @@ namespace PressStart2.Domain.Commands.CreateCustomer
             if (request is null)
             {
                 // (NotificationsConstants.CUSTOMER_MODULE, NotificationsConstants.INVALID_REQUEST);
-                AddNotification("AdicionarCliente", "Request Inválido");
+                AddNotification("CreateCustomerHandler", "Request Inválido");
                 return Task.FromResult(new CommandResponse(this));
             }
             var customer = new Customer(request.Name, request.Email, request.Phone, request.Cpf);

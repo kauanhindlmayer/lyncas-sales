@@ -1,11 +1,11 @@
-﻿namespace PressStart2.Domain.Commands.CreateCustomer
+﻿namespace PressStart2.Domain.Commands.CreateSale
 {
-    public class CreateCustomerResponse
+    public class CreateSaleResponse
     {
         public Guid Id { get; set; }
         public string Message { get; set; }
 
-        public CreateCustomerResponse(Guid id, string message)
+        public CreateSaleResponse(Guid id, string message)
         {
             Id = id;
             Message = message;
