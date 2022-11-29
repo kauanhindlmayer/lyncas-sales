@@ -1,24 +1,24 @@
 <div class="header">
 
   <div class="profile">
-    <div class="image">
+    <div class="profile__picture">
       <img src="./assets/profile-picture.svg" alt="User profile picture">
     </div>
 
-    <div class="name">
+    <div class="profile__name">
       <h3><span>Olá,</span> Genara</h3>
       <a href="#">Sair</a>
     </div>
   </div>
 
-  <div class="back" onclick="route(event)"><a href="/lista-de-clientes">Voltar</a></div>
+  <div class="profile__button profile__button--back" onclick="route(event)"><a href="/lista-de-clientes">Voltar</a></div>
 </div>
 
 <div class="content">
-  <section class="component-container">
+  <section class="component">
     <h1>Adicionar cliente</h1>
-    <form class="formulary">
-      <div class="form-wrapper">
+    <form class="form">
+      <div class="form__form-wrapper">
         <div>
           <label for="name-input">Nome</label>
           <input 
@@ -44,7 +44,7 @@
           >
         </div>
       </div>
-      <div class="form-wrapper">
+      <div class="form__form-wrapper">
         <div>
           <label for="telefone-input">Telefone</label>
           <input 
@@ -71,7 +71,7 @@
         </div>
       </div>
       <div class="align-right">
-        <button class="save save-clients" onclick="handleSubmit()">Salvar</button>
+        <button class="save-button save-button--client" onclick="handleSubmit()">Salvar</button>
       </div>
     </form>
   </section>

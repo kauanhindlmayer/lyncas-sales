@@ -1,36 +1,36 @@
 <div class="header">
 
   <div class="profile">
-    <div class="image">
+    <div class="profile__picture">
       <img src="./assets/profile-picture.svg" alt="User profile picture">
     </div>
 
-    <div class="name">
+    <div class="profile__name">
       <h3><span>Olá,</span> Genara</h3>
       <a href="#">Sair</a>
     </div>
   </div>
 
-  <div class="add" onclick="route(event)"><a href="/adicionar-venda">Adicionar</a></div>
+  <div class="profile__button profile__button--add" onclick="route(event)"><a href="/adicionar-venda">Adicionar</a></div>
 </div>
 
 <div class="content">
-  <section class="component-container list-background">
-    <div class="list-header">
-      <h1 class="list-title">Lista de vendas</h1>
-      <div class="search-input">
-        <label class="sr-only" for="search-input">Buscar vendas...</label>
+  <section class="component component--background">
+    <div class="component__header">
+      <h1 class="header__title">Lista de vendas</h1>
+      <div class="header__search">
+        <label class="sr-only" for="search-button">Buscar vendas...</label>
         <input 
         type="text" 
         name="search-input" 
-        id="search-input" 
-        class="search"
+        id="search-button" 
+        class="header__search-button"
         placeholder="Buscar vendas..."
         >
       </div>
       </input>
     </div>
-    <div class="table-container">
+    <div class="component__table">
       <table>
         <tr>
           <th>Cliente</th>
@@ -41,47 +41,47 @@
           <th>Ações</th>
         </tr>
         <tr>
-          <td class="left-corner">Genara Sousa</td>
+          <td class="table--left-corner">Genara Sousa</td>
           <td>1</td>
           <td>14/05/2022</td>
           <td>14/05/2022</td>
           <td>R$ 90,00</td>
-          <td class="right-corner">
-            <button class="delete">Deletar</button>
-            <button class="edit">Editar</button>
+          <td class="table--right-corner">
+            <button class="table__button table__button--delete">Deletar</button>
+            <button class="table__button table__button--edit">Editar</button>
           </td>        
         </tr>
         <tr>
-          <td class="left-corner">Genara Sousa</td>
+          <td class="table--left-corner">Genara Sousa</td>
           <td>1</td>
           <td>14/05/2022</td>
           <td>14/05/2022</td>
           <td>R$ 90,00</td>
-          <td class="right-corner">
-            <button class="delete">Deletar</button>
-            <button class="edit">Editar</button>
+          <td class="table--right-corner">
+            <button class="table__button table__button--delete">Deletar</button>
+            <button class="table__button table__button--edit">Editar</button>
           </td>        
         </tr>
         <tr>
-          <td class="left-corner">Genara Sousa</td>
+          <td class="table--left-corner">Genara Sousa</td>
           <td>1</td>
           <td>14/05/2022</td>
           <td>14/05/2022</td>
           <td>R$ 90,00</td>
-          <td class="right-corner">
-            <button class="delete">Deletar</button>
-            <button class="edit">Editar</button>
+          <td class="table--right-corner">
+            <button class="table__button table__button--delete">Deletar</button>
+            <button class="table__button table__button--edit">Editar</button>
           </td>        
         </tr>
         <tr>
-          <td class="left-corner">Genara Sousa</td>
+          <td class="table--left-corner">Genara Sousa</td>
           <td>1</td>
           <td>14/05/2022</td>
           <td>14/05/2022</td>
           <td>R$ 90,00</td>
-          <td class="right-corner">
-            <button class="delete">Deletar</button>
-            <button class="edit">Editar</button>
+          <td class="table--right-corner">
+            <button class="table__button table__button--delete">Deletar</button>
+            <button class="table__button table__button--edit">Editar</button>
           </td>        
         </tr>
       </table>

@@ -1,24 +1,24 @@
 <div class="header">
 
   <div class="profile">
-    <div class="image">
+    <div class="profile__picture">
       <img src="./assets/profile-picture.svg" alt="User profile picture">
     </div>
 
-    <div class="name">
+    <div class="profile__name">
       <h3><span>Olá,</span> Genara</h3>
       <a href="#">Sair</a>
     </div>
   </div>
 
-  <div class="back" onclick="route(event)"><a href="/lista-de-vendas">Voltar</a></div>
+  <div class="profile__button profile__button--back" onclick="route(event)"><a href="/lista-de-vendas">Voltar</a></div>
 </div>
 
 <div class="content">
-  <section class="component-container">
+  <section class="component">
     <h1>Adicionar venda</h1>
-    <form class="formulary">
-      <div class="form-wrapper">
+    <form class="form">
+      <div class="form__form-wrapper">
         <div>
           <label for="customer-input">Cliente</label>
           <select 
@@ -45,9 +45,9 @@
           >
         </div>
       </div>
-      <div class="dashed"></div>
+      <div class="form__dashed"></div>
       <h2>Itens do pedido</h2>
-      <div class="form-wrapper">
+      <div class="form__form-wrapper">
         <div>
           <label for="description-input">Descrição do item</label>
           <input 
@@ -73,7 +73,7 @@
           >
         </div>
       </div>
-      <div class="form-wrapper">
+      <div class="form__form-wrapper">
         <div>
           <label for="quantity-input">Quantidade</label>
           <input 
@@ -100,13 +100,13 @@
         </div>
       </div>
       <div class="align-right">
-        <button class="plus-items">+ Mais itens</button>
+        <button class="add-items-button">+ Mais itens</button>
       </div>
       <div class="dashed"></div>
       <div class="footer">
-        <div class="total-value">R$ 24.550,00</div>
+        <div class="footer__total-value">R$ 24.550,00</div>
         <div class="align-right">
-          <button class="save save-sale" onclick="handleSubmit()">Salvar</button>
+          <button class="save-button save-button--sale" onclick="handleSubmit()">Salvar</button>
         </div>
       </div>
     </form>

@@ -1,5 +1,5 @@
 /* Common Styles */
-.component-container {
+.component {
   background: var(--background-secondary);
   border: 1px solid var(--border);
   border-radius: 5px;
@@ -7,7 +7,7 @@
   height: 100%;
 }
 
-.component-container h1 {
+.component h1 {
   color: var(--text-primary);
   margin: 3.4rem 4.1rem;
   font-size: 2rem;
@@ -15,7 +15,7 @@
   line-height: 2.9rem;
 }
 
-.component-container h2 {
+.component h2 {
   color: var(--text-primary);
   margin: 1.8rem 0;
   font-size: 1.8rem;
@@ -23,11 +23,11 @@
   line-height: 2.6rem;
 }
 
-.component-container form {
+.form {
   margin: 0 3.1rem 0 3.1rem;
 }
 
-.form-wrapper {
+.form__form-wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -39,19 +39,19 @@
   justify-content: flex-end;
 }
 
-.component-container label {
+.component label {
   color: var(--text-secondary);
   display: block;
   margin-top: 1.8rem;
 }
 
-.component-container form div {
+.component form div {
   width: 100%;
 }
 
-.component-container .input,
-.component-container .input-date,
-.component-container .select {
+.component .input,
+.component .input-date,
+.component .select {
   color: var(--text-secondary);
 
   border: 1px solid var(--border);
@@ -82,7 +82,7 @@
   transition: box-shadow 0.25s ease-out;
 } 
 
-.component-container .select {
+.component .select {
   appearance: none;
   -webkit-appearance: none;
 
@@ -91,7 +91,7 @@
   background-position: right 1.5rem top 50%;
 }
 
-.component-container .save {
+.component .save-button {
   background: var(--secondary-color);
   color: var(--background-secondary);
 
@@ -107,27 +107,27 @@
   cursor: pointer;
 }
 
-.component-container .save:hover {
+.component .save-button:hover {
   filter: brightness(0.9);
 }
 
-.component-container .save-sale {
+.component .save-button--sale {
   width: calc(100% - 9px);
 }
 
 /* Sales and Clients Components Styles */
-.list-background {
+.component--background {
   background-color: var(--background);
   border: none;
 }
 
-.list-header {
+.component__header {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.list-header h1 {
+.component__header h1 {
   margin-left: 0;
   font-size: 2.4rem;
 }
@@ -144,7 +144,7 @@
   border-width: 0;
 }
 
-.search {
+.header__search-button {
   background: url(../images/search-icon.svg) no-repeat scroll 7px 7px;
   background-position: center;     
   background-position-x: calc(100% - 12px);
@@ -166,18 +166,18 @@
   height: 4.1rem;
 }
 
-/* .table-container {
+/* .component__table {
   width: 100%;
   overflow: auto;
 } */
 
-.component-container table {
+.component table {
   border-collapse: separate;
   border-spacing: 0 1.8rem;
   width: 100%;
 }
 
-.component-container table tr th {
+.component table tr th {
   color: var(--text-secondary);
 
   font-weight: 400;
@@ -188,62 +188,65 @@
   margin-bottom: 1.8rem;
 }
 
-.component-container table tr td {
+.component table tr td {
   min-width: 20rem;
 }
 
-.component-container table td {
+.component table td {
   background-color: var(--background-secondary);
   color: var(--text-primary);
   font-weight: 500;
   padding: 2.4rem 1.2rem;
 }
 
-.component-container .left-corner {
+.component .table--left-corner {
   border-radius: 5px 0 0 5px;
 }
 
-.component-container .right-corner {
+.component .table--right-corner {
   border-radius: 0 5px 5px 0;
 }
 
-.component-container .spacing {
+.component .spacing {
   margin-bottom: 1.8rem;
 }
 
-.component-container table td button {
+.component table td button {
   border-radius: 5px;
   width: 7.5rem;
   height: 3.5rem;
 }
 
-.component-container .delete {
-  background-color: var(--background-tertiary);
-  color: var(--text-tertiary);
-  border: 1px solid var(--border-light-red);
+.table__button {
   margin-right: 0.8rem;
   cursor: pointer;
 }
 
-.component-container .edit {
+.table__button--delete {
+  background-color: var(--background-tertiary);
+  color: var(--text-tertiary);
+  border: 1px solid var(--border-light-red);
+
+}
+
+.table__button--edit {
   background-color: var(--background-quaternary);
   color: var(--text-quaternary);
   border: 1px solid var(--border-light-blue);
-  cursor: pointer;
 }
 
-.edit:hover, .delete:hover {
+.table__button:hover {
   filter: brightness(0.9);
 }
 
 /* Clients Component Styles */
-.save-clients {
+.save-button--client {
   margin-top: 2.6rem;
   margin-bottom: 10.2rem;
 }
 
 /* Sales Component Styles */
-.plus-items {
+.add-items-button {
   background-color: var(--background-secondary);
   color: var(--text-primary);
   border: 1px solid var(--text-primary);
@@ -263,11 +266,11 @@
   cursor: pointer;
 }
 
-.plus-items:hover {
+.add-items-button:hover {
   filter: brightness(0.9);
 }
 
-.dashed {
+.form__dashed {
   margin-top: 1.8rem;
   border-bottom: 1px dashed var(--border);
 }
@@ -279,7 +282,7 @@
   width: 100%;
 }
 
-.total-value {
+.footer__total-value {
   color: var(--text-primary);
   font-weight: 700;
   font-size: 2.4rem;
@@ -288,15 +291,15 @@
 
 @media only screen and (max-width:1366px) {
   /* Common Styles */
-  .component-container h1 {
+  .component h1 {
     margin: 3.4rem 4.1rem 0.8rem 4.1rem
   }
 
-  .component-container h2 {
+  .component h2 {
     margin: 0.9rem 0;
   }
 
-  .component-container label {
+  .component label {
     margin-top: 0.9rem;
   }
 
@@ -304,7 +307,7 @@
     margin-top: 0.9rem;
   }
 
-  .plus-items {
+  .add-items-button {
     margin: 0.9rem 0 1.0rem 0;
   }
 
@@ -313,15 +316,15 @@
   }
 
   /* Sales and Clients Components Styles */
-  .component-container table td {
+  .component table td {
     padding: 1.2rem 0.6rem;
   }
   
-  .component-container table tr td {
+  .component table tr td {
     min-width: 0;
   }
 
-  .component-container .list-title {
+  .component .header__title {
     margin-left: 0;
   }
 }

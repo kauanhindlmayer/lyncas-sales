@@ -16,7 +16,7 @@
   align-items: center;
 }
 
-.logo {
+.menu__item--logo {
   width: 10.6rem;
   height: 2.4rem;
 
@@ -25,7 +25,7 @@
   left: 3.5rem;
 }
 
-.menu-item {
+.menu__item {
   color: var(--background-secondary);
 
   width: 12.6rem;
@@ -38,31 +38,31 @@
   align-items: center;
 }
 
-.menu-item span a {
+.menu__item span a {
   color: var(--background-secondary);
   text-decoration: none;
 }
 
-.menu-item:hover {
+.menu__item:hover {
   background-color: var(--border-blue);
   filter: brightness(0.9);
 }
 
-.menu-icon {
+.menu__item__icon {
   width: 1.6rem;
   height: 1.6rem;
   margin: 0.9rem 1.2rem;
 }
 
-.dashboard {
+.menu__item--dashboard {
   top: 26.6rem;
 }
 
-.customers {
+.menu__item--customers {
   top: 31.5rem;
 }
 
-.vendas {
+.menu__item--sales {
   top: 36.4rem;
 }
 
@@ -79,7 +79,7 @@
   align-items: center;
 }
 
-.header .image {
+.profile__picture {
   width: 5.0rem;
   height: 5.0rem;
   /* border: 2px solid var(--border); */
@@ -90,23 +90,23 @@
   display: flex;
 }
 
-.name {
+.profile__name {
   color: var(--text-primary);
   font-weight: 700;
   margin-left: 1.8rem;
 }
 
-.name a {
+.profile__name a {
   color: var(--gray-100);
   font-weight: 500;
   text-decoration: none;
 }
 
-.name a:hover {
+.profile__name a:hover {
   filter: brightness(0.9);
 }
 
-.back, .add {
+.profile__button {
   background-color: var(--gray-100);
   color: var(--background-secondary);
 
@@ -122,15 +122,15 @@
   font-weight: 700;
 }
 
-.add {
+.profile__button--add {
   background-color: var(--secondary-color);
 }
 
-.back:hover, .add:hover {
+.profile__button--back:hover, .profile__button--add:hover {
   filter: brightness(0.9);
 }
 
-.exit {
+.profile__exit {
   display: none;
 }
 
@@ -138,14 +138,14 @@
   margin: 4.9rem 0 auto 0;
 }
 
-.heading {
+.content__heading {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
-.heading h2 {
+.content__heading h2 {
   font-weight: 500;
 }
 
@@ -164,16 +164,16 @@
     grid-area: "header";
   }
 
-  .name a {
+  .profile__name a {
     display: none;
   }
 
-  .name span {
+  .profile__name span {
     font-weight: 400;
     display: block;
   }
 
-  .exit {
+  .profile__exit {
     position: absolute;
     top: 5.1rem;
     right: 3.6rem;
@@ -198,7 +198,7 @@
     align-items: center;
   }
 
-  .menu-item {
+  .menu__item {
     position: static; 
     height: 4.5rem;
     border: none;
@@ -212,11 +212,11 @@
 
   }
 
-  .menu-item img {
+  .menu__item img {
     margin-bottom: 3px;
   }
 
-  .logo {
+  .menu__item--logo {
     display: none;
   }
 
