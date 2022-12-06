@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Home from "../views/Home.vue";
 import Dashboard from "../views/Dashboard.vue";
+import SalesList from "../views/SalesList.vue";
+import CustomersList from "../views/CustomersList.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -8,23 +9,23 @@ const router = createRouter({
     {
       path: "/",
       name: "home",
-      component: Home,
+      component: Dashboard,
     },
     {
       path: "/dashboard",
       name: "dashboard",
       component: Dashboard,
     },
-    // {
-    //   path: "/lista-de-vendas",
-    //   name: "sales",
-    //   component: () => import("../views/SalesList.vue"),
-    // },
-    // {
-    //   path: "/lista-de-clientes",
-    //   name: "customer",
-    //   component: () => import("../views/CustomersList.vue"),
-    // },
+    {
+      path: "/lista-de-vendas",
+      name: "sales",
+      component: SalesList,
+    },
+    {
+      path: "/lista-de-clientes",
+      name: "customer",
+      component: CustomersList,
+    },
   ],
 });
 
