@@ -1,8 +1,7 @@
 <div class="header">
-
   <div class="profile">
     <div class="profile__picture">
-      <img src="./assets/profile-picture.svg" alt="User profile picture">
+      <img src="./assets/profile-picture.svg" alt="User profile picture" />
     </div>
 
     <div class="profile__name">
@@ -11,7 +10,9 @@
     </div>
   </div>
 
-  <div class="profile__button profile__button--add" onclick="route(event)"><a href="/adicionar-cliente">Adicionar</a></div>
+  <div class="profile__button profile__button--add" onclick="route(event)">
+    <a href="/adicionar-cliente">Adicionar</a>
+  </div>
 </div>
 
 <div class="content">
@@ -20,15 +21,14 @@
       <h1 class="header__title">Lista de clientes</h1>
       <div class="header__search">
         <label class="sr-only" for="search-button">Buscar clientes...</label>
-        <input 
-        type="text" 
-        name="search-button" 
-        id="search-button" 
-        class="header__search-button"
-        placeholder="Buscar clientes..."
-        >
+        <input
+          type="text"
+          name="search-button"
+          id="search-button"
+          class="header__search-button"
+          placeholder="Buscar clientes..."
+        />
       </div>
-      </input>
     </div>
     <div class="component__table">
       <table>

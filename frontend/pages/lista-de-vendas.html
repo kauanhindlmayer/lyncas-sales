@@ -1,8 +1,7 @@
 <div class="header">
-
   <div class="profile">
     <div class="profile__picture">
-      <img src="./assets/profile-picture.svg" alt="User profile picture">
+      <img src="./assets/profile-picture.svg" alt="User profile picture" />
     </div>
 
     <div class="profile__name">
@@ -11,7 +10,9 @@
     </div>
   </div>
 
-  <div class="profile__button profile__button--add" onclick="route(event)"><a href="/adicionar-venda">Adicionar</a></div>
+  <div class="profile__button profile__button--add" onclick="route(event)">
+    <a href="/adicionar-venda">Adicionar</a>
+  </div>
 </div>
 
 <div class="content">
@@ -20,15 +21,14 @@
       <h1 class="header__title">Lista de vendas</h1>
       <div class="header__search">
         <label class="sr-only" for="search-button">Buscar vendas...</label>
-        <input 
-        type="text" 
-        name="search-input" 
-        id="search-button" 
-        class="header__search-button"
-        placeholder="Buscar vendas..."
-        >
+        <input
+          type="text"
+          name="search-input"
+          id="search-button"
+          class="header__search-button"
+          placeholder="Buscar vendas..."
+        />
       </div>
-      </input>
     </div>
     <div class="component__table">
       <table>
@@ -49,7 +49,7 @@
           <td class="table--right-corner">
             <button class="table__button table__button--delete">Deletar</button>
             <button class="table__button table__button--edit">Editar</button>
-          </td>        
+          </td>
         </tr>
         <tr>
           <td class="table--left-corner">Genara Sousa</td>
@@ -60,7 +60,7 @@
           <td class="table--right-corner">
             <button class="table__button table__button--delete">Deletar</button>
             <button class="table__button table__button--edit">Editar</button>
-          </td>        
+          </td>
         </tr>
         <tr>
           <td class="table--left-corner">Genara Sousa</td>
@@ -71,7 +71,7 @@
           <td class="table--right-corner">
             <button class="table__button table__button--delete">Deletar</button>
             <button class="table__button table__button--edit">Editar</button>
-          </td>        
+          </td>
         </tr>
         <tr>
           <td class="table--left-corner">Genara Sousa</td>
@@ -82,7 +82,7 @@
           <td class="table--right-corner">
             <button class="table__button table__button--delete">Deletar</button>
             <button class="table__button table__button--edit">Editar</button>
-          </td>        
+          </td>
         </tr>
       </table>
     </div>
