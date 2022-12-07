@@ -5,9 +5,8 @@ namespace PressStart2.Domain.Commands.CreateSale
 {
     public class CreateSaleRequest : IRequest<CommandResponse>
     {
-        public Guid CustomerId { get; private set; }
-        public int QuantityItems { get; private set; }
-        public DateTime BillingDate { get; private set; }
-        public decimal TotalValue { get; private set; }
+        public Guid CustomerId { get; set; }
+        public DateTime BillingDate { get; set; }
+        public List<SaleItemCreateDTO> Items { get; set; }
     }
 }
