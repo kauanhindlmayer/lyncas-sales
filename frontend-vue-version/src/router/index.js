@@ -15,13 +15,18 @@ const router = createRouter({
     },
     {
       path: "/lista-de-vendas",
-      name: "sales",
+      name: "sales-list",
       component: () => import("../modules/SalesList.vue"),
     },
     {
       path: "/lista-de-clientes",
-      name: "customer",
+      name: "customers-list",
       component: () => import("../modules/CustomersList.vue"),
+    },
+    {
+      path: "/adicionar-cliente",
+      name: "add-customer",
+      component: () => import("../modules/AddCustomer.vue"),
     },
   ],
 });

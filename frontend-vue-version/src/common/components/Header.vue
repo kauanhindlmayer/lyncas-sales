@@ -14,8 +14,14 @@
         <a href="#">Sair</a>
       </div>
     </div>
+
+    <Button title="Adicionar" path="/adicionar-cliente" />
   </div>
 </template>
+
+<script setup>
+import Button from "./Button.vue";
+</script>
 
 <style scoped>
 .header {
