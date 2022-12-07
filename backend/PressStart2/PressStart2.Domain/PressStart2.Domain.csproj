@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <Folder Include="Commands\DeleteSale\" />
-    <Folder Include="Commands\GetAllSales\" />
     <Folder Include="Commands\GetSale\" />
     <Folder Include="Commands\UpdateSale\" />
   </ItemGroup>
