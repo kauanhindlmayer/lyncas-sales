@@ -11,3 +11,4 @@ namespace PressStart2.Domain.Commands.CreateCustomer
         public string Cpf { get; set; }
     }
 }
+ 
