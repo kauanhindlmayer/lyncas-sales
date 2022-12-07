@@ -7,6 +7,6 @@
 </template>
 
 <script setup>
-import Header from "../components/Header.vue";
-import Content from "../components/Content.vue";
+import Header from "../common/components/Header.vue";
+import Content from "../common/components/Content.vue";
 </script>

@@ -3,7 +3,10 @@
   <div class="header">
     <div class="profile">
       <div class="profile__picture">
-        <img src="../assets/profile-picture.svg" alt="User profile picture" />
+        <img
+          src="@/common/assets/svg/profile-picture.svg"
+          alt="User profile picture"
+        />
       </div>
 
       <div class="profile__name">

@@ -14,7 +14,7 @@ import { RouterLink } from "vue-router";
 import { reactive } from "vue";
 
 const state = reactive({
-  dynamicSource: `./src/assets/${props.name.toLowerCase()}-icon.svg`,
+  dynamicSource: `./src/common/assets/svg/${props.name.toLowerCase()}-icon.svg`,
   dynamicAlt: `${props.name} icon`,
 });
 const props = defineProps(["name", "path"]);

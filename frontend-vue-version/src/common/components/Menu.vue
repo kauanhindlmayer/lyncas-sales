@@ -1,7 +1,11 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div class="menu">
-    <img alt="Lyncas logo" class="menu__item--logo" src="@/assets/logo.svg" />
+    <img
+      alt="Lyncas logo"
+      class="menu__item--logo"
+      src="@/common/assets/svg/logo.svg"
+    />
 
     <nav>
       <MenuItem path="/dashboard" name="Dashboard" />
