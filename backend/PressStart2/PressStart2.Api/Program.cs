@@ -9,6 +9,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(options => 
+    options.AddPolicy("Cors", builder =>
+        {
+            builder.
+            AllowAnyOrigin().
+            AllowAnyMethod().
+            AllowAnyHeader();
+        }));
+
 // Extension Methods
 builder.Services.ConfigureDbContext(builder.Configuration.GetConnectionString("PressStart2Connection"));
 builder.Services.ConfigureRepository();
