@@ -1,13 +1,12 @@
-import { ValidateCpf } from "./validateCpf.js";
-import { Router } from "./router.js";
+import { Router } from "./routes/router.js";
 
-export class Validator {
+class Validator {
   handleSubmit(event) {
     event = event || window.event;
     event.preventDefault();
-  
+
     const validatedFields = this.validateFields();
-    
+
     if (validatedFields) {
       alert("Adicionado com sucesso!");
       this.clearInputs();
@@ -16,7 +15,7 @@ export class Validator {
   }
 
   validateEmptyFields() {
-    for(let field of document.querySelectorAll('.field')) {
+    for (let field of document.querySelectorAll(".field")) {
       if (!field.value) {
         alert("Nenhum campo pode estar vazio!");
         return false;
@@ -27,10 +26,14 @@ export class Validator {
   }
 
   validateEmail() {
-    const email = document.querySelector('.email');
+    const email = document.querySelector(".email");
 
     if (email) {
-      if(!email.value.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+      if (
+        !email.value.match(
+          /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        )
+      ) {
         this.createError(email, "E-mail inválido!");
         return false;
       }
@@ -40,10 +43,10 @@ export class Validator {
   }
 
   validatePhone() {
-    const phone = document.querySelector('.phone');
+    const phone = document.querySelector(".phone");
 
     if (phone) {
-      if(!phone.value.match(/^(\(\d{2}\)\s*)?(9\s*)?(\d{4})-(\d{4})$/g)) {
+      if (!phone.value.match(/^(\(\d{2}\)\s*)?(9\s*)?(\d{4})-(\d{4})$/g)) {
         this.createError(phone, "Telefone inválido!");
         return false;
       }
@@ -53,23 +56,21 @@ export class Validator {
   }
 
   validateCPF() {
-    const inputCpf = document.querySelector('.cpf');
+    const cpf = document.querySelector(".cpf");
 
-    if (inputCpf) {
-      const cpf = new ValidateCpf(inputCpf.value);
-
-      if (!cpf.validate()) {
-        this.createError(inputCpf, "CPF inválido!");
+    if (cpf) {
+      if (!cpf.value.match(/(?:\d{3}\.){2}\d{3}-\d{2}/g)) {
+        this.createError(cpf, "CPF inválido!");
         return false;
       }
     }
 
-   return true;
+    return true;
   }
 
   clearInputs() {
-    for(let field of document.querySelectorAll('.field')) {
-      field.classList.remove("error-input")
+    for (let field of document.querySelectorAll(".field")) {
+      field.classList.remove("error-input");
       field.value = "";
     }
   }
@@ -77,7 +78,12 @@ export class Validator {
   redirect() {
     const router = new Router();
     const { pathname } = window.location;
-    router.handle(`/pages/lista-de-${pathname === '/lista-de-clientes' ? 'clientes' : 'vendas'}.html`);
+
+    router.handle(
+      `/pages/lista-de-${
+        pathname === "/adicionar-cliente" ? "clientes" : "vendas"
+      }.html`
+    );
   }
 
   createError(field, message) {
@@ -101,7 +107,11 @@ export class Validator {
     if (!this.validateCPF()) {
       return false;
     }
-    
+
     return true;
   }
 }
+
+const validator = new Validator();
+
+window.handleSubmit = () => validator.handleSubmit();

@@ -166,6 +166,21 @@
   height: 4.1rem;
 }
 
+.hide {
+  display: none;
+}
+
+.spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner__picture {
+  width: 30px;
+  height: 30px;
+}
+
 /* .component__table {
   width: 100%;
   overflow: auto;
