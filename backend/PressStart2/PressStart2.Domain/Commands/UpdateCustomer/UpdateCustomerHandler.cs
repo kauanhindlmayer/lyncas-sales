@@ -2,6 +2,7 @@
 using PressStart2.Domain.Commands.GetCustomer;
 using PressStart2.Domain.DTOs;
 using PressStart2.Domain.Interfaces.Repositories;
+using PressStart2.Infra.CrossCutting.Constants;
 using prmToolkit.NotificationPattern;
 
 namespace PressStart2.Domain.Commands.UpdateCustomer
@@ -19,7 +20,7 @@ namespace PressStart2.Domain.Commands.UpdateCustomer
         {
             if (request is null)
             {
-                AddNotification("UpdateCustomerHandler", "Request inválido!");
+                AddNotification(NotificationsConstants.CUSTOMER_MODULE, NotificationsConstants.INVALID_REQUEST);
                 return Task.FromResult(new CommandResponse(this));
             }
 
@@ -27,13 +28,13 @@ namespace PressStart2.Domain.Commands.UpdateCustomer
 
             if (customer is null)
             {
-                AddNotification("UpdateCustomerHandler", "Cliente não Localizado!");
+                AddNotification(NotificationsConstants.CUSTOMER_MODULE, NotificationsConstants.CUSTOMER_NOT_FOUND);
                 return Task.FromResult(new CommandResponse(this));
             }
 
             if (_repositoryCustomer.AlreadyExistsCPF(request.Cpf, request.Id))
             {
-                AddNotification("UpdateCustomerHandler", "CPF já existente no Sistema!");
+                AddNotification(NotificationsConstants.CUSTOMER_MODULE, NotificationsConstants.CUSTOMER_CPF_DUPLICATE);
                 return Task.FromResult(new CommandResponse(this));
             }
 
@@ -42,7 +43,7 @@ namespace PressStart2.Domain.Commands.UpdateCustomer
             _repositoryCustomer.Update(customer);
             _repositoryCustomer.Commit();
 
-            return Task.FromResult(new CommandResponse(new UpdateCustomerResponse("Cliente Atualizado com Sucesso!") ,this));
+            return Task.FromResult(new CommandResponse(new UpdateCustomerResponse(NotificationsConstants.CUSTOMER_REGISTERED) ,this));
         }
     }
 }

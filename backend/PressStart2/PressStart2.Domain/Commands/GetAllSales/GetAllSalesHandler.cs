@@ -16,8 +16,7 @@ namespace PressStart2.Domain.Commands.GetSale
 
         public Task<CommandResponse> Handle(GetAllSalesRequest request, CancellationToken cancellationToken)
         {
-            // var salesList = _repositorySale.GetWithDependecy();
-            var salesList = _repositorySale.GetAll();
+            var salesList = _repositorySale.GetAllWithDependency();
 
             return Task.FromResult(
                 new CommandResponse(salesList.Select(

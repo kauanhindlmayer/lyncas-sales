@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using PressStart2.Domain.DTOs;
 using PressStart2.Domain.Interfaces.Repositories;
+using PressStart2.Infra.CrossCutting.Constants;
 using prmToolkit.NotificationPattern;
 using System.Runtime.CompilerServices;
 
@@ -9,32 +10,38 @@ namespace PressStart2.Domain.Commands.DeleteCustomer
     public class DeleteCustomerHandler : Notifiable, IRequestHandler<DeleteCustomerRequest, CommandResponse>
     {
         private readonly IRepositoryCustomer _repositoryCustomer;
+        private readonly IRepositorySale _repositorySale;
 
-        public DeleteCustomerHandler(IRepositoryCustomer repositoryCustomer)
+        public DeleteCustomerHandler(IRepositoryCustomer repositoryCustomer, IRepositorySale repositorySale)
         {
             _repositoryCustomer = repositoryCustomer;
+            _repositorySale = repositorySale;
         }
 
         public Task<CommandResponse> Handle(DeleteCustomerRequest request, CancellationToken cancellationToken)
         {
-            if (request is null)
-            {
-                AddNotification("DeleteCustomerHandle", "Request inválido!");
-                return Task.FromResult(new CommandResponse(this));
-            }
-
             var customer = _repositoryCustomer.Get(request.Id);
 
             if (customer is null)
             {
-                AddNotification("DeleteCustomerHandle", "Cliente não Localizado!");
+                AddNotification(NotificationsConstants.CUSTOMER_MODULE, NotificationsConstants.CUSTOMER_NOT_FOUND);
                 return Task.FromResult(new CommandResponse(this));
             }
 
-            _repositoryCustomer.Delete(customer);
+            if (_repositorySale.CustomerHasSales(customer.Id))
+            {
+                customer.Inactivate();
+                _repositoryCustomer.Update(customer);
+            }
+            else
+            {
+                _repositoryCustomer.Delete(customer);
+            }
+
+
             _repositoryCustomer.Commit();
 
-            return Task.FromResult(new CommandResponse(new DeleteCustomerResponse("Cliente Removido com Sucesso!"), this));
+            return Task.FromResult(new CommandResponse(new DeleteCustomerResponse(NotificationsConstants.CUSTOMER_DELETED), this));
         }
     }
 }

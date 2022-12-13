@@ -2,6 +2,7 @@
 using PressStart2.Domain.DTOs;
 using PressStart2.Domain.Entities;
 using PressStart2.Domain.Interfaces.Repositories;
+using PressStart2.Infra.CrossCutting.Constants;
 using prmToolkit.NotificationPattern;
 
 namespace PressStart2.Domain.Commands.UpdateSale
@@ -19,18 +20,18 @@ namespace PressStart2.Domain.Commands.UpdateSale
 
         public Task<CommandResponse> Handle(UpdateSaleRequest request, CancellationToken cancellationToken)
         {
-            var sale = _repositorySale.Get(request.Id);
+            var sale = _repositorySale.GetWithDependency(request.Id);
 
             if (sale is null)
             {
-                AddNotification("UpdateSaleHandler", "Venda não localizada.");
+                AddNotification(NotificationsConstants.SALE_MODULE, NotificationsConstants.SALE_NOT_FOUND);
                 return Task.FromResult(new CommandResponse(this));
             }
 
             var customer = _repositoryCustomer.Get(request.CustomerId);
 
             if (customer is null)
-                AddNotification("UpdateSaleHandler", "Cliente não localizado.");
+                AddNotification(NotificationsConstants.SALE_MODULE, NotificationsConstants.CUSTOMER_NOT_FOUND);
 
             sale.Update(request.CustomerId, request.Items.Count, request.BillingDate, request.Items.Sum(p => p.TotalValue));
 
@@ -49,7 +50,7 @@ namespace PressStart2.Domain.Commands.UpdateSale
             _repositorySale.Update(sale);
             _repositorySale.Commit();
 
-            return Task.FromResult(new CommandResponse(new UpdateSaleResponse("Venda Atualizada com Sucesso."), this));
+            return Task.FromResult(new CommandResponse(new UpdateSaleResponse(NotificationsConstants.SALE_UPDATED), this));
         }
     }
 }

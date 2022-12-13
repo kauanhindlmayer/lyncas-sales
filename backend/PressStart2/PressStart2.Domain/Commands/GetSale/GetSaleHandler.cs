@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using PressStart2.Domain.DTOs;
 using PressStart2.Domain.Interfaces.Repositories;
+using PressStart2.Infra.CrossCutting.Constants;
 using prmToolkit.NotificationPattern;
 
 namespace PressStart2.Domain.Commands.GetSale
@@ -16,11 +17,11 @@ namespace PressStart2.Domain.Commands.GetSale
 
         public Task<CommandResponse> Handle(GetSaleRequest request, CancellationToken cancellationToken)
         {
-            var sale = _repositorySale.Get(request.Id);
+            var sale = _repositorySale.GetWithDependency(request.Id);
 
             if (sale is null)
             {
-                AddNotification("GetSaleHandler", "Venda não encontrada.");
+                AddNotification(NotificationsConstants.SALE_MODULE, NotificationsConstants.SALE_NOT_FOUND);
                 return Task.FromResult(new CommandResponse(this));
             }
 
@@ -28,6 +29,7 @@ namespace PressStart2.Domain.Commands.GetSale
             {
                 Id = sale.Id,
                 CustomerId = sale.CustomerId,
+                CustomerName = sale.Customer.Name,
                 BillingDate = sale.BillingDate,
                 Items = sale.Items.Select(saleItem => new SaleItemGetDTO
                 {

@@ -3,6 +3,7 @@ using MediatR;
 using PressStart2.Domain.DTOs;
 using PressStart2.Domain.Entities;
 using PressStart2.Domain.Interfaces.Repositories;
+using PressStart2.Infra.CrossCutting.Constants;
 
 namespace PressStart2.Domain.Commands.CreateSale
 {
@@ -21,14 +22,14 @@ namespace PressStart2.Domain.Commands.CreateSale
         {
             if (request is null)
             {
-                AddNotification("CreateSaleHandler", "Request Inválido");
+                AddNotification(NotificationsConstants.SALE_MODULE, NotificationsConstants.INVALID_REQUEST);
                 return Task.FromResult(new CommandResponse(this));
             }
 
             var customer = _repositoryCustomer.Get(request.CustomerId);
 
             if (customer is null)
-                AddNotification("CreateSaleHandler", "Cliente não localizado");
+                AddNotification(NotificationsConstants.SALE_MODULE, NotificationsConstants.CUSTOMER_NOT_FOUND);
 
             var sale = new Sale(request.CustomerId, request.Items.Count, request.BillingDate, request.Items.Sum(p => p.TotalValue));
 
@@ -45,8 +46,7 @@ namespace PressStart2.Domain.Commands.CreateSale
             _repositorySale.Add(sale);
             _repositorySale.Commit();
 
-            // return Task.FromResult(new CommandResponse(new CreateSaleResponse(customer.Id, NotificationsConstants.CUSTOMER_REGISTERED), this));
-            return Task.FromResult(new CommandResponse(new CreateSaleResponse(sale.Id, "Venda Registrada com Sucesso."), this));
+            return Task.FromResult(new CommandResponse(new CreateSaleResponse(sale.Id, NotificationsConstants.SALE_REGISTERED), this));
         }
     }
 }

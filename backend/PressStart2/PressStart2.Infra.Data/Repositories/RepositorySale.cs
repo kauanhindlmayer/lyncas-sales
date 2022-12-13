@@ -12,15 +12,21 @@ namespace PressStart2.Infra.Data.Repositories
 
         }
 
-        //public IEnumerable<Sale> GetAllWithDependency()
-        //{
-        //    return _context.SaleDbSet.Include(p => p.Customer).Include(p => p.Items).AsEnumerable();
-        //}
+        public bool CustomerHasSales(Guid customerId)
+        {
+            return _context.SaleDbSet.Any(p => p.CustomerId == customerId);
+        }
 
-        //public Sale GetWithDependecy(Guid Id)
-        //{
-        //    return _context.SaleDbSet.Include(p => p.Customer).Include(p => p.Items).FirstOrDefault(p => p.Id == Id);
-        //}
+        public IEnumerable<Sale> GetAllWithDependency()
+        {
+            return _context.SaleDbSet.Include(p => p.Customer).AsEnumerable();
+        }
+
+        public Sale GetWithDependency(Guid id)
+        {
+            return _context.SaleDbSet.Include(p => p.Customer).Include(p => p.Items).FirstOrDefault(p => p.Id == id);
+        }
     }
 }
 
+ 

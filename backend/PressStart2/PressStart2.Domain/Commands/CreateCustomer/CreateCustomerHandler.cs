@@ -21,8 +21,7 @@ namespace PressStart2.Domain.Commands.CreateCustomer
         { 
             if (request is null)
             {
-                // (NotificationsConstants.CUSTOMER_MODULE, NotificationsConstants.INVALID_REQUEST);
-                AddNotification("CreateCustomerHandler", "Request Inválido");
+                AddNotification(NotificationsConstants.CUSTOMER_MODULE, NotificationsConstants.INVALID_REQUEST);
                 return Task.FromResult(new CommandResponse(this));
             }
             var customer = new Customer(request.Name, request.Email, request.Phone, request.Cpf);
@@ -35,8 +34,7 @@ namespace PressStart2.Domain.Commands.CreateCustomer
             _repositoryCustomer.Add(customer);
             _repositoryCustomer.Commit();
 
-            // return Task.FromResult(new CommandResponse(new CreateCustomerResponse(customer.Id, NotificationsConstants.CUSTOMER_REGISTERED), this));
-            return Task.FromResult(new CommandResponse(new CreateCustomerResponse(customer.Id, "Cliente Registrado com Sucesso."), this));
+            return Task.FromResult(new CommandResponse(new CreateCustomerResponse(customer.Id, NotificationsConstants.CUSTOMER_REGISTERED), this));
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using PressStart2.Domain.DTOs;
 using PressStart2.Domain.Interfaces.Repositories;
+using PressStart2.Infra.CrossCutting.Constants;
 using prmToolkit.NotificationPattern;
 
 namespace PressStart2.Domain.Commands.DeleteSale
@@ -16,18 +17,22 @@ namespace PressStart2.Domain.Commands.DeleteSale
 
         public Task<CommandResponse> Handle(DeleteSaleRequest request, CancellationToken cancellationToken)
         {
-            var sale = _repositorySale.Get(request.Id);
+            var sale = _repositorySale.GetWithDependency(request.Id);
 
             if (sale is null)
             {
-                AddNotification("DeleteSaleHandler", "Venda não Localizada.");
+                AddNotification(NotificationsConstants.SALE_MODULE, NotificationsConstants.SALE_NOT_FOUND);
                 return Task.FromResult(new CommandResponse(this));
             }
+
+            // Convert from IEnumerable to List
+            sale.Items.ToList().ForEach(saleItem => sale.DeleteItem(saleItem));
 
             _repositorySale.Delete(sale);
             _repositorySale.Commit();
 
-            return Task.FromResult(new CommandResponse(new DeleteSaleResponse("Venda Removida com Sucesso."), this));
+            return Task.FromResult(new CommandResponse(new DeleteSaleResponse(NotificationsConstants.SALE_DELETED), this));
         }
     }
 }
+ 

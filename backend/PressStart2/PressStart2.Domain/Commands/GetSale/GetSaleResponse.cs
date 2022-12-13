@@ -6,6 +6,7 @@ namespace PressStart2.Domain.Commands.GetSale
     {
         public Guid Id { get; set; }
         public Guid CustomerId { get; set; }
+        public string CustomerName { get; set; }
         public DateTime BillingDate { get; set; }
         public IEnumerable<SaleItemGetDTO> Items { get; set; }
     }

@@ -19,7 +19,7 @@ namespace PressStart2.Domain.Entities
         public Sale(Guid customerId, int quantityItems, DateTime billingDate, decimal totalValue)
         {
             CustomerId = customerId;
-            QuantityItems = quantityItems;
+            QuantityItems = quantityItems; 
             SaleDate = DateTime.Now;
             BillingDate = billingDate;
             TotalValue = totalValue;

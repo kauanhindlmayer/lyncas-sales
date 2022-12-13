@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using PressStart2.Domain.DTOs;
 using PressStart2.Domain.Interfaces.Repositories;
+using PressStart2.Infra.CrossCutting.Constants;
 using prmToolkit.NotificationPattern;
 
 namespace PressStart2.Domain.Commands.GetCustomer
@@ -18,7 +19,7 @@ namespace PressStart2.Domain.Commands.GetCustomer
         {
             if (request is null)
             {
-                AddNotification("GetCustomerHandler", "Request inválido!");
+                AddNotification(NotificationsConstants.CUSTOMER_MODULE, NotificationsConstants.INVALID_REQUEST);
                 return Task.FromResult(new CommandResponse(this));
             }
 
@@ -26,7 +27,7 @@ namespace PressStart2.Domain.Commands.GetCustomer
 
             if (customer is null)
             {
-                AddNotification("GetCustomerHandler", "Cliente não Localizado!");
+                AddNotification(NotificationsConstants.CUSTOMER_MODULE, NotificationsConstants.CUSTOMER_NOT_FOUND);
                 return Task.FromResult(new CommandResponse(this));
             }
 
