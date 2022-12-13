@@ -1,11 +1,5 @@
 import { Api } from "../services/api.js";
-import { table, main, spinner } from "../elements.js";
-
-const append = (template) => {
-  const tr = document.createElement("tr");
-  tr.innerHTML = template;
-  table.appendChild(tr);
-};
+import { append } from "../helper.js";
 
 const createRowCustomer = (response) => {
   for (let customer of response.data) {
@@ -36,15 +30,21 @@ const handleMutation = async () => {
     : createRowSale(response);
 
   if (!response.success || response.data.length == 0) {
-    spinner.classList.add('hide');
-    defaultMessage.classList.remove('hide');
+    document.querySelector(".spinner__picture").classList.add("hide");
+    defaultMessage.classList.remove("hide");
   }
 
   if (response.success) {
-    spinner.classList.add('hide');
+    document.querySelector(".spinner__picture").classList.add("hide");
   }
 };
 
 const mutationObserver = new MutationObserver(handleMutation);
 
-mutationObserver.observe(main, { childList: true });
+mutationObserver.observe(document.querySelector(".main"), { childList: true });
+
+const handleDelete = () => {
+  confirm("Deseja realmente deletar?");
+};
+
+window.handleDelete = () => handleDelete();

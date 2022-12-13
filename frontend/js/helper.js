@@ -1,6 +1,6 @@
-import { Router } from "./routes/router.js";
+import { Router } from "./router/router.js";
 
-class Validator {
+export class Validator {
   handleSubmit(event) {
     event = event || window.event;
     event.preventDefault();
@@ -112,6 +112,8 @@ class Validator {
   }
 }
 
-const validator = new Validator();
-
-window.handleSubmit = () => validator.handleSubmit();
+export const append = (template) => {
+  const tr = document.createElement("tr");
+  tr.innerHTML = template;
+  document.querySelector(".component__table").appendChild(tr);
+};

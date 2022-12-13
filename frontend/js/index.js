@@ -1,4 +1,11 @@
-import { Router } from "./router.js";
+import { Router } from "./router/router.js";
+import { Validator } from "./helper.js";
+import "./services/customer.js";
+import "./services/sale.js";
+
+const validator = new Validator();
+
+window.handleSubmit = () => validator.handleSubmit();
 
 const router = new Router();
 

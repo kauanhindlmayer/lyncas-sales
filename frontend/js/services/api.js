@@ -1,19 +1,15 @@
-export class Api {
-  baseURL = "https://localhost:7246/api";
+import { config } from "../config.js";
 
+export class Api {
   get(resource) {
-    return fetch(`${this.baseURL}/${resource}/listar`, {
+    return fetch(`${config.baseURL}/${resource}/listar`, {
       method: "GET",
-    })
-      .then((response) => response.json())
-      // .then((data) => console.log(data));
+    }).then((response) => response.json());
   }
 
   getById(resource, id) {
-    return fetch(`${this.baseURL}/${resource}/obter/${id}`, {
+    return fetch(`${config.baseURL}/${resource}/obter/${id}`, {
       method: "GET",
-    })
-      .then((response) => response.json())
-      // .then((data) => console.log(data));
+    }).then((response) => response.json());
   }
 }
