@@ -1,7 +1,7 @@
 import { Router } from "./router/router.js";
-import { Validator } from "./helper.js";
-import "./services/customer.js";
-import "./services/sale.js";
+import { Validator, createTable } from "./helper.js";
+import { createCustomerRow } from "./services/customer.js";
+import { createSaleRow } from "./services/sale.js";
 
 const validator = new Validator();
 
@@ -18,3 +18,15 @@ router.add(404, "/pages/404.html");
 
 window.onpopstate = () => router.handle();
 window.route = () => router.route();
+
+const handleMutation = () => {
+  if (window.location.pathname === "/lista-de-vendas")
+    createTable("Sale", createSaleRow);
+
+  if (window.location.pathname === "/lista-de-clientes")
+    createTable("Customer", createCustomerRow);
+};
+
+const mutationObserver = new MutationObserver(handleMutation);
+
+mutationObserver.observe(document.querySelector(".main"), { childList: true });
