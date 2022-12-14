@@ -1,6 +1,10 @@
 import { append } from "../helper.js";
+import { Api } from "./api.js";
 
-export const createSaleRow = (response) => {
+export const createSaleTable = async () => {
+  const api = new Api();
+  const response = await api.get("Sale");
+
   for (let sale of response.data) {
     const template = `
     <td class="table--left-corner">${sale.CustomerName}</td>
@@ -15,5 +19,10 @@ export const createSaleRow = (response) => {
   `;
 
     append(template);
+  }
+
+  if (response.success) {
+    document.querySelector(".spinner").classList.add("hide");
+    document.querySelector(".default-message").classList.add("hide");
   }
 };

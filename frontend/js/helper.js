@@ -1,5 +1,5 @@
 import { Router } from "./router/router.js";
-import { Api } from "./services/api.js";
+import { createCustomer } from "./services/customer.js";
 
 export class Validator {
   handleSubmit(event) {
@@ -9,6 +9,9 @@ export class Validator {
     const validatedFields = this.validateFields();
 
     if (validatedFields) {
+      window.location.pathname === "/adicionar-cliente"
+        ? createCustomer()
+        : console.log("createSale");
       alert("Adicionado com sucesso!");
       this.clearInputs();
       this.redirect();
@@ -117,18 +120,6 @@ export const append = (template) => {
   const tr = document.createElement("tr");
   tr.innerHTML = template;
   document.querySelector(".component__table").appendChild(tr);
-};
-
-export const createTable = async (resource, createRow) => {
-  const api = new Api();
-  const response = await api.get(resource);
-
-  createRow(response);
-
-  if (response.success) {
-    document.querySelector(".spinner").classList.add("hide");
-    document.querySelector(".default-message").classList.add("hide");
-  }
 };
 
 export const createError = () => {
