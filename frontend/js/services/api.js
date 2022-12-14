@@ -5,11 +5,7 @@ export class Api {
   get(resource) {
     return fetch(`${config.baseURL}/${resource}/listar`, {
       method: "GET",
-    })
-      .then((response) => response.json())
-      .catch(() => {
-        createError();
-      });
+    }).then((response) => response.json());
   }
 
   getById(resource, id) {

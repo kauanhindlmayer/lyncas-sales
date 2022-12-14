@@ -1,4 +1,4 @@
-import { append } from "../helper.js";
+import { append, createError } from "../helper.js";
 import { Api } from "./api.js";
 
 export const createSaleTable = async () => {
@@ -7,10 +7,10 @@ export const createSaleTable = async () => {
 
   for (let sale of response.data) {
     const template = `
-    <td class="table--left-corner">${sale.CustomerName}</td>
+    <td class="table--left-corner">${sale.customer}</td>
     <td>${sale.quantityItems}</td>
-    <td>${sale.saleDate}</td>
-    <td>${sale.billingDate}</td>
+    <td>${sale.saleDate.slice(0,10)}</td>
+    <td>${sale.billingDate.slice(0,10)}</td>
     <td>${sale.totalValue}</td>
     <td class="table--right-corner">
       <button onclick="handleDelete()" class="table__button table__button--delete">Deletar</button>
@@ -25,4 +25,6 @@ export const createSaleTable = async () => {
     document.querySelector(".spinner").classList.add("hide");
     document.querySelector(".default-message").classList.add("hide");
   }
+
+  if (!response.success || response.data.length == 0) createError();
 };

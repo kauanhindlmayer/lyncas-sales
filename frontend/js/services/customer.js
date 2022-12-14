@@ -1,4 +1,4 @@
-import { append } from "../helper.js";
+import { append, createError } from "../helper.js";
 import { Api } from "./api.js";
 
 export const createCustomerTable = async () => {
@@ -12,7 +12,7 @@ export const createCustomerTable = async () => {
     <td>${customer.phone}</td>
     <td>${customer.cpf}</td>
     <td class="table--right-corner">
-      <button onclick="handleDelete()" class="table__button table__button--delete">Deletar</button>
+      <button onclick="handleDelete('${customer.id}')" class="table__button table__button--delete">Deletar</button>
       <button onclick="handleEdit()" class="table__button table__button--edit">Editar</button>
     </td>
   `;
@@ -24,6 +24,8 @@ export const createCustomerTable = async () => {
     document.querySelector(".spinner").classList.add("hide");
     document.querySelector(".default-message").classList.add("hide");
   }
+
+  if (!response.success || response.data.length == 0) createError();
 };
 
 export const createCustomer = async () => {
@@ -40,8 +42,8 @@ export const createCustomer = async () => {
   console.log(response);
 };
 
-const handleDelete = () => {
-  confirm("Deseja realmente deletar?");
+const handleDelete = (id) => {
+  confirm("Deseja realmente deletar?" + id);
 };
 
 window.handleDelete = () => handleDelete();
