@@ -21,7 +21,7 @@ namespace PressStart2.Api.Controllers
         }
 
         [HttpGet("listar")]
-        public async Task<IActionResult> GetAll(Guid id)
+        public async Task<IActionResult> GetAll()
         {
             var salesList = await _mediator.Send(new GetAllSalesRequest());
             return Ok(salesList);
