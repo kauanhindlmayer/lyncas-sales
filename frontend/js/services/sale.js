@@ -50,3 +50,27 @@ export const createSale = async () => {
   const router = new Router();
   router.handle("/pages/lista-de-vendas.html");
 };
+
+export const updateSale = async () => {
+  const urlParams = new URLSearchParams(window.location.search);
+
+  const body = {
+    id: urlParams.get("id"),
+    customerId: "0aa76329-6266-4379-52cf-08dadc43d567",
+    billingDate: document.querySelector("#billing-date-input").value,
+    items: [
+      {
+        itemDescription: document.querySelector("#description-input").value,
+        unitaryValue: document.querySelector("#value-input").value,
+        quantity: document.querySelector("#quantity-input").value,
+        totalValue: document.querySelector("#total-value-input").value,
+      },
+    ],
+  };
+
+  const api = new Api();
+  await api.put("Sale", body);
+
+  const router = new Router();
+  router.handle("/pages/lista-de-vendas.html");
+};

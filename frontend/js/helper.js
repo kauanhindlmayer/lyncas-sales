@@ -1,7 +1,6 @@
-import { Router } from "./router/router.js";
 import { Api } from "./services/api.js";
 import { createCustomer, updateCustomer } from "./services/customer.js";
-import { createSale } from "./services/sale.js";
+import { createSale, updateSale } from "./services/sale.js";
 
 export class Validator {
   handleSubmit(event) {
@@ -26,6 +25,7 @@ export class Validator {
           break;
         case "/atualizar-venda":
           alert("Venda Atualizada com sucesso!");
+          updateSale();
           break;
       }
     }
@@ -122,16 +122,11 @@ export const createError = () => {
   document.querySelector(".default-message").classList.remove("hide");
 };
 
-export const fillUpdateForm = async () => {
-  const { pathname } = window.location;
-
+export const fillCustomerForm = async () => {
   const urlParams = new URLSearchParams(window.location.search);
 
   const api = new Api();
-  const response = await api.getById(
-    `${pathname === "/atualizar-cliente" ? "Customer" : "Sale"}`,
-    `${urlParams.get("id")}`
-  );
+  const response = await api.getById("Customer", `${urlParams.get("id")}`);
 
   document.querySelector("#title").innerHTML = `${document
     .querySelector("#title")
@@ -141,4 +136,22 @@ export const fillUpdateForm = async () => {
   document.querySelector("#email-input").value = response.data.email;
   document.querySelector("#phone-input").value = response.data.phone;
   document.querySelector("#cpf-input").value = response.data.cpf;
+};
+
+export const fillSaleForm = async () => {
+  const urlParams = new URLSearchParams(window.location.search);
+
+  const api = new Api();
+  const response = await api.getById("Sale", `${urlParams.get("id")}`);
+
+  document.querySelector("#title").innerHTML = `${document
+    .querySelector("#title")
+    .innerHTML.replace("Adicionar", "Atualizar")}`;
+
+  // customerId: "0aa76329-6266-4379-52cf-08dadc43d567";
+  document.querySelector("#billing-date-input").value = response.data.billingDate.slice(0, 10);
+  document.querySelector("#description-input").value = response.data.items[0].itemDescription;
+  document.querySelector("#value-input").value = response.data.items[0].unitaryValue;
+  document.querySelector("#quantity-input").value = response.data.items[0].quantity;
+  document.querySelector("#total-value-input").value = response.data.items[0].totalValue;
 };
