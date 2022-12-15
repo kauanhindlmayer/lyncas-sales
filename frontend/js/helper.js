@@ -1,6 +1,6 @@
 import { Router } from "./router/router.js";
 import { Api } from "./services/api.js";
-import { createCustomer } from "./services/customer.js";
+import { createCustomer, updateCustomer } from "./services/customer.js";
 import { createSale } from "./services/sale.js";
 
 export class Validator {
@@ -11,12 +11,23 @@ export class Validator {
     const validatedFields = this.validateFields();
 
     if (validatedFields) {
-      window.location.pathname === "/adicionar-cliente"
-        ? createCustomer()
-        : createSale();
-      alert("Adicionado com sucesso!");
-      this.clearInputs();
-      this.redirect();
+      switch (window.location.pathname) {
+        case "/adicionar-cliente":
+          alert("Cliente Adicionado com sucesso!");
+          createCustomer();
+          break;
+        case "/adicionar-venda":
+          alert("Venda Adicionada com sucesso!");
+          createSale();
+          break;
+        case "/atualizar-cliente":
+          alert("Cliente Atualizado com sucesso!");
+          updateCustomer();
+          break;
+        case "/atualizar-venda":
+          alert("Venda Atualizada com sucesso!");
+          break;
+      }
     }
   }
 
@@ -72,24 +83,6 @@ export class Validator {
     }
 
     return true;
-  }
-
-  clearInputs() {
-    for (let field of document.querySelectorAll(".field")) {
-      field.classList.remove("error-input");
-      field.value = "";
-    }
-  }
-
-  redirect() {
-    const router = new Router();
-    const { pathname } = window.location;
-
-    router.handle(
-      `/pages/lista-de-${
-        pathname === "/adicionar-cliente" ? "clientes" : "vendas"
-      }.html`
-    );
   }
 
   createError(field, message) {

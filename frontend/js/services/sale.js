@@ -1,5 +1,6 @@
 import { append, createError } from "../helper.js";
 import { Api } from "./api.js";
+import { Router } from "../router/router.js";
 
 export const createSaleTable = async () => {
   const api = new Api();
@@ -45,4 +46,7 @@ export const createSale = async () => {
 
   const api = new Api();
   await api.post("Sale", body);
+
+  const router = new Router();
+  router.handle("/pages/lista-de-vendas.html");
 };

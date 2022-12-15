@@ -39,6 +39,9 @@ export const createCustomer = async () => {
 
   const api = new Api();
   await api.post("Customer", body);
+
+  const router = new Router();
+  router.handle("/pages/lista-de-clientes.html");
 };
 
 const handleDelete = async (id) => {
@@ -72,3 +75,21 @@ const handleEdit = async (id) => {
 };
 
 window.handleEdit = (id) => handleEdit(id);
+
+export const updateCustomer = async () => {
+  const urlParams = new URLSearchParams(window.location.search);
+
+  const body = {
+    id: urlParams.get("id"),
+    name: document.querySelector("#name-input").value,
+    email: document.querySelector("#email-input").value,
+    phone: document.querySelector("#phone-input").value,
+    cpf: document.querySelector("#cpf-input").value,
+  };
+
+  const api = new Api();
+  await api.put("Customer", body);
+
+  const router = new Router();
+  router.handle("/pages/lista-de-clientes.html");
+};
