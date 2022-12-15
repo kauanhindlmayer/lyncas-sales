@@ -1,5 +1,7 @@
 import { Router } from "./router/router.js";
+import { Api } from "./services/api.js";
 import { createCustomer } from "./services/customer.js";
+import { createSale } from "./services/sale.js";
 
 export class Validator {
   handleSubmit(event) {
@@ -11,7 +13,7 @@ export class Validator {
     if (validatedFields) {
       window.location.pathname === "/adicionar-cliente"
         ? createCustomer()
-        : console.log("createSale");
+        : createSale();
       alert("Adicionado com sucesso!");
       this.clearInputs();
       this.redirect();
@@ -125,4 +127,25 @@ export const append = (template) => {
 export const createError = () => {
   document.querySelector(".spinner").classList.add("hide");
   document.querySelector(".default-message").classList.remove("hide");
+};
+
+export const fillUpdateForm = async () => {
+  const { pathname } = window.location;
+
+  const urlParams = new URLSearchParams(window.location.search);
+
+  const api = new Api();
+  const response = await api.getById(
+    `${pathname === "/atualizar-cliente" ? "Customer" : "Sale"}`,
+    `${urlParams.get("id")}`
+  );
+
+  document.querySelector("#title").innerHTML = `${document
+    .querySelector("#title")
+    .innerHTML.replace("Adicionar", "Atualizar")}`;
+
+  document.querySelector("#name-input").value = response.data.name;
+  document.querySelector("#email-input").value = response.data.email;
+  document.querySelector("#phone-input").value = response.data.phone;
+  document.querySelector("#cpf-input").value = response.data.cpf;
 };

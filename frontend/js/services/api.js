@@ -1,5 +1,4 @@
 import { config } from "../config.js";
-import { createError } from "../helper.js";
 
 export class Api {
   get(resource) {
@@ -21,6 +20,22 @@ export class Api {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(body),
+    }).then((response) => response.json());
+  }
+
+  put(resource, body) {
+    return fetch(`${config.baseURL}/${resource}/atualizar`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    }).then((response) => response.json());
+  }
+
+  delete(resource, id) {
+    return fetch(`${config.baseURL}/${resource}/remover/${id}`, {
+      method: "DELETE",
     }).then((response) => response.json());
   }
 }

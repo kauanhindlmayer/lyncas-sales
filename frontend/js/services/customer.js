@@ -1,5 +1,6 @@
 import { append, createError } from "../helper.js";
 import { Api } from "./api.js";
+import { Router } from "../router/router.js";
 
 export const createCustomerTable = async () => {
   const api = new Api();
@@ -13,7 +14,7 @@ export const createCustomerTable = async () => {
     <td>${customer.cpf}</td>
     <td class="table--right-corner">
       <button onclick="handleDelete('${customer.id}')" class="table__button table__button--delete">Deletar</button>
-      <button onclick="handleEdit()" class="table__button table__button--edit">Editar</button>
+      <button onclick="handleEdit('${customer.id}')" class="table__button table__button--edit">Editar</button>
     </td>
   `;
 
@@ -37,13 +38,37 @@ export const createCustomer = async () => {
   };
 
   const api = new Api();
-  const response = await api.post("Customer", body);
-
-  console.log(response);
+  await api.post("Customer", body);
 };
 
-const handleDelete = (id) => {
-  confirm("Deseja realmente deletar?" + id);
+const handleDelete = async (id) => {
+  const { pathname } = window.location;
+  const resource = pathname === "/lista-de-clientes" ? "Customer" : "Sale";
+
+  confirm("Deseja realmente deletar?");
+
+  const api = new Api();
+  await api.delete(`${resource}`, id);
+
+  const router = new Router();
+  router.handle(
+    `/pages/lista-de-${
+      pathname === "/lista-de-clientes" ? "clientes" : "vendas"
+    }.html`
+  );
 };
 
-window.handleDelete = () => handleDelete();
+window.handleDelete = (id) => handleDelete(id);
+
+const handleEdit = async (id) => {
+  const { pathname } = window.location;
+  const resource = pathname === "/lista-de-clientes" ? "cliente" : "venda";
+
+  const router = new Router();
+  router.handle(
+    `/pages/adicionar-${resource}.html`,
+    `/atualizar-${resource}?id=${id}`
+  );
+};
+
+window.handleEdit = (id) => handleEdit(id);

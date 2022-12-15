@@ -1,5 +1,6 @@
 import { createCustomerTable } from "../services/customer.js";
 import { createSaleTable } from "../services/sale.js";
+import { fillUpdateForm } from "../helper.js";
 
 export class Router {
   routes = {};
@@ -17,7 +18,7 @@ export class Router {
     this.handle();
   }
 
-  handle(routeName) {
+  handle(routeName, updateRouteName) {
     let route;
     const { pathname } = window.location;
 
@@ -26,11 +27,14 @@ export class Router {
       : (route = this.routes[pathname] || this.routes[404]);
 
     if (routeName) {
-      window.history.pushState({}, "", routeName
-        .replace("/pages", "")
-        .replace(".html", "")
+      window.history.pushState(
+        {},
+        "",
+        routeName.replace("/pages", "").replace(".html", "")
       );
     }
+
+    if (updateRouteName) window.history.pushState({}, "", updateRouteName);
 
     fetch(route)
       .then((data) => data.text())
@@ -40,5 +44,6 @@ export class Router {
 
     if (route === "/pages/lista-de-vendas.html") createSaleTable();
     if (route === "/pages/lista-de-clientes.html") createCustomerTable();
+    if (updateRouteName) fillUpdateForm();
   }
 }
