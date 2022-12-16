@@ -8,12 +8,21 @@ export const createSaleTable = async () => {
   const response = await api.get("Sale");
 
   for (let sale of response.data) {
+    const saleDateInput = sale.saleDate.slice(0, 10);
+    const billingDateInput = sale.billingDate.slice(0, 10);
+
+    const saleDate = new Date(saleDateInput);
+    const billingDate = new Date(billingDateInput);
+
     const template = `
     <td class="table--left-corner">${sale.customer}</td>
     <td>${sale.quantityItems}</td>
-    <td>${sale.saleDate.slice(0, 10)}</td>
-    <td>${sale.billingDate.slice(0, 10)}</td>
-    <td>${sale.totalValue}</td>
+    <td>${saleDate.toLocaleDateString("pt-BR", { timeZone: "UTC" })}</td>
+    <td>${billingDate.toLocaleDateString("pt-BR", { timeZone: "UTC" })}</td>
+    <td>${sale.totalValue.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    })}</td>
     <td class="table--right-corner">
       <button 
         onclick="handleSaleDelete('${sale.id}')" 
@@ -34,7 +43,8 @@ export const createSaleTable = async () => {
     append(template);
   }
 
-  response.success ? removeLoading() : createError();
+  if (response.success) removeLoading();
+  if (!response.success || response.data.length <= 0) createError();
 };
 
 export const createSale = async () => {

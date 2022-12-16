@@ -33,7 +33,8 @@ export const createCustomerTable = async () => {
     append(template);
   }
 
-  response.success ? removeLoading() : createError();
+  if (response.success) removeLoading();
+  if (!response.success || response.data.length <= 0) createError();
 };
 
 export const createCustomer = async () => {
