@@ -1,5 +1,5 @@
 <template>
-  <div class="menu__item menu__item--dashboard">
+  <div :class="state.dynamicClass">
     <img
       class="menu__item__icon"
       :src="state.dynamicSource"
@@ -14,10 +14,11 @@ import { RouterLink } from "vue-router";
 import { reactive } from "vue";
 
 const state = reactive({
+  dynamicClass: `menu__item menu__item--${props.modifier}`,
   dynamicSource: `./src/common/assets/svg/${props.name.toLowerCase()}-icon.svg`,
   dynamicAlt: `${props.name} icon`,
 });
-const props = defineProps(["name", "path"]);
+const props = defineProps(["name", "path", "modifier"]);
 </script>
 
 <style scoped>
@@ -32,6 +33,8 @@ const props = defineProps(["name", "path"]);
 
   display: flex;
   align-items: center;
+
+  position: absolute;
 }
 
 .menu__item span a {
@@ -51,14 +54,17 @@ const props = defineProps(["name", "path"]);
 }
 
 .menu__item--dashboard {
-  top: 26.6rem;
+  left: 1.75rem;
+  top: calc(50% - 4.9rem);
 }
 
 .menu__item--customers {
-  top: 31.5rem;
+  left: 1.75rem;
+  top: 50%;
 }
 
 .menu__item--sales {
-  top: 36.4rem;
+  left: 1.75rem;
+  top: calc(50% + 4.9rem);
 }
 </style>

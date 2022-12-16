@@ -8,9 +8,13 @@
     />
 
     <nav>
-      <MenuItem path="/dashboard" name="Dashboard" />
-      <MenuItem path="/lista-de-clientes" name="Clientes" />
-      <MenuItem path="/lista-de-vendas" name="Vendas" />
+      <MenuItem path="/dashboard" name="Dashboard" modifier="dashboard" />
+      <MenuItem
+        path="/lista-de-clientes"
+        name="Clientes"
+        modifier="customers"
+      />
+      <MenuItem path="/lista-de-vendas" name="Vendas" modifier="sales" />
     </nav>
   </div>
 </template>
@@ -23,9 +27,6 @@ import MenuItem from "./MenuItem.vue";
 .menu {
   background-color: var(--primary-color);
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
 .menu__item--logo {
