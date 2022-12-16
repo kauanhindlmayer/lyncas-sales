@@ -148,10 +148,20 @@ export const fillSaleForm = async () => {
     .querySelector("#title")
     .innerHTML.replace("Adicionar", "Atualizar")}`;
 
-  // customerId: "0aa76329-6266-4379-52cf-08dadc43d567";
+  document.querySelector("#customer-input").value = response.data.customerId;
   document.querySelector("#billing-date-input").value = response.data.billingDate.slice(0, 10);
   document.querySelector("#description-input").value = response.data.items[0].itemDescription;
   document.querySelector("#value-input").value = response.data.items[0].unitaryValue;
   document.querySelector("#quantity-input").value = response.data.items[0].quantity;
   document.querySelector("#total-value-input").value = response.data.items[0].totalValue;
 };
+
+export const fillSelect = async () => {
+  const api = new Api();
+  const response = await api.get("Customer");
+  const select = document.querySelector("#customer-input");
+
+  for (let customer of response.data) {
+    select.options[select.options.length] = new Option(`${customer.name}`, `${customer.id}`);
+  }
+}

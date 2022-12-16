@@ -1,9 +1,10 @@
-import { append, createError } from "../helper.js";
 import { Api } from "./api.js";
 import { Router } from "../router/router.js";
+import { append, createError } from "../helper.js";
+
+const api = new Api();
 
 export const createSaleTable = async () => {
-  const api = new Api();
   const response = await api.get("Sale");
 
   for (let sale of response.data) {
@@ -32,7 +33,7 @@ export const createSaleTable = async () => {
 
 export const createSale = async () => {
   const body = {
-    customerId: "0aa76329-6266-4379-52cf-08dadc43d567",
+    customerId: document.querySelector("#customer-input").value,
     billingDate: document.querySelector("#billing-date-input").value,
     items: [
       {
@@ -44,7 +45,6 @@ export const createSale = async () => {
     ],
   };
 
-  const api = new Api();
   await api.post("Sale", body);
 
   const router = new Router();
@@ -56,7 +56,7 @@ export const updateSale = async () => {
 
   const body = {
     id: urlParams.get("id"),
-    customerId: "0aa76329-6266-4379-52cf-08dadc43d567",
+    customerId: document.querySelector("#customer-input").value,
     billingDate: document.querySelector("#billing-date-input").value,
     items: [
       {
@@ -68,7 +68,6 @@ export const updateSale = async () => {
     ],
   };
 
-  const api = new Api();
   await api.put("Sale", body);
 
   const router = new Router();

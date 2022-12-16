@@ -1,6 +1,6 @@
 import { createCustomerTable } from "../services/customer.js";
 import { createSaleTable } from "../services/sale.js";
-import { fillCustomerForm, fillSaleForm } from "../helper.js";
+import { fillCustomerForm, fillSaleForm, fillSelect } from "../helper.js";
 
 export class Router {
   routes = {};
@@ -44,6 +44,7 @@ export class Router {
 
     if (route === "/pages/lista-de-vendas.html") createSaleTable();
     if (route === "/pages/lista-de-clientes.html") createCustomerTable();
+    if (route === "/pages/adicionar-venda.html") fillSelect();
     if (routeName === "/pages/adicionar-cliente.html") fillCustomerForm();
     if (routeName === "/pages/adicionar-venda.html") fillSaleForm();
   }

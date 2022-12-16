@@ -48,17 +48,23 @@ const handleDelete = async (id) => {
   const { pathname } = window.location;
   const resource = pathname === "/lista-de-clientes" ? "Customer" : "Sale";
 
-  confirm("Deseja realmente deletar?");
-
-  const api = new Api();
-  await api.delete(`${resource}`, id);
-
-  const router = new Router();
-  router.handle(
-    `/pages/lista-de-${
-      pathname === "/lista-de-clientes" ? "clientes" : "vendas"
-    }.html`
+  const answer = confirm(
+    `Deseja realmente deletar ${
+      pathname === "/lista-de-clientes" ? "o cliente" : "a venda"
+    }?`
   );
+
+  if (answer) {
+    const api = new Api();
+    await api.delete(`${resource}`, id);
+
+    const router = new Router();
+    router.handle(
+      `/pages/lista-de-${
+        pathname === "/lista-de-clientes" ? "clientes" : "vendas"
+      }.html`
+    );
+  }
 };
 
 window.handleDelete = (id) => handleDelete(id);
