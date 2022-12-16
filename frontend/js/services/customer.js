@@ -1,9 +1,10 @@
-import { append, createError } from "../helper.js";
 import { Api } from "./api.js";
+import { append, createError, removeLoading } from "../helper.js";
 import { Router } from "../router/router.js";
 
+const api = new Api();
+
 export const createCustomerTable = async () => {
-  const api = new Api();
   const response = await api.get("Customer");
 
   for (let customer of response.data) {
@@ -13,20 +14,26 @@ export const createCustomerTable = async () => {
     <td>${customer.phone}</td>
     <td>${customer.cpf}</td>
     <td class="table--right-corner">
-      <button onclick="handleDelete('${customer.id}')" class="table__button table__button--delete">Deletar</button>
-      <button onclick="handleEdit('${customer.id}')" class="table__button table__button--edit">Editar</button>
+      <button 
+        onclick="handleCustomerDelete('${customer.id}')" 
+        class="table__button table__button--delete"
+      >
+        Deletar
+      </button>
+
+      <button 
+        onclick="handleCustomerEdit('${customer.id}')" 
+        class="table__button table__button--edit"
+      >
+        Editar
+      </button>
     </td>
   `;
 
     append(template);
   }
 
-  if (response.success) {
-    document.querySelector(".spinner").classList.add("hide");
-    document.querySelector(".default-message").classList.add("hide");
-  }
-
-  if (!response.success || response.data.length == 0) createError();
+  response.success ? removeLoading() : createError();
 };
 
 export const createCustomer = async () => {
@@ -37,50 +44,30 @@ export const createCustomer = async () => {
     cpf: document.querySelector("#cpf-input").value,
   };
 
-  const api = new Api();
   await api.post("Customer", body);
 
   const router = new Router();
   router.handle("/pages/lista-de-clientes.html");
 };
 
-const handleDelete = async (id) => {
-  const { pathname } = window.location;
-  const resource = pathname === "/lista-de-clientes" ? "Customer" : "Sale";
-
-  const answer = confirm(
-    `Deseja realmente deletar ${
-      pathname === "/lista-de-clientes" ? "o cliente" : "a venda"
-    }?`
-  );
+const handleCustomerDelete = async (id) => {
+  const answer = confirm("Deseja realmente deletar o cliente?");
 
   if (answer) {
-    const api = new Api();
-    await api.delete(`${resource}`, id);
-
+    await api.delete("Customer", id);
     const router = new Router();
-    router.handle(
-      `/pages/lista-de-${
-        pathname === "/lista-de-clientes" ? "clientes" : "vendas"
-      }.html`
-    );
+    router.handle(`/pages/lista-de-clientes.html`);
   }
 };
 
-window.handleDelete = (id) => handleDelete(id);
+window.handleCustomerDelete = (id) => handleCustomerDelete(id);
 
-const handleEdit = async (id) => {
-  const { pathname } = window.location;
-  const resource = pathname === "/lista-de-clientes" ? "cliente" : "venda";
-
+const handleCustomerEdit = async (id) => {
   const router = new Router();
-  router.handle(
-    `/pages/adicionar-${resource}.html`,
-    `/atualizar-${resource}?id=${id}`
-  );
+  router.handle("/pages/adicionar-cliente.html", `/atualizar-cliente?id=${id}`);
 };
 
-window.handleEdit = (id) => handleEdit(id);
+window.handleCustomerEdit = (id) => handleCustomerEdit(id);
 
 export const updateCustomer = async () => {
   const urlParams = new URLSearchParams(window.location.search);
@@ -93,7 +80,6 @@ export const updateCustomer = async () => {
     cpf: document.querySelector("#cpf-input").value,
   };
 
-  const api = new Api();
   await api.put("Customer", body);
 
   const router = new Router();

@@ -2,6 +2,8 @@ import { Api } from "./services/api.js";
 import { createCustomer, updateCustomer } from "./services/customer.js";
 import { createSale, updateSale } from "./services/sale.js";
 
+const api = new Api();
+
 export class Validator {
   handleSubmit(event) {
     event = event || window.event;
@@ -117,6 +119,11 @@ export const append = (template) => {
   document.querySelector(".component__table").appendChild(tr);
 };
 
+export const removeLoading = () => {
+  document.querySelector(".spinner").classList.add("hide");
+  document.querySelector(".default-message").classList.add("hide");
+}
+
 export const createError = () => {
   document.querySelector(".spinner").classList.add("hide");
   document.querySelector(".default-message").classList.remove("hide");
@@ -125,7 +132,6 @@ export const createError = () => {
 export const fillCustomerForm = async () => {
   const urlParams = new URLSearchParams(window.location.search);
 
-  const api = new Api();
   const response = await api.getById("Customer", `${urlParams.get("id")}`);
 
   document.querySelector("#title").innerHTML = `${document
@@ -141,7 +147,6 @@ export const fillCustomerForm = async () => {
 export const fillSaleForm = async () => {
   const urlParams = new URLSearchParams(window.location.search);
 
-  const api = new Api();
   const response = await api.getById("Sale", `${urlParams.get("id")}`);
 
   document.querySelector("#title").innerHTML = `${document
@@ -157,7 +162,6 @@ export const fillSaleForm = async () => {
 };
 
 export const fillSelect = async () => {
-  const api = new Api();
   const response = await api.get("Customer");
   const select = document.querySelector("#customer-input");
 

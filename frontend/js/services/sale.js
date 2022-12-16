@@ -1,6 +1,6 @@
 import { Api } from "./api.js";
+import { append, createError, removeLoading } from "../helper.js";
 import { Router } from "../router/router.js";
-import { append, createError } from "../helper.js";
 
 const api = new Api();
 
@@ -15,20 +15,26 @@ export const createSaleTable = async () => {
     <td>${sale.billingDate.slice(0, 10)}</td>
     <td>${sale.totalValue}</td>
     <td class="table--right-corner">
-      <button onclick="handleDelete('${sale.id}')" class="table__button table__button--delete">Deletar</button>
-      <button onclick="handleEdit('${sale.id}')" class="table__button table__button--edit">Editar</button>
+      <button 
+        onclick="handleSaleDelete('${sale.id}')" 
+        class="table__button table__button--delete"
+      >
+        Deletar
+      </button>
+
+      <button 
+        onclick="handleSaleEdit('${sale.id}')" 
+        class="table__button table__button--edit"
+      >
+        Editar
+      </button>
     </td>
   `;
 
     append(template);
   }
 
-  if (response.success) {
-    document.querySelector(".spinner").classList.add("hide");
-    document.querySelector(".default-message").classList.add("hide");
-  }
-
-  if (!response.success || response.data.length == 0) createError();
+  response.success ? removeLoading() : createError();
 };
 
 export const createSale = async () => {
@@ -50,6 +56,25 @@ export const createSale = async () => {
   const router = new Router();
   router.handle("/pages/lista-de-vendas.html");
 };
+
+const handleSaleDelete = async (id) => {
+  const answer = confirm("Deseja realmente deletar a venda?");
+
+  if (answer) {
+    await api.delete("Sale", id);
+    const router = new Router();
+    router.handle(`/pages/lista-de-vendas.html`);
+  }
+};
+
+window.handleSaleDelete = (id) => handleSaleDelete(id);
+
+const handleSaleEdit = async (id) => {
+  const router = new Router();
+  router.handle("/pages/adicionar-venda.html", `/atualizar-venda?id=${id}`);
+};
+
+window.handleSaleEdit = (id) => handleSaleEdit(id);
 
 export const updateSale = async () => {
   const urlParams = new URLSearchParams(window.location.search);
