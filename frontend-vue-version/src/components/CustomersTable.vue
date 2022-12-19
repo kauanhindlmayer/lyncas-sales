@@ -14,12 +14,12 @@
             <th>CPF</th>
             <th>Ações</th>
           </tr>
-          <template v-for="x in 6" :key="x">
+          <template v-for="customer in state.customers" :key="customer.id">
             <tr>
-              <td class="table--left-corner">Genara Sousa</td>
-              <td>genara7sousa@gmail.com</td>
-              <td>(91) 99844-3343</td>
-              <td>000.000.000-00</td>
+              <td class="table--left-corner">{{ customer.name }}</td>
+              <td>{{ customer.name }}</td>
+              <td>{{ customer.name }}</td>
+              <td>{{ customer.name }}</td>
               <td class="table--right-corner">
                 <DeleteButton />
                 <EditButton />
@@ -36,4 +36,15 @@
 import SearchInput from "./SearchInput.vue";
 import DeleteButton from "./DeleteButton.vue";
 import EditButton from "./EditButton.vue";
+import { api } from "../services/api.js";
+import { reactive, onMounted } from "vue";
+
+const state = reactive({
+  customers: null,
+});
+
+onMounted(async () => {
+  const response = await api.get("Customer");
+  state.customers = response.data;
+});
 </script>

@@ -1,22 +1,23 @@
 import axios from "axios";
 
-axios.create({
+const axiosInstance = axios.create({
   baseURL: "https://localhost:7246/api",
 });
 
 export const api = {
   get(resource) {
-    axios
-      .get(`/${resource}/listar`)
+    axiosInstance
+      .get(`${resource}/listar`)
       .then((response) => {
         console.log(response);
+        return response;
       })
       .catch((error) => {
         console.error(error);
       });
   },
   getById(resource, id) {
-    axios
+    axiosInstance
       .get(`/${resource}/obter/${id}`)
       .then((response) => {
         console.log(response);
@@ -26,7 +27,7 @@ export const api = {
       });
   },
   post(resource, body) {
-    axios
+    axiosInstance
       .get(`/${resource}/adicionar`, JSON.stringify(body))
       .then((response) => {
         console.log(response);
@@ -36,7 +37,7 @@ export const api = {
       });
   },
   put(resource, body) {
-    axios
+    axiosInstance
       .get(`/${resource}/atualizar`, JSON.stringify(body))
       .then((response) => {
         console.log(response);
@@ -46,7 +47,7 @@ export const api = {
       });
   },
   delete(resource, id) {
-    axios
+    axiosInstance
       .get(`/${resource}/remover/${id}`)
       .then((response) => {
         console.log(response);
