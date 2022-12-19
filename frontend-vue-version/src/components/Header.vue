@@ -4,7 +4,7 @@
     <div class="profile">
       <div class="profile__picture">
         <img
-          src="@/common/assets/svg/profile-picture.svg"
+          src="@/assets/svg/profile-picture.svg"
           alt="User profile picture"
         />
       </div>
@@ -14,6 +14,7 @@
         <a href="#">Sair</a>
       </div>
     </div>
+    <slot></slot>
   </div>
 </template>
 

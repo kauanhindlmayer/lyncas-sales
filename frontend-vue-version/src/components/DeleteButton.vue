@@ -1,6 +1,14 @@
 <template>
-  <button class="table__button table__button--delete">Deletar</button>
+  <button @click="handleDelete" class="table__button table__button--delete">
+    Deletar
+  </button>
 </template>
+
+<script setup>
+function handleDelete() {
+  confirm("Deseja realmente deletar o cliente?");
+}
+</script>
 
 <style>
 .table__button {

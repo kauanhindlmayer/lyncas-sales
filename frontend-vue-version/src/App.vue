@@ -1,7 +1,9 @@
 <template>
-  <Home />
+  <Menu />
+  <RouterView />
 </template>
 
 <script setup>
-import Home from "./modules/Home.vue";
+import { RouterView } from "vue-router";
+import Menu from "./components/Menu.vue";
 </script>

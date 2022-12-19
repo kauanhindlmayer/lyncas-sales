@@ -5,8 +5,8 @@
         <h1 class="header__title">Lista de vendas</h1>
         <SearchInput title="Buscar vendas..." />
       </div>
-      <div class="component__table">
-        <table>
+      <div class="component__table-wrapper">
+        <table class="component__table">
           <tr>
             <th>Cliente</th>
             <th>Qtd. itens</th>
@@ -16,13 +16,17 @@
             <th>Ações</th>
           </tr>
           <template v-for="x in 6" :key="x">
-            <SalesTableRow
-              name="Genara Sousa"
-              quantity="1"
-              sale-date="14/05/2022"
-              billing-date="14/05/2022"
-              total-value="R$ 90,00"
-            />
+            <tr>
+              <td class="table--left-corner">Genara Sousa</td>
+              <td>1</td>
+              <td>14/05/2022</td>
+              <td>14/05/2022</td>
+              <td>R$ 90,00</td>
+              <td class="table--right-corner">
+                <DeleteButton />
+                <EditButton />
+              </td>
+            </tr>
           </template>
         </table>
       </div>
@@ -31,6 +35,7 @@
 </template>
 
 <script setup>
-import SalesTableRow from "./SalesTableRow.vue";
 import SearchInput from "./SearchInput.vue";
+import DeleteButton from "./DeleteButton.vue";
+import EditButton from "./EditButton.vue";
 </script>

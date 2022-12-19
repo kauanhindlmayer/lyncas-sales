@@ -15,7 +15,7 @@ import { reactive } from "vue";
 
 const state = reactive({
   dynamicClass: `menu__item menu__item--${props.modifier}`,
-  dynamicSource: `./src/common/assets/svg/${props.name.toLowerCase()}-icon.svg`,
+  dynamicSource: `./src/assets/svg/${props.name.toLowerCase()}-icon.svg`,
   dynamicAlt: `${props.name} icon`,
 });
 const props = defineProps(["name", "path", "modifier"]);

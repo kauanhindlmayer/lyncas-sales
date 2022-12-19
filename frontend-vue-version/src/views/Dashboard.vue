@@ -1,11 +1,18 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <div class="content">
-    <div class="content__heading">
-      <h2>Bem-vindo a Lyncas</h2>
+  <div class="main">
+    <Header />
+    <div class="content">
+      <div class="content__heading">
+        <h2>Bem-vindo a Lyncas</h2>
+      </div>
     </div>
   </div>
 </template>
+
+<script setup>
+import Header from "../components/Header.vue";
+</script>
 
 <style scoped>
 .content {

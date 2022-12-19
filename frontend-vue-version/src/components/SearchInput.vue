@@ -40,8 +40,7 @@ const props = defineProps(["title"]);
 }
 
 .header__search-button {
-  background: url(../../common/assets/svg/search-icon.svg) no-repeat scroll 7px
-    7px;
+  background: url(../assets/svg/search-icon.svg) no-repeat scroll 7px 7px;
   background-position: center;
   background-position-x: calc(100% - 12px);
   background-color: var(--background-secondary);

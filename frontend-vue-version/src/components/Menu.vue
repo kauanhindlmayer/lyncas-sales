@@ -4,7 +4,7 @@
     <img
       alt="Lyncas logo"
       class="menu__item--logo"
-      src="@/common/assets/svg/logo.svg"
+      src="@/assets/svg/logo.svg"
     />
 
     <nav>
