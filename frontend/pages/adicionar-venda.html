@@ -10,8 +10,8 @@
     </div>
   </div>
 
-  <div class="profile__button profile__button--back" onclick="route(event)">
-    <a href="/lista-de-vendas">Voltar</a>
+  <div class="profile__button profile__button--back">
+    <a href="/lista-de-vendas" onclick="route(event)">Voltar</a>
   </div>
 </div>
 
@@ -29,9 +29,6 @@
             required
           >
             <option value="" data-default disabled selected></option>
-            <!-- <option value="customer-1">Genara Sousa</option>
-            <option value="customer-2">Genara Sousa</option>
-            <option value="customer-3">Genara Sousa</option> -->
           </select>
         </div>
         <div>
@@ -97,6 +94,7 @@
             placeholder=" "
             required
             maxlength="16"
+            oninput="handleUpdatePrice()"
           />
         </div>
       </div>
@@ -105,7 +103,7 @@
       </div>
       <div class="dashed"></div>
       <div class="footer">
-        <div class="footer__total-value">R$ 24.550,00</div>
+        <div class="footer__total-value">R$ 0,00</div>
         <div class="align-right">
           <button
             class="save-button save-button--sale"

@@ -1,5 +1,5 @@
 import { Api } from "./api.js";
-import { append, createError, removeLoading } from "../helper.js";
+import { append, createError, removeLoading, options } from "../helper.js";
 import { Router } from "../router/router.js";
 
 const api = new Api();
@@ -19,10 +19,7 @@ export const createSaleTable = async () => {
     <td>${sale.quantityItems}</td>
     <td>${saleDate.toLocaleDateString("pt-BR", { timeZone: "UTC" })}</td>
     <td>${billingDate.toLocaleDateString("pt-BR", { timeZone: "UTC" })}</td>
-    <td>${sale.totalValue.toLocaleString("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-    })}</td>
+    <td>${sale.totalValue.toLocaleString("pt-BR", options)}</td>
     <td class="table--right-corner">
       <button 
         onclick="handleSaleDelete('${sale.id}')" 
@@ -108,3 +105,12 @@ export const updateSale = async () => {
   const router = new Router();
   router.handle("/pages/lista-de-vendas.html");
 };
+
+const handleUpdatePrice = () => {
+  const totalValue = document.querySelector("#total-value-input");
+  document.querySelector(".footer__total-value").innerHTML = Number(
+    totalValue.value
+  ).toLocaleString("pt-BR", options);
+};
+
+window.handleUpdatePrice = () => handleUpdatePrice();

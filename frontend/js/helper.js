@@ -122,7 +122,7 @@ export const append = (template) => {
 export const removeLoading = () => {
   document.querySelector(".spinner").classList.add("hide");
   document.querySelector(".default-message").classList.add("hide");
-}
+};
 
 export const createError = () => {
   document.querySelector(".spinner").classList.add("hide");
@@ -154,11 +154,22 @@ export const fillSaleForm = async () => {
     .innerHTML.replace("Adicionar", "Atualizar")}`;
 
   document.querySelector("#customer-input").value = response.data.customerId;
-  document.querySelector("#billing-date-input").value = response.data.billingDate.slice(0, 10);
-  document.querySelector("#description-input").value = response.data.items[0].itemDescription;
-  document.querySelector("#value-input").value = response.data.items[0].unitaryValue;
-  document.querySelector("#quantity-input").value = response.data.items[0].quantity;
-  document.querySelector("#total-value-input").value = response.data.items[0].totalValue;
+  document.querySelector("#billing-date-input").value =
+    response.data.billingDate.slice(0, 10);
+  document.querySelector("#description-input").value =
+    response.data.items[0].itemDescription;
+  document.querySelector("#value-input").value =
+    response.data.items[0].unitaryValue;
+  document.querySelector("#quantity-input").value =
+    response.data.items[0].quantity;
+  document.querySelector("#total-value-input").value =
+    response.data.items[0].totalValue;
+
+  document.querySelector(".footer__total-value").innerHTML =
+    response.data.items[0].totalValue.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    });
 };
 
 export const fillSelect = async () => {
@@ -166,6 +177,14 @@ export const fillSelect = async () => {
   const select = document.querySelector("#customer-input");
 
   for (let customer of response.data) {
-    select.options[select.options.length] = new Option(`${customer.name}`, `${customer.id}`);
+    select.options[select.options.length] = new Option(
+      `${customer.name}`,
+      `${customer.id}`
+    );
   }
-}
+};
+
+export const options = {
+  style: "currency",
+  currency: "BRL",
+};
