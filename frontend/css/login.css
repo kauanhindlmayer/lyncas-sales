@@ -70,7 +70,7 @@
 
 .login-container .main button {
   border: none;
-  padding: .5rem 14.3rem;
+  /* padding: .5rem 14.3rem; */
   gap: 1rem;
   width: 34.4rem;
   height: 3.9rem;
@@ -83,6 +83,15 @@
 
 .login-container .main button:hover {
   filter: brightness(0.9);
+}
+
+.login-container__footer {
+  margin-top: .8rem;
+  text-align: center;
+}
+
+.login-container__footer a {
+  color: var(--text-primary);
 }
 
 @media (max-width: 768px) {

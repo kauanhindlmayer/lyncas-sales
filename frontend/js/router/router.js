@@ -41,7 +41,9 @@ export class Router {
       .then((html) => {
         let element;
         element =
-          route === "index.html" || route === "/pages/login.html"
+          route === "index.html" ||
+          route === "/pages/conectar-se.html" ||
+          route === "/pages/criar-conta.html"
             ? "body"
             : ".main";
         document.querySelector(element).innerHTML = html;
