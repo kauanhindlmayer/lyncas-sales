@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PressStart2.Domain.Commands.CreateCustomer;
 using PressStart2.Domain.Commands.DeleteCustomer;
@@ -10,6 +11,7 @@ namespace PressStart2.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class CustomerController : ControllerBase
     {
         private readonly IMediator _mediator;

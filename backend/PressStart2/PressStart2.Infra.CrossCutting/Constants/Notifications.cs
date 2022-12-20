@@ -4,6 +4,7 @@
     {
         public const string CUSTOMER_MODULE = "Cliente";
         public const string SALE_MODULE = "Venda";
+        public const string USER_MODULE = "Usuário";
 
         public const string INVALID_REQUEST = "Request Inválido.";
 
@@ -17,5 +18,9 @@
         public const string SALE_REGISTERED = "Venda Registrada Com Sucesso.";
         public const string SALE_UPDATED = "Venda Atualizada com Sucesso.";
         public const string SALE_DELETED = "Venda Removida com Sucesso.";
+
+        public const string USER_REGISTERED = "Usuário Registrado com Sucesso.";
+        public const string USER_PASSWORD_NOT_MATCH = "Senhas não conferem.";
+        public const string USER_LOGIN_DATA_INCORRECT = "Dados de Login Incorreto";
     }
 }

@@ -21,6 +21,7 @@ namespace PressStart2.Api
         {
             services.AddTransient<IRepositoryCustomer, RepositoryCustomer>();
             services.AddTransient<IRepositorySale, RepositorySale>();
+            services.AddTransient<IRepositoryUser, RepositoryUser>();
         }
 
         public static void ConfigureMediator(this IServiceCollection services)
