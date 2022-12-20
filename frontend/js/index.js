@@ -7,6 +7,8 @@ window.handleSubmit = () => validator.handleSubmit();
 
 const router = new Router();
 
+router.add("/login", "/pages/login.html");
+router.add("/", "index.html");
 router.add("/dashboard", "/pages/dashboard.html");
 router.add("/lista-de-clientes", "/pages/lista-de-clientes.html");
 router.add("/lista-de-vendas", "/pages/lista-de-vendas.html");

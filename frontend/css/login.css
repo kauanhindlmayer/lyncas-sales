@@ -1,0 +1,105 @@
+.login-container {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.login-container .aside {
+  background-color: var(--primary-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-container .aside img {
+  width: 24.4rem;
+  height: 5.6rem;
+  margin-bottom: 6.6rem;
+  margin-left: 9.3rem;
+}
+
+.login-container p {
+  color: var(--gray-100);
+  font-weight: 500;
+  font-size: 2.4rem;
+  line-height: 3.4rem;
+  text-align: center;
+}
+
+.login-container .main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-container input, .login-container button {
+  display: block;
+}
+
+.login-container .main h1 {
+  color: var(--text-primary);
+  margin-bottom: 5.2rem;
+  text-align: center;
+  font-weight: 500;
+  font-size: 4rem;
+  line-height: 5.8rem;
+}
+
+.login-container .main input {
+  border: none;
+  padding: .4rem 1.8rem;
+  width: 34.5rem;
+  height: 3.8rem;
+  background: var(--background-secondary);
+  border: 1px solid var(--border);
+  border-radius: .4rem;
+  margin-bottom: 1.1rem;
+  font-size: 1.6rem;
+}
+
+.login-container .main input::placeholder {
+  color: var(--text-secondary);
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 2.3rem;
+}
+
+.login-container .main input:last-child {
+  margin-bottom: 2.4rem;
+}
+
+.login-container .main button {
+  border: none;
+  padding: .5rem 14.3rem;
+  gap: 1rem;
+  width: 34.4rem;
+  height: 3.9rem;
+  background-color: var(--secondary-color);
+  color: var(--background-secondary);
+  font-weight: 700;
+  font-size: 2rem;
+  border-radius: .4rem;
+}
+
+.login-container .main button:hover {
+  filter: brightness(0.9);
+}
+
+@media (max-width: 768px) {
+  .login-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+
+  .login-container .aside img {
+    margin: 3.3rem 8.5rem;
+  }
+
+  .login-container .form h1 {
+    margin-top: 3.8rem;
+  }
+
+  .login-container .main button {
+    margin-bottom: 20rem
+  }
+}

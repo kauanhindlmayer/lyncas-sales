@@ -39,7 +39,12 @@ export class Router {
     fetch(route)
       .then((data) => data.text())
       .then((html) => {
-        document.querySelector(".main").innerHTML = html;
+        let element;
+        element =
+          route === "index.html" || route === "/pages/login.html"
+            ? "body"
+            : ".main";
+        document.querySelector(element).innerHTML = html;
       });
 
     if (route === "/pages/lista-de-vendas.html") createSaleTable();
