@@ -8,8 +8,12 @@ html {
   font-size: 62.5%;
 }
 
-body, input, button, select, textarea {
-  font-family: 'Jost', sans-serif;
+body,
+input,
+button,
+select,
+textarea {
+  font-family: "Jost", sans-serif;
 }
 
 body {

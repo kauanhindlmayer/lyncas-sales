@@ -166,10 +166,7 @@ export const fillSaleForm = async () => {
     response.data.items[0].totalValue;
 
   document.querySelector(".footer__total-value").innerHTML =
-    response.data.items[0].totalValue.toLocaleString("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-    });
+    response.data.items[0].totalValue.toLocaleString("pt-BR", options);
 };
 
 export const fillSelect = async () => {
