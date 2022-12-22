@@ -1,5 +1,5 @@
 import { Api } from "./api.js";
-import { options } from "../helper.js";
+import { options, sortByMonths } from "../helper.js";
 
 const api = new Api();
 
@@ -10,8 +10,9 @@ export const createDashboard = async () => {
 
   for (let sale of saleResponse.data) total += sale.totalValue;
 
-  document.querySelector(".highlight--billing").innerHTML = 
-    Number(total).toLocaleString("pt-BR", options);
+  document.querySelector(".highlight--billing").innerHTML = Number(
+    total
+  ).toLocaleString("pt-BR", options);
 
   document.querySelector(".highlight--customers").innerHTML =
     customerResponse.data.length;
@@ -19,39 +20,67 @@ export const createDashboard = async () => {
   document.querySelector(".highlight--sales").innerHTML =
     saleResponse.data.length;
 
-  const createCharts = () => {
+  const createCharts = async () => {
+    const response = await api.get("Sale");
+
+    const sortedArray = response.data.sort(
+      (a, b) => parseFloat(b.totalValue) - parseFloat(a.totalValue)
+    );
+
+    const sortedByMonthsArray = sortByMonths(response.data);
+
     new Chart(document.getElementById("line-chart"), {
       type: "line",
       data: {
-        labels: [1500, 1600, 1700, 1750, 1800, 1850, 1900, 1950, 1999, 2050],
+        labels: [
+          "Janeiro",
+          "Fevereiro",
+          "Março",
+          "Abril",
+          "Maio",
+          "Junho",
+          "Julho",
+          "Agosto",
+          "Setembro",
+          "Outubro",
+          "Novembro",
+          "Dezembro",
+        ],
         datasets: [
           {
-            data: [86, 114, 106, 106, 107, 111, 133, 221, 783, 2478],
-            label: "Africa",
+            data: [
+              86, 114, 106, 106, 107, 111, 133, 221, 783, 2478, 133, 221, 783,
+            ],
+            label: "Produto 1",
             borderColor: "#3e95cd",
             fill: false,
           },
           {
-            data: [282, 350, 411, 502, 635, 809, 947, 1402, 3700, 5267],
-            label: "Asia",
+            data: [
+              282, 350, 411, 502, 635, 809, 947, 1402, 3700, 5267, 809, 947,
+              1402,
+            ],
+            label: "Produto 2",
             borderColor: "#8e5ea2",
             fill: false,
           },
           {
-            data: [168, 170, 178, 190, 203, 276, 408, 547, 675, 734],
-            label: "Europe",
+            data: [
+              168, 170, 178, 190, 203, 276, 408, 547, 675, 734, 203, 276, 408,
+            ],
+            label: "Produto 3",
             borderColor: "#3cba9f",
             fill: false,
           },
           {
-            data: [40, 20, 10, 16, 24, 38, 74, 167, 508, 784],
-            label: "Latin America",
+            data: [40, 20, 10, 16, 24, 38, 74, 167, 508, 784, 38, 74, 167],
+            label: "Produto 4",
             borderColor: "#e8c3b9",
             fill: false,
           },
           {
-            data: [6, 3, 2, 2, 7, 26, 82, 172, 312, 433],
-            label: "North America",
+            data: [6, 3, 2, 2, 7, 26, 82, 172, 312, 433, 82, 172, 384],
+            label: "Produto 5",
             borderColor: "#c45850",
             fill: false,
           },
@@ -60,9 +89,11 @@ export const createDashboard = async () => {
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        title: {
-          display: true,
-          text: "World population per region (in millions)",
+        plugins: {
+          title: {
+            display: true,
+            text: "Receita Mensal por Produtos",
+          },
         },
       },
     });
@@ -70,10 +101,16 @@ export const createDashboard = async () => {
     new Chart(document.getElementById("doughnut-chart"), {
       type: "doughnut",
       data: {
-        labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
+        labels: [
+          sortedArray[0].customer.split(" ")[0],
+          sortedArray[1].customer.split(" ")[0],
+          sortedArray[2].customer.split(" ")[0],
+          sortedArray[3].customer.split(" ")[0],
+          sortedArray[4].customer.split(" ")[0],
+        ],
         datasets: [
           {
-            label: "Population (millions)",
+            label: "R$",
             backgroundColor: [
               "#3e95cd",
               "#8e5ea2",
@@ -81,16 +118,24 @@ export const createDashboard = async () => {
               "#e8c3b9",
               "#c45850",
             ],
-            data: [2478, 5267, 734, 784, 433],
+            data: [
+              sortedArray[0].totalValue,
+              sortedArray[1].totalValue,
+              sortedArray[2].totalValue,
+              sortedArray[3].totalValue,
+              sortedArray[4].totalValue,
+            ],
           },
         ],
       },
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        title: {
-          display: true,
-          text: "Predicted world population (millions) in 2050",
+        plugins: {
+          title: {
+            display: true,
+            text: "Maiores Receitas por Clientes",
+          },
         },
       },
     });
@@ -98,26 +143,73 @@ export const createDashboard = async () => {
     new Chart(document.getElementById("bar-chart-grouped"), {
       type: "bar",
       data: {
-        labels: ["1900", "1950", "1999", "2050"],
+        labels: [
+          "Janeiro",
+          "Fevereiro",
+          "Março",
+          "Abril",
+          "Maio",
+          "Junho",
+          "Julho",
+          "Agosto",
+          "Setembro",
+          "Outubro",
+          "Novembro",
+          "Dezembro",
+        ],
         datasets: [
           {
-            label: "Africa",
+            label: "2022",
             backgroundColor: "#3e95cd",
-            data: [133, 221, 783, 2478],
+            data: [
+              sortedByMonthsArray[0].reduce((sum, i) => sum + i),
+              sortedByMonthsArray[1].reduce((sum, i) => sum + i),
+              sortedByMonthsArray[2].reduce((sum, i) => sum + i),
+              sortedByMonthsArray[3].reduce((sum, i) => sum + i),
+              sortedByMonthsArray[4].reduce((sum, i) => sum + i),
+              sortedByMonthsArray[5].reduce((sum, i) => sum + i),
+              sortedByMonthsArray[6].reduce((sum, i) => sum + i),
+              sortedByMonthsArray[7].reduce((sum, i) => sum + i),
+              sortedByMonthsArray[8].reduce((sum, i) => sum + i),
+              sortedByMonthsArray[9].reduce((sum, i) => sum + i),
+              sortedByMonthsArray[10].reduce((sum, i) => sum + i),
+              sortedByMonthsArray[11].reduce((sum, i) => sum + i),
+            ],
           },
           {
-            label: "Europe",
+            label: "2021",
             backgroundColor: "#8e5ea2",
-            data: [408, 547, 675, 734],
+            data: [
+              sortedByMonthsArray[0].reduce((sum, i) => sum + i) / 1.25,
+              sortedByMonthsArray[1].reduce((sum, i) => sum + i) / 1.25,
+              sortedByMonthsArray[2].reduce((sum, i) => sum + i) / 1.25,
+              sortedByMonthsArray[3].reduce((sum, i) => sum + i) / 1.25,
+              sortedByMonthsArray[4].reduce((sum, i) => sum + i) / 1.25,
+              sortedByMonthsArray[5].reduce((sum, i) => sum + i) / 1.25,
+              sortedByMonthsArray[6].reduce((sum, i) => sum + i) / 1.25,
+              sortedByMonthsArray[7].reduce((sum, i) => sum + i) / 1.25,
+              sortedByMonthsArray[8].reduce((sum, i) => sum + i) / 1.25,
+              sortedByMonthsArray[9].reduce((sum, i) => sum + i) / 1.25,
+              sortedByMonthsArray[10].reduce((sum, i) => sum + i) / 1.25,
+              sortedByMonthsArray[11].reduce((sum, i) => sum + i) / 1.25,
+            ],
           },
         ],
       },
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        title: {
-          display: true,
-          text: "Population growth (millions)",
+        plugins: {
+          title: {
+            display: true,
+            text: "Receita Mensal",
+          },
+        },
+        scales: {
+          y: {
+            min: 0,
+            max: 20000,
+          },
         },
       },
     });

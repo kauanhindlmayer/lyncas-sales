@@ -185,3 +185,13 @@ export const options = {
   style: "currency",
   currency: "BRL",
 };
+
+export const sortByMonths = (response) => {
+  let sortedObject = [[], [], [], [], [], [], [], [], [], [], [], []];
+  for (let sale of response) {
+    const saleMonth = new Date(sale.billingDate).getMonth();
+    sortedObject[saleMonth].push(sale.totalValue);
+  }
+
+  return sortedObject;
+};

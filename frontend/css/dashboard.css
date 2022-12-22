@@ -28,6 +28,10 @@
   font-size: 3.5rem;
 }
 
+.grid-item h2 {
+  margin-bottom: 1rem;
+}
+
 .grid-item-1 {
   grid-area: a;
 }
@@ -76,12 +80,18 @@
   border: 1px solid var(--border);
   border-radius: 0.5rem;
 
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 
-  padding: .5rem;
+  padding: 0.5rem;
 }
 
 .news__header {
   display: flex;
   justify-content: space-between;
+}
+
+@media (max-width: 1368px) {
+  .news--last-child {
+    display: none;
+  }
 }
