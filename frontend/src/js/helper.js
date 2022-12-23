@@ -1,8 +1,6 @@
-import { Api } from "./services/api.js";
-import { createCustomer, updateCustomer } from "./services/customer.js";
-import { createSale, updateSale } from "./services/sale.js";
-
-const api = new Api();
+import { api } from "./services/api.service.js";
+import { createCustomer, updateCustomer } from "./services/customer.service.js";
+import { createSale, updateSale } from "./services/sale.service.js";
 
 export class Validator {
   handleSubmit(event) {

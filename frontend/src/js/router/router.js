@@ -1,7 +1,7 @@
-import { createCustomerTable } from "../services/customer.js";
-import { createSaleTable } from "../services/sale.js";
+import { createCustomerTable } from "../services/customer.service.js";
+import { createSaleTable } from "../services/sale.service.js";
 import { fillCustomerForm, fillSaleForm, fillSelect } from "../helper.js";
-import { createDashboard } from "../services/dashboard.js";
+import { createDashboard } from "../services/dashboard.service.js";
 
 export class Router {
   routes = {};

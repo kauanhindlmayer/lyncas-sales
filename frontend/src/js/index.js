@@ -1,5 +1,6 @@
 import { Router } from "./router/router.js";
 import { Validator } from "./helper.js";
+import "./services/jwt.service.js";
 
 const validator = new Validator();
 
