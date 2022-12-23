@@ -40,13 +40,7 @@ export class Router {
     fetch(route)
       .then((data) => data.text())
       .then((html) => {
-        let element =
-          route === "/pages/home.html" ||
-          route === "/pages/conectar-se.html" ||
-          route === "/pages/criar-conta.html"
-            ? "body"
-            : ".main";
-        document.querySelector(element).innerHTML = html;
+        document.querySelector("#app").innerHTML = html;
       });
 
     if (route === "/pages/dashboard.html") createDashboard();

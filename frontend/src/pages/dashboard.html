@@ -1,120 +1,155 @@
-<div class="header">
-  <div class="profile">
-    <div class="profile__picture">
-      <img src="./assets/profile-picture.svg" alt="User profile picture" />
+<div class="container">
+  <div class="menu">
+    <img class="menu__item--logo" src="./assets/logo.svg" alt="Lyncas logo" />
+
+    <div class="menu__item menu__item--dashboard">
+      <img
+        class="menu__item__icon"
+        src="./assets/dashboard-icon.svg"
+        alt="Dashboard icon"
+      />
+      <span><a href="/dashboard" onclick="route(event)">Dashboard</a></span>
     </div>
 
-    <div class="profile__name">
-      <h3><span>Olá,</span> Genara</h3>
-      <a href="/conectar-se" onclick="route(event)">Sair</a>
+    <div class="menu__item menu__item--customers">
+      <img
+        class="menu__item__icon"
+        src="./assets/clientes-icon.svg"
+        alt="Clientes icon"
+      />
+      <span
+        ><a href="/lista-de-clientes" onclick="route(event)">Clientes</a></span
+      >
+    </div>
+
+    <div class="menu__item menu__item--sales">
+      <img
+        class="menu__item__icon"
+        src="./assets/vendas-icon.svg"
+        alt="Vendas icon"
+      />
+      <span><a href="/lista-de-vendas" onclick="route(event)">Vendas</a></span>
     </div>
   </div>
 
-  <img class="profile__exit" src="./assets/exit-icon.svg" alt="Exit icon" />
-</div>
-
-<div class="content">
-  <div class="grid-container">
-    <div class="grid-item grid-item-1">
-      Faturamento
-      <span class="highlight highlight--billing">R$ 0,00</span>
-      *lorem ipsum dolor
-    </div>
-
-    <div class="grid-item grid-item-2">
-      Clientes
-      <span class="highlight highlight--customers">0</span>
-      *lorem ipsum dolor
-    </div>
-
-    <div class="grid-item grid-item-3">
-      Vendas
-      <span class="highlight highlight--sales">0</span>
-      *lorem ipsum dolor
-    </div>
-
-    <div class="grid-item grid-item-4">
-      <h2>Lorem Ipsum</h2>
-      <div class="news">
-        <div>
-          <div class="news__header">
-            <h3>Lorem Ipsum</h3>
-            <p>21/12/2022</p>
-          </div>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam,
-            fugiat illo.
-          </p>
+  <div class="main">
+    <div class="header">
+      <div class="profile">
+        <div class="profile__picture">
+          <img src="./assets/profile-picture.svg" alt="User profile picture" />
         </div>
-        <div>
-          <div class="news__header">
-            <h3>Lorem Ipsum</h3>
-            <p>21/12/2022</p>
-          </div>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam,
-            fugiat illo.
-          </p>
-        </div>
-        <div class="news--last-child">
-          <div class="news__header">
-            <h3>Lorem Ipsum</h3>
-            <p>21/12/2022</p>
-          </div>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam,
-            fugiat illo.
-          </p>
+
+        <div class="profile__name">
+          <h3><span>Olá,</span> Genara</h3>
+          <a href="/conectar-se" onclick="route(event)">Sair</a>
         </div>
       </div>
     </div>
 
-    <div class="grid-item grid-item-5">
-      <h2>Lorem Ipsum</h2>
-      <div class="news">
-        <div>
-          <div class="news__header">
-            <h3>Lorem Ipsum</h3>
-            <p>21/12/2022</p>
-          </div>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam,
-            fugiat illo.
-          </p>
+    <div class="content">
+      <div class="grid-container">
+        <div class="grid-item grid-item-1">
+          Faturamento
+          <span class="highlight highlight--billing">R$ 0,00</span>
+          *lorem ipsum dolor
         </div>
-        <div>
-          <div class="news__header">
-            <h3>Lorem Ipsum</h3>
-            <p>21/12/2022</p>
-          </div>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam,
-            fugiat illo.
-          </p>
+
+        <div class="grid-item grid-item-2">
+          Clientes
+          <span class="highlight highlight--customers">0</span>
+          *lorem ipsum dolor
         </div>
-        <div>
-          <div class="news__header">
-            <h3>Lorem Ipsum</h3>
-            <p>21/12/2022</p>
+
+        <div class="grid-item grid-item-3">
+          Vendas
+          <span class="highlight highlight--sales">0</span>
+          *lorem ipsum dolor
+        </div>
+
+        <div class="grid-item grid-item-4">
+          <h2>Lorem Ipsum</h2>
+          <div class="news">
+            <div>
+              <div class="news__header">
+                <h3>Lorem Ipsum</h3>
+                <p>21/12/2022</p>
+              </div>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Aperiam, fugiat illo.
+              </p>
+            </div>
+            <div>
+              <div class="news__header">
+                <h3>Lorem Ipsum</h3>
+                <p>21/12/2022</p>
+              </div>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Aperiam, fugiat illo.
+              </p>
+            </div>
+            <div class="news--last-child">
+              <div class="news__header">
+                <h3>Lorem Ipsum</h3>
+                <p>21/12/2022</p>
+              </div>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Aperiam, fugiat illo.
+              </p>
+            </div>
           </div>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam,
-            fugiat illo.
-          </p>
+        </div>
+
+        <div class="grid-item grid-item-5">
+          <h2>Lorem Ipsum</h2>
+          <div class="news">
+            <div>
+              <div class="news__header">
+                <h3>Lorem Ipsum</h3>
+                <p>21/12/2022</p>
+              </div>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Aperiam, fugiat illo.
+              </p>
+            </div>
+            <div>
+              <div class="news__header">
+                <h3>Lorem Ipsum</h3>
+                <p>21/12/2022</p>
+              </div>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Aperiam, fugiat illo.
+              </p>
+            </div>
+            <div>
+              <div class="news__header">
+                <h3>Lorem Ipsum</h3>
+                <p>21/12/2022</p>
+              </div>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Aperiam, fugiat illo.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-item grid-item-6">
+          <canvas id="line-chart"></canvas>
+        </div>
+
+        <div class="grid-item grid-item-7">
+          <canvas id="bar-chart-grouped"></canvas>
+        </div>
+
+        <div class="grid-item grid-item-8">
+          <canvas id="doughnut-chart"></canvas>
         </div>
       </div>
-    </div>
-
-    <div class="grid-item grid-item-6">
-      <canvas id="line-chart"></canvas>
-    </div>
-
-    <div class="grid-item grid-item-7">
-      <canvas id="bar-chart-grouped"></canvas>
-    </div>
-
-    <div class="grid-item grid-item-8">
-      <canvas id="doughnut-chart"></canvas>
     </div>
   </div>
 </div>

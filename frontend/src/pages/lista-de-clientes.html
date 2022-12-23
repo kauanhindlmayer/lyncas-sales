@@ -1,56 +1,95 @@
-<div class="header">
-  <div class="profile">
-    <div class="profile__picture">
-      <img src="./assets/profile-picture.svg" alt="User profile picture" />
+<div class="container">
+  <div class="menu">
+    <img class="menu__item--logo" src="./assets/logo.svg" alt="Lyncas logo" />
+
+    <div class="menu__item menu__item--dashboard">
+      <img
+        class="menu__item__icon"
+        src="./assets/dashboard-icon.svg"
+        alt="Dashboard icon"
+      />
+      <span><a href="/dashboard" onclick="route(event)">Dashboard</a></span>
     </div>
 
-    <div class="profile__name">
-      <h3><span>Olá,</span> Genara</h3>
-      <a href="/conectar-se" onclick="route(event)">Sair</a>
+    <div class="menu__item menu__item--customers">
+      <img
+        class="menu__item__icon"
+        src="./assets/clientes-icon.svg"
+        alt="Clientes icon"
+      />
+      <span
+        ><a href="/lista-de-clientes" onclick="route(event)">Clientes</a></span
+      >
+    </div>
+
+    <div class="menu__item menu__item--sales">
+      <img
+        class="menu__item__icon"
+        src="./assets/vendas-icon.svg"
+        alt="Vendas icon"
+      />
+      <span><a href="/lista-de-vendas" onclick="route(event)">Vendas</a></span>
     </div>
   </div>
 
-  <div class="profile__button profile__button--add">
-    <a href="/adicionar-cliente" onclick="route(event)">Adicionar</a>
-  </div>
-</div>
+  <div class="main">
+    <div class="header">
+      <div class="profile">
+        <div class="profile__picture">
+          <img src="./assets/profile-picture.svg" alt="User profile picture" />
+        </div>
 
-<div class="content">
-  <section class="component component--background">
-    <div class="component__header">
-      <h1 class="header__title">Lista de clientes</h1>
-      <div class="header__search">
-        <label class="sr-only" for="search-button">Buscar clientes...</label>
-        <input
-          type="text"
-          name="search-button"
-          id="search-button"
-          class="header__search-button"
-          placeholder="Buscar clientes..."
-        />
+        <div class="profile__name">
+          <h3><span>Olá,</span> Genara</h3>
+          <a href="/conectar-se" onclick="route(event)">Sair</a>
+        </div>
+      </div>
+      
+      <div class="profile__button profile__button--add">
+        <a href="/adicionar-cliente" onclick="route(event)">Adicionar</a>
       </div>
     </div>
 
-    <div class="component__table-wrapper">
-      <table class="component__table">
-        <tr>
-          <th>Nome</th>
-          <th>E-mail</th>
-          <th>Telefone</th>
-          <th>CPF</th>
-          <th>Ações</th>
-        </tr>
-      </table>
+    <div class="content">
+      <section class="component component--background">
+        <div class="component__header">
+          <h1 class="header__title">Lista de clientes</h1>
+          <div class="header__search">
+            <label class="sr-only" for="search-button"
+              >Buscar clientes...</label
+            >
+            <input
+              type="text"
+              name="search-button"
+              id="search-button"
+              class="header__search-button"
+              placeholder="Buscar clientes..."
+            />
+          </div>
+        </div>
+
+        <div class="component__table-wrapper">
+          <table class="component__table">
+            <tr>
+              <th>Nome</th>
+              <th>E-mail</th>
+              <th>Telefone</th>
+              <th>CPF</th>
+              <th>Ações</th>
+            </tr>
+          </table>
+        </div>
+        <div class="content__heading">
+          <img
+            src="../assets/spinner.svg"
+            alt="Imagem de carregamento"
+            class="spinner"
+          />
+          <h2 class="default-message hide">
+            A lista que você tentou acessar está indisponível ou não existe.
+          </h2>
+        </div>
+      </section>
     </div>
-    <div class="content__heading">
-      <img
-        src="../assets/spinner.svg"
-        alt="Imagem de carregamento"
-        class="spinner"
-      />
-      <h2 class="default-message hide">
-        A lista que você tentou acessar está indisponível ou não existe.
-      </h2>
-    </div>
-  </section>
+  </div>
 </div>
