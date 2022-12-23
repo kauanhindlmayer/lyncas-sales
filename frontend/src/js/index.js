@@ -9,7 +9,7 @@ const router = new Router();
 
 router.add("/conectar-se", "/pages/conectar-se.html");
 router.add("/criar-conta", "/pages/criar-conta.html");
-router.add("/", "index.html");
+router.add("/home", "/pages/home.html");
 router.add("/dashboard", "/pages/dashboard.html");
 router.add("/lista-de-clientes", "/pages/lista-de-clientes.html");
 router.add("/lista-de-vendas", "/pages/lista-de-vendas.html");

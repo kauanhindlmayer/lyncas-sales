@@ -87,12 +87,14 @@
 }
 
 .login-container__footer {
-  margin-top: 0.8rem;
+  font-size: 1.8rem;
+  color: var(--text-secondary);
+  margin-top: 1rem;
   text-align: center;
 }
 
 .login-container__footer a {
-  color: var(--text-primary);
+  color: var(--primary-color);
 }
 
 @media (max-width: 768px) {

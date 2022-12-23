@@ -40,9 +40,8 @@ export class Router {
     fetch(route)
       .then((data) => data.text())
       .then((html) => {
-        let element;
-        element =
-          route === "index.html" ||
+        let element =
+          route === "/pages/home.html" ||
           route === "/pages/conectar-se.html" ||
           route === "/pages/criar-conta.html"
             ? "body"
