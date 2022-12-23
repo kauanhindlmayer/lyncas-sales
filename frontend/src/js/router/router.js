@@ -1,7 +1,7 @@
-import { createCustomerTable } from "../services/customer.js";
-import { createSaleTable } from "../services/sale.js";
+import { createCustomerTable } from "../services/customer.service.js";
+import { createSaleTable } from "../services/sale.service.js";
 import { fillCustomerForm, fillSaleForm, fillSelect } from "../helper.js";
-import { createDashboard } from "../services/dashboard.js";
+import { createDashboard } from "../services/dashboard.service.js";
 
 export class Router {
   routes = {};
@@ -40,21 +40,14 @@ export class Router {
     fetch(route)
       .then((data) => data.text())
       .then((html) => {
-        let element;
-        element =
-          route === "index.html" ||
-          route === "/pages/conectar-se.html" ||
-          route === "/pages/criar-conta.html"
-            ? "body"
-            : ".main";
-        document.querySelector(element).innerHTML = html;
+        document.querySelector("#app").innerHTML = html;
       });
 
+    if (route === "/pages/dashboard.html") createDashboard();
     if (route === "/pages/lista-de-vendas.html") createSaleTable();
     if (route === "/pages/lista-de-clientes.html") createCustomerTable();
     if (route === "/pages/adicionar-venda.html") fillSelect();
-    if (route === "/pages/dashboard.html") createDashboard();
-    if (routeName === "/pages/adicionar-cliente.html") fillCustomerForm();
     if (routeName === "/pages/adicionar-venda.html") fillSaleForm();
+    if (routeName === "/pages/adicionar-cliente.html") fillCustomerForm();
   }
 }

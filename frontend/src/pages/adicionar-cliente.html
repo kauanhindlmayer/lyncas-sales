@@ -1,0 +1,121 @@
+<div class="container">
+  <div class="menu">
+    <img class="menu__item--logo" src="./assets/logo.svg" alt="Lyncas logo" />
+
+    <div class="menu__item menu__item--dashboard">
+      <img
+        class="menu__item__icon"
+        src="./assets/dashboard-icon.svg"
+        alt="Dashboard icon"
+      />
+      <span><a href="/dashboard" onclick="route(event)">Dashboard</a></span>
+    </div>
+
+    <div class="menu__item menu__item--customers">
+      <img
+        class="menu__item__icon"
+        src="./assets/clientes-icon.svg"
+        alt="Clientes icon"
+      />
+      <span
+        ><a href="/lista-de-clientes" onclick="route(event)">Clientes</a></span
+      >
+    </div>
+
+    <div class="menu__item menu__item--sales">
+      <img
+        class="menu__item__icon"
+        src="./assets/vendas-icon.svg"
+        alt="Vendas icon"
+      />
+      <span><a href="/lista-de-vendas" onclick="route(event)">Vendas</a></span>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="header">
+      <div class="profile">
+        <div class="profile__picture">
+          <img src="./assets/profile-picture.svg" alt="User profile picture" />
+        </div>
+
+        <div class="profile__name">
+          <h3><span>Olá,</span> Genara</h3>
+          <a href="/conectar-se" onclick="route(event)">Sair</a>
+        </div>
+      </div>
+
+      <div class="profile__button profile__button--back">
+        <a href="/lista-de-clientes" onclick="route(event)">Voltar</a>
+      </div>
+    </div>
+
+    <div class="content">
+      <section class="component">
+        <h1 id="title">Adicionar cliente</h1>
+        <form class="form">
+          <div class="form__form-wrapper">
+            <div>
+              <label for="name-input">Nome</label>
+              <input
+                type="text"
+                name="name-input"
+                id="name-input"
+                class="input field"
+                placeholder=" "
+                required
+                maxlength="254"
+              />
+            </div>
+            <div>
+              <label for="email-input">E-mail</label>
+              <input
+                type="email"
+                name="email-input"
+                id="email-input"
+                class="input field email"
+                placeholder=" "
+                required
+                maxlength="254"
+              />
+            </div>
+          </div>
+          <div class="form__form-wrapper">
+            <div>
+              <label for="phone-input">Telefone</label>
+              <input
+                type="tel"
+                name="phone-input"
+                id="phone-input"
+                class="input field phone"
+                placeholder=" "
+                required
+                maxlength="16"
+              />
+            </div>
+            <div>
+              <label for="cpf-input">CPF</label>
+              <input
+                type="text"
+                name="cpf-input"
+                id="cpf-input"
+                class="input field cpf"
+                placeholder=" "
+                required
+                maxlength="14"
+              />
+            </div>
+          </div>
+          <div class="align-right">
+            <button
+              class="save-button save-button--client"
+              onclick="handleSubmit()"
+            >
+              Salvar
+            </button>
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
+</div>

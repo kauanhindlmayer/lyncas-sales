@@ -1,7 +1,5 @@
-import { Api } from "./api.js";
+import { api } from "./api.service.js";
 import { options, sortByMonths, monthsOfTheYear } from "../helper.js";
-
-const api = new Api();
 
 export const createDashboard = async () => {
   const customerResponse = await api.get("Customer");

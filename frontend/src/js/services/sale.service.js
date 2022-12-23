@@ -1,8 +1,6 @@
-import { Api } from "./api.js";
+import { api } from "./api.service.js";
 import { append, createError, removeLoading, options } from "../helper.js";
 import { Router } from "../router/router.js";
-
-const api = new Api();
 
 export const createSaleTable = async () => {
   const response = await api.get("Sale");

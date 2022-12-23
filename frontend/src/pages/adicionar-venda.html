@@ -1,0 +1,159 @@
+<div class="container">
+  <div class="menu">
+    <img class="menu__item--logo" src="./assets/logo.svg" alt="Lyncas logo" />
+
+    <div class="menu__item menu__item--dashboard">
+      <img
+        class="menu__item__icon"
+        src="./assets/dashboard-icon.svg"
+        alt="Dashboard icon"
+      />
+      <span><a href="/dashboard" onclick="route(event)">Dashboard</a></span>
+    </div>
+
+    <div class="menu__item menu__item--customers">
+      <img
+        class="menu__item__icon"
+        src="./assets/clientes-icon.svg"
+        alt="Clientes icon"
+      />
+      <span
+        ><a href="/lista-de-clientes" onclick="route(event)">Clientes</a></span
+      >
+    </div>
+
+    <div class="menu__item menu__item--sales">
+      <img
+        class="menu__item__icon"
+        src="./assets/vendas-icon.svg"
+        alt="Vendas icon"
+      />
+      <span><a href="/lista-de-vendas" onclick="route(event)">Vendas</a></span>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="header">
+      <div class="profile">
+        <div class="profile__picture">
+          <img src="./assets/profile-picture.svg" alt="User profile picture" />
+        </div>
+
+        <div class="profile__name">
+          <h3><span>Olá,</span> Genara</h3>
+          <a href="/conectar-se" onclick="route(event)">Sair</a>
+        </div>
+      </div>
+      
+      <div class="profile__button profile__button--back">
+        <a href="/lista-de-vendas" onclick="route(event)">Voltar</a>
+      </div>
+    </div>
+
+    <div class="content">
+      <section class="component">
+        <h1 id="title">Adicionar venda</h1>
+        <form class="form">
+          <div class="form__form-wrapper">
+            <div>
+              <label for="customer-input">Cliente</label>
+              <select
+                class="select field"
+                name="customer-input"
+                id="customer-input"
+                required
+              >
+                <option value="" data-default disabled selected></option>
+              </select>
+            </div>
+            <div>
+              <label for="billing-date-input">Data de faturamento</label>
+              <input
+                type="date"
+                name="billing-date-input"
+                id="billing-date-input"
+                class="input-date field"
+                required
+                maxlength="12"
+              />
+            </div>
+          </div>
+          <div class="form__dashed"></div>
+          <h2>Itens do pedido</h2>
+          <div class="form__form-wrapper">
+            <div>
+              <label for="description-input">Descrição do item</label>
+              <input
+                type="text"
+                name="description-input"
+                id="description-input"
+                class="input field"
+                placeholder=" "
+                required
+                maxlength="254"
+              />
+            </div>
+            <div>
+              <label for="value-input">Valor unitário</label>
+              <input
+                type="number"
+                min="1"
+                step="any"
+                name="value-input"
+                id="value-input"
+                class="input field"
+                placeholder=" "
+                required
+                maxlength="16"
+              />
+            </div>
+          </div>
+          <div class="form__form-wrapper">
+            <div>
+              <label for="quantity-input">Quantidade</label>
+              <input
+                type="number"
+                name="quantity-input"
+                id="quantity-input"
+                class="input field"
+                placeholder=" "
+                required
+                maxlength="16"
+              />
+            </div>
+            <div>
+              <label for="total-value-input">Valor total</label>
+              <input
+                type="number"
+                min="1"
+                step="any"
+                name="total-value-input"
+                id="total-value-input"
+                class="input field"
+                placeholder=" "
+                required
+                maxlength="16"
+                oninput="handleUpdatePrice()"
+              />
+            </div>
+          </div>
+          <div class="align-right">
+            <button class="add-items-button">+ Mais itens</button>
+          </div>
+          <div class="dashed"></div>
+          <div class="footer">
+            <div class="footer__total-value">R$ 0,00</div>
+            <div class="align-right">
+              <button
+                class="save-button save-button--sale"
+                onclick="handleSubmit()"
+              >
+                Salvar
+              </button>
+            </div>
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
+</div>

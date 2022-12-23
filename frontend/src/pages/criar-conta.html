@@ -2,16 +2,11 @@
   <div class="main">
     <div class="form">
       <h1>Criar conta</h1>
-      <input
-        type="text"
-        name="input-email"
-        id="input-email"
-        placeholder="Nome"
-      />
+      <input type="text" name="input-name" id="input-name" placeholder="Nome" />
       <input
         type="email"
-        name="input-password"
-        id="input-password"
+        name="input-email"
+        id="input-email"
         placeholder="E-mail"
       />
       <input
@@ -27,9 +22,7 @@
         placeholder="Confirmar Senha"
       />
 
-      <button>
-        <a href="/conectar-se" onclick="route(event)">Registrar</a>
-      </button>
+      <button onclick="handleCreateUser()">Registrar</button>
       <div class="login-container__footer">
         Já tem uma conta?
         <a href="/conectar-se" onclick="route(event)">Entre aqui</a>
