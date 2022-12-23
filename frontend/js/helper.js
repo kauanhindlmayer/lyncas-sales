@@ -187,11 +187,26 @@ export const options = {
 };
 
 export const sortByMonths = (response) => {
-  let sortedObject = [[], [], [], [], [], [], [], [], [], [], [], []];
+  let sortedObject = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   for (let sale of response) {
     const saleMonth = new Date(sale.billingDate).getMonth();
-    sortedObject[saleMonth].push(sale.totalValue);
+    sortedObject[saleMonth] += Math.round(sale.totalValue);
   }
 
   return sortedObject;
 };
+
+export const monthsOfTheYear = [
+  "Janeiro",
+  "Fevereiro",
+  "Março",
+  "Abril",
+  "Maio",
+  "Junho",
+  "Julho",
+  "Agosto",
+  "Setembro",
+  "Outubro",
+  "Novembro",
+  "Dezembro",
+];
