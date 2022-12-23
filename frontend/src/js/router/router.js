@@ -49,11 +49,11 @@ export class Router {
         document.querySelector(element).innerHTML = html;
       });
 
+    if (route === "/pages/dashboard.html") createDashboard();
     if (route === "/pages/lista-de-vendas.html") createSaleTable();
     if (route === "/pages/lista-de-clientes.html") createCustomerTable();
     if (route === "/pages/adicionar-venda.html") fillSelect();
-    if (route === "/pages/dashboard.html") createDashboard();
-    if (routeName === "/pages/adicionar-cliente.html") fillCustomerForm();
     if (routeName === "/pages/adicionar-venda.html") fillSaleForm();
+    if (routeName === "/pages/adicionar-cliente.html") fillCustomerForm();
   }
 }
