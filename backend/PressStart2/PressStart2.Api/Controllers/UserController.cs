@@ -25,13 +25,10 @@ namespace PressStart2.Api.Controllers
             _configuration = configuration; 
         }
 
-        [HttpGet("autenticar")]
-        public async Task<IActionResult> Authenticate(
-            [FromQuery] string login,
-            [FromQuery] string password
-            )
+        [HttpPost("autenticar")]
+        public async Task<IActionResult> Authenticate(UserLoginRequest request)
         {
-            var commandResponse = await _mediator.Send(new UserLoginRequest(login, password));
+            var commandResponse = await _mediator.Send(request);
 
             if (!commandResponse.Success)
                 return BadRequest(commandResponse);
