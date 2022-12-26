@@ -1,4 +1,4 @@
-import { api } from "./services/api.service.js";
+import { api, user } from "./services/api.service.js";
 
 export const validator = {
   handleSubmit(event) {
@@ -139,4 +139,5 @@ export const disableMenu = () => {
 export const enableMenu = () => {
   document.querySelector(".menu").style.display = "block";
   document.querySelector(".container").style.display = "grid";
+  document.querySelector(".username").innerHTML = user.username;
 }

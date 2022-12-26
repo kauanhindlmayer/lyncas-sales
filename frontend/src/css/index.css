@@ -86,8 +86,14 @@
 .profile__picture {
   width: 5rem;
   height: 5rem;
-  /* border: 2px solid var(--border); */
+  border: 2px solid var(--border);
   border-radius: 5px;
+}
+
+.profile__picture img {
+  width: 4.8rem;
+  height: 4.6rem;
+  object-fit: contain;
 }
 
 .profile {
@@ -104,6 +110,7 @@
   color: var(--gray-100);
   font-weight: 500;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .profile__name a:hover {
@@ -179,10 +186,12 @@
     display: none;
   }
 
+  /* 
   .profile__name span {
     font-weight: 400;
     display: block;
-  }
+  } 
+  */
 
   .profile__exit {
     position: absolute;

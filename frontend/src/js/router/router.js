@@ -38,15 +38,16 @@ export const router = {
       .then((data) => data.text())
       .then((html) => {
         document.querySelector("#app").innerHTML = html;
+
+        route !== "/pages/conectar-se.html" &&
+        route !== "/pages/criar-conta.html"
+          ? enableMenu()
+          : disableMenu();
       });
 
     if (pathname === "/dashboard") createDashboard();
     if (pathname === "/lista-de-clientes") createCustomerTable();
     if (pathname === "/lista-de-vendas") createSaleTable();
     if (pathname === "/adicionar-venda") fillSelect();
-
-    pathname !== "/conectar-se" && pathname !== "/criar-conta"
-      ? enableMenu()
-      : disableMenu();
   },
 };

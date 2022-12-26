@@ -1,8 +1,24 @@
-import { api } from "./api.service.js";
+import { api, user } from "./api.service.js";
 import { router } from "../router/router.js";
 import { validator } from "../helper.js";
 
-export const handleLogin = async () => {};
+export const handleLogin = async () => {
+  const valid = validator.handleSubmit();
+
+  if (valid) {
+    const body = {
+      login: document.querySelector("#input-email").value,
+      password: document.querySelector("#input-password").value,
+    };
+
+    const response = await api.authenticate(body);
+
+    user.username = response.userName;
+    user.token = response.token;
+
+    router.handle("/pages/home.html");
+  }
+};
 
 window.handleLogin = () => handleLogin();
 
@@ -27,3 +43,13 @@ export const handleCreateUser = async () => {
 };
 
 window.handleCreateUser = () => handleCreateUser();
+
+export const handleLogout = () => {
+  const answer = confirm("Deseja realmente sair do sistema?");
+
+  if (answer) {
+    router.handle("/pages/conectar-se.html");
+  }
+};
+
+window.handleLogout = () => handleLogout();
