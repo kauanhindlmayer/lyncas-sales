@@ -1,5 +1,5 @@
 import { api } from "./api.service.js";
-import { Router } from "../router/router.js";
+import { router } from "../router/router.js";
 import {
   append,
   createError,
@@ -67,7 +67,6 @@ export const createSale = async () => {
 
     const response = await api.post("Sale", body);
 
-    const router = new Router();
     router.handle("/pages/lista-de-vendas.html");
 
     alert(response.data.message);
@@ -82,18 +81,34 @@ const handleSaleDelete = async (id) => {
   if (answer) {
     const response = await api.delete("Sale", id);
 
-    alert(response.data.message);
-
-    const router = new Router();
     router.handle(`/pages/lista-de-vendas.html`);
+
+    alert(response.data.message);
   }
 };
 
 window.handleSaleDelete = (id) => handleSaleDelete(id);
 
 const handleSaleEdit = async (id) => {
-  const router = new Router();
   router.handle("/pages/adicionar-venda.html", `/atualizar-venda?id=${id}`);
+
+  const response = await api.getById("Sale", id);
+
+  document.querySelector("#title").innerHTML = `${document
+    .querySelector("#title")
+    .innerHTML.replace("Adicionar", "Atualizar")}`;
+
+  document.querySelector("#customer-input").value = response.data.customerId;
+  document.querySelector("#billing-date-input").value = response.data.billingDate.slice(0, 10);
+  document.querySelector("#description-input").value = response.data.items[0].itemDescription;
+  document.querySelector("#value-input").value = response.data.items[0].unitaryValue;
+  document.querySelector("#quantity-input").value = response.data.items[0].quantity;
+  document.querySelector("#total-value-input").value = response.data.items[0].totalValue;
+
+  document.querySelector(".footer__total-value").innerHTML = 
+    response.data.items[0].totalValue.toLocaleString("pt-BR", options);
+
+  document.querySelector(".save-button").setAttribute("onclick", "updateSale()");
 };
 
 window.handleSaleEdit = (id) => handleSaleEdit(id);
@@ -120,7 +135,6 @@ export const updateSale = async () => {
 
     const response = await api.put("Sale", body);
 
-    const router = new Router();
     router.handle("/pages/lista-de-vendas.html");
 
     alert(response.data.message);

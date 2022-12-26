@@ -1,14 +1,14 @@
+import { createDashboard } from "../services/dashboard.service.js";
 import { createCustomerTable } from "../services/customer.service.js";
 import { createSaleTable } from "../services/sale.service.js";
-import { fillCustomerForm, fillSaleForm, fillSelect } from "../helper.js";
-import { createDashboard } from "../services/dashboard.service.js";
+import { fillSelect } from "../helper.js";
 
-export class Router {
-  routes = {};
+export const router = {
+  routes: {},
 
   add(routeName, page) {
     this.routes[routeName] = page;
-  }
+  },
 
   route(event) {
     event = event || window.event;
@@ -17,7 +17,7 @@ export class Router {
     window.history.pushState({}, "", event.target.href);
 
     this.handle();
-  }
+  },
 
   handle(routeName, updateRouteName) {
     let route;
@@ -44,10 +44,8 @@ export class Router {
       });
 
     if (route === "/pages/dashboard.html") createDashboard();
-    if (route === "/pages/lista-de-vendas.html") createSaleTable();
     if (route === "/pages/lista-de-clientes.html") createCustomerTable();
+    if (route === "/pages/lista-de-vendas.html") createSaleTable();
     if (route === "/pages/adicionar-venda.html") fillSelect();
-    if (routeName === "/pages/adicionar-venda.html") fillSaleForm();
-    if (routeName === "/pages/adicionar-cliente.html") fillCustomerForm();
-  }
+  },
 }

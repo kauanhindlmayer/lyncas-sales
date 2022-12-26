@@ -1,7 +1,5 @@
-import { Router } from "./router/router.js";
+import { router } from "./router/router.js";
 import "./services/jwt.service.js";
-
-const router = new Router();
 
 router.add("/", "/pages/conectar-se.html")
 router.add("/conectar-se", "/pages/conectar-se.html");

@@ -8,9 +8,8 @@ export const createDashboard = async () => {
 
   for (let sale of saleResponse.data) total += sale.totalValue;
 
-  document.querySelector(".highlight--billing").innerHTML = Number(
-    total
-  ).toLocaleString("pt-BR", options);
+  document.querySelector(".highlight--billing").innerHTML = 
+    Number(total).toLocaleString("pt-BR", options);
 
   document.querySelector(".highlight--customers").innerHTML =
     customerResponse.data.length;

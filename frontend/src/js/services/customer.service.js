@@ -1,6 +1,11 @@
 import { api } from "./api.service.js";
-import { append, createError, removeLoading, validator } from "../helper.js";
-import { Router } from "../router/router.js";
+import { router } from "../router/router.js";
+import {
+  append,
+  createError,
+  removeLoading,
+  validator,
+} from "../helper.js";
 
 export const createCustomerTable = async () => {
   const response = await api.get("Customer");
@@ -48,7 +53,6 @@ export const createCustomer = async () => {
 
     const response = await api.post("Customer", body);
 
-    const router = new Router();
     router.handle("/pages/lista-de-clientes.html");
 
     alert(response.data.message);
@@ -63,18 +67,29 @@ const handleCustomerDelete = async (id) => {
   if (answer) {
     const response = await api.delete("Customer", id);
 
-    alert(response.data.message);
-
-    const router = new Router();
     router.handle(`/pages/lista-de-clientes.html`);
+
+    alert(response.data.message);
   }
 };
 
 window.handleCustomerDelete = (id) => handleCustomerDelete(id);
 
 const handleCustomerEdit = async (id) => {
-  const router = new Router();
   router.handle("/pages/adicionar-cliente.html", `/atualizar-cliente?id=${id}`);
+
+  const response = await api.getById("Customer", id);
+
+  document.querySelector("#title").innerHTML = `${document
+    .querySelector("#title")
+    .innerHTML.replace("Adicionar", "Atualizar")}`;
+
+  document.querySelector("#name-input").value = response.data.name;
+  document.querySelector("#email-input").value = response.data.email;
+  document.querySelector("#phone-input").value = response.data.phone;
+  document.querySelector("#cpf-input").value = response.data.cpf;
+
+  document.querySelector(".save-button").setAttribute("onclick", "updateCustomer()");
 };
 
 window.handleCustomerEdit = (id) => handleCustomerEdit(id);
@@ -95,7 +110,6 @@ export const updateCustomer = async () => {
 
     const response = await api.put("Customer", body);
 
-    const router = new Router();
     router.handle("/pages/lista-de-clientes.html");
 
     alert(response.data.message);
