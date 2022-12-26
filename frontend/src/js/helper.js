@@ -1,115 +1,77 @@
 import { api } from "./services/api.service.js";
-import { createCustomer, updateCustomer } from "./services/customer.service.js";
-import { createSale, updateSale } from "./services/sale.service.js";
 
-export class Validator {
+export const validator = {
   handleSubmit(event) {
     event = event || window.event;
     event.preventDefault();
 
-    const validatedFields = this.validateFields();
-
-    if (validatedFields) {
-      switch (window.location.pathname) {
-        case "/adicionar-cliente":
-          alert("Cliente Adicionado com sucesso!");
-          createCustomer();
-          break;
-        case "/adicionar-venda":
-          alert("Venda Adicionada com sucesso!");
-          createSale();
-          break;
-        case "/atualizar-cliente":
-          alert("Cliente Atualizado com sucesso!");
-          updateCustomer();
-          break;
-        case "/atualizar-venda":
-          alert("Venda Atualizada com sucesso!");
-          updateSale();
-          break;
-      }
-    }
-  }
+    return this.validateFields();
+  },
 
   validateEmptyFields() {
     for (let field of document.querySelectorAll(".field")) {
       if (!field.value) {
-        alert("Nenhum campo pode estar vazio!");
+        alert("Preencha todos os campos.");
         return false;
       }
     }
 
     return true;
-  }
+  },
 
   validateEmail() {
     const email = document.querySelector(".email");
+    const regExp =
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-    if (email) {
-      if (
-        !email.value.match(
-          /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        )
-      ) {
-        this.createError(email, "E-mail inválido!");
-        return false;
-      }
+    if (email && !email.value.match(regExp)) {
+      this.createError(email, "O endereço de E-mail utilizado não é válido.");
+      return false;
     }
 
     return true;
-  }
+  },
 
   validatePhone() {
     const phone = document.querySelector(".phone");
+    const regExp = /^(\(\d{2}\)\s*)?(9\s*)?(\d{4})-(\d{4})$/g;
 
-    if (phone) {
-      if (!phone.value.match(/^(\(\d{2}\)\s*)?(9\s*)?(\d{4})-(\d{4})$/g)) {
-        this.createError(phone, "Telefone inválido!");
-        return false;
-      }
+    if (phone && !phone.value.match(regExp)) {
+      this.createError(phone, "O número de Telefone utilizado não é válido.");
+      return false;
     }
 
     return true;
-  }
+  },
 
   validateCPF() {
     const cpf = document.querySelector(".cpf");
 
-    if (cpf) {
-      if (!cpf.value.match(/(?:\d{3}\.){2}\d{3}-\d{2}/g)) {
-        this.createError(cpf, "CPF inválido!");
-        return false;
-      }
+    if (cpf && !cpf.value.match(/(?:\d{3}\.){2}\d{3}-\d{2}/g)) {
+      this.createError(cpf, "O número de CPF utilizado não é válido");
+      return false;
     }
 
     return true;
-  }
+  },
 
   createError(field, message) {
     field.classList.add("error-input");
     alert(message);
-  }
+  },
 
   validateFields() {
-    if (!this.validateEmptyFields()) {
-      return false;
-    }
+    if (!this.validateEmptyFields()) return false;
 
-    if (!this.validateEmail()) {
-      return false;
-    }
+    if (!this.validateEmail()) return false;
 
-    if (!this.validatePhone()) {
-      return false;
-    }
+    if (!this.validatePhone()) return false;
 
-    if (!this.validateCPF()) {
-      return false;
-    }
+    if (!this.validateCPF()) return false;
 
     return true;
-  }
-}
+  },
+};
 
 export const append = (template) => {
   const tr = document.createElement("tr");
@@ -140,6 +102,10 @@ export const fillCustomerForm = async () => {
   document.querySelector("#email-input").value = response.data.email;
   document.querySelector("#phone-input").value = response.data.phone;
   document.querySelector("#cpf-input").value = response.data.cpf;
+
+  document
+    .querySelector(".save-button")
+    .setAttribute("onclick", "updateCustomer()");
 };
 
 export const fillSaleForm = async () => {
@@ -165,6 +131,10 @@ export const fillSaleForm = async () => {
 
   document.querySelector(".footer__total-value").innerHTML =
     response.data.items[0].totalValue.toLocaleString("pt-BR", options);
+
+  document
+    .querySelector(".save-button")
+    .setAttribute("onclick", "updateSale()");
 };
 
 export const fillSelect = async () => {

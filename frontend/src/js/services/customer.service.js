@@ -1,5 +1,5 @@
 import { api } from "./api.service.js";
-import { append, createError, removeLoading } from "../helper.js";
+import { append, createError, removeLoading, validator } from "../helper.js";
 import { Router } from "../router/router.js";
 
 export const createCustomerTable = async () => {
@@ -36,24 +36,35 @@ export const createCustomerTable = async () => {
 };
 
 export const createCustomer = async () => {
-  const body = {
-    name: document.querySelector("#name-input").value,
-    email: document.querySelector("#email-input").value,
-    phone: document.querySelector("#phone-input").value,
-    cpf: document.querySelector("#cpf-input").value,
-  };
+  const valid = validator.handleSubmit();
 
-  await api.post("Customer", body);
+  if (valid) {
+    const body = {
+      name: document.querySelector("#name-input").value,
+      email: document.querySelector("#email-input").value,
+      phone: document.querySelector("#phone-input").value,
+      cpf: document.querySelector("#cpf-input").value,
+    };
 
-  const router = new Router();
-  router.handle("/pages/lista-de-clientes.html");
+    const response = await api.post("Customer", body);
+
+    const router = new Router();
+    router.handle("/pages/lista-de-clientes.html");
+
+    alert(response.data.message);
+  }
 };
+
+window.createCustomer = () => createCustomer();
 
 const handleCustomerDelete = async (id) => {
   const answer = confirm("Deseja realmente deletar o cliente?");
 
   if (answer) {
-    await api.delete("Customer", id);
+    const response = await api.delete("Customer", id);
+
+    alert(response.data.message);
+
     const router = new Router();
     router.handle(`/pages/lista-de-clientes.html`);
   }
@@ -69,18 +80,26 @@ const handleCustomerEdit = async (id) => {
 window.handleCustomerEdit = (id) => handleCustomerEdit(id);
 
 export const updateCustomer = async () => {
-  const urlParams = new URLSearchParams(window.location.search);
+  const valid = validator.handleSubmit();
 
-  const body = {
-    id: urlParams.get("id"),
-    name: document.querySelector("#name-input").value,
-    email: document.querySelector("#email-input").value,
-    phone: document.querySelector("#phone-input").value,
-    cpf: document.querySelector("#cpf-input").value,
-  };
+  if (valid) {
+    const urlParams = new URLSearchParams(window.location.search);
 
-  await api.put("Customer", body);
+    const body = {
+      id: urlParams.get("id"),
+      name: document.querySelector("#name-input").value,
+      email: document.querySelector("#email-input").value,
+      phone: document.querySelector("#phone-input").value,
+      cpf: document.querySelector("#cpf-input").value,
+    };
 
-  const router = new Router();
-  router.handle("/pages/lista-de-clientes.html");
+    const response = await api.put("Customer", body);
+
+    const router = new Router();
+    router.handle("/pages/lista-de-clientes.html");
+
+    alert(response.data.message);
+  }
 };
+
+window.updateCustomer = () => updateCustomer();

@@ -1,6 +1,12 @@
 import { api } from "./api.service.js";
-import { append, createError, removeLoading, options } from "../helper.js";
 import { Router } from "../router/router.js";
+import {
+  append,
+  createError,
+  removeLoading,
+  options,
+  validator,
+} from "../helper.js";
 
 export const createSaleTable = async () => {
   const response = await api.get("Sale");
@@ -43,30 +49,41 @@ export const createSaleTable = async () => {
 };
 
 export const createSale = async () => {
-  const body = {
-    customerId: document.querySelector("#customer-input").value,
-    billingDate: document.querySelector("#billing-date-input").value,
-    items: [
-      {
-        itemDescription: document.querySelector("#description-input").value,
-        unitaryValue: document.querySelector("#value-input").value,
-        quantity: document.querySelector("#quantity-input").value,
-        totalValue: document.querySelector("#total-value-input").value,
-      },
-    ],
-  };
+  const valid = validator.handleSubmit();
 
-  await api.post("Sale", body);
+  if (valid) {
+    const body = {
+      customerId: document.querySelector("#customer-input").value,
+      billingDate: document.querySelector("#billing-date-input").value,
+      items: [
+        {
+          itemDescription: document.querySelector("#description-input").value,
+          unitaryValue: document.querySelector("#value-input").value,
+          quantity: document.querySelector("#quantity-input").value,
+          totalValue: document.querySelector("#total-value-input").value,
+        },
+      ],
+    };
 
-  const router = new Router();
-  router.handle("/pages/lista-de-vendas.html");
+    const response = await api.post("Sale", body);
+
+    const router = new Router();
+    router.handle("/pages/lista-de-vendas.html");
+
+    alert(response.data.message);
+  }
 };
+
+window.createSale = () => createSale();
 
 const handleSaleDelete = async (id) => {
   const answer = confirm("Deseja realmente deletar a venda?");
 
   if (answer) {
-    await api.delete("Sale", id);
+    const response = await api.delete("Sale", id);
+
+    alert(response.data.message);
+
     const router = new Router();
     router.handle(`/pages/lista-de-vendas.html`);
   }
@@ -82,27 +99,35 @@ const handleSaleEdit = async (id) => {
 window.handleSaleEdit = (id) => handleSaleEdit(id);
 
 export const updateSale = async () => {
-  const urlParams = new URLSearchParams(window.location.search);
+  const valid = validator.handleSubmit();
 
-  const body = {
-    id: urlParams.get("id"),
-    customerId: document.querySelector("#customer-input").value,
-    billingDate: document.querySelector("#billing-date-input").value,
-    items: [
-      {
-        itemDescription: document.querySelector("#description-input").value,
-        unitaryValue: document.querySelector("#value-input").value,
-        quantity: document.querySelector("#quantity-input").value,
-        totalValue: document.querySelector("#total-value-input").value,
-      },
-    ],
-  };
+  if (valid) {
+    const urlParams = new URLSearchParams(window.location.search);
 
-  await api.put("Sale", body);
+    const body = {
+      id: urlParams.get("id"),
+      customerId: document.querySelector("#customer-input").value,
+      billingDate: document.querySelector("#billing-date-input").value,
+      items: [
+        {
+          itemDescription: document.querySelector("#description-input").value,
+          unitaryValue: document.querySelector("#value-input").value,
+          quantity: document.querySelector("#quantity-input").value,
+          totalValue: document.querySelector("#total-value-input").value,
+        },
+      ],
+    };
 
-  const router = new Router();
-  router.handle("/pages/lista-de-vendas.html");
+    const response = await api.put("Sale", body);
+
+    const router = new Router();
+    router.handle("/pages/lista-de-vendas.html");
+
+    alert(response.data.message);
+  }
 };
+
+window.updateSale = () => updateSale();
 
 const handleUpdatePrice = () => {
   const totalValue = document.querySelector("#total-value-input");

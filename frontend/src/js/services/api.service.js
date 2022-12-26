@@ -1,7 +1,7 @@
 import { config } from "../config.js";
 
 const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDJhYzZhZi02ODgzLTRhMTktZDFhZi0wOGRhZTI3YzUwNjMiLCJ1c2VyTmFtZSI6ImthdWFuIiwiZXhwIjoxNjcxODg1MDE2LCJpc3MiOiJQcmVzc1N0YXJ0MiIsImF1ZCI6IlByZXNzU3RhcnQyIn0.dk8Sf9vqtdXFplSRvBl7OdBhOu9MGoVOWEQ8U-Np8_4";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDJhYzZhZi02ODgzLTRhMTktZDFhZi0wOGRhZTI3YzUwNjMiLCJ1c2VyTmFtZSI6ImthdWFuIiwiZXhwIjoxNjcyMTQyMjQ0LCJpc3MiOiJQcmVzc1N0YXJ0MiIsImF1ZCI6IlByZXNzU3RhcnQyIn0.AtBxUCxGNA7dCMhZK7CJjaGyJlqDdNTSHtF2WBcgve0";
 
 export const api = {
   get(resource) {
