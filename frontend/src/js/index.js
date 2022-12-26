@@ -1,7 +1,11 @@
 import { router } from "./router/router.js";
 import "./services/jwt.service.js";
 
-router.add("/", "/pages/conectar-se.html")
+const page = localStorage.getItem("lyncas-sales-token")
+  ? "/home"
+  : "conectar-se";
+
+router.add("/", `/pages/${page}.html`);
 router.add("/conectar-se", "/pages/conectar-se.html");
 router.add("/criar-conta", "/pages/criar-conta.html");
 router.add("/home", "/pages/home.html");

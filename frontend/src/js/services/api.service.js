@@ -1,9 +1,6 @@
 import { config } from "../config.js";
 
-export const user = {
-  username: "",
-  token: "",
-};
+const token = localStorage.getItem("lyncas-sales-token");
 
 export const api = {
   get(resource) {
@@ -11,7 +8,7 @@ export const api = {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${user.token}`,
+        Authorization: `Bearer ${token}`,
       },
     }).then((response) => response.json());
   },
@@ -21,7 +18,7 @@ export const api = {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${user.token}`,
+        Authorization: `Bearer ${token}`,
       },
     }).then((response) => response.json());
   },
@@ -31,7 +28,7 @@ export const api = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${user.token}`,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(body),
     }).then((response) => response.json());
@@ -42,7 +39,7 @@ export const api = {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${user.token}`,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(body),
     }).then((response) => response.json());
@@ -53,7 +50,7 @@ export const api = {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${user.token}`,
+        Authorization: `Bearer ${token}`,
       },
     }).then((response) => response.json());
   },

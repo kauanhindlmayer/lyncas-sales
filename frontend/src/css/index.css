@@ -182,17 +182,6 @@
     grid-area: "header";
   }
 
-  .profile__name a {
-    display: none;
-  }
-
-  /* 
-  .profile__name span {
-    font-weight: 400;
-    display: block;
-  } 
-  */
-
   .profile__exit {
     position: absolute;
     top: 5.1rem;
