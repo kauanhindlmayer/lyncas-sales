@@ -130,3 +130,13 @@ export const monthsOfTheYear = [
   "Novembro",
   "Dezembro",
 ];
+
+export const disableMenu = () => {
+  document.querySelector(".menu").style.display = "none";
+  document.querySelector(".container").style.display = "block";
+}
+
+export const enableMenu = () => {
+  document.querySelector(".menu").style.display = "block";
+  document.querySelector(".container").style.display = "grid";
+}

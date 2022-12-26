@@ -17,6 +17,48 @@
     <title>Lyncas Sales</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div class="container">
+      <div class="menu">
+        <img
+          class="menu__item--logo"
+          src="./assets/logo.svg"
+          alt="Lyncas logo"
+        />
+
+        <div class="menu__item menu__item--dashboard">
+          <img
+            class="menu__item__icon"
+            src="./assets/dashboard-icon.svg"
+            alt="Dashboard icon"
+          />
+          <span><a href="/dashboard" onclick="route(event)">Dashboard</a></span>
+        </div>
+
+        <div class="menu__item menu__item--customers">
+          <img
+            class="menu__item__icon"
+            src="./assets/clientes-icon.svg"
+            alt="Clientes icon"
+          />
+          <span
+            ><a href="/lista-de-clientes" onclick="route(event)"
+              >Clientes</a
+            ></span
+          >
+        </div>
+
+        <div class="menu__item menu__item--sales">
+          <img
+            class="menu__item__icon"
+            src="./assets/vendas-icon.svg"
+            alt="Vendas icon"
+          />
+          <span
+            ><a href="/lista-de-vendas" onclick="route(event)">Vendas</a></span
+          >
+        </div>
+      </div>
+      <div id="app"></div>
+    </div>
   </body>
 </html>

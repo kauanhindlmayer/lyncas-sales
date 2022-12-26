@@ -1,7 +1,7 @@
 import { createDashboard } from "../services/dashboard.service.js";
 import { createCustomerTable } from "../services/customer.service.js";
 import { createSaleTable } from "../services/sale.service.js";
-import { fillSelect } from "../helper.js";
+import { fillSelect, disableMenu, enableMenu } from "../helper.js";
 
 export const router = {
   routes: {},
@@ -28,11 +28,8 @@ export const router = {
       : (route = this.routes[pathname] || this.routes[404]);
 
     if (routeName) {
-      window.history.pushState(
-        {},
-        "",
-        routeName.replace("/pages", "").replace(".html", "")
-      );
+      const href = routeName.replace("/pages", "").replace(".html", "");
+      window.history.pushState({}, "", href);
     }
 
     if (updateRouteName) window.history.pushState({}, "", updateRouteName);
@@ -43,9 +40,13 @@ export const router = {
         document.querySelector("#app").innerHTML = html;
       });
 
-    if (route === "/pages/dashboard.html") createDashboard();
-    if (route === "/pages/lista-de-clientes.html") createCustomerTable();
-    if (route === "/pages/lista-de-vendas.html") createSaleTable();
-    if (route === "/pages/adicionar-venda.html") fillSelect();
+    if (pathname === "/dashboard") createDashboard();
+    if (pathname === "/lista-de-clientes") createCustomerTable();
+    if (pathname === "/lista-de-vendas") createSaleTable();
+    if (pathname === "/adicionar-venda") fillSelect();
+
+    pathname !== "/conectar-se" && pathname !== "/criar-conta"
+      ? enableMenu()
+      : disableMenu();
   },
-}
+};
