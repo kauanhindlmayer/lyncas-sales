@@ -7,10 +7,8 @@ export const user = {
   name: "",
 };
 
-export const handleLogin = async () => {
-  const valid = validator.handleSubmit();
-
-  if (valid) {
+const handleLogin = async () => {
+  if (validator.handleSubmit()) {
     const body = {
       login: document.querySelector("#input-email").value,
       password: document.querySelector("#input-password").value,
@@ -30,10 +28,8 @@ export const handleLogin = async () => {
 
 window.handleLogin = () => handleLogin();
 
-export const handleCreateUser = async () => {
-  const valid = validator.handleSubmit();
-
-  if (valid) {
+const handleCreateUser = async () => {
+  if (validator.handleSubmit()) {
     const body = {
       name: document.querySelector("#input-name").value,
       login: document.querySelector("#input-email").value,
@@ -52,7 +48,7 @@ export const handleCreateUser = async () => {
 
 window.handleCreateUser = () => handleCreateUser();
 
-export const handleLogout = () => {
+const handleLogout = () => {
   const answer = confirm("Deseja realmente sair do sistema?");
 
   if (answer) {

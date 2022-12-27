@@ -93,7 +93,7 @@ export const createError = () => {
   document.querySelector(".default-message").classList.remove("hide");
 };
 
-export const fillSelect = async () => {
+const fillSelect = async () => {
   const response = await api.get("Customer");
   const select = document.querySelector("#customer-input");
 
@@ -135,12 +135,12 @@ export const monthsOfTheYear = [
   "Dezembro",
 ];
 
-export const disableMenu = () => {
+const disableMenu = () => {
   document.querySelector(".menu").style.display = "none";
   document.querySelector(".container").style.display = "block";
 };
 
-export const enableMenu = () => {
+const enableMenu = () => {
   document.querySelector(".menu").style.display = "flex";
   document.querySelector(".container").style.display = "grid";
   document.querySelector(".username").innerHTML = user.name;
@@ -150,7 +150,7 @@ export const isAuthenticated = () => {
   return localStorage.getItem("lyncas-sales-token") ? true : false;
 };
 
-export const toggleMenu = (route) => {
+const toggleMenu = (route) => {
   route !== "/pages/conectar-se.html" &&
   route !== "/pages/criar-conta.html" &&
   isAuthenticated()
@@ -166,3 +166,9 @@ export const loadComponents = (route) => {
   if (route === "/pages/lista-de-vendas.html") createSaleTable();
   if (route === "/pages/adicionar-venda.html") fillSelect();
 };
+
+const handleSubmitOnEnter = (event) => {
+  if (event.key === "Enter") document.querySelector("button").click();
+};
+
+window.handleSubmitOnEnter = (event) => handleSubmitOnEnter(event);

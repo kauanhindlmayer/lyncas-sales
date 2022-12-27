@@ -24,8 +24,9 @@
         id="input-password"
         class="input field"
         placeholder="Senha"
+        onkeypress="handleSubmitOnEnter(event)"
       />
-      <button><a onclick="handleLogin()">Entrar</a></button>
+      <button onclick="handleLogin()">Entrar</button>
       <div class="login-container__footer">
         Não tem uma conta?
         <a href="/criar-conta" onclick="route(event)">Inscreva-se</a>

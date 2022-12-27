@@ -48,10 +48,8 @@ export const createSaleTable = async () => {
   if (!response.success || response.data.length <= 0) createError();
 };
 
-export const createSale = async () => {
-  const valid = validator.handleSubmit();
-
-  if (valid) {
+const createSale = async () => {
+  if (validator.handleSubmit()) {
     const body = {
       customerId: document.querySelector("#customer-input").value,
       billingDate: document.querySelector("#billing-date-input").value,
@@ -99,24 +97,29 @@ const handleSaleEdit = async (id) => {
     .innerHTML.replace("Adicionar", "Atualizar")}`;
 
   document.querySelector("#customer-input").value = response.data.customerId;
-  document.querySelector("#billing-date-input").value = response.data.billingDate.slice(0, 10);
-  document.querySelector("#description-input").value = response.data.items[0].itemDescription;
-  document.querySelector("#value-input").value = response.data.items[0].unitaryValue;
-  document.querySelector("#quantity-input").value = response.data.items[0].quantity;
-  document.querySelector("#total-value-input").value = response.data.items[0].totalValue;
+  document.querySelector("#billing-date-input").value =
+    response.data.billingDate.slice(0, 10);
+  document.querySelector("#description-input").value =
+    response.data.items[0].itemDescription;
+  document.querySelector("#value-input").value =
+    response.data.items[0].unitaryValue;
+  document.querySelector("#quantity-input").value =
+    response.data.items[0].quantity;
+  document.querySelector("#total-value-input").value =
+    response.data.items[0].totalValue;
 
-  document.querySelector(".footer__total-value").innerHTML = 
+  document.querySelector(".footer__total-value").innerHTML =
     response.data.items[0].totalValue.toLocaleString("pt-BR", options);
 
-  document.querySelector(".save-button").setAttribute("onclick", "updateSale()");
+  document
+    .querySelector(".save-button")
+    .setAttribute("onclick", "updateSale()");
 };
 
 window.handleSaleEdit = (id) => handleSaleEdit(id);
 
-export const updateSale = async () => {
-  const valid = validator.handleSubmit();
-
-  if (valid) {
+const updateSale = async () => {
+  if (validator.handleSubmit()) {
     const urlParams = new URLSearchParams(window.location.search);
 
     const body = {

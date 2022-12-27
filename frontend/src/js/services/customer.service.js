@@ -1,11 +1,6 @@
 import { api } from "./api.service.js";
 import { router } from "../router/router.js";
-import {
-  append,
-  createError,
-  removeLoading,
-  validator,
-} from "../helper.js";
+import { append, createError, removeLoading, validator } from "../helper.js";
 
 export const createCustomerTable = async () => {
   const response = await api.get("Customer");
@@ -40,10 +35,8 @@ export const createCustomerTable = async () => {
   if (!response.success || response.data.length <= 0) createError();
 };
 
-export const createCustomer = async () => {
-  const valid = validator.handleSubmit();
-
-  if (valid) {
+const createCustomer = async () => {
+  if (validator.handleSubmit()) {
     const body = {
       name: document.querySelector("#name-input").value,
       email: document.querySelector("#email-input").value,
@@ -89,15 +82,15 @@ const handleCustomerEdit = async (id) => {
   document.querySelector("#phone-input").value = response.data.phone;
   document.querySelector("#cpf-input").value = response.data.cpf;
 
-  document.querySelector(".save-button").setAttribute("onclick", "updateCustomer()");
+  document
+    .querySelector(".save-button")
+    .setAttribute("onclick", "updateCustomer()");
 };
 
 window.handleCustomerEdit = (id) => handleCustomerEdit(id);
 
-export const updateCustomer = async () => {
-  const valid = validator.handleSubmit();
-
-  if (valid) {
+const updateCustomer = async () => {
+  if (validator.handleSubmit()) {
     const urlParams = new URLSearchParams(window.location.search);
 
     const body = {
