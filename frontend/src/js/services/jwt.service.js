@@ -2,6 +2,11 @@ import { api } from "./api.service.js";
 import { router } from "../router/router.js";
 import { validator } from "../helper.js";
 
+export const user = {
+  token: "",
+  name: "",
+};
+
 export const handleLogin = async () => {
   const valid = validator.handleSubmit();
 
@@ -12,6 +17,9 @@ export const handleLogin = async () => {
     };
 
     const response = await api.authenticate(body);
+
+    user.token = response.token;
+    user.name = response.userName;
 
     localStorage.setItem("lyncas-sales-token", response.token);
     localStorage.setItem("lyncas-sales-username", response.userName);

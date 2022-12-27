@@ -2,7 +2,7 @@ import { router } from "./router/router.js";
 import "./services/jwt.service.js";
 
 const page = localStorage.getItem("lyncas-sales-token")
-  ? "/home"
+  ? "home"
   : "conectar-se";
 
 router.add("/", `/pages/${page}.html`);

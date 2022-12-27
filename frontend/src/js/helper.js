@@ -2,6 +2,7 @@ import { api } from "./services/api.service.js";
 import { createDashboard } from "./services/dashboard.service.js";
 import { createCustomerTable } from "./services/customer.service.js";
 import { createSaleTable } from "./services/sale.service.js";
+import { user } from "./services/jwt.service.js";
 
 export const validator = {
   handleSubmit(event) {
@@ -142,9 +143,7 @@ export const disableMenu = () => {
 export const enableMenu = () => {
   document.querySelector(".menu").style.display = "flex";
   document.querySelector(".container").style.display = "grid";
-  document.querySelector(".username").innerHTML = localStorage.getItem(
-    "lyncas-sales-username"
-  );
+  document.querySelector(".username").innerHTML = user.name;
 };
 
 export const isAuthenticated = () => {
