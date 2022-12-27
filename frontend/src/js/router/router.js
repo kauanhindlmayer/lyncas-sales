@@ -1,12 +1,5 @@
-import { createDashboard } from "../services/dashboard.service.js";
-import { createCustomerTable } from "../services/customer.service.js";
-import { createSaleTable } from "../services/sale.service.js";
-import {
-  fillSelect,
-  disableMenu,
-  enableMenu,
-  isAuthenticated,
-} from "../helper.js";
+import { loadComponents } from "../helper.js";
+import { authMiddleware } from "../middlewares/auth-middleware.js";
 
 export const router = {
   routes: {},
@@ -28,39 +21,21 @@ export const router = {
     let route;
     const { pathname } = window.location;
 
-    routeName
-      ? (route = routeName)
-      : (route = this.routes[pathname] || this.routes[404]);
-
     if (routeName) {
+      route = routeName;
       const href = routeName.replace("/pages", "").replace(".html", "");
       window.history.pushState({}, "", href);
+    } else {
+      route = this.routes[pathname] || this.routes[404];
     }
 
     if (updateRouteName) window.history.pushState({}, "", updateRouteName);
 
-    if (
-      route !== "/pages/conectar-se.html" &&
-      route !== "/pages/criar-conta.html" &&
-      !isAuthenticated()
-    ) {
-      route = "/pages/conectar-se.html";
-    }
-
-    fetch(route)
+    fetch(authMiddleware(route))
       .then((data) => data.text())
       .then((html) => {
         document.querySelector("#app").innerHTML = html;
-
-        route !== "/pages/conectar-se.html" &&
-        route !== "/pages/criar-conta.html"
-          ? enableMenu()
-          : disableMenu();
+        loadComponents(route);
       });
-
-    if (route === "/pages/dashboard.html") createDashboard();
-    if (route === "/pages/lista-de-clientes.html") createCustomerTable();
-    if (route === "/pages/lista-de-vendas.html") createSaleTable();
-    if (route === "/pages/adicionar-venda.html") fillSelect();
   },
 };

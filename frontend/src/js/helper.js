@@ -1,4 +1,7 @@
 import { api } from "./services/api.service.js";
+import { createDashboard } from "./services/dashboard.service.js";
+import { createCustomerTable } from "./services/customer.service.js";
+import { createSaleTable } from "./services/sale.service.js";
 
 export const validator = {
   handleSubmit(event) {
@@ -134,15 +137,33 @@ export const monthsOfTheYear = [
 export const disableMenu = () => {
   document.querySelector(".menu").style.display = "none";
   document.querySelector(".container").style.display = "block";
-}
+};
 
 export const enableMenu = () => {
   document.querySelector(".menu").style.display = "flex";
   document.querySelector(".container").style.display = "grid";
-  document.querySelector(".username").innerHTML = localStorage.getItem("lyncas-sales-username");
-}
+  document.querySelector(".username").innerHTML = localStorage.getItem(
+    "lyncas-sales-username"
+  );
+};
 
 export const isAuthenticated = () => {
-  const valido = (localStorage.getItem("lyncas-sales-token")) ? true : false;
-  return valido;
-}
+  return localStorage.getItem("lyncas-sales-token") ? true : false;
+};
+
+export const toggleMenu = (route) => {
+  route !== "/pages/conectar-se.html" &&
+  route !== "/pages/criar-conta.html" &&
+  isAuthenticated()
+    ? enableMenu()
+    : disableMenu();
+};
+
+export const loadComponents = (route) => {
+  toggleMenu(route);
+
+  if (route === "/pages/dashboard.html") createDashboard();
+  if (route === "/pages/lista-de-clientes.html") createCustomerTable();
+  if (route === "/pages/lista-de-vendas.html") createSaleTable();
+  if (route === "/pages/adicionar-venda.html") fillSelect();
+};
