@@ -8,8 +8,6 @@ export const validator = {
   handleSubmit(event) {
     event = event || window.event;
     event.preventDefault();
-
-    return this.validateFields();
   },
 
   validateEmptyFields() {
@@ -51,7 +49,7 @@ export const validator = {
   validateCPF() {
     const cpf = document.querySelector(".cpf");
 
-    if (cpf && !cpf.value.match(/(?:\d{3}\.){2}\d{3}-\d{2}/g)) {
+    if (cpf && !validateCpf.validate(cpf.value)) {
       this.createError(cpf, "O número de CPF utilizado não é válido");
       return false;
     }
@@ -64,7 +62,9 @@ export const validator = {
     alert(message);
   },
 
-  validateFields() {
+  validateFields(event) {
+    this.handleSubmit(event);
+
     if (!this.validateEmptyFields()) return false;
 
     if (!this.validateEmail()) return false;
@@ -74,6 +74,43 @@ export const validator = {
     if (!this.validateCPF()) return false;
 
     return true;
+  },
+};
+
+const validateCpf = {
+  cleanCpf: "",
+
+  validate(cpfSent) {
+    this.cleanCpf = cpfSent.replace(/\D+/g, "");
+    if (typeof this.cleanCpf === "undefined") return false;
+    if (this.cleanCpf.length !== 11) return false;
+    if (this.isSequency()) return false;
+
+    const partialCpf = this.cleanCpf.slice(0, -2);
+    const firstDigit = this.createDigit(partialCpf);
+    const secondDigit = this.createDigit(partialCpf + firstDigit);
+
+    const newCpf = partialCpf + firstDigit + secondDigit;
+    return newCpf === this.cleanCpf;
+  },
+
+  createDigit(partialCpf) {
+    const cpfArray = Array.from(partialCpf);
+
+    let regressive = cpfArray.length + 1;
+    const total = cpfArray.reduce((amount, value) => {
+      amount += Number(value) * regressive;
+      regressive--;
+      return amount;
+    }, 0);
+
+    const digit = 11 - (total % 11);
+    return digit > 9 ? "0" : String(digit);
+  },
+
+  isSequency() {
+    const sequency = this.cleanCpf[0].repeat(this.cleanCpf.length);
+    return sequency === this.cleanCpf;
   },
 };
 

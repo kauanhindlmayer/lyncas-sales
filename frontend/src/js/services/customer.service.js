@@ -36,7 +36,7 @@ export const createCustomerTable = async () => {
 };
 
 const createCustomer = async () => {
-  if (validator.handleSubmit()) {
+  if (validator.validateFields()) {
     const body = {
       name: document.querySelector("#name-input").value,
       email: document.querySelector("#email-input").value,
@@ -90,7 +90,7 @@ const handleCustomerEdit = async (id) => {
 window.handleCustomerEdit = (id) => handleCustomerEdit(id);
 
 const updateCustomer = async () => {
-  if (validator.handleSubmit()) {
+  if (validator.validateFields()) {
     const urlParams = new URLSearchParams(window.location.search);
 
     const body = {

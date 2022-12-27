@@ -49,7 +49,7 @@ export const createSaleTable = async () => {
 };
 
 const createSale = async () => {
-  if (validator.handleSubmit()) {
+  if (validator.validateFields()) {
     const body = {
       customerId: document.querySelector("#customer-input").value,
       billingDate: document.querySelector("#billing-date-input").value,
@@ -119,7 +119,7 @@ const handleSaleEdit = async (id) => {
 window.handleSaleEdit = (id) => handleSaleEdit(id);
 
 const updateSale = async () => {
-  if (validator.handleSubmit()) {
+  if (validator.validateFields()) {
     const urlParams = new URLSearchParams(window.location.search);
 
     const body = {

@@ -8,7 +8,7 @@ export const user = {
 };
 
 const handleLogin = async () => {
-  if (validator.handleSubmit()) {
+  if (validator.validateFields()) {
     const body = {
       login: document.querySelector("#input-email").value,
       password: document.querySelector("#input-password").value,
@@ -29,7 +29,7 @@ const handleLogin = async () => {
 window.handleLogin = () => handleLogin();
 
 const handleCreateUser = async () => {
-  if (validator.handleSubmit()) {
+  if (validator.validateFields()) {
     const body = {
       name: document.querySelector("#input-name").value,
       login: document.querySelector("#input-email").value,
