@@ -3,8 +3,8 @@ import { router } from "../router/router.js";
 import { validator } from "../helper.js";
 
 export const user = {
-  token: "",
-  name: "",
+  token: localStorage.getItem("lyncas-sales-token"),
+  name: localStorage.getItem("lyncas-sales-username"),
 };
 
 const handleLogin = async () => {
@@ -60,3 +60,10 @@ const handleLogout = () => {
 };
 
 window.handleLogout = () => handleLogout();
+
+const isTokenValid = async () => {
+  const response = await api.validate();
+  return response === 200 ? true : false;
+};
+
+window.isTokenValid = () => isTokenValid();

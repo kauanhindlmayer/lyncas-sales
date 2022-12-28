@@ -63,4 +63,14 @@ export const api = {
       body: JSON.stringify(body),
     }).then((response) => response.json());
   },
+
+  validate() {
+    return fetch(`${config.baseURL}/User/validar`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
+      },
+    }).then((response) => response.status);
+  },
 };
