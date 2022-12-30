@@ -48,7 +48,7 @@ export const createSaleTable = async () => {
   if (!response.success || response.data.length <= 0) createError();
 };
 
-const createSale = async () => {
+window.createSale = async () => {
   if (validator.validateFields()) {
     const body = {
       customerId: document.querySelector("#customer-input").value,
@@ -71,9 +71,7 @@ const createSale = async () => {
   }
 };
 
-window.createSale = () => createSale();
-
-const handleSaleDelete = async (id) => {
+window.handleSaleDelete = async (id) => {
   const answer = confirm("Deseja realmente deletar a venda?");
 
   if (answer) {
@@ -85,9 +83,7 @@ const handleSaleDelete = async (id) => {
   }
 };
 
-window.handleSaleDelete = (id) => handleSaleDelete(id);
-
-const handleSaleEdit = async (id) => {
+window.handleSaleEdit = async (id) => {
   router.handle("/pages/adicionar-venda.html", `/atualizar-venda?id=${id}`);
 
   const response = await api.getById("Sale", id);
@@ -116,9 +112,7 @@ const handleSaleEdit = async (id) => {
     .setAttribute("onclick", "updateSale()");
 };
 
-window.handleSaleEdit = (id) => handleSaleEdit(id);
-
-const updateSale = async () => {
+window.updateSale = async () => {
   if (validator.validateFields()) {
     const urlParams = new URLSearchParams(window.location.search);
 
@@ -144,13 +138,9 @@ const updateSale = async () => {
   }
 };
 
-window.updateSale = () => updateSale();
-
-const handleUpdatePrice = () => {
+window.handleUpdatePrice = () => {
   const totalValue = document.querySelector("#total-value-input");
   document.querySelector(".footer__total-value").innerHTML = Number(
     totalValue.value
   ).toLocaleString("pt-BR", options);
 };
-
-window.handleUpdatePrice = () => handleUpdatePrice();

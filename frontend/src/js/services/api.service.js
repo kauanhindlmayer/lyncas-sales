@@ -2,75 +2,82 @@ import { config } from "../config.js";
 import { user } from "./jwt.service.js";
 
 export const api = {
-  get(resource) {
-    return fetch(`${config.baseURL}/${resource}/listar`, {
+  async get(resource) {
+    const response = await fetch(`${config.baseURL}/${resource}/listar`, {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${user.token}`,
-      },
-    }).then((response) => response.json());
+      headers: { Authorization: `Bearer ${user.token}` },
+    });
+    return await response.json();
   },
 
-  getById(resource, id) {
-    return fetch(`${config.baseURL}/${resource}/obter/${id}`, {
+  async getById(resource, id) {
+    const response = await fetch(`${config.baseURL}/${resource}/obter/${id}`, {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${user.token}`,
-      },
-    }).then((response) => response.json());
+      headers: { Authorization: `Bearer ${user.token}` },
+    });
+    return await response.json();
   },
 
-  post(resource, body) {
-    return fetch(`${config.baseURL}/${resource}/adicionar`, {
+  async post(resource, body) {
+    const response = await fetch(`${config.baseURL}/${resource}/adicionar`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${user.token}`,
       },
       body: JSON.stringify(body),
-    }).then((response) => response.json());
+    });
+    return await response.json();
   },
 
-  put(resource, body) {
-    return fetch(`${config.baseURL}/${resource}/atualizar`, {
+  async put(resource, body) {
+    const response = await fetch(`${config.baseURL}/${resource}/atualizar`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${user.token}`,
       },
       body: JSON.stringify(body),
-    }).then((response) => response.json());
+    });
+    return await response.json();
   },
 
-  delete(resource, id) {
-    return fetch(`${config.baseURL}/${resource}/remover/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${user.token}`,
-      },
-    }).then((response) => response.json());
+  async delete(resource, id) {
+    const response = await fetch(
+      `${config.baseURL}/${resource}/remover/${id}`,
+      {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${user.token}` },
+      }
+    );
+    return await response.json();
   },
 
-  authenticate(body) {
-    return fetch(`${config.baseURL}/User/autenticar/`, {
+  async createUser(body) {
+    const response = await fetch(`${config.baseURL}/User/adicionar`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+    return await response.json();
+  },
+
+  async authenticateUser(body) {
+    const response = await fetch(`${config.baseURL}/User/autenticar/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(body),
-    }).then((response) => response.json());
+    });
+    return await response.json();
   },
 
-  validate() {
-    return fetch(`${config.baseURL}/User/validar`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${user.token}`,
-      },
-    }).then((response) => response.status);
-  },
+  // async validateToken() {
+  //   const response = await fetch(`${config.baseURL}/User/validar`, {
+  //     method: "GET",
+  //     headers: { Authorization: `Bearer ${user.token}` },
+  //   });
+  //   if (response.status !== 200) handleExpiredToken();
+  // },
 };

@@ -7,14 +7,14 @@ export const user = {
   name: localStorage.getItem("lyncas-sales-username"),
 };
 
-const handleLogin = async () => {
+window.handleLogin = async () => {
   if (validator.validateFields()) {
     const body = {
       login: document.querySelector("#input-email").value,
       password: document.querySelector("#input-password").value,
     };
 
-    const response = await api.authenticate(body);
+    const response = await api.authenticateUser(body);
 
     user.token = response.token;
     user.name = response.userName;
@@ -26,9 +26,7 @@ const handleLogin = async () => {
   }
 };
 
-window.handleLogin = () => handleLogin();
-
-const handleCreateUser = async () => {
+window.handleCreateUser = async () => {
   if (validator.validateFields()) {
     const body = {
       name: document.querySelector("#input-name").value,
@@ -38,7 +36,7 @@ const handleCreateUser = async () => {
         .value,
     };
 
-    const response = await api.post("User", body);
+    const response = await api.createUser(body);
 
     router.handle("/pages/conectar-se.html");
 
@@ -46,24 +44,16 @@ const handleCreateUser = async () => {
   }
 };
 
-window.handleCreateUser = () => handleCreateUser();
-
-const handleLogout = () => {
+window.handleLogout = () => {
   const answer = confirm("Deseja realmente sair do sistema?");
 
   if (answer) {
     localStorage.removeItem("lyncas-sales-token");
     localStorage.removeItem("lyncas-sales-username");
 
+    delete user.token;
+    delete user.name;
+
     router.handle("/pages/conectar-se.html");
   }
 };
-
-window.handleLogout = () => handleLogout();
-
-const isTokenValid = async () => {
-  const response = await api.validate();
-  return response === 200 ? true : false;
-};
-
-window.isTokenValid = () => isTokenValid();

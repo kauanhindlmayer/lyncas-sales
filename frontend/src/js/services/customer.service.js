@@ -35,7 +35,7 @@ export const createCustomerTable = async () => {
   if (!response.success || response.data.length <= 0) createError();
 };
 
-const createCustomer = async () => {
+window.createCustomer = async () => {
   if (validator.validateFields()) {
     const body = {
       name: document.querySelector("#name-input").value,
@@ -52,9 +52,7 @@ const createCustomer = async () => {
   }
 };
 
-window.createCustomer = () => createCustomer();
-
-const handleCustomerDelete = async (id) => {
+window.handleCustomerDelete = async (id) => {
   const answer = confirm("Deseja realmente deletar o cliente?");
 
   if (answer) {
@@ -66,9 +64,7 @@ const handleCustomerDelete = async (id) => {
   }
 };
 
-window.handleCustomerDelete = (id) => handleCustomerDelete(id);
-
-const handleCustomerEdit = async (id) => {
+window.handleCustomerEdit = async (id) => {
   router.handle("/pages/adicionar-cliente.html", `/atualizar-cliente?id=${id}`);
 
   const response = await api.getById("Customer", id);
@@ -87,9 +83,7 @@ const handleCustomerEdit = async (id) => {
     .setAttribute("onclick", "updateCustomer()");
 };
 
-window.handleCustomerEdit = (id) => handleCustomerEdit(id);
-
-const updateCustomer = async () => {
+window.updateCustomer = async () => {
   if (validator.validateFields()) {
     const urlParams = new URLSearchParams(window.location.search);
 
@@ -108,5 +102,3 @@ const updateCustomer = async () => {
     alert(response.data.message);
   }
 };
-
-window.updateCustomer = () => updateCustomer();
