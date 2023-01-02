@@ -8,7 +8,10 @@ module.exports = {
     "eslint:recommended",
     "@vue/eslint-config-prettier",
   ],
-  parserOptions: {
-    ecmaVersion: "latest",
+  env: {
+    node: true,
+  },
+  rules: {
+    "vue/multi-word-component-names": "off",
   },
 };
