@@ -204,6 +204,14 @@ export const loadComponents = (route) => {
   if (route === "/pages/adicionar-venda.html") fillSelect();
 };
 
+export const removeUserData = () => {
+  localStorage.removeItem("lyncas-sales-token");
+  localStorage.removeItem("lyncas-sales-username");
+
+  delete user.token;
+  delete user.name;
+};
+
 const handleSubmitOnEnter = (event) => {
   if (event.key === "Enter") document.querySelector("button").click();
 };

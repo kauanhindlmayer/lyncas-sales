@@ -1,10 +1,14 @@
 import { api } from "./api.service.js";
 import { router } from "../router/router.js";
-import { validator } from "../helper.js";
+import { validator, removeUserData } from "../helper.js";
 
 export const user = {
   token: localStorage.getItem("lyncas-sales-token"),
   name: localStorage.getItem("lyncas-sales-username"),
+};
+
+window.removeToken = () => {
+  delete user.token;
 };
 
 window.handleLogin = async () => {
@@ -48,12 +52,15 @@ window.handleLogout = () => {
   const answer = confirm("Deseja realmente sair do sistema?");
 
   if (answer) {
-    localStorage.removeItem("lyncas-sales-token");
-    localStorage.removeItem("lyncas-sales-username");
-
-    delete user.token;
-    delete user.name;
-
+    removeUserData();
     router.handle("/pages/conectar-se.html");
   }
+};
+
+export const handleExpiredToken = () => {
+  alert("Sua sessão expirou.");
+
+  removeUserData();
+
+  router.handle("/pages/conectar-se.html");
 };
