@@ -105,6 +105,10 @@
 </template>
 
 <style scoped>
+.content {
+  margin: 2.3rem 0 auto 0;
+}
+
 .add-items-button {
   background-color: var(--background-secondary);
   color: var(--text-primary);

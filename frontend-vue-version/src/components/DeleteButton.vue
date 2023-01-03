@@ -5,8 +5,21 @@
 </template>
 
 <script setup>
-function handleDelete() {
-  confirm("Deseja realmente deletar o cliente?");
+import router from "../router";
+import { api } from "../services/api";
+const props = defineProps(["id"]);
+
+async function handleDelete() {
+  const answer = confirm("Deseja realmente deletar o cliente?");
+
+  if (answer) {
+    console.log(props.id);
+    const response = await api.delete("Customer", props.id);
+
+    router.push("/lista-de-clientes");
+
+    alert(response.data.message);
+  }
 }
 </script>
 

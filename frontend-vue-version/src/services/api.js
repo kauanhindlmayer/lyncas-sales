@@ -4,56 +4,43 @@ const axiosInstance = axios.create({
   baseURL: "https://localhost:7246/api",
 });
 
+const token =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI3MjNlOTJiZS0wZWMyLTRlMjYtMWNmYS0wOGRhZTQxNzQxMTEiLCJ1c2VyTmFtZSI6IkthdWFuIiwiZXhwIjoxNjcyODM3Mjc4LCJpc3MiOiJQcmVzc1N0YXJ0MiIsImF1ZCI6IlByZXNzU3RhcnQyIn0.IfGpjzUMdeyu-fUdk27d0rLTq13ZpKCfBKyMk2r2Zig";
+
 export const api = {
   get(resource) {
-    axiosInstance
-      .get(`${resource}/listar`)
-      .then((response) => {
-        console.log(response);
-        return response;
+    return axiosInstance
+      .get(`${resource}/listar`, {
+        headers: { Authorization: `Bearer ${token}` },
       })
-      .catch((error) => {
-        console.error(error);
-      });
+      .then((response) => response.data);
   },
   getById(resource, id) {
-    axiosInstance
-      .get(`/${resource}/obter/${id}`)
-      .then((response) => {
-        console.log(response);
+    return axiosInstance
+      .get(`/${resource}/obter/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
       })
-      .catch((error) => {
-        console.error(error);
-      });
+      .then((response) => response.data);
   },
-  post(resource, body) {
-    axiosInstance
-      .get(`/${resource}/adicionar`, JSON.stringify(body))
-      .then((response) => {
-        console.log(response);
+  post(resource, data) {
+    return axiosInstance
+      .post(`/${resource}/adicionar`, data, {
+        headers: { Authorization: `Bearer ${token}` },
       })
-      .catch((error) => {
-        console.error(error);
-      });
+      .then((response) => response.data);
   },
-  put(resource, body) {
-    axiosInstance
-      .get(`/${resource}/atualizar`, JSON.stringify(body))
-      .then((response) => {
-        console.log(response);
+  put(resource, data) {
+    return axiosInstance
+      .put(`/${resource}/atualizar`, data, {
+        headers: { Authorization: `Bearer ${token}` },
       })
-      .catch((error) => {
-        console.error(error);
-      });
+      .then((response) => response.data);
   },
   delete(resource, id) {
-    axiosInstance
-      .get(`/${resource}/remover/${id}`)
-      .then((response) => {
-        console.log(response);
+    return axiosInstance
+      .delete(`/${resource}/remover/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
       })
-      .catch((error) => {
-        console.error(error);
-      });
+      .then((response) => response.data);
   },
 };

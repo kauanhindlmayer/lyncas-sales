@@ -14,6 +14,7 @@
               placeholder=" "
               required
               maxlength="254"
+              v-model="state.name"
             />
           </div>
           <div>
@@ -26,6 +27,7 @@
               placeholder=" "
               required
               maxlength="254"
+              v-model="state.email"
             />
           </div>
         </div>
@@ -40,6 +42,7 @@
               placeholder=" "
               required
               maxlength="16"
+              v-model="state.phone"
             />
           </div>
           <div>
@@ -52,13 +55,14 @@
               placeholder=" "
               required
               maxlength="14"
+              v-model="state.cpf"
             />
           </div>
         </div>
         <div class="align-right">
           <button
             class="save-button save-button--customer"
-            onclick="handleSubmit()"
+            @click.prevent="createCustomer"
           >
             Salvar
           </button>
@@ -68,7 +72,32 @@
   </div>
 </template>
 
+<script setup>
+import { api } from "../services/api.js";
+import { reactive } from "vue";
+import router from "../router";
+
+const state = reactive({
+  name: null,
+  email: null,
+  phone: null,
+  cpf: null,
+});
+
+async function createCustomer() {
+  const response = await api.post("Customer", state);
+
+  router.push("/lista-de-clientes");
+
+  alert(response.data.message);
+}
+</script>
+
 <style scoped>
+.content {
+  margin: 2.3rem 0 auto 0;
+}
+
 .save-button--customer {
   margin-top: 2.6rem;
   margin-bottom: 10.2rem;

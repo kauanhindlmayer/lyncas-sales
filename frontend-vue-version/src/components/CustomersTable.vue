@@ -17,12 +17,12 @@
           <template v-for="customer in state.customers" :key="customer.id">
             <tr>
               <td class="table--left-corner">{{ customer.name }}</td>
-              <td>{{ customer.name }}</td>
-              <td>{{ customer.name }}</td>
-              <td>{{ customer.name }}</td>
+              <td>{{ customer.email }}</td>
+              <td>{{ customer.phone }}</td>
+              <td>{{ customer.cpf }}</td>
               <td class="table--right-corner">
-                <DeleteButton />
-                <EditButton />
+                <DeleteButton :id="customer.id" />
+                <EditButton :id="customer.id" />
               </td>
             </tr>
           </template>
