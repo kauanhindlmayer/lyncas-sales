@@ -1,7 +1,5 @@
 export const toLocaleDateString = (date) => {
-  return new Date(date.slice(0, 10)).toLocaleDateString("pt-BR", {
-    timeZone: "UTC",
-  });
+  return new Date(date).toLocaleDateString("pt-BR");
 };
 
 export const toLocaleString = (string) => {

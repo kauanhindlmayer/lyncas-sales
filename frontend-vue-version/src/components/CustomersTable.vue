@@ -21,8 +21,12 @@
               <td>{{ customer.phone }}</td>
               <td>{{ customer.cpf }}</td>
               <td class="table--right-corner">
-                <DeleteButton :id="customer.id" />
-                <EditButton :id="customer.id" />
+                <DeleteButton
+                  :id="customer.id"
+                  resource="Customer"
+                  @update-table="updateTable"
+                />
+                <EditButton :id="customer.id" resource="Customer" />
               </td>
             </tr>
           </template>
@@ -39,12 +43,16 @@ import EditButton from "./EditButton.vue";
 import { api } from "../services/api.js";
 import { reactive, onMounted } from "vue";
 
+async function updateTable() {
+  const response = await api.get("Customer");
+  state.customers = response.data;
+}
+
 const state = reactive({
   customers: null,
 });
 
-onMounted(async () => {
-  const response = await api.get("Customer");
-  state.customers = response.data;
+onMounted(() => {
+  updateTable();
 });
 </script>

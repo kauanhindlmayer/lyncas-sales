@@ -23,8 +23,8 @@
               <td>{{ toLocaleDateString(sale.billingDate) }}</td>
               <td>{{ toLocaleString(sale.totalValue) }}</td>
               <td class="table--right-corner">
-                <DeleteButton />
-                <EditButton />
+                <DeleteButton :id="sale.id" resource="Sale" />
+                <EditButton :id="sale.id" resource="Sale" />
               </td>
             </tr>
           </template>

@@ -5,18 +5,21 @@
 </template>
 
 <script setup>
-import router from "../router";
 import { api } from "../services/api";
-const props = defineProps(["id"]);
+const props = defineProps(["id", "resource"]);
+const emit = defineEmits(["updateTable"]);
 
 async function handleDelete() {
-  const answer = confirm("Deseja realmente deletar o cliente?");
+  const answer = confirm(
+    `Deseja realmente deletar ${
+      props.resource === "Customer" ? "o cliente" : "a venda"
+    }?`
+  );
 
   if (answer) {
-    console.log(props.id);
-    const response = await api.delete("Customer", props.id);
+    const response = await api.delete(props.resource, props.id);
 
-    router.push("/lista-de-clientes");
+    emit("updateTable");
 
     alert(response.data.message);
   }
