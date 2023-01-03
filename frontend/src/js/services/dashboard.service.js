@@ -1,5 +1,5 @@
 import { api } from "./api.service.js";
-import { options, sortByMonths, monthsOfTheYear } from "../helper.js";
+import { sortByMonths, monthsOfTheYear } from "../helper.js";
 
 export const createDashboard = async () => {
   const customerResponse = await api.get("Customer");
@@ -8,8 +8,12 @@ export const createDashboard = async () => {
 
   for (let sale of saleResponse.data) total += sale.totalValue;
 
-  document.querySelector(".highlight--billing").innerHTML = 
-    Number(total).toLocaleString("pt-BR", options);
+  document.querySelector(".highlight--billing").innerHTML = Number(
+    total
+  ).toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  });
 
   document.querySelector(".highlight--customers").innerHTML =
     customerResponse.data.length;

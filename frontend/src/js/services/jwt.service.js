@@ -7,10 +7,6 @@ export const user = {
   name: localStorage.getItem("lyncas-sales-username"),
 };
 
-window.removeToken = () => {
-  delete user.token;
-};
-
 window.handleLogin = async () => {
   if (validator.validateFields()) {
     const body = {
