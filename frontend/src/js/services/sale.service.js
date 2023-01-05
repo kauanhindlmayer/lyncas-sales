@@ -100,7 +100,10 @@ window.handleSaleEdit = async (id) => {
     response.data.items[0].totalValue;
 
   document.querySelector(".footer__total-value").innerHTML =
-    response.data.items[0].totalValue.toLocaleString("pt-BR", options);
+    response.data.items[0].totalValue.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    });
 
   document
     .querySelector(".save-button")
@@ -137,5 +140,8 @@ window.handleUpdatePrice = () => {
   const totalValue = document.querySelector("#total-value-input");
   document.querySelector(".footer__total-value").innerHTML = Number(
     totalValue.value
-  ).toLocaleString("pt-BR", options);
+  ).toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  });
 };
