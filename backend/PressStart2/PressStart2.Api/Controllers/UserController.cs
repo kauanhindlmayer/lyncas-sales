@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using PressStart2.Domain.Commands.CreateCustomer;
 using PressStart2.Domain.Commands.CreateUser;
+using PressStart2.Domain.Commands.GetSale;
 using PressStart2.Domain.Commands.UserLogin;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -13,7 +14,6 @@ namespace PressStart2.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous]
     public class UserController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -25,6 +25,7 @@ namespace PressStart2.Api.Controllers
             _configuration = configuration; 
         }
 
+        [AllowAnonymous]
         [HttpPost("autenticar")]
         public async Task<IActionResult> Authenticate(UserLoginRequest request)
         {
@@ -59,6 +60,7 @@ namespace PressStart2.Api.Controllers
             });
         }
 
+        [AllowAnonymous]
         [HttpPost("adicionar")]
         public async Task<IActionResult> Create(CreateUserRequest request)
         {
@@ -66,6 +68,13 @@ namespace PressStart2.Api.Controllers
             if (response.Success)
                 return Created("", response);
             return BadRequest(response);
+        }
+
+        [Authorize]
+        [HttpGet("validar")]
+        public async Task<IActionResult> Validate()
+        {
+            return Ok();
         }
     }
 }
