@@ -5,7 +5,7 @@ const axiosInstance = axios.create({
 });
 
 const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI3MjNlOTJiZS0wZWMyLTRlMjYtMWNmYS0wOGRhZTQxNzQxMTEiLCJ1c2VyTmFtZSI6IkthdWFuIiwiZXhwIjoxNjcyODM3Mjc4LCJpc3MiOiJQcmVzc1N0YXJ0MiIsImF1ZCI6IlByZXNzU3RhcnQyIn0.IfGpjzUMdeyu-fUdk27d0rLTq13ZpKCfBKyMk2r2Zig";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI3MjNlOTJiZS0wZWMyLTRlMjYtMWNmYS0wOGRhZTQxNzQxMTEiLCJ1c2VyTmFtZSI6IkthdWFuIiwiZXhwIjoxNjczMDAyNzk2LCJpc3MiOiJQcmVzc1N0YXJ0MiIsImF1ZCI6IlByZXNzU3RhcnQyIn0.gPQImONcDRcU5t0XdhwIfzoqaplUjzr8KajhU2LnNvM";
 
 export const api = {
   async get(resource) {

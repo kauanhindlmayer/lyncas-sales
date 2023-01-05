@@ -10,6 +10,16 @@ const router = createRouter({
       component: () => import("../views/Dashboard.vue"),
     },
     {
+      path: "/conectar-se",
+      name: "login",
+      component: () => import("../components/LoginForm.vue"),
+    },
+    {
+      path: "/criar-conta",
+      name: "register",
+      component: () => import("../components/RegisterForm.vue"),
+    },
+    {
       path: "/dashboard",
       name: "dashboard",
       component: () => import("../views/Dashboard.vue"),

@@ -1,15 +1,19 @@
 <template>
-  <div class="main">
-    <Header />
-    <div class="content">
-      <div class="content__heading">
-        <h2>Bem-vindo a Lyncas</h2>
+  <div class="container">
+    <Menu />
+    <div class="main">
+      <Header />
+      <div class="content">
+        <div class="content__heading">
+          <h2>Bem-vindo a Lyncas</h2>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
+import Menu from "../components/Menu.vue";
 import Header from "../components/Header.vue";
 </script>
 
