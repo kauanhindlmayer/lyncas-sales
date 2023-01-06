@@ -127,7 +127,7 @@ function login(values) {
   border-radius: 0.4rem;
 
   font-size: 1.6rem;
-  margin-bottom: 1.1rem;
+  margin-top: 1.1rem;
 }
 
 .login-container .main input::placeholder {
@@ -142,6 +142,8 @@ function login(values) {
 }
 
 .login-container .main button {
+  margin-top: 1.1rem;
+
   width: 34.4rem;
   height: 3.9rem;
 

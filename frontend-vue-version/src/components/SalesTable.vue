@@ -3,7 +3,16 @@
     <section class="component component--background">
       <div class="component__header">
         <h1 class="header__title">Lista de vendas</h1>
-        <SearchInput title="Buscar vendas..." />
+        <div class="header__search">
+          <label class="sr-only" for="search-button">Buscar vendas...</label>
+          <input
+            type="text"
+            name="search-button"
+            id="search-button"
+            class="header__search-button"
+            placeholder="Buscar vendas..."
+          />
+        </div>
       </div>
       <div class="component__table-wrapper">
         <table class="component__table">
@@ -23,8 +32,8 @@
               <td>{{ toLocaleDateString(sale.billingDate) }}</td>
               <td>{{ toLocaleString(sale.totalValue) }}</td>
               <td class="table--right-corner">
-                <DeleteButton :id="sale.id" resource="Sale" />
-                <EditButton :id="sale.id" resource="Sale" />
+                <!-- <DeleteButton :id="sale.id" resource="Sale" />
+                <EditButton :id="sale.id" resource="Sale" /> -->
               </td>
             </tr>
           </template>
@@ -35,9 +44,6 @@
 </template>
 
 <script setup>
-import SearchInput from "./SearchInput.vue";
-import DeleteButton from "./DeleteButton.vue";
-import EditButton from "./EditButton.vue";
 import { api } from "../services/api.js";
 import { toLocaleDateString, toLocaleString } from "../includes/helper.js";
 import { reactive, onMounted } from "vue";

@@ -9,15 +9,23 @@
       </div>
 
       <div class="profile__name">
-        <h3><span>Olá,</span> Genara</h3>
-        <a href="#">Sair</a>
+        <h3>Olá, Genara</h3>
+        <a @click="handleLogout">Sair</a>
       </div>
     </div>
     <slot></slot>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import router from "../router";
+
+function handleLogout() {
+  const answer = confirm("Deseja realmente sair?");
+
+  if (answer) router.push("/conectar-se");
+}
+</script>
 
 <style scoped>
 .header {
@@ -45,6 +53,7 @@
 }
 
 .profile__name a {
+  cursor: pointer;
   color: var(--gray-100);
   font-weight: 500;
   text-decoration: none;

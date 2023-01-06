@@ -4,14 +4,15 @@
       <vee-form class="form" :validation-schema="schema" @submit="register">
         <h1>Criar conta</h1>
         <vee-field
-          name="nome"
+          name="name"
           type="text"
           id="input-name"
           class="input field"
           placeholder="Nome"
         />
-        <ErrorMessage class="text-red-600" name="nome" />
+        <ErrorMessage class="text-red-600" name="name" />
         <vee-field
+          name="email"
           type="email"
           id="input-email"
           class="input field email"
@@ -19,21 +20,21 @@
         />
         <ErrorMessage class="text-red-600" name="email" />
         <vee-field
-          name="senha"
+          name="password"
           type="password"
           id="input-password"
           class="input field"
           placeholder="Senha"
         />
-        <ErrorMessage class="text-red-600" name="senha" />
+        <ErrorMessage class="text-red-600" name="password" />
         <vee-field
-          name="confirm-passoword"
+          name="confirm_password"
           type="password"
           id="input-confirm-password"
           class="input field"
           placeholder="Confirmar Senha"
         />
-        <ErrorMessage class="text-red-600" name="confirm-passoword" />
+        <ErrorMessage class="text-red-600" name="confirm_password" />
 
         <button type="submit">Registrar</button>
         <div class="login-container__footer">
@@ -59,9 +60,9 @@ import { RouterLink } from "vue-router";
 import { reactive } from "vue";
 
 const schema = reactive({
-  nome: "required|min:3|max:100|alpha_spaces",
+  name: "required|min:3|max:100|alpha_spaces",
   email: "required|min:3|max:100|email",
-  senha: "required|min:9|max:100|excluded:password",
+  password: "required|min:9|max:100|excluded:password",
   confirm_password: "passwords_mismatch:@password",
 });
 
@@ -145,7 +146,7 @@ function register(values) {
   border-radius: 0.4rem;
 
   font-size: 1.6rem;
-  margin-bottom: 1.1rem;
+  margin-top: 1.1rem;
 }
 
 .login-container .main input::placeholder {
@@ -160,6 +161,8 @@ function register(values) {
 }
 
 .login-container .main button {
+  margin-top: 1.1rem;
+
   width: 34.4rem;
   height: 3.9rem;
 
