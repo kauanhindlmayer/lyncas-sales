@@ -138,10 +138,7 @@ window.updateSale = async () => {
 
 window.handleUpdatePrice = () => {
   const totalValue = document.querySelector("#total-value-input");
-  document.querySelector(".footer__total-value").innerHTML = Number(
-    totalValue.value
-  ).toLocaleString("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-  });
+  document.querySelector(".footer__total-value").innerHTML = toLocaleString(
+    Number(totalValue.value)
+  );
 };
