@@ -19,11 +19,18 @@
 
 <script setup>
 import router from "../router";
+import useUserStore from "../stores/user";
 
 function handleLogout() {
   const answer = confirm("Deseja realmente sair?");
 
-  if (answer) router.push("/conectar-se");
+  if (answer) {
+    const store = useUserStore();
+
+    store.$reset();
+
+    router.push("/conectar-se");
+  }
 }
 </script>
 

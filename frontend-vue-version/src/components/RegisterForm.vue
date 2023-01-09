@@ -56,8 +56,10 @@
 </template>
 
 <script setup>
+import { api } from "../services/api";
 import { RouterLink } from "vue-router";
 import { reactive } from "vue";
+import router from "../router";
 
 const schema = reactive({
   name: "required|min:3|max:100|alpha_spaces",
@@ -66,8 +68,17 @@ const schema = reactive({
   confirm_password: "passwords_mismatch:@password",
 });
 
-function register(values) {
-  console.log(values);
+async function register(values) {
+  const response = await api.createUser({
+    name: values.name,
+    login: values.email,
+    password: values.password,
+    passwordConfirmation: values.confirm_password,
+  });
+
+  router.push("/conectar-se");
+
+  alert(response.data.message);
 }
 </script>
 

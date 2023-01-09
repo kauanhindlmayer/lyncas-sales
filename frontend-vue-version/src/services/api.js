@@ -1,45 +1,65 @@
 import axios from "axios";
+import useUserStore from "../stores/user";
 
-const axiosInstance = axios.create({
-  baseURL: "https://localhost:7246/api",
-});
+const store = useUserStore();
 
-const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI3MjNlOTJiZS0wZWMyLTRlMjYtMWNmYS0wOGRhZTQxNzQxMTEiLCJ1c2VyTmFtZSI6IkthdWFuIiwiZXhwIjoxNjczMTE4ODU2LCJpc3MiOiJQcmVzc1N0YXJ0MiIsImF1ZCI6IlByZXNzU3RhcnQyIn0.86DKfU12OgOL97Qmi-W4sgpf_jutgaPe-5lv1b54m9k";
+axios.defaults.baseURL = "https://localhost:7246/api";
 
 export const api = {
   async get(resource) {
-    const response = await axiosInstance.get(`${resource}/listar`, {
-      headers: { Authorization: `Bearer ${token}` },
+    const response = await axios.get(`${resource}/listar`, {
+      headers: { Authorization: `Bearer ${store.token}` },
     });
     return response.data;
   },
 
   async getById(resource, id) {
-    const response = await axiosInstance.get(`/${resource}/obter/${id}`, {
-      headers: { Authorization: `Bearer ${token}` },
+    const response = await axios.get(`/${resource}/obter/${id}`, {
+      headers: { Authorization: `Bearer ${store.token}` },
     });
     return response.data;
   },
 
   async post(resource, data) {
-    const response = await axiosInstance.post(`/${resource}/adicionar`, data, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const response = await axios.post(
+      `/${resource}/adicionar`,
+      {
+        headers: { Authorization: `Bearer ${store.token}` },
+      },
+      data
+    );
     return response.data;
   },
 
   async put(resource, data) {
-    const response = await axiosInstance.put(`/${resource}/atualizar`, data, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const response = await axios.put(
+      `/${resource}/atualizar`,
+      {
+        headers: { Authorization: `Bearer ${store.token}` },
+      },
+      data
+    );
     return response.data;
   },
 
   async delete(resource, id) {
-    const response = await axiosInstance.delete(`/${resource}/remover/${id}`, {
-      headers: { Authorization: `Bearer ${token}` },
+    const response = await axios.delete(`/${resource}/remover/${id}`, {
+      headers: { Authorization: `Bearer ${store.token}` },
     });
     return response.data;
+  },
+
+  async createUser(data) {
+    const response = await axios.post("/User/adicionar", data, {
+      headers: { "Content-Type": "application/json" },
+    });
+    return await response.data;
+  },
+
+  async authenticateUser(data) {
+    const response = await axios.post("/User/autenticar/", data, {
+      headers: { "Content-Type": "application/json" },
+    });
+    return await response.data;
   },
 };

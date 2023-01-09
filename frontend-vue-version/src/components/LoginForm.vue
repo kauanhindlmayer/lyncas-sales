@@ -41,14 +41,27 @@
 <script setup>
 import { RouterLink } from "vue-router";
 import { reactive } from "vue";
+import { api } from "../services/api";
+import router from "../router";
+import useUserStore from "../stores/user";
 
 const loginSchema = reactive({
   email: "required|email",
   senha: "required|min:9|max:100",
 });
 
-function login(values) {
-  console.log(values);
+async function login(values) {
+  const response = await api.authenticateUser({
+    login: values.email,
+    password: values.senha,
+  });
+
+  const store = useUserStore();
+
+  store.name = response.userName;
+  store.token = response.token;
+
+  router.push("/");
 }
 </script>
 

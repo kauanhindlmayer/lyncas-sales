@@ -32,8 +32,18 @@
               <td>{{ toLocaleDateString(sale.billingDate) }}</td>
               <td>{{ toLocaleString(sale.totalValue) }}</td>
               <td class="table--right-corner">
-                <!-- <DeleteButton :id="sale.id" resource="Sale" />
-                <EditButton :id="sale.id" resource="Sale" /> -->
+                <button
+                  @click="handleDelete(sale.id)"
+                  class="table__button table__button--delete"
+                >
+                  Deletar
+                </button>
+                <button
+                  @click="handleEdit(sale.id)"
+                  class="table__button table__button--edit"
+                >
+                  Editar
+                </button>
               </td>
             </tr>
           </template>
@@ -48,12 +58,28 @@ import { api } from "../services/api.js";
 import { toLocaleDateString, toLocaleString } from "../includes/helper.js";
 import { reactive, onMounted } from "vue";
 
+async function updateTable() {
+  const response = await api.get("Sale");
+  state.sales = response.data;
+}
+
+async function handleDelete(id) {
+  const answer = confirm("Deseja realmente deletar a venda?");
+
+  if (answer) {
+    const response = await api.delete("Sale", id);
+
+    updateTable();
+
+    alert(response.data.message);
+  }
+}
+
 const state = reactive({
   sales: null,
 });
 
 onMounted(async () => {
-  const response = await api.get("Sale");
-  state.sales = response.data;
+  updateTable();
 });
 </script>
