@@ -44,6 +44,16 @@ const router = createRouter({
       name: "create-sale",
       component: () => import("../views/CreateSale.vue"),
     },
+    {
+      path: "/atualizar-cliente/:id",
+      name: "update-customer",
+      component: () => import("../views/CreateCustomer.vue"),
+    },
+    {
+      path: "/atualizar-venda/:id",
+      name: "update-sale",
+      component: () => import("../views/CreateSale.vue"),
+    },
   ],
 });
 

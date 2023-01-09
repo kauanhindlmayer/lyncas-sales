@@ -54,10 +54,15 @@
 <script setup>
 import { api } from "../services/api.js";
 import { reactive, onMounted } from "vue";
+import router from "../router";
 
 async function updateTable() {
   const response = await api.get("Customer");
   state.customers = response.data;
+}
+
+async function handleEdit(id) {
+  router.push(`/atualizar-cliente/${id}`);
 }
 
 async function handleDelete(id) {

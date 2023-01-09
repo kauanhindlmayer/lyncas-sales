@@ -11,8 +11,16 @@
               name="customer-input"
               id="customer-input"
               required
+              v-model="sale.customerId"
             >
-              <option value="" data-default disabled selected></option>
+              <option data-default disabled selected></option>
+              <option
+                v-for="user in state.users"
+                :value="user.id"
+                :key="user.id"
+              >
+                {{ user.name }}
+              </option>
             </select>
           </div>
           <div>
@@ -24,6 +32,7 @@
               class="input-date field"
               required
               maxlength="12"
+              v-model="sale.billingDate"
             />
           </div>
         </div>
@@ -40,6 +49,7 @@
               placeholder=" "
               required
               maxlength="254"
+              v-model="sale.items[0].itemDescription"
             />
           </div>
           <div>
@@ -52,6 +62,7 @@
               placeholder=" "
               required
               maxlength="16"
+              v-model="sale.items[0].unitaryValue"
             />
           </div>
         </div>
@@ -66,6 +77,7 @@
               placeholder=" "
               required
               maxlength="16"
+              v-model="sale.items[0].quantity"
             />
           </div>
           <div>
@@ -78,6 +90,7 @@
               placeholder=" "
               required
               maxlength="16"
+              v-model="sale.items[0].totalValue"
             />
           </div>
         </div>
@@ -86,11 +99,14 @@
         </div>
         <div class="dashed"></div>
         <div class="footer">
-          <div class="footer__total-value">R$ 24.550,00</div>
+          <div class="footer__total-value">
+            <span v-if="sale.items[0].totalValue !== null">R$ 0,00</span>
+            <span v-else>{{ toLocaleString(sale.items[0].totalValue) }}</span>
+          </div>
           <div class="align-right">
             <button
               class="save-button save-button--sale"
-              onclick="handleSubmit()"
+              @click.prevent="createSale()"
             >
               Salvar
             </button>
@@ -100,6 +116,43 @@
     </section>
   </div>
 </template>
+
+<script setup>
+import { api } from "../services/api.js";
+import { reactive, onMounted } from "vue";
+import { toLocaleString } from "../includes/helper";
+import router from "../router";
+
+const sale = reactive({
+  customerId: null,
+  billingDate: null,
+  items: [
+    {
+      itemDescription: null,
+      unitaryValue: null,
+      quantity: null,
+      totalValue: null,
+    },
+  ],
+});
+
+const state = reactive({
+  users: null,
+});
+
+async function createSale() {
+  const response = await api.post("Sale", sale);
+
+  router.push("/lista-de-vendas");
+
+  alert(response.data.message);
+}
+
+onMounted(async () => {
+  const response = await api.get("Customer");
+  state.users = response.data;
+});
+</script>
 
 <style scoped>
 .content {

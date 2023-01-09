@@ -3,13 +3,13 @@
     <div class="profile">
       <div class="profile__picture">
         <img
-          src="@/assets/svg/profile-picture.svg"
+          src="../assets/images/profile-picture-placeholder.png"
           alt="User profile picture"
         />
       </div>
 
       <div class="profile__name">
-        <h3>Olá, Genara</h3>
+        <h3>Olá, {{ store.name }}</h3>
         <a @click="handleLogout">Sair</a>
       </div>
     </div>
@@ -20,6 +20,8 @@
 <script setup>
 import router from "../router";
 import useUserStore from "../stores/user";
+
+const store = useUserStore();
 
 function handleLogout() {
   const answer = confirm("Deseja realmente sair?");
@@ -35,6 +37,12 @@ function handleLogout() {
 </script>
 
 <style scoped>
+.profile__picture img {
+  width: 4.8rem;
+  height: 4.6rem;
+  object-fit: contain;
+}
+
 .header {
   border-bottom: 2px solid var(--border);
   display: flex;
@@ -45,7 +53,7 @@ function handleLogout() {
 .profile__picture {
   width: 5rem;
   height: 5rem;
-  /* border: 2px solid var(--border); */
+  border: 2px solid var(--border);
   border-radius: 5px;
 }
 

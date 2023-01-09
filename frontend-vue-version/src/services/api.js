@@ -21,24 +21,22 @@ export const api = {
   },
 
   async post(resource, data) {
-    const response = await axios.post(
-      `/${resource}/adicionar`,
-      {
-        headers: { Authorization: `Bearer ${store.token}` },
+    const response = await axios.post(`/${resource}/adicionar`, data, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${store.token}`,
       },
-      data
-    );
+    });
     return response.data;
   },
 
   async put(resource, data) {
-    const response = await axios.put(
-      `/${resource}/atualizar`,
-      {
-        headers: { Authorization: `Bearer ${store.token}` },
+    const response = await axios.put(`/${resource}/atualizar`, data, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${store.token}`,
       },
-      data
-    );
+    });
     return response.data;
   },
 
