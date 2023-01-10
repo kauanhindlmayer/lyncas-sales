@@ -16,13 +16,17 @@ window.handleLogin = async () => {
 
     const response = await api.authenticateUser(body);
 
-    user.token = response.token;
-    user.name = response.userName;
+    if (response.token) {
+      user.token = response.token;
+      user.name = response.userName;
 
-    localStorage.setItem("lyncas-sales-token", response.token);
-    localStorage.setItem("lyncas-sales-username", response.userName);
+      localStorage.setItem("lyncas-sales-token", response.token);
+      localStorage.setItem("lyncas-sales-username", response.userName);
 
-    router.handle("/pages/home.html");
+      router.handle("/pages/home.html");
+    } else {
+      alert(response.notifications[0].message + ".");
+    }
   }
 };
 
