@@ -62,7 +62,7 @@ async function updateTable() {
 }
 
 async function handleEdit(id) {
-  router.push(`/atualizar-cliente/${id}`);
+  router.push(`/atualizar-cliente?id=${id}`);
 }
 
 async function handleDelete(id) {

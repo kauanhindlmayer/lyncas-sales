@@ -57,6 +57,7 @@
 import { api } from "../services/api.js";
 import { toLocaleDateString, toLocaleString } from "../includes/helper.js";
 import { reactive, onMounted } from "vue";
+import router from "../router";
 
 async function updateTable() {
   const response = await api.get("Sale");
@@ -73,6 +74,10 @@ async function handleDelete(id) {
 
     alert(response.data.message);
   }
+}
+
+async function handleEdit(id) {
+  router.push(`/atualizar-venda?id=${id}`);
 }
 
 const state = reactive({

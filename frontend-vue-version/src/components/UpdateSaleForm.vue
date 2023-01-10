@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <section class="component">
-      <h1 id="title">Adicionar venda</h1>
+      <h1 id="title">Atualizar venda</h1>
       <form class="form">
         <div class="form__form-wrapper">
           <div>
@@ -106,7 +106,7 @@
           <div class="align-right">
             <button
               class="save-button save-button--sale"
-              @click.prevent="createSale()"
+              @click.prevent="UpdateSale()"
             >
               Salvar
             </button>
@@ -122,8 +122,12 @@ import { api } from "../services/api.js";
 import { reactive, onMounted } from "vue";
 import { toLocaleString } from "../includes/helper";
 import router from "../router";
+import { useRoute } from "vue-router";
+
+const route = useRoute();
 
 const sale = reactive({
+  id: route.query.id,
   customerId: null,
   billingDate: null,
   items: [
@@ -140,17 +144,30 @@ const state = reactive({
   users: null,
 });
 
-async function createSale() {
-  const response = await api.post("Sale", sale);
+async function UpdateSale() {
+  const response = await api.put("Sale", sale);
 
   router.push("/lista-de-vendas");
 
   alert(response.data.message);
 }
 
+async function fillForm() {
+  const response = await api.getById("Sale", route.query.id);
+
+  sale.customerId = response.data.customerId;
+  sale.billingDate = response.data.billingDate.slice(0, 10);
+  sale.items[0].itemDescription = response.data.items[0].itemDescription;
+  sale.items[0].unitaryValue = response.data.items[0].unitaryValue;
+  sale.items[0].quantity = response.data.items[0].quantity;
+  sale.items[0].totalValue = response.data.items[0].totalValue;
+}
+
 onMounted(async () => {
   const response = await api.get("Customer");
   state.users = response.data;
+
+  fillForm();
 });
 </script>
 
