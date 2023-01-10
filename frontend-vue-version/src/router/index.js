@@ -16,12 +16,12 @@ const router = createRouter({
     {
       path: "/conectar-se",
       name: "login",
-      component: () => import("../components/LoginForm.vue"),
+      component: () => import("../views/LoginForm.vue"),
     },
     {
       path: "/criar-conta",
       name: "register",
-      component: () => import("../components/RegisterForm.vue"),
+      component: () => import("../views/RegisterForm.vue"),
     },
     {
       path: "/dashboard",
@@ -34,7 +34,7 @@ const router = createRouter({
     {
       path: "/lista-de-vendas",
       name: "sales-list",
-      component: () => import("../views/SalesList.vue"),
+      component: () => import("../views/SaleList.vue"),
       meta: {
         requiresAuth: true,
       },
@@ -42,7 +42,7 @@ const router = createRouter({
     {
       path: "/lista-de-clientes",
       name: "customers-list",
-      component: () => import("../views/CustomersList.vue"),
+      component: () => import("../views/CustomerList.vue"),
       meta: {
         requiresAuth: true,
       },
@@ -50,7 +50,7 @@ const router = createRouter({
     {
       path: "/adicionar-cliente",
       name: "create-customer",
-      component: () => import("../views/CreateCustomer.vue"),
+      component: () => import("../views/CustomerCreate.vue"),
       meta: {
         requiresAuth: true,
       },
@@ -58,7 +58,7 @@ const router = createRouter({
     {
       path: "/adicionar-venda",
       name: "create-sale",
-      component: () => import("../views/CreateSale.vue"),
+      component: () => import("../views/SaleCreate.vue"),
       meta: {
         requiresAuth: true,
       },
@@ -66,7 +66,7 @@ const router = createRouter({
     {
       path: "/atualizar-cliente",
       name: "update-customer",
-      component: () => import("../views/UpdateCustomer.vue"),
+      component: () => import("../views/CustomerUpdate.vue"),
       meta: {
         requiresAuth: true,
       },
@@ -74,7 +74,7 @@ const router = createRouter({
     {
       path: "/atualizar-venda",
       name: "update-sale",
-      component: () => import("../views/UpdateSale.vue"),
+      component: () => import("../views/SaleUpdate.vue"),
       meta: {
         requiresAuth: true,
       },

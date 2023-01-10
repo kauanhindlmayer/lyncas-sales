@@ -3,9 +3,9 @@
     <Menu />
     <div class="main">
       <Header>
-        <HeaderButton title="Voltar" path="/lista-de-clientes" />
+        <HeaderButton title="Adicionar" path="/adicionar-cliente" />
       </Header>
-      <UpdateCustomerForm />
+      <CustomerTable />
     </div>
   </div>
 </template>
@@ -14,5 +14,5 @@
 import Menu from "../components/Menu.vue";
 import Header from "../components/Header.vue";
 import HeaderButton from "../components/HeaderButton.vue";
-import UpdateCustomerForm from "../components/UpdateCustomerForm.vue";
+import CustomerTable from "../components/CustomerTable.vue";
 </script>

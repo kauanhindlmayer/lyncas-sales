@@ -1,5 +1,48 @@
 <template>
   <div class="login-container">
+    <div class="main">
+      <vee-form class="form" :validation-schema="schema" @submit="register">
+        <h1>Criar conta</h1>
+        <!-- Name -->
+        <vee-field
+          name="name"
+          type="text"
+          class="input field"
+          placeholder="Nome"
+        />
+        <ErrorMessage class="text-red-600" name="name" />
+        <!-- E-mail -->
+        <vee-field
+          name="email"
+          type="email"
+          class="input field email"
+          placeholder="E-mail"
+        />
+        <ErrorMessage class="text-red-600" name="email" />
+        <!-- Password -->
+        <vee-field
+          name="password"
+          type="password"
+          class="input field"
+          placeholder="Senha"
+        />
+        <ErrorMessage class="text-red-600" name="password" />
+        <!-- Confirm Password -->
+        <vee-field
+          name="confirm_password"
+          type="password"
+          class="input field"
+          placeholder="Confirmar Senha"
+        />
+        <ErrorMessage class="text-red-600" name="confirm_password" />
+
+        <button type="submit">Registrar</button>
+        <div class="login-container__footer">
+          Já tem uma conta?
+          <RouterLink to="/conectar-se">Entre aqui</RouterLink>
+        </div>
+      </vee-form>
+    </div>
     <div class="aside">
       <div>
         <img src="../assets/svg/logo.svg" alt="Lyncas logo" />
@@ -9,64 +52,42 @@
         </p>
       </div>
     </div>
-    <div class="main">
-      <vee-form class="form" :validation-schema="loginSchema" @submit="login">
-        <h1>Entrar</h1>
-        <!-- E-mail -->
-        <vee-field name="email" type="email" placeholder="E-mail" />
-        <ErrorMessage class="error-message" name="email" />
-
-        <!-- Password -->
-        <vee-field name="senha" type="password" placeholder="Senha" />
-        <ErrorMessage class="error-message" name="senha" />
-
-        <button type="submit">Entrar</button>
-
-        <div class="login-container__footer">
-          Não tem uma conta?
-          <RouterLink to="/criar-conta">Inscreva-se</RouterLink>
-        </div>
-      </vee-form>
-    </div>
   </div>
 </template>
 
 <script setup>
+import { api } from "../services/api";
 import { RouterLink } from "vue-router";
 import { reactive } from "vue";
-import { api } from "../services/api";
 import router from "../router";
-import useUserStore from "../stores/user";
 
-const loginSchema = reactive({
-  email: "required|email",
-  senha: "required|min:9|max:100",
+const schema = reactive({
+  name: "required|min:3|max:100|alpha_spaces",
+  email: "required|min:3|max:100|email",
+  password: "required|min:9|max:100|excluded:password",
+  confirm_password: "passwords_mismatch:@password",
 });
 
-async function login(values) {
-  const response = await api.authenticateUser({
+async function register(values) {
+  const response = await api.createUser({
+    name: values.name,
     login: values.email,
-    password: values.senha,
+    password: values.password,
+    passwordConfirmation: values.confirm_password,
   });
 
-  const store = useUserStore();
+  router.push("/conectar-se");
 
-  store.name = response.userName;
-  store.token = response.token;
-
-  localStorage.setItem("lyncas-sales-token", response.token);
-  localStorage.setItem("lyncas-sales-username", response.userName);
-
-  router.push("/");
+  alert(response.data.message);
 }
 </script>
 
-<style scoped>
+<style>
 .margin {
   margin-bottom: 0;
 }
 
-.error-message {
+.text-red-600 {
   color: #e53e3e;
 }
 

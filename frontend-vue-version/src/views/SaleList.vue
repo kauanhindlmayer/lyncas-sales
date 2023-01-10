@@ -14,5 +14,5 @@
 import Menu from "../components/Menu.vue";
 import Header from "../components/Header.vue";
 import HeaderButton from "../components/HeaderButton.vue";
-import SalesTable from "../components/SalesTable.vue";
+import SalesTable from "../components/SaleTable.vue";
 </script>

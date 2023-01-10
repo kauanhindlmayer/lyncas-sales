@@ -14,5 +14,5 @@
 import Menu from "../components/Menu.vue";
 import Header from "../components/Header.vue";
 import HeaderButton from "../components/HeaderButton.vue";
-import UpdateSaleForm from "../components/UpdateSaleForm.vue";
+import UpdateSaleForm from "../components/SaleUpdateForm.vue";
 </script>

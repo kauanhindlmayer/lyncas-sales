@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div :class="state.buttonClass">
     <RouterLink :to="props.path">{{ props.title }}</RouterLink>
