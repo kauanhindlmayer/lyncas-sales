@@ -1,73 +1,74 @@
 <template>
   <div class="content">
     <section class="component">
-      <h1 id="title">Adicionar cliente</h1>
-      <form class="form">
+      <h1>Adicionar cliente</h1>
+      <vee-form
+        class="form"
+        :validation-schema="schema"
+        @submit="createCustomer"
+      >
         <div class="form__form-wrapper">
           <div>
+            <!-- Nome -->
             <label for="name-input">Nome</label>
-            <input
+            <vee-field
+              name="nome"
               type="text"
-              name="name-input"
               id="name-input"
               class="input field"
               placeholder=" "
               required
-              maxlength="254"
-              v-model="state.name"
             />
+            <ErrorMessage class="text-error" name="nome" />
           </div>
           <div>
+            <!-- E-mail -->
             <label for="email-input">E-mail</label>
-            <input
+            <vee-field
+              name="email"
               type="email"
-              name="email-input"
               id="email-input"
               class="input field email"
               placeholder=" "
               required
-              maxlength="254"
-              v-model="state.email"
             />
+            <ErrorMessage class="text-error" name="email" />
           </div>
         </div>
         <div class="form__form-wrapper">
           <div>
+            <!-- Telefone -->
             <label for="phone-input">Telefone</label>
-            <input
+            <vee-field
+              name="telefone"
               type="tel"
-              name="phone-input"
               id="phone-input"
               class="input field phone"
               placeholder=" "
               required
-              maxlength="16"
-              v-model="state.phone"
             />
+            <ErrorMessage class="text-error" name="telefone" />
           </div>
           <div>
+            <!-- CPF -->
             <label for="cpf-input">CPF</label>
-            <input
+            <vee-field
+              name="cpf"
               type="text"
-              name="cpf-input"
               id="cpf-input"
               class="input field cpf"
               placeholder=" "
               required
-              maxlength="14"
-              v-model="state.cpf"
             />
+            <ErrorMessage class="text-error" name="cpf" />
           </div>
         </div>
         <div class="align-right">
-          <button
-            class="save-button save-button--customer"
-            @click.prevent="createCustomer"
-          >
+          <button class="save-button save-button--customer" type="submit">
             Salvar
           </button>
         </div>
-      </form>
+      </vee-form>
     </section>
   </div>
 </template>
@@ -77,15 +78,20 @@ import { api } from "../services/api.js";
 import { reactive } from "vue";
 import router from "../router";
 
-const state = reactive({
-  name: null,
-  email: null,
-  phone: null,
-  cpf: null,
+const schema = reactive({
+  nome: "required|min:3|max:100|alpha_spaces",
+  email: "required|min:3|max:100|email",
+  telefone: "required|min:9|max:16",
+  cpf: "required|min:11|max:14",
 });
 
-async function createCustomer() {
-  const response = await api.post("Customer", state);
+async function createCustomer(values) {
+  const response = await api.post("Customer", {
+    name: values.nome,
+    email: values.email,
+    phone: values.telefone,
+    cpf: values.cpf,
+  });
 
   router.push("/lista-de-clientes");
 
@@ -94,6 +100,10 @@ async function createCustomer() {
 </script>
 
 <style scoped>
+.text-error {
+  color: #e53e3e;
+}
+
 .content {
   margin: 2.3rem 0 auto 0;
 }

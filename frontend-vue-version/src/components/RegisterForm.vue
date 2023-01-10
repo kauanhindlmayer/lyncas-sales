@@ -3,6 +3,7 @@
     <div class="main">
       <vee-form class="form" :validation-schema="schema" @submit="register">
         <h1>Criar conta</h1>
+        <!-- Name -->
         <vee-field
           name="name"
           type="text"
@@ -11,6 +12,7 @@
           placeholder="Nome"
         />
         <ErrorMessage class="text-red-600" name="name" />
+        <!-- E-mail -->
         <vee-field
           name="email"
           type="email"
@@ -19,6 +21,7 @@
           placeholder="E-mail"
         />
         <ErrorMessage class="text-red-600" name="email" />
+        <!-- Password -->
         <vee-field
           name="password"
           type="password"
@@ -27,6 +30,7 @@
           placeholder="Senha"
         />
         <ErrorMessage class="text-red-600" name="password" />
+        <!-- Confirm Password -->
         <vee-field
           name="confirm_password"
           type="password"

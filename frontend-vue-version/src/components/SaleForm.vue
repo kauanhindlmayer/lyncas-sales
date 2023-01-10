@@ -120,7 +120,7 @@
 <script setup>
 import { api } from "../services/api.js";
 import { reactive, onMounted } from "vue";
-import { toLocaleString } from "../includes/helper";
+import { toLocaleString } from "../includes";
 import router from "../router";
 
 const sale = reactive({

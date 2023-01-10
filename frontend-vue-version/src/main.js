@@ -2,9 +2,9 @@ import { createApp } from "vue";
 import { createPinia } from "pinia";
 import App from "./App.vue";
 import router from "./router";
-import VeeValidatePlugin from "./includes/validation";
+import VeeValidatePlugin from "./plugins/validation";
 
-import "./styles/main.css";
+import "./assets/css/main.css";
 
 const pinia = createPinia();
 const app = createApp(App);

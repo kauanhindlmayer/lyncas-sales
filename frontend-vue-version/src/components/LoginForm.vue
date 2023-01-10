@@ -12,23 +12,16 @@
     <div class="main">
       <vee-form class="form" :validation-schema="loginSchema" @submit="login">
         <h1>Entrar</h1>
-        <vee-field
-          name="email"
-          type="email"
-          id="input-email"
-          class="input field email"
-          placeholder="E-mail"
-        />
-        <ErrorMessage class="text-red-600" name="email" />
-        <vee-field
-          name="senha"
-          type="password"
-          id="input-password"
-          class="input field"
-          placeholder="Senha"
-        />
-        <ErrorMessage class="text-red-600" name="senha" />
+        <!-- E-mail -->
+        <vee-field name="email" type="email" placeholder="E-mail" />
+        <ErrorMessage class="error-message" name="email" />
+
+        <!-- Password -->
+        <vee-field name="senha" type="password" placeholder="Senha" />
+        <ErrorMessage class="error-message" name="senha" />
+
         <button type="submit">Entrar</button>
+
         <div class="login-container__footer">
           Não tem uma conta?
           <RouterLink to="/criar-conta">Inscreva-se</RouterLink>
@@ -61,6 +54,9 @@ async function login(values) {
   store.name = response.userName;
   store.token = response.token;
 
+  localStorage.setItem("lyncas-sales-token", response.token);
+  localStorage.setItem("lyncas-sales-username", response.userName);
+
   router.push("/");
 }
 </script>
@@ -70,7 +66,7 @@ async function login(values) {
   margin-bottom: 0;
 }
 
-.text-red-600 {
+.error-message {
   color: #e53e3e;
 }
 

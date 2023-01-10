@@ -29,6 +29,9 @@ function handleLogout() {
   if (answer) {
     const store = useUserStore();
 
+    localStorage.removeItem("lyncas-sales-token");
+    localStorage.removeItem("lyncas-sales-username");
+
     store.$reset();
 
     router.push("/conectar-se");
