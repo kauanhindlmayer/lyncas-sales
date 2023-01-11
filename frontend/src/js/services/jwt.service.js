@@ -14,9 +14,13 @@ window.handleLogin = async () => {
       password: document.querySelector("#input-password").value,
     };
 
-    const response = await api.authenticateUser(body);
+    let response = null;
 
-    if (response.token) {
+    try {
+      response = await api.authenticateUser(body);
+
+      if (!response.token) throw "Error";
+
       user.token = response.token;
       user.name = response.userName;
 
@@ -24,8 +28,9 @@ window.handleLogin = async () => {
       localStorage.setItem("lyncas-sales-username", response.userName);
 
       router.handle("/pages/home.html");
-    } else {
-      alert(response.notifications[0].message + ".");
+    } catch (error) {
+      alert(response.notifications[0].message);
+      return;
     }
   }
 };
@@ -40,11 +45,19 @@ window.handleCreateUser = async () => {
         .value,
     };
 
-    const response = await api.createUser(body);
+    let response;
 
-    router.handle("/pages/conectar-se.html");
+    try {
+      response = await api.createUser(body);
 
-    alert(response.data.message);
+      if (!response.success) throw "Error";
+
+      router.handle("/pages/conectar-se.html");
+
+      alert(response.data.message);
+    } catch (error) {
+      alert(response.notifications[0].message);
+    }
   }
 };
 

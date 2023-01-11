@@ -2,7 +2,10 @@
   <div class="header">
     <div class="profile">
       <div class="profile__picture">
-        <img src="./assets/profile-picture-placeholder.png" alt="User profile picture" />
+        <img
+          src="./assets/profile-picture-placeholder.png"
+          alt="User profile picture"
+        />
       </div>
 
       <div class="profile__name">
@@ -62,15 +65,14 @@
           <div>
             <label for="value-input">Valor unitário</label>
             <input
-              type="number"
-              min="1"
-              step="any"
+              type="text"
+              pattern="\d*"
               name="value-input"
               id="value-input"
               class="input field"
               placeholder=" "
               required
-              maxlength="16"
+              maxlength="10"
             />
           </div>
         </div>
@@ -78,27 +80,27 @@
           <div>
             <label for="quantity-input">Quantidade</label>
             <input
-              type="number"
+              type="text"
+              pattern="\d*"
               name="quantity-input"
               id="quantity-input"
               class="input field"
               placeholder=" "
               required
-              maxlength="16"
+              maxlength="10"
             />
           </div>
           <div>
             <label for="total-value-input">Valor total</label>
             <input
-              type="number"
-              min="1"
-              step="any"
+              type="text"
+              pattern="\d*"
               name="total-value-input"
               id="total-value-input"
               class="input field"
               placeholder=" "
               required
-              maxlength="16"
+              maxlength="10"
               oninput="handleUpdatePrice()"
             />
           </div>

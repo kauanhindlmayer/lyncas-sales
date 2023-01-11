@@ -3,36 +3,42 @@ import { router } from "../router/router.js";
 import { append, createError, removeLoading, validator } from "../helper.js";
 
 export const createCustomerTable = async () => {
-  const response = await api.get("Customer");
+  try {
+    const response = await api.get("Customer");
 
-  for (let customer of response.data) {
-    const template = `
-    <td class="table--left-corner">${customer.name}</td>
-    <td>${customer.email}</td>
-    <td>${customer.phone}</td>
-    <td>${customer.cpf}</td>
-    <td class="table--right-corner">
-      <button 
-        onclick="handleCustomerDelete('${customer.id}')" 
-        class="table__button table__button--delete"
-      >
-        Deletar
-      </button>
+    if (!response.success) throw "Error";
 
-      <button 
-        onclick="handleCustomerEdit('${customer.id}')" 
-        class="table__button table__button--edit"
-      >
-        Editar
-      </button>
-    </td>
-  `;
+    for (let customer of response.data) {
+      const template = `
+      <td class="table--left-corner">${customer.name}</td>
+      <td>${customer.email}</td>
+      <td>${customer.phone}</td>
+      <td>${customer.cpf}</td>
+      <td class="table--right-corner">
+        <button 
+          onclick="handleCustomerDelete('${customer.id}')" 
+          class="table__button table__button--delete"
+        >
+          Deletar
+        </button>
+  
+        <button 
+          onclick="handleCustomerEdit('${customer.id}')" 
+          class="table__button table__button--edit"
+        >
+          Editar
+        </button>
+      </td>
+    `;
 
-    append(template);
+      append(template);
+    }
+
+    removeLoading();
+  } catch (error) {
+    alert("Um erro inesperado aconteceu. Tente novamente mais tarde.");
+    createError();
   }
-
-  if (response.success) removeLoading();
-  if (!response.success || response.data.length <= 0) createError();
 };
 
 window.createCustomer = async () => {
@@ -44,11 +50,19 @@ window.createCustomer = async () => {
       cpf: document.querySelector("#cpf-input").value,
     };
 
-    const response = await api.post("Customer", body);
+    let response;
 
-    router.handle("/pages/lista-de-clientes.html");
+    try {
+      response = await api.post("Customer", body);
 
-    alert(response.data.message);
+      if (!response.success) throw "Error";
+
+      router.handle("/pages/lista-de-clientes.html");
+
+      alert(response.data.message);
+    } catch (error) {
+      alert(response.notifications[0].message);
+    }
   }
 };
 
@@ -56,31 +70,47 @@ window.handleCustomerDelete = async (id) => {
   const answer = confirm("Deseja realmente deletar o cliente?");
 
   if (answer) {
-    const response = await api.delete("Customer", id);
+    let response;
 
-    router.handle(`/pages/lista-de-clientes.html`);
+    try {
+      response = await api.delete("Customer", id);
 
-    alert(response.data.message);
+      if (!response.success) throw "Error";
+
+      router.handle(`/pages/lista-de-clientes.html`);
+
+      alert(response.data.message);
+    } catch (error) {
+      alert(response.notifications[0].message);
+    }
   }
 };
 
 window.handleCustomerEdit = async (id) => {
   router.handle("/pages/adicionar-cliente.html", `/atualizar-cliente?id=${id}`);
 
-  const response = await api.getById("Customer", id);
+  let response;
 
-  document.querySelector("#title").innerHTML = `${document
-    .querySelector("#title")
-    .innerHTML.replace("Adicionar", "Atualizar")}`;
+  try {
+    response = await api.getById("Customer", id);
 
-  document.querySelector("#name-input").value = response.data.name;
-  document.querySelector("#email-input").value = response.data.email;
-  document.querySelector("#phone-input").value = response.data.phone;
-  document.querySelector("#cpf-input").value = response.data.cpf;
+    if (!response.success) throw "Error";
 
-  document
-    .querySelector(".save-button")
-    .setAttribute("onclick", "updateCustomer()");
+    document.querySelector("#title").innerHTML = `${document
+      .querySelector("#title")
+      .innerHTML.replace("Adicionar", "Atualizar")}`;
+
+    document.querySelector("#name-input").value = response.data.name;
+    document.querySelector("#email-input").value = response.data.email;
+    document.querySelector("#phone-input").value = response.data.phone;
+    document.querySelector("#cpf-input").value = response.data.cpf;
+
+    document
+      .querySelector(".save-button")
+      .setAttribute("onclick", "updateCustomer()");
+  } catch (error) {
+    alert("Um erro inesperado aconteceu. Tente novamente mais tarde.");
+  }
 };
 
 window.updateCustomer = async () => {
@@ -95,10 +125,18 @@ window.updateCustomer = async () => {
       cpf: document.querySelector("#cpf-input").value,
     };
 
-    const response = await api.put("Customer", body);
+    let response;
 
-    router.handle("/pages/lista-de-clientes.html");
+    try {
+      response = await api.put("Customer", body);
 
-    alert(response.data.message);
+      if (!response.success) throw "Error";
+
+      router.handle("/pages/lista-de-clientes.html");
+
+      alert(response.data.message);
+    } catch (error) {
+      alert(response.notifications[0].message);
+    }
   }
 };
