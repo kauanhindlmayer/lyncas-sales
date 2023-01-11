@@ -2,72 +2,74 @@
   <div class="content">
     <section class="component">
       <h1 id="title">Atualizar cliente</h1>
-      <form class="form">
+      <vee-form
+        class="form"
+        :validation-schema="schema"
+        :initial-values="userData"
+        @submit="updateCustomer"
+      >
         <div class="form__form-wrapper">
           <div>
+            <!-- Nome -->
             <label for="name-input">Nome</label>
-            <input
+            <vee-field
+              name="nome"
               type="text"
-              name="name-input"
               id="name-input"
               class="input field"
               placeholder=" "
               required
-              maxlength="254"
-              v-model="state.name"
             />
+            <ErrorMessage class="text-error" name="nome" />
           </div>
           <div>
+            <!-- E-mail -->
             <label for="email-input">E-mail</label>
-            <input
+            <vee-field
+              name="email"
               type="email"
-              name="email-input"
               id="email-input"
               class="input field email"
               placeholder=" "
               required
-              maxlength="254"
-              v-model="state.email"
             />
+            <ErrorMessage class="text-error" name="email" />
           </div>
         </div>
         <div class="form__form-wrapper">
           <div>
+            <!-- Telefone -->
             <label for="phone-input">Telefone</label>
-            <input
+            <vee-field
+              name="telefone"
               type="tel"
-              name="phone-input"
               id="phone-input"
               class="input field phone"
               placeholder=" "
               required
-              maxlength="16"
-              v-model="state.phone"
             />
+            <ErrorMessage class="text-error" name="telefone" />
           </div>
           <div>
+            <!-- CPF -->
             <label for="cpf-input">CPF</label>
-            <input
+            <vee-field
+              name="cpf"
               type="text"
-              name="cpf-input"
               id="cpf-input"
               class="input field cpf"
               placeholder=" "
               required
-              maxlength="14"
-              v-model="state.cpf"
             />
+            <ErrorMessage class="text-error" name="cpf" />
           </div>
         </div>
         <div class="align-right">
-          <button
-            class="save-button save-button--customer"
-            @click.prevent="updateCustomer"
-          >
+          <button class="save-button save-button--customer" type="submit">
             Salvar
           </button>
         </div>
-      </form>
+      </vee-form>
     </section>
   </div>
 </template>
@@ -80,37 +82,53 @@ import { useRoute } from "vue-router";
 
 const route = useRoute();
 
-const state = reactive({
-  id: route.query.id,
-  name: null,
+const schema = reactive({
+  nome: "required|min:3|max:100|alpha_spaces",
+  email: "required|min:3|max:100|email",
+  telefone: "required|min:9|max:16",
+  cpf: "required|min:11|max:14",
+});
+
+const userData = reactive({
+  nome: null,
   email: null,
-  phone: null,
+  telefone: null,
   cpf: null,
 });
 
-async function updateCustomer() {
-  const response = await api.put("Customer", state);
+async function updateCustomer(values) {
+  const response = await api.put("Customer", {
+    id: route.query.id,
+    name: values.nome,
+    email: values.email,
+    phone: values.telefone,
+    cpf: values.cpf,
+  });
 
   router.push("/lista-de-clientes");
 
   alert(response.data.message);
 }
 
-async function fillForm() {
+async function getUserData() {
   const response = await api.getById("Customer", route.query.id);
 
-  state.name = response.data.name;
-  state.email = response.data.email;
-  state.phone = response.data.phone;
-  state.cpf = response.data.cpf;
+  userData.nome = response.data.name;
+  userData.email = response.data.email;
+  userData.telefone = response.data.phone;
+  userData.cpf = response.data.cpf;
 }
 
 onMounted(() => {
-  fillForm();
+  getUserData();
 });
 </script>
 
 <style scoped>
+.text-error {
+  color: #e53e3e;
+}
+
 .content {
   margin: 2.3rem 0 auto 0;
 }
