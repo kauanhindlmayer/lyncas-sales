@@ -7,6 +7,7 @@ import {
   createError,
   removeLoading,
   validator,
+  preventNumbers,
 } from "../helper.js";
 
 export const createSaleTable = async () => {
@@ -176,7 +177,9 @@ window.updateSale = async () => {
   }
 };
 
-window.handleUpdatePrice = () => {
+window.handleUpdatePrice = (input) => {
+  preventNumbers(input);
+
   const totalValue = document.querySelector("#total-value-input");
   document.querySelector(".footer__total-value").innerHTML = toLocaleString(
     Number(totalValue.value)

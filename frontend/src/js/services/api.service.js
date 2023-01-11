@@ -95,14 +95,4 @@ export const api = {
     });
     return await response.json();
   },
-
-  // async validateToken() {
-  //   await fetch(`${config.baseURL}/User/validar`, {
-  //     method: "GET",
-  //     headers: { Authorization: `Bearer ${user.token}` },
-  //   }).then((response) => {
-  //     console.log("Status: " + response.status);
-  //     if (response.status === 401) handleExpiredToken();
-  //   });
-  // },
 };

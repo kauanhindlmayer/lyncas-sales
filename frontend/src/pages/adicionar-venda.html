@@ -69,10 +69,11 @@
               pattern="\d*"
               name="value-input"
               id="value-input"
-              class="input field"
+              class="input field only-number"
               placeholder=" "
               required
               maxlength="10"
+              oninput="preventNumbers(this)"
             />
           </div>
         </div>
@@ -84,10 +85,11 @@
               pattern="\d*"
               name="quantity-input"
               id="quantity-input"
-              class="input field"
+              class="input field only-number"
               placeholder=" "
               required
               maxlength="10"
+              oninput="preventNumbers(this)"
             />
           </div>
           <div>
@@ -97,11 +99,11 @@
               pattern="\d*"
               name="total-value-input"
               id="total-value-input"
-              class="input field"
+              class="input field only-number"
               placeholder=" "
               required
               maxlength="10"
-              oninput="handleUpdatePrice()"
+              oninput="handleUpdatePrice(this)"
             />
           </div>
         </div>

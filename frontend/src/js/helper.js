@@ -218,8 +218,12 @@ export const removeUserData = () => {
   delete user.name;
 };
 
-const handleSubmitOnEnter = (event) => {
+window.handleSubmitOnEnter = (event) => {
   if (event.key === "Enter") document.querySelector("button").click();
 };
 
-window.handleSubmitOnEnter = (event) => handleSubmitOnEnter(event);
+export const preventNumbers = (input) => {
+  if (!input.checkValidity()) input.value = "";
+};
+
+window.preventNumbers = (input) => preventNumbers(input);
