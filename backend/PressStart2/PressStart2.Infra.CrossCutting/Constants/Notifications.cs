@@ -21,6 +21,6 @@
 
         public const string USER_REGISTERED = "Usuário Registrado com Sucesso.";
         public const string USER_PASSWORD_NOT_MATCH = "Senhas não conferem.";
-        public const string USER_LOGIN_DATA_INCORRECT = "Dados de Login Incorreto";
+        public const string USER_LOGIN_DATA_INCORRECT = "Dados de Login Incorreto.";
     }
 }
