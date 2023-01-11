@@ -47,7 +47,6 @@ export const createSaleTable = async () => {
 
     removeLoading();
   } catch (error) {
-    alert("Um erro inesperado aconteceu. Tente novamente mais tarde.");
     createError();
   }
 };
@@ -172,6 +171,7 @@ window.updateSale = async () => {
 
       alert(response.data.message);
     } catch (error) {
+      console.log(error.message);
       alert(response.notifications[0].message);
     }
   }

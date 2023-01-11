@@ -36,7 +36,6 @@ export const createCustomerTable = async () => {
 
     removeLoading();
   } catch (error) {
-    alert("Um erro inesperado aconteceu. Tente novamente mais tarde.");
     createError();
   }
 };

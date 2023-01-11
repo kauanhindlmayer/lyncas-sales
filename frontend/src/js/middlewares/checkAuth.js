@@ -1,6 +1,6 @@
 import { isAuthenticated } from "../helper.js";
 
-export const authMiddleware = (route) => {
+export const checkAuth = (route) => {
   if (
     route !== "/pages/conectar-se.html" &&
     route !== "/pages/criar-conta.html" &&

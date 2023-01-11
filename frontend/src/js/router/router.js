@@ -1,5 +1,5 @@
 import { loadComponents } from "../helper.js";
-import { authMiddleware } from "../middlewares/auth-middleware.js";
+import { checkAuth } from "../middlewares/checkAuth.js";
 
 export const router = {
   routes: {},
@@ -22,16 +22,16 @@ export const router = {
     const { pathname } = window.location;
 
     if (routeName) {
-      route = routeName;
+      route = checkAuth(routeName);
       const href = routeName.replace("/pages", "").replace(".html", "");
       window.history.pushState({}, "", href);
     } else {
-      route = this.routes[pathname] || this.routes[404];
+      route = checkAuth(this.routes[pathname]) || this.routes[404];
     }
 
     if (updateRouteName) window.history.pushState({}, "", updateRouteName);
 
-    fetch(authMiddleware(route))
+    fetch(route)
       .then((data) => data.text())
       .then((html) => {
         document.querySelector("#app").innerHTML = html;

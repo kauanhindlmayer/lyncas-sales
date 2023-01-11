@@ -2,7 +2,12 @@ import { api } from "./services/api.service.js";
 import { createDashboard } from "./services/dashboard.service.js";
 import { createCustomerTable } from "./services/customer.service.js";
 import { createSaleTable } from "./services/sale.service.js";
-import { user } from "./services/jwt.service.js";
+import { user } from "./services/user.service.js";
+import {
+  getToken,
+  removeToken,
+  removeUsername,
+} from "./services/jwt.service.js";
 
 export const validator = {
   handleSubmit(event) {
@@ -190,7 +195,7 @@ const enableMenu = () => {
 };
 
 export const isAuthenticated = () => {
-  return localStorage.getItem("lyncas-sales-token") ? true : false;
+  return getToken() ? true : false;
 };
 
 const toggleMenu = (route) => {
@@ -211,9 +216,8 @@ export const loadComponents = (route) => {
 };
 
 export const removeUserData = () => {
-  localStorage.removeItem("lyncas-sales-token");
-  localStorage.removeItem("lyncas-sales-username");
-
+  removeToken();
+  removeUsername();
   delete user.token;
   delete user.name;
 };

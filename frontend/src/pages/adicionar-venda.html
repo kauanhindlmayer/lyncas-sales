@@ -66,7 +66,7 @@
             <label for="value-input">Valor unitário</label>
             <input
               type="text"
-              pattern="\d*"
+              pattern="^\d{0,8}(\.\d{1,4})?$"
               name="value-input"
               id="value-input"
               class="input field only-number"
@@ -96,7 +96,7 @@
             <label for="total-value-input">Valor total</label>
             <input
               type="text"
-              pattern="\d*"
+              pattern="^\d{0,8}(\.\d{1,4})?$"
               name="total-value-input"
               id="total-value-input"
               class="input field only-number"
