@@ -54,7 +54,7 @@
 </template>
 
 <script setup>
-import { api } from "../services/api.js";
+import { api } from "../services/api.service.js";
 import { toLocaleDateString, toLocaleString } from "../helpers/index.js";
 import { reactive, onMounted } from "vue";
 import router from "../router";

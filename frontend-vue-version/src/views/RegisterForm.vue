@@ -11,7 +11,7 @@
           placeholder="Nome"
           label="nome"
         />
-        <ErrorMessage class="text-red-600" name="name" />
+        <ErrorMessage class="text-error" name="name" />
         <!-- E-mail -->
         <vee-field
           name="email"
@@ -19,7 +19,7 @@
           class="input field email"
           placeholder="E-mail"
         />
-        <ErrorMessage class="text-red-600" name="email" />
+        <ErrorMessage class="text-error" name="email" />
         <!-- Password -->
         <vee-field
           name="password"
@@ -28,7 +28,7 @@
           placeholder="Senha"
           label="senha"
         />
-        <ErrorMessage class="text-red-600" name="password" />
+        <ErrorMessage class="text-error" name="password" />
         <!-- Confirm Password -->
         <vee-field
           name="confirm_password"
@@ -37,7 +37,7 @@
           placeholder="Confirmar Senha"
           label="confirmar senha"
         />
-        <ErrorMessage class="text-red-600" name="confirm_password" />
+        <ErrorMessage class="text-error" name="confirm_password" />
 
         <button type="submit">Registrar</button>
         <div class="login-container__footer">
@@ -58,31 +58,42 @@
   </div>
 </template>
 
-<script setup>
-import { api } from "../services/api";
-import { RouterLink } from "vue-router";
-import { reactive } from "vue";
+<script>
+import { user } from "../services/user.service";
 import router from "../router";
 
-const schema = reactive({
-  name: "required|min:3|max:100|alpha_spaces",
-  email: "required|min:3|max:100|email",
-  password: "required|min:8|max:100|excluded:password",
-  confirm_password: "passwords_mismatch:@password",
-});
+export default {
+  name: "RegisterForm",
+  data() {
+    return {
+      schema: {
+        name: "required|min:3|max:100|alpha_spaces",
+        email: "required|min:3|max:100|email",
+        password: "required|min:8|max:100|excluded:password",
+        // confirm_password: "passwords_mismatch:@password",
+      },
+    };
+  },
+  methods: {
+    register(values) {
+      user
+        .create({
+          name: values.name,
+          login: values.email,
+          password: values.password,
+          passwordConfirmation: values.confirm_password,
+        })
+        .then((response) => {
+          router.push("/conectar-se");
 
-async function register(values) {
-  const response = await api.post("User", {
-    name: values.name,
-    login: values.email,
-    password: values.password,
-    passwordConfirmation: values.confirm_password,
-  });
-
-  router.push("/conectar-se");
-
-  alert(response.data.message);
-}
+          alert(response.data.message);
+        })
+        .catch((error) => {
+          alert(error.response.data.notifications[0].message);
+        });
+    },
+  },
+};
 </script>
 
 <style>
@@ -90,7 +101,7 @@ async function register(values) {
   margin-bottom: 0;
 }
 
-.text-red-600 {
+.text-error {
   color: #e53e3e;
 }
 

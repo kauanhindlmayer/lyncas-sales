@@ -10,7 +10,7 @@
       </div>
     </div>
     <div class="main">
-      <vee-form class="form" :validation-schema="loginSchema" @submit="login">
+      <vee-form class="form" :validation-schema="schema" @submit="login">
         <h1>Entrar</h1>
         <!-- E-mail -->
         <vee-field
@@ -42,38 +42,36 @@
   </div>
 </template>
 
-<script setup>
-import { RouterLink } from "vue-router";
-import { reactive } from "vue";
-import { api } from "../services/api";
+<script>
+import { user } from "../services/user.service";
 import router from "../router";
-import useUserStore from "../stores/user";
 
-const loginSchema = reactive({
-  email: "required|email",
-  password: "required|min:8|max:100",
-});
-
-async function login(values) {
-  const response = await api.post(
-    "User",
-    {
-      login: values.email,
-      password: values.password,
+export default {
+  name: "LoginForm",
+  data() {
+    return {
+      schema: {
+        email: "required|email",
+        password: "required|min:8|max:100",
+      },
+    };
+  },
+  methods: {
+    async login(values) {
+      user
+        .authenticate({
+          login: values.email,
+          password: values.password,
+        })
+        .then(() => {
+          router.push("/");
+        })
+        .catch((error) => {
+          alert(error.response.data.notifications[0].message);
+        });
     },
-    "autenticar"
-  );
-
-  const store = useUserStore();
-
-  store.name = response.userName;
-  store.token = response.token;
-
-  localStorage.setItem("lyncas-sales-token", response.token);
-  localStorage.setItem("lyncas-sales-username", response.userName);
-
-  router.push("/");
-}
+  },
+};
 </script>
 
 <style scoped>

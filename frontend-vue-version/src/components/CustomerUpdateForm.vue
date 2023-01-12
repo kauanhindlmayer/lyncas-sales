@@ -75,7 +75,7 @@
 </template>
 
 <script setup>
-import { api } from "../services/api.js";
+import { api } from "../services/api.service.js";
 import { reactive, onMounted } from "vue";
 import router from "../router";
 import { useRoute } from "vue-router";

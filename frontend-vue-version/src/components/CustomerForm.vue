@@ -76,7 +76,7 @@
 </template>
 
 <script setup>
-import { api } from "../services/api.js";
+import { api } from "../services/api.service.js";
 import { reactive } from "vue";
 import router from "../router";
 
@@ -89,9 +89,9 @@ const schema = reactive({
 
 async function createCustomer(values) {
   const response = await api.post("Customer", {
-    name: values.nome,
+    name: values.name,
     email: values.email,
-    phone: values.telefone,
+    phone: values.phone,
     cpf: values.cpf,
   });
 
