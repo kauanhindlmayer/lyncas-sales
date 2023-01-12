@@ -20,7 +20,7 @@ window.handleLogin = async () => {
     let response;
 
     try {
-      response = await api.post("User", body);
+      response = await api.post("User", body, "autenticar");
 
       if (!response.token) throw "Error";
 

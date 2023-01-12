@@ -29,17 +29,19 @@ export const api = {
     }
   },
 
-  async post(resource, body) {
+  async post(resource, body, path) {
     try {
-      const path = resource === "User" ? "autenticar" : "adicionar";
-      const response = await fetch(`${config.baseURL}/${resource}/${path}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${user.token}`,
-        },
-        body: JSON.stringify(body),
-      });
+      const response = await fetch(
+        `${config.baseURL}/${resource}/${path ? path : "adicionar"}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.token}`,
+          },
+          body: JSON.stringify(body),
+        }
+      );
       return await response.json();
     } catch (error) {
       handleExpiredToken();
