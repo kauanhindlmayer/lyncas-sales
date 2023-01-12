@@ -70,7 +70,7 @@ export default {
         name: "required|min:3|max:100|alpha_spaces",
         email: "required|min:3|max:100|email",
         password: "required|min:8|max:100|excluded:password",
-        // confirm_password: "passwords_mismatch:@password",
+        confirm_password: "passwords_mismatch:@password",
       },
     };
   },
@@ -85,7 +85,6 @@ export default {
         })
         .then((response) => {
           router.push("/conectar-se");
-
           alert(response.data.message);
         })
         .catch((error) => {

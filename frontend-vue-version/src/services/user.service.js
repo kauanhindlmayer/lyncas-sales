@@ -3,12 +3,16 @@ import { setUsername, setToken } from "./jwt.service";
 import useUserStore from "../stores/user";
 
 export const user = {
+  async getById(id) {
+    return await api.post(`User/obter/${id}`);
+  },
+
   async create(data) {
-    return await api.post("User", data);
+    return await api.post("User/adicionar", data);
   },
 
   async authenticate(data) {
-    const response = await api.post("User", data, "autenticar");
+    const response = await api.post("User/autenticar", data);
 
     const store = useUserStore();
 

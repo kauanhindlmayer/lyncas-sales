@@ -60,7 +60,7 @@ import { reactive, onMounted } from "vue";
 import router from "../router";
 
 async function updateTable() {
-  const response = await api.get("Sale");
+  const response = await api.get("Sale/listar");
   state.sales = response.data;
 }
 
@@ -68,7 +68,7 @@ async function handleDelete(id) {
   const answer = confirm("Deseja realmente deletar a venda?");
 
   if (answer) {
-    const response = await api.delete("Sale", id);
+    const response = await api.delete(`Sale/remover/${id}`);
 
     updateTable();
 

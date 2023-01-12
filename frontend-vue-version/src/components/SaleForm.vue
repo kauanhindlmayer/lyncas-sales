@@ -155,7 +155,7 @@ const state = reactive({
 });
 
 async function createSale(values) {
-  const response = await api.post("Sale", {
+  const response = await api.post("Sale/adicionar", {
     customerId: values.customerId,
     billingDate: values.billingDate,
     items: [
@@ -174,7 +174,7 @@ async function createSale(values) {
 }
 
 onMounted(async () => {
-  const response = await api.get("Customer");
+  const response = await api.get("Customer/listar");
   state.users = response.data;
 });
 </script>

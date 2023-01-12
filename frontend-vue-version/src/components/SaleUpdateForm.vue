@@ -133,6 +133,7 @@ import { reactive, onMounted } from "vue";
 import { toLocaleString } from "../helpers";
 import router from "../router";
 import { useRoute } from "vue-router";
+import { sale } from "../services/sale.service";
 
 const route = useRoute();
 
@@ -159,7 +160,7 @@ const state = reactive({
 });
 
 async function updateSale(values) {
-  const response = await api.put("Sale", {
+  const response = await api.put("Sale/atualizar", {
     id: route.query.id,
     customerId: values.customer,
     billingDate: values.billingDate,
@@ -179,7 +180,7 @@ async function updateSale(values) {
 }
 
 async function fillForm() {
-  const response = await api.getById("Sale", route.query.id);
+  const response = await sale.getById(route.query.id);
 
   saleData.customer = response.data.customerId;
   saleData.billingDate = response.data.billingDate.slice(0, 10);
@@ -190,7 +191,7 @@ async function fillForm() {
 }
 
 onMounted(async () => {
-  const response = await api.get("Customer");
+  const response = await api.get("Customer/listar");
   state.users = response.data;
 
   fillForm();

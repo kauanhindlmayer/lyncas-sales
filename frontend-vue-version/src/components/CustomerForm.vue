@@ -88,7 +88,7 @@ const schema = reactive({
 });
 
 async function createCustomer(values) {
-  const response = await api.post("Customer", {
+  const response = await api.post("Customer/adicionar", {
     name: values.name,
     email: values.email,
     phone: values.phone,

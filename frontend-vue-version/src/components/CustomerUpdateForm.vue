@@ -79,6 +79,7 @@ import { api } from "../services/api.service.js";
 import { reactive, onMounted } from "vue";
 import router from "../router";
 import { useRoute } from "vue-router";
+import { user } from "../services/user.service";
 
 const route = useRoute();
 
@@ -97,7 +98,7 @@ const userData = reactive({
 });
 
 async function updateCustomer(values) {
-  const response = await api.put("Customer", {
+  const response = await api.put("Customer/atualizar", {
     id: route.query.id,
     name: values.nome,
     email: values.email,
@@ -111,7 +112,7 @@ async function updateCustomer(values) {
 }
 
 async function getUserData() {
-  const response = await api.getById("Customer", route.query.id);
+  const response = await user.getById(route.query.id);
 
   userData.nome = response.data.name;
   userData.email = response.data.email;
