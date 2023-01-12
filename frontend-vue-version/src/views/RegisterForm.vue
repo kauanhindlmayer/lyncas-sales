@@ -9,6 +9,7 @@
           type="text"
           class="input field"
           placeholder="Nome"
+          label="nome"
         />
         <ErrorMessage class="text-red-600" name="name" />
         <!-- E-mail -->
@@ -25,6 +26,7 @@
           type="password"
           class="input field"
           placeholder="Senha"
+          label="senha"
         />
         <ErrorMessage class="text-red-600" name="password" />
         <!-- Confirm Password -->
@@ -33,6 +35,7 @@
           type="password"
           class="input field"
           placeholder="Confirmar Senha"
+          label="confirmar senha"
         />
         <ErrorMessage class="text-red-600" name="confirm_password" />
 
@@ -64,12 +67,12 @@ import router from "../router";
 const schema = reactive({
   name: "required|min:3|max:100|alpha_spaces",
   email: "required|min:3|max:100|email",
-  password: "required|min:9|max:100|excluded:password",
+  password: "required|min:8|max:100|excluded:password",
   confirm_password: "passwords_mismatch:@password",
 });
 
 async function register(values) {
-  const response = await api.createUser({
+  const response = await api.post("User", {
     name: values.name,
     login: values.email,
     password: values.password,

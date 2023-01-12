@@ -14,6 +14,7 @@ import {
   min_value as minVal,
   max_value as maxVal,
   confirmed,
+  not_one_of as excluded,
 } from "@vee-validate/rules";
 
 export default {
@@ -30,6 +31,7 @@ export default {
     defineRule("min_value", minVal);
     defineRule("max_value", maxVal);
     defineRule("passwords_mismatch", confirmed);
+    defineRule("excluded", excluded);
 
     configure({
       generateMessage: (ctx) => {
@@ -41,6 +43,7 @@ export default {
           email: `Campo ${ctx.field} precisa ser um e-mail válido.`,
           min_value: `Campo ${ctx.field} é muito baixo.`,
           max_value: `Campo ${ctx.field} é muito alto.`,
+          excluded: `Você não tem permissão para usar este valor para o campo ${ctx.field}.`,
           passwords_mismatch: `As senhas não conferem.`,
         };
 

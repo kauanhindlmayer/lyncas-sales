@@ -5,52 +5,38 @@ const user = useUserStore();
 
 const instance = axios.create({
   baseURL: "https://localhost:7246/api",
-});
-
-const auth = {
+  timeout: 1000,
   headers: {
     Authorization: `Bearer ${user.token}`,
   },
-};
+});
 
 export const api = {
   async get(resource) {
-    const response = await instance.get(`${resource}/listar`, auth);
+    const response = await instance.get(`${resource}/listar`);
     return response.data;
   },
 
   async getById(resource, id) {
-    const response = await instance.get(`/${resource}/obter/${id}`, auth);
+    const response = await instance.get(`/${resource}/obter/${id}`);
     return response.data;
   },
 
-  async post(resource, data) {
-    const response = await instance.post(`/${resource}/adicionar`, data, auth);
+  async post(resource, data, path) {
+    const response = await instance.post(
+      `/${resource}/${path ?? "adicionar"}`,
+      data
+    );
     return response.data;
   },
 
   async put(resource, data) {
-    const response = await instance.put(`/${resource}/atualizar`, data, auth);
+    const response = await instance.put(`/${resource}/atualizar`, data);
     return response.data;
   },
 
   async delete(resource, id) {
-    const response = await instance.delete(`/${resource}/remover/${id}`, auth);
+    const response = await instance.delete(`/${resource}/remover/${id}`);
     return response.data;
-  },
-
-  async validateToken() {
-    const response = await instance.get(`/User/validar`, auth);
-    return await response.status;
-  },
-
-  async createUser(data) {
-    const response = await instance.post("/User/adicionar", data);
-    return await response.data;
-  },
-
-  async authenticateUser(data) {
-    const response = await instance.post("/User/autenticar/", data);
-    return await response.data;
   },
 };

@@ -1,17 +1,24 @@
 <template>
   <div class="content">
     <section class="component">
-      <h1 id="title">Atualizar venda</h1>
-      <form class="form">
+      <h1>Atualizar venda</h1>
+      <vee-form
+        class="form"
+        :validation-schema="schema"
+        @submit="updateSale"
+        :initial-values="saleData"
+      >
         <div class="form__form-wrapper">
           <div>
             <label for="customer-input">Cliente</label>
-            <select
+            <!-- Select Customer -->
+            <vee-field
+              as="select"
+              name="customer"
               class="select field"
-              name="customer-input"
               id="customer-input"
               required
-              v-model="sale.customerId"
+              label="cliente"
             >
               <option data-default disabled selected></option>
               <option
@@ -21,77 +28,83 @@
               >
                 {{ user.name }}
               </option>
-            </select>
+            </vee-field>
+            <ErrorMessage class="text-error" name="customer" />
           </div>
           <div>
+            <!-- Billing Date -->
             <label for="billing-date-input">Data de faturamento</label>
-            <input
+            <vee-field
+              name="billingDate"
               type="date"
-              name="billing-date-input"
               id="billing-date-input"
               class="input-date field"
               required
-              maxlength="12"
-              v-model="sale.billingDate"
+              label="data de faturamento"
             />
+            <ErrorMessage class="text-error" name="billingDate" />
           </div>
         </div>
         <div class="form__dashed"></div>
         <h2>Itens do pedido</h2>
         <div class="form__form-wrapper">
           <div>
+            <!-- Item Description -->
             <label for="description-input">Descrição do item</label>
-            <input
+            <vee-field
+              name="itemDescription"
               type="text"
-              name="description-input"
               id="description-input"
               class="input field"
               placeholder=" "
               required
-              maxlength="254"
-              v-model="sale.items[0].itemDescription"
+              label="descrição do item"
             />
+            <ErrorMessage class="text-error" name="itemDescription" />
           </div>
           <div>
+            <!-- Unitary Value -->
             <label for="value-input">Valor unitário</label>
-            <input
+            <vee-field
+              name="unitaryValue"
               type="number"
-              name="value-input"
               id="value-input"
               class="input field"
               placeholder=" "
               required
-              maxlength="16"
-              v-model="sale.items[0].unitaryValue"
+              label="valor unitário"
             />
+            <ErrorMessage class="text-error" name="unitaryValue" />
           </div>
         </div>
         <div class="form__form-wrapper">
           <div>
+            <!-- Quantity -->
             <label for="quantity-input">Quantidade</label>
-            <input
+            <vee-field
+              name="quantity"
               type="number"
-              name="quantity-input"
               id="quantity-input"
               class="input field"
               placeholder=" "
               required
-              maxlength="16"
-              v-model="sale.items[0].quantity"
+              label="quantidade"
             />
+            <ErrorMessage class="text-error" name="quantity" />
           </div>
           <div>
+            <!-- Total Value -->
             <label for="total-value-input">Valor total</label>
-            <input
+            <vee-field
+              name="totalValue"
               type="number"
-              name="total-value-input"
               id="total-value-input"
               class="input field"
               placeholder=" "
               required
-              maxlength="16"
-              v-model="sale.items[0].totalValue"
+              label="valor total"
             />
+            <ErrorMessage class="text-error" name="totalValue" />
           </div>
         </div>
         <div class="align-right">
@@ -100,19 +113,16 @@
         <div class="dashed"></div>
         <div class="footer">
           <div class="footer__total-value">
-            <span v-if="sale.items[0].totalValue === null">R$ 0,00</span>
-            <span v-else>{{ toLocaleString(sale.items[0].totalValue) }}</span>
+            <span v-if="saleData.totalValue === null">R$ 0,00</span>
+            <span v-else>{{ toLocaleString(saleData.totalValue) }}</span>
           </div>
           <div class="align-right">
-            <button
-              class="save-button save-button--sale"
-              @click.prevent="UpdateSale()"
-            >
+            <button class="save-button save-button--sale" type="submit">
               Salvar
             </button>
           </div>
         </div>
-      </form>
+      </vee-form>
     </section>
   </div>
 </template>
@@ -120,32 +130,48 @@
 <script setup>
 import { api } from "../services/api.js";
 import { reactive, onMounted } from "vue";
-import { toLocaleString } from "../includes";
+import { toLocaleString } from "../helpers";
 import router from "../router";
 import { useRoute } from "vue-router";
 
 const route = useRoute();
 
-const sale = reactive({
-  id: route.query.id,
-  customerId: null,
+const schema = reactive({
+  customer: "required",
+  billingDate: "required",
+  itemDescription: "required|min:3|max:100|",
+  unitaryValue: "required|min_value:1|max_value:100000",
+  quantity: "required|min_value:1|max_value:100",
+  totalValue: "required|min_value:1|max_value:100000",
+});
+
+const saleData = reactive({
+  customer: null,
   billingDate: null,
-  items: [
-    {
-      itemDescription: null,
-      unitaryValue: null,
-      quantity: null,
-      totalValue: null,
-    },
-  ],
+  itemDescription: null,
+  unitaryValue: null,
+  quantity: null,
+  totalValue: null,
 });
 
 const state = reactive({
   users: null,
 });
 
-async function UpdateSale() {
-  const response = await api.put("Sale", sale);
+async function updateSale(values) {
+  const response = await api.put("Sale", {
+    id: route.query.id,
+    customerId: values.customer,
+    billingDate: values.billingDate,
+    items: [
+      {
+        itemDescription: values.itemDescription,
+        unitaryValue: values.unitaryValue,
+        quantity: values.quantity,
+        totalValue: values.totalValue,
+      },
+    ],
+  });
 
   router.push("/lista-de-vendas");
 
@@ -155,12 +181,12 @@ async function UpdateSale() {
 async function fillForm() {
   const response = await api.getById("Sale", route.query.id);
 
-  sale.customerId = response.data.customerId;
-  sale.billingDate = response.data.billingDate.slice(0, 10);
-  sale.items[0].itemDescription = response.data.items[0].itemDescription;
-  sale.items[0].unitaryValue = response.data.items[0].unitaryValue;
-  sale.items[0].quantity = response.data.items[0].quantity;
-  sale.items[0].totalValue = response.data.items[0].totalValue;
+  saleData.customer = response.data.customerId;
+  saleData.billingDate = response.data.billingDate.slice(0, 10);
+  saleData.itemDescription = response.data.items[0].itemDescription;
+  saleData.unitaryValue = response.data.items[0].unitaryValue;
+  saleData.quantity = response.data.items[0].quantity;
+  saleData.totalValue = response.data.items[0].totalValue;
 }
 
 onMounted(async () => {
@@ -172,6 +198,10 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+.text-error {
+  color: #e53e3e;
+}
+
 .content {
   margin: 2.3rem 0 auto 0;
 }

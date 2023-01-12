@@ -132,9 +132,9 @@ const schema = reactive({
   customer: "required",
   billingDate: "required",
   itemDescription: "required|min:3|max:100|",
-  unitaryValue: "required|min_value:1|max_value:10",
+  unitaryValue: "required|min_value:1|max_value:100000",
   quantity: "required|min_value:1|max_value:100",
-  totalValue: "required|min_value:1|max_value:10",
+  totalValue: "required|min_value:1|max_value:100000",
 });
 
 const sale = reactive({

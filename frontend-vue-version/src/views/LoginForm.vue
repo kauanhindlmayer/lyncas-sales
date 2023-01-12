@@ -23,12 +23,13 @@
 
         <!-- Password -->
         <vee-field
-          name="senha"
+          name="password"
           type="password"
           class="input field"
           placeholder="Senha"
+          label="senha"
         />
-        <ErrorMessage class="error-message" name="senha" />
+        <ErrorMessage class="error-message" name="password" />
 
         <button type="submit">Entrar</button>
 
@@ -50,14 +51,18 @@ import useUserStore from "../stores/user";
 
 const loginSchema = reactive({
   email: "required|email",
-  senha: "required|min:9|max:100",
+  password: "required|min:8|max:100",
 });
 
 async function login(values) {
-  const response = await api.authenticateUser({
-    login: values.email,
-    password: values.senha,
-  });
+  const response = await api.post(
+    "User",
+    {
+      login: values.email,
+      password: values.password,
+    },
+    "autenticar"
+  );
 
   const store = useUserStore();
 

@@ -12,14 +12,15 @@
             <!-- Nome -->
             <label for="name-input">Nome</label>
             <vee-field
-              name="nome"
+              name="name"
               type="text"
               id="name-input"
               class="input field"
               placeholder=" "
               required
+              label="nome"
             />
-            <ErrorMessage class="text-error" name="nome" />
+            <ErrorMessage class="text-error" name="name" />
           </div>
           <div>
             <!-- E-mail -->
@@ -40,14 +41,15 @@
             <!-- Telefone -->
             <label for="phone-input">Telefone</label>
             <vee-field
-              name="telefone"
+              name="phone"
               type="tel"
               id="phone-input"
               class="input field phone"
               placeholder=" "
               required
+              label="telefone"
             />
-            <ErrorMessage class="text-error" name="telefone" />
+            <ErrorMessage class="text-error" name="phone" />
           </div>
           <div>
             <!-- CPF -->
@@ -79,9 +81,9 @@ import { reactive } from "vue";
 import router from "../router";
 
 const schema = reactive({
-  nome: "required|min:3|max:100|alpha_spaces",
+  name: "required|min:3|max:100|alpha_spaces",
   email: "required|min:3|max:100|email",
-  telefone: "required|min:9|max:16",
+  phone: "required|min:9|max:16",
   cpf: "required|min:11|max:14",
 });
 
