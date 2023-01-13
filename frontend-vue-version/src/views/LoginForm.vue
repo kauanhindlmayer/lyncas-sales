@@ -44,6 +44,8 @@
 
 <script>
 import { user } from "../services/user.service";
+import { mapWritableState } from "pinia";
+import useUserStore from "../stores/user";
 import router from "../router";
 
 export default {
@@ -56,6 +58,9 @@ export default {
       },
     };
   },
+  computed: {
+    ...mapWritableState(useUserStore, ["name", "token"]),
+  },
   methods: {
     login(values) {
       user
@@ -63,7 +68,9 @@ export default {
           login: values.email,
           password: values.password,
         })
-        .then(() => {
+        .then((response) => {
+          this.name = response.userName;
+          this.token = response.token;
           router.push("/");
         })
         .catch((error) => {

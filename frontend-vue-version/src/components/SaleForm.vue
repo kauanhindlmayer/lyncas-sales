@@ -184,7 +184,7 @@ export default {
 }
 
 .content {
-  margin: 2.3rem 0 auto 0;
+  margin: 2rem 0 auto 0;
 }
 
 .add-items-button {
