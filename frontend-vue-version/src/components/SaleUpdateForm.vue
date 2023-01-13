@@ -150,7 +150,7 @@ export default {
     formatNumber,
     updateSale(values) {
       sale
-        .create({
+        .update({
           id: this.$route.query.id,
           customerId: values.customer,
           billingDate: values.billingDate,

@@ -96,7 +96,7 @@ export default {
   methods: {
     updateCustomer(values) {
       customer
-        .create({
+        .update({
           id: this.$route.query.id,
           name: values.name,
           email: values.email,

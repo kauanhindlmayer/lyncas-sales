@@ -11,7 +11,7 @@ export const customer = {
     return await api.post("Customer/adicionar", data);
   },
   async update(data) {
-    return await api.delete(`Customer/atualizar/${data.id}`, data);
+    return await api.put("Customer/atualizar", data);
   },
   async delete(id) {
     return await api.delete(`Customer/remover/${id}`);

@@ -11,7 +11,7 @@ export const sale = {
     return await api.post("Sale/adicionar", data);
   },
   async update(data) {
-    return await api.delete(`Sale/atualizar/${data.id}`, data);
+    return await api.put("Sale/atualizar", data);
   },
   async delete(id) {
     return await api.delete(`Sale/remover/${id}`);
