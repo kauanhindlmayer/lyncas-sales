@@ -32,7 +32,7 @@ export const api = {
   async post(resource, body, path) {
     try {
       const response = await fetch(
-        `${config.baseURL}/${resource}/${path ? path : "adicionar"}`,
+        `${config.baseURL}/${resource}/${path ?? "adicionar"}`,
         {
           method: "POST",
           headers: {

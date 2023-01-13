@@ -64,6 +64,10 @@
             <vee-field
               name="unitaryValue"
               type="number"
+              step="any"
+              oninput="if (this.value.length > this.maxLength)
+                        this.value = this.value.slice(0, this.maxLength);"
+              maxLength="10"
               id="value-input"
               class="input field"
               placeholder=" "
@@ -80,6 +84,9 @@
             <vee-field
               name="quantity"
               type="number"
+              oninput="if (this.value.length > this.maxLength)
+                        this.value = this.value.slice(0, this.maxLength);"
+              maxLength="5"
               id="quantity-input"
               class="input field"
               placeholder=" "
@@ -94,6 +101,10 @@
             <vee-field
               name="totalValue"
               type="number"
+              step="any"
+              oninput="if (this.value.length > this.maxLength)
+                        this.value = this.value.slice(0, this.maxLength);"
+              maxLength="10"
               id="total-value-input"
               class="input field"
               placeholder=" "
@@ -171,30 +182,36 @@ export default {
           alert(error.response.data.notifications[0].message);
         });
     },
+    loadCustomerData() {
+      customer
+        .get()
+        .then((response) => {
+          this.users = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    loadSaleData() {
+      sale
+        .getById(this.$route.query.id)
+        .then((response) => {
+          this.saleData.customer = response.data.customerId;
+          this.saleData.billingDate = response.data.billingDate.slice(0, 10);
+          this.saleData.itemDescription =
+            response.data.items[0].itemDescription;
+          this.saleData.unitaryValue = response.data.items[0].unitaryValue;
+          this.saleData.quantity = response.data.items[0].quantity;
+          this.saleData.totalValue = response.data.items[0].totalValue;
+        })
+        .catch((error) => {
+          alert(error.response.data.notifications[0].message);
+        });
+    },
   },
   mounted() {
-    customer
-      .get()
-      .then((response) => {
-        this.users = response.data;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-    sale
-      .getById(this.$route.query.id)
-      .then((response) => {
-        this.saleData.customer = response.data.customerId;
-        this.saleData.billingDate = response.data.billingDate.slice(0, 10);
-        this.saleData.itemDescription = response.data.items[0].itemDescription;
-        this.saleData.unitaryValue = response.data.items[0].unitaryValue;
-        this.saleData.quantity = response.data.items[0].quantity;
-        this.saleData.totalValue = response.data.items[0].totalValue;
-      })
-      .catch((error) => {
-        alert(error.response.data.notifications[0].message);
-      });
+    this.loadCustomerData();
+    this.loadSaleData();
   },
 };
 </script>

@@ -111,16 +111,19 @@ export default {
           alert(error.response.data.notifications[0].message);
         });
     },
+    loadCustomerData() {
+      customer
+        .getById(this.$route.query.id)
+        .then((response) => {
+          this.userData = response.data;
+        })
+        .catch((error) => {
+          alert(error.response.data.notifications[0].message);
+        });
+    },
   },
   mounted() {
-    customer
-      .getById(this.$route.query.id)
-      .then((response) => {
-        this.userData = response.data;
-      })
-      .catch((error) => {
-        alert(error.response.data.notifications[0].message);
-      });
+    this.loadCustomerData();
   },
 };
 </script>

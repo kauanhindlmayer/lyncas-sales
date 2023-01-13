@@ -59,6 +59,10 @@
             <vee-field
               name="unitaryValue"
               type="number"
+              step="any"
+              oninput="if (this.value.length > this.maxLength)
+                        this.value = this.value.slice(0, this.maxLength);"
+              maxLength="10"
               id="value-input"
               class="input field"
               placeholder=" "
@@ -75,6 +79,9 @@
             <vee-field
               name="quantity"
               type="number"
+              oninput="if (this.value.length > this.maxLength)
+                        this.value = this.value.slice(0, this.maxLength);"
+              maxLength="5"
               id="quantity-input"
               class="input field"
               placeholder=" "
@@ -89,6 +96,10 @@
             <vee-field
               name="totalValue"
               type="number"
+              step="any"
+              oninput="if (this.value.length > this.maxLength)
+                        this.value = this.value.slice(0, this.maxLength);"
+              maxLength="10"
               id="total-value-input"
               class="input field"
               placeholder=" "
@@ -164,16 +175,19 @@ export default {
           alert(error.response.data.notifications[0].message);
         });
     },
+    loadCustomerData() {
+      customer
+        .get()
+        .then((response) => {
+          this.users = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   },
   mounted() {
-    customer
-      .get()
-      .then((response) => {
-        this.users = response.data;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    this.loadCustomerData();
   },
 };
 </script>

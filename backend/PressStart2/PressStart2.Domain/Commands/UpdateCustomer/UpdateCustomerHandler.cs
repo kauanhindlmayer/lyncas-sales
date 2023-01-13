@@ -43,7 +43,7 @@ namespace PressStart2.Domain.Commands.UpdateCustomer
             _repositoryCustomer.Update(customer);
             _repositoryCustomer.Commit();
 
-            return Task.FromResult(new CommandResponse(new UpdateCustomerResponse(NotificationsConstants.CUSTOMER_REGISTERED) ,this));
+            return Task.FromResult(new CommandResponse(new UpdateCustomerResponse(NotificationsConstants.CUSTOMER_UPDATED) ,this));
         }
     }
 }
