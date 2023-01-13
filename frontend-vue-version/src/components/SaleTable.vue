@@ -24,22 +24,32 @@
             <th>Valor total</th>
             <th>Ações</th>
           </tr>
-          <template v-for="sale in state.sales" :key="sale.id">
+          <template
+            v-for="{
+              customer,
+              quantityItems,
+              saleDate,
+              billingDate,
+              totalValue,
+              id,
+            } in sales"
+            :key="id"
+          >
             <tr>
-              <td class="table--left-corner">{{ sale.customer }}</td>
-              <td>{{ sale.quantityItems }}</td>
-              <td>{{ toLocaleDateString(sale.saleDate) }}</td>
-              <td>{{ toLocaleDateString(sale.billingDate) }}</td>
-              <td>{{ toLocaleString(sale.totalValue) }}</td>
+              <td class="table--left-corner">{{ customer }}</td>
+              <td>{{ quantityItems }}</td>
+              <td>{{ formatString(saleDate) }}</td>
+              <td>{{ formatString(billingDate) }}</td>
+              <td>{{ formatNumber(totalValue) }}</td>
               <td class="table--right-corner">
                 <button
-                  @click="handleDelete(sale.id)"
+                  @click="handleDelete(id)"
                   class="table__button table__button--delete"
                 >
                   Deletar
                 </button>
                 <button
-                  @click="handleEdit(sale.id)"
+                  @click="handleEdit(id)"
                   class="table__button table__button--edit"
                 >
                   Editar
@@ -53,40 +63,54 @@
   </div>
 </template>
 
-<script setup>
-import { api } from "../services/api.service.js";
-import { toLocaleDateString, toLocaleString } from "../helpers/index.js";
-import { reactive, onMounted } from "vue";
+<script>
+import { sale } from "../services/sale.service";
+import { formatString, formatNumber } from "../helpers";
 import router from "../router";
 
-async function updateTable() {
-  const response = await api.get("Sale/listar");
-  state.sales = response.data;
-}
+export default {
+  name: "SaleTable",
+  data() {
+    return {
+      sales: {},
+    };
+  },
+  methods: {
+    formatString,
+    formatNumber,
+    updateTable() {
+      sale
+        .get()
+        .then((response) => {
+          this.sales = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    handleDelete(id) {
+      const answer = confirm("Deseja realmente deletar a venda?");
 
-async function handleDelete(id) {
-  const answer = confirm("Deseja realmente deletar a venda?");
-
-  if (answer) {
-    const response = await api.delete(`Sale/remover/${id}`);
-
-    updateTable();
-
-    alert(response.data.message);
-  }
-}
-
-async function handleEdit(id) {
-  router.push(`/atualizar-venda?id=${id}`);
-}
-
-const state = reactive({
-  sales: null,
-});
-
-onMounted(async () => {
-  updateTable();
-});
+      if (answer) {
+        sale
+          .delete(id)
+          .then((response) => {
+            this.updateTable();
+            alert(response.data.message);
+          })
+          .catch((error) => {
+            alert(error.response.data.notifications[0].message);
+          });
+      }
+    },
+    handleEdit(id) {
+      router.push(`/atualizar-venda?id=${id}`);
+    },
+  },
+  async mounted() {
+    this.updateTable();
+  },
+};
 </script>
 
 <style scoped>

@@ -1,9 +1,9 @@
-export const toLocaleDateString = (date) => {
+export const formatString = (date) => {
   return new Date(date).toLocaleDateString("pt-BR");
 };
 
-export const toLocaleString = (string) => {
-  return string.toLocaleString("pt-BR", {
+export const formatNumber = (string) => {
+  return Number(string).toLocaleString("pt-BR", {
     style: "currency",
     currency: "BRL",
   });

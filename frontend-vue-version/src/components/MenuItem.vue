@@ -1,24 +1,22 @@
 <template>
-  <div :class="state.dynamicClass">
-    <img
-      class="menu__item__icon"
-      :src="state.dynamicSource"
-      :alt="state.dynamicAlt"
-    />
-    <RouterLink :to="props.path">{{ props.name }}</RouterLink>
+  <div :class="dynamicClass">
+    <img class="menu__item__icon" :src="dynamicSource" :alt="dynamicAlt" />
+    <RouterLink :to="path">{{ name }}</RouterLink>
   </div>
 </template>
 
-<script setup>
-import { RouterLink } from "vue-router";
-import { reactive } from "vue";
-
-const state = reactive({
-  dynamicClass: `menu__item menu__item--${props.modifier}`,
-  dynamicSource: `/src/assets/svg/${props.name.toLowerCase()}-icon.svg`,
-  dynamicAlt: `${props.name} icon`,
-});
-const props = defineProps(["name", "path", "modifier"]);
+<script>
+export default {
+  name: "MenuItem",
+  props: ["name", "path", "modifier"],
+  data() {
+    return {
+      dynamicClass: `menu__item menu__item--${this.modifier}`,
+      dynamicSource: `/src/assets/svg/${this.name.toLowerCase()}-icon.svg`,
+      dynamicAlt: `${this.name} icon`,
+    };
+  },
+};
 </script>
 
 <style scoped>

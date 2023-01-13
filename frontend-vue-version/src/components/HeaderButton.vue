@@ -1,19 +1,21 @@
 <template>
-  <div :class="state.buttonClass">
-    <RouterLink :to="props.path">{{ props.title }}</RouterLink>
+  <div :class="buttonClass">
+    <RouterLink :to="path">{{ title }}</RouterLink>
   </div>
 </template>
 
-<script setup>
-import { RouterLink } from "vue-router";
-import { reactive } from "vue";
-
-const state = reactive({
-  buttonClass: `profile__button profile__button--${
-    props.title == "Adicionar" ? "add" : "back"
-  }`,
-});
-const props = defineProps(["title", "path"]);
+<script>
+export default {
+  name: "HeaderButton",
+  props: ["title", "path"],
+  data() {
+    return {
+      buttonClass: `profile__button profile__button--${
+        this.title == "Adicionar" ? "add" : "back"
+      }`,
+    };
+  },
+};
 </script>
 
 <style>

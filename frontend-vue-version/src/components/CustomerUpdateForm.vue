@@ -13,14 +13,15 @@
             <!-- Nome -->
             <label for="name-input">Nome</label>
             <vee-field
-              name="nome"
+              name="name"
               type="text"
               id="name-input"
               class="input field"
               placeholder=" "
               required
+              label="nome"
             />
-            <ErrorMessage class="text-error" name="nome" />
+            <ErrorMessage class="text-error" name="name" />
           </div>
           <div>
             <!-- E-mail -->
@@ -41,14 +42,15 @@
             <!-- Telefone -->
             <label for="phone-input">Telefone</label>
             <vee-field
-              name="telefone"
+              name="phone"
               type="tel"
               id="phone-input"
               class="input field phone"
               placeholder=" "
               required
+              label="telefone"
             />
-            <ErrorMessage class="text-error" name="telefone" />
+            <ErrorMessage class="text-error" name="phone" />
           </div>
           <div>
             <!-- CPF -->
@@ -74,55 +76,53 @@
   </div>
 </template>
 
-<script setup>
-import { api } from "../services/api.service.js";
-import { reactive, onMounted } from "vue";
+<script>
+import { customer } from "../services/customer.service";
 import router from "../router";
-import { useRoute } from "vue-router";
-import { user } from "../services/user.service";
 
-const route = useRoute();
-
-const schema = reactive({
-  nome: "required|min:3|max:100|alpha_spaces",
-  email: "required|min:3|max:100|email",
-  telefone: "required|min:9|max:16",
-  cpf: "required|min:11|max:14",
-});
-
-const userData = reactive({
-  nome: null,
-  email: null,
-  telefone: null,
-  cpf: null,
-});
-
-async function updateCustomer(values) {
-  const response = await api.put("Customer/atualizar", {
-    id: route.query.id,
-    name: values.nome,
-    email: values.email,
-    phone: values.telefone,
-    cpf: values.cpf,
-  });
-
-  router.push("/lista-de-clientes");
-
-  alert(response.data.message);
-}
-
-async function getUserData() {
-  const response = await user.getById(route.query.id);
-
-  userData.nome = response.data.name;
-  userData.email = response.data.email;
-  userData.telefone = response.data.phone;
-  userData.cpf = response.data.cpf;
-}
-
-onMounted(() => {
-  getUserData();
-});
+export default {
+  name: "CustomerUpdateForm",
+  data() {
+    return {
+      schema: {
+        name: "required|min:3|max:100|alpha_spaces",
+        email: "required|min:3|max:100|email",
+        phone: "required|min:9|max:16",
+        cpf: "required|min:11|max:14",
+      },
+      userData: {},
+    };
+  },
+  methods: {
+    updateCustomer(values) {
+      customer
+        .create({
+          id: this.$route.query.id,
+          name: values.name,
+          email: values.email,
+          phone: values.phone,
+          cpf: values.cpf,
+        })
+        .then((response) => {
+          router.push("/lista-de-clientes");
+          alert(response.data.message);
+        })
+        .catch((error) => {
+          alert(error.response.data.notifications[0].message);
+        });
+    },
+  },
+  mounted() {
+    customer
+      .getById(this.$route.query.id)
+      .then((response) => {
+        this.userData = response.data;
+      })
+      .catch((error) => {
+        alert(error.response.data.notifications[0].message);
+      });
+  },
+};
 </script>
 
 <style scoped>

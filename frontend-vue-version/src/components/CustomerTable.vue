@@ -23,21 +23,24 @@
             <th>CPF</th>
             <th>Ações</th>
           </tr>
-          <template v-for="customer in state.customers" :key="customer.id">
+          <template
+            v-for="{ name, email, phone, cpf, id } in customers"
+            :key="id"
+          >
             <tr>
-              <td class="table--left-corner">{{ customer.name }}</td>
-              <td>{{ customer.email }}</td>
-              <td>{{ customer.phone }}</td>
-              <td>{{ customer.cpf }}</td>
+              <td class="table--left-corner">{{ name }}</td>
+              <td>{{ email }}</td>
+              <td>{{ phone }}</td>
+              <td>{{ cpf }}</td>
               <td class="table--right-corner">
                 <button
-                  @click="handleDelete(customer.id)"
+                  @click="handleDelete(id)"
                   class="table__button table__button--delete"
                 >
                   Deletar
                 </button>
                 <button
-                  @click="handleEdit(customer.id)"
+                  @click="handleEdit(id)"
                   class="table__button table__button--edit"
                 >
                   Editar
@@ -51,39 +54,51 @@
   </div>
 </template>
 
-<script setup>
-import { api } from "../services/api.service.js";
-import { reactive, onMounted } from "vue";
+<script>
+import { customer } from "../services/customer.service";
 import router from "../router";
 
-async function updateTable() {
-  const response = await api.get("Customer/listar");
-  state.customers = response.data;
-}
+export default {
+  name: "CustomerTable",
+  data() {
+    return {
+      customers: {},
+    };
+  },
+  methods: {
+    updateTable() {
+      customer
+        .get()
+        .then((response) => {
+          this.customers = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    handleDelete(id) {
+      const answer = confirm("Deseja realmente deletar o cliente?");
 
-async function handleEdit(id) {
-  router.push(`/atualizar-cliente?id=${id}`);
-}
-
-async function handleDelete(id) {
-  const answer = confirm("Deseja realmente deletar o cliente?");
-
-  if (answer) {
-    const response = await api.delete(`Customer/remover/${id}`);
-
-    updateTable();
-
-    alert(response.data.message);
-  }
-}
-
-const state = reactive({
-  customers: null,
-});
-
-onMounted(() => {
-  updateTable();
-});
+      if (answer) {
+        customer
+          .delete(id)
+          .then((response) => {
+            this.updateTable();
+            alert(response.data.message);
+          })
+          .catch((error) => {
+            alert(error.response.data.notifications[0].message);
+          });
+      }
+    },
+    handleEdit(id) {
+      router.push(`/atualizar-cliente?id=${id}`);
+    },
+  },
+  async mounted() {
+    this.updateTable();
+  },
+};
 </script>
 
 <style>

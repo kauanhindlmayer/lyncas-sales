@@ -1,18 +1,28 @@
 <template>
   <div class="container">
-    <Menu />
+    <app-menu />
     <div class="main">
-      <Header>
-        <HeaderButton title="Voltar" path="/lista-de-vendas" />
-      </Header>
-      <UpdateSaleForm />
+      <app-header>
+        <header-button title="Voltar" path="/lista-de-vendas" />
+      </app-header>
+      <update-sale-form />
     </div>
   </div>
 </template>
 
-<script setup>
-import Menu from "../components/Menu.vue";
-import Header from "../components/Header.vue";
+<script>
+import AppMenu from "../components/Menu.vue";
+import AppHeader from "../components/Header.vue";
 import HeaderButton from "../components/HeaderButton.vue";
 import UpdateSaleForm from "../components/SaleUpdateForm.vue";
+
+export default {
+  name: "SaleUpdate",
+  components: {
+    AppMenu,
+    AppHeader,
+    HeaderButton,
+    UpdateSaleForm,
+  },
+};
 </script>

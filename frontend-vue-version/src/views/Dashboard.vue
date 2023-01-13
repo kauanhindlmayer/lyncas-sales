@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <Menu />
+    <app-menu />
     <div class="main">
-      <Header />
+      <app-header />
       <div class="content">
         <div class="content__heading">
           <h2>Bem-vindo a Lyncas</h2>
@@ -12,9 +12,17 @@
   </div>
 </template>
 
-<script setup>
-import Menu from "../components/Menu.vue";
-import Header from "../components/Header.vue";
+<script>
+import AppMenu from "../components/Menu.vue";
+import AppHeader from "../components/Header.vue";
+
+export default {
+  name: "TheDashboard",
+  components: {
+    AppMenu,
+    AppHeader,
+  },
+};
 </script>
 
 <style scoped>

@@ -3,10 +3,6 @@ import { setUsername, setToken } from "./jwt.service";
 import useUserStore from "../stores/user";
 
 export const user = {
-  async getById(id) {
-    return await api.post(`User/obter/${id}`);
-  },
-
   async create(data) {
     return await api.post("User/adicionar", data);
   },

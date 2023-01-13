@@ -9,7 +9,7 @@
       </div>
 
       <div class="profile__name">
-        <h3>Olá, {{ store.name }}</h3>
+        <h3>Olá, {{ name }}</h3>
         <a @click="handleLogout">Sair</a>
       </div>
     </div>
@@ -17,26 +17,33 @@
   </div>
 </template>
 
-<script setup>
-import router from "../router";
+<script>
+import { removeToken, removeUsername } from "../services/jwt.service";
+import { mapStores, mapState } from "pinia";
 import useUserStore from "../stores/user";
+import router from "../router";
 
-const store = useUserStore();
+export default {
+  name: "AppHeader",
+  methods: {
+    handleLogout() {
+      const answer = confirm("Deseja realmente sair?");
 
-function handleLogout() {
-  const answer = confirm("Deseja realmente sair?");
+      if (answer) {
+        removeToken();
+        removeUsername();
 
-  if (answer) {
-    const store = useUserStore();
+        useUserStore().$reset();
 
-    localStorage.removeItem("lyncas-sales-token");
-    localStorage.removeItem("lyncas-sales-username");
-
-    store.$reset();
-
-    router.push("/conectar-se");
-  }
-}
+        router.push("/conectar-se");
+      }
+    },
+  },
+  computed: {
+    ...mapStores(useUserStore),
+    ...mapState(useUserStore, ["name"]),
+  },
+};
 </script>
 
 <style scoped>

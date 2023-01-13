@@ -57,7 +57,7 @@ export default {
     };
   },
   methods: {
-    async login(values) {
+    login(values) {
       user
         .authenticate({
           login: values.email,

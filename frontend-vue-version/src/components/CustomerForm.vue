@@ -75,30 +75,41 @@
   </div>
 </template>
 
-<script setup>
-import { api } from "../services/api.service.js";
-import { reactive } from "vue";
+<script>
+import { customer } from "../services/customer.service";
 import router from "../router";
 
-const schema = reactive({
-  name: "required|min:3|max:100|alpha_spaces",
-  email: "required|min:3|max:100|email",
-  phone: "required|min:9|max:16",
-  cpf: "required|min:11|max:14",
-});
-
-async function createCustomer(values) {
-  const response = await api.post("Customer/adicionar", {
-    name: values.name,
-    email: values.email,
-    phone: values.phone,
-    cpf: values.cpf,
-  });
-
-  router.push("/lista-de-clientes");
-
-  alert(response.data.message);
-}
+export default {
+  name: "CustomerForm",
+  data() {
+    return {
+      schema: {
+        name: "required|min:3|max:100|alpha_spaces",
+        email: "required|min:3|max:100|email",
+        phone: "required|min:9|max:16",
+        cpf: "required|min:11|max:14",
+      },
+    };
+  },
+  methods: {
+    createCustomer(values) {
+      customer
+        .create({
+          name: values.name,
+          email: values.email,
+          phone: values.phone,
+          cpf: values.cpf,
+        })
+        .then((response) => {
+          router.push("/lista-de-clientes");
+          alert(response.data.message);
+        })
+        .catch((error) => {
+          alert(error.response.data.notifications[0].message);
+        });
+    },
+  },
+};
 </script>
 
 <style scoped>

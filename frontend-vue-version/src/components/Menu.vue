@@ -18,8 +18,15 @@
   </div>
 </template>
 
-<script setup>
+<script>
 import MenuItem from "./MenuItem.vue";
+
+export default {
+  name: "AppMenu",
+  components: {
+    MenuItem,
+  },
+};
 </script>
 
 <style scoped>

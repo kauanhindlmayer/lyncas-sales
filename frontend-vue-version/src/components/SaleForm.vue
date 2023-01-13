@@ -16,12 +16,8 @@
               label="cliente"
             >
               <option data-default disabled selected></option>
-              <option
-                v-for="user in state.users"
-                :value="user.id"
-                :key="user.id"
-              >
-                {{ user.name }}
+              <option v-for="{ name, id } in users" :value="id" :key="id">
+                {{ name }}
               </option>
             </vee-field>
             <ErrorMessage class="text-error" name="customer" />
@@ -98,6 +94,7 @@
               placeholder=" "
               required
               label="valor total"
+              v-model="totalValue"
             />
             <ErrorMessage class="text-error" name="totalValue" />
           </div>
@@ -108,8 +105,7 @@
         <div class="dashed"></div>
         <div class="footer">
           <div class="footer__total-value">
-            <span v-if="sale.items[0].totalValue === null">R$ 0,00</span>
-            <span v-else>{{ toLocaleString(sale.items[0].totalValue) }}</span>
+            <span>{{ formatNumber(totalValue) }}</span>
           </div>
           <div class="align-right">
             <button class="save-button save-button--sale" type="submit">
@@ -122,61 +118,64 @@
   </div>
 </template>
 
-<script setup>
-import { api } from "../services/api.service.js";
-import { reactive, onMounted } from "vue";
-import { toLocaleString } from "../helpers";
+<script>
+import { sale } from "../services/sale.service";
+import { customer } from "../services/customer.service";
+import { formatNumber } from "../helpers";
 import router from "../router";
 
-const schema = reactive({
-  customer: "required",
-  billingDate: "required",
-  itemDescription: "required|min:3|max:100|",
-  unitaryValue: "required|min_value:1|max_value:100000",
-  quantity: "required|min_value:1|max_value:100",
-  totalValue: "required|min_value:1|max_value:100000",
-});
-
-const sale = reactive({
-  customerId: null,
-  billingDate: null,
-  items: [
-    {
-      itemDescription: null,
-      unitaryValue: null,
-      quantity: null,
-      totalValue: null,
-    },
-  ],
-});
-
-const state = reactive({
-  users: null,
-});
-
-async function createSale(values) {
-  const response = await api.post("Sale/adicionar", {
-    customerId: values.customerId,
-    billingDate: values.billingDate,
-    items: [
-      {
-        itemDescription: values.itemDescription,
-        unitaryValue: values.unitaryValue,
-        quantity: values.quantity,
-        totalValue: values.totalValue,
+export default {
+  name: "SalaForm",
+  data() {
+    return {
+      schema: {
+        customer: "required",
+        billingDate: "required",
+        itemDescription: "required|min:3|max:100|",
+        unitaryValue: "required|min_value:1|max_value:100000",
+        quantity: "required|min_value:1|max_value:100",
+        totalValue: "required|min_value:1|max_value:100000",
       },
-    ],
-  });
-
-  router.push("/lista-de-vendas");
-
-  alert(response.data.message);
-}
-
-onMounted(async () => {
-  const response = await api.get("Customer/listar");
-  state.users = response.data;
-});
+      users: {},
+      totalValue: "",
+    };
+  },
+  methods: {
+    formatNumber,
+    createSale(values) {
+      sale
+        .create({
+          customerId: values.customer,
+          billingDate: values.billingDate,
+          items: [
+            {
+              itemDescription: values.itemDescription,
+              unitaryValue: values.unitaryValue,
+              quantity: values.quantity,
+              totalValue: values.totalValue,
+            },
+          ],
+        })
+        .then((response) => {
+          router.push("/lista-de-vendas");
+          alert(response.data.message);
+        })
+        .catch((error) => {
+          alert(error.response.data.notifications[0].message);
+        });
+    },
+  },
+  mounted() {
+    customer
+      .get()
+      .then((response) => {
+        this.users = response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
+};
 </script>
 
 <style scoped>

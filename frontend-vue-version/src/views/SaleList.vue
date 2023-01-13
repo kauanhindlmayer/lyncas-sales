@@ -1,18 +1,28 @@
 <template>
   <div class="container">
-    <Menu />
+    <app-menu />
     <div class="main">
-      <Header>
-        <HeaderButton title="Adicionar" path="/adicionar-venda" />
-      </Header>
-      <SalesTable />
+      <app-header>
+        <header-button title="Adicionar" path="/adicionar-venda" />
+      </app-header>
+      <sales-table />
     </div>
   </div>
 </template>
 
-<script setup>
-import Menu from "../components/Menu.vue";
-import Header from "../components/Header.vue";
+<script>
+import AppMenu from "../components/Menu.vue";
+import AppHeader from "../components/Header.vue";
 import HeaderButton from "../components/HeaderButton.vue";
 import SalesTable from "../components/SaleTable.vue";
+
+export default {
+  name: "SaleList",
+  components: {
+    AppMenu,
+    AppHeader,
+    HeaderButton,
+    SalesTable,
+  },
+};
 </script>
