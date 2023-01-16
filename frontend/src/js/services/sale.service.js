@@ -11,15 +11,15 @@ import {
 } from "../helper.js";
 
 export const createSaleTable = async () => {
-  let response;
+  const response = await api.get("Sale/listar");
 
-  try {
-    const response = await api.get("Sale");
+  if (!response.success || response.data.length === 0) {
+    createError();
+    return;
+  }
 
-    if (!response.success) throw "Error";
-
-    for (let sale of response.data) {
-      const template = `
+  for (let sale of response.data) {
+    const template = `
     <td class="table--left-corner">${sale.customer}</td>
     <td>${sale.quantityItems}</td>
     <td>${toLocaleDateString(sale.saleDate)}</td>
@@ -42,13 +42,10 @@ export const createSaleTable = async () => {
     </td>
   `;
 
-      append(template);
-    }
-
-    removeLoading();
-  } catch (error) {
-    createError();
+    append(template);
   }
+
+  removeLoading();
 };
 
 window.createSale = async () => {
@@ -66,19 +63,16 @@ window.createSale = async () => {
       ],
     };
 
-    let response;
+    const response = await api.post("Sale/adicionar", body);
 
-    try {
-      response = await api.post("Sale", body);
-
-      if (!response.success) throw "Error";
-
-      router.handle("/pages/lista-de-vendas.html");
-
-      alert(response.data.message);
-    } catch (error) {
+    if (!response.success) {
       alert(response.notifications[0].message);
+      return;
     }
+
+    router.handle("/pages/lista-de-vendas.html");
+
+    alert(response.data.message);
   }
 };
 
@@ -86,60 +80,54 @@ window.handleSaleDelete = async (id) => {
   const answer = confirm("Deseja realmente deletar a venda?");
 
   if (answer) {
-    let response;
+    const response = await api.delete(`Sale/remover/${id}`);
 
-    try {
-      response = await api.delete("Sale", id);
-
-      if (!response.success) throw "Error";
-
-      router.handle(`/pages/lista-de-vendas.html`);
-
-      alert(response.data.message);
-    } catch (error) {
+    if (!response.success) {
       alert(response.notifications[0].message);
+      return;
     }
+
+    router.handle(`/pages/lista-de-vendas.html`);
+
+    alert(response.data.message);
   }
 };
 
 window.handleSaleEdit = async (id) => {
   router.handle("/pages/adicionar-venda.html", `/atualizar-venda?id=${id}`);
 
-  let response;
+  const response = await api.get(`Sale/obter/${id}`);
 
-  try {
-    response = await api.getById("Sale", id);
-
-    if (!response.success) throw "Error";
-
-    document.querySelector("#title").innerHTML = `${document
-      .querySelector("#title")
-      .innerHTML.replace("Adicionar", "Atualizar")}`;
-
-    document.querySelector("#customer-input").value = response.data.customerId;
-    document.querySelector("#billing-date-input").value =
-      response.data.billingDate.slice(0, 10);
-    document.querySelector("#description-input").value =
-      response.data.items[0].itemDescription;
-    document.querySelector("#value-input").value =
-      response.data.items[0].unitaryValue;
-    document.querySelector("#quantity-input").value =
-      response.data.items[0].quantity;
-    document.querySelector("#total-value-input").value =
-      response.data.items[0].totalValue;
-
-    document.querySelector(".footer__total-value").innerHTML =
-      response.data.items[0].totalValue.toLocaleString("pt-BR", {
-        style: "currency",
-        currency: "BRL",
-      });
-
-    document
-      .querySelector(".save-button")
-      .setAttribute("onclick", "updateSale()");
-  } catch (error) {
+  if (!response.success) {
     alert("Um erro inesperado aconteceu. Tente novamente mais tarde.");
+    return;
   }
+
+  document.querySelector("#title").innerHTML = `${document
+    .querySelector("#title")
+    .innerHTML.replace("Adicionar", "Atualizar")}`;
+
+  document.querySelector("#customer-input").value = response.data.customerId;
+  document.querySelector("#billing-date-input").value =
+    response.data.billingDate.slice(0, 10);
+  document.querySelector("#description-input").value =
+    response.data.items[0].itemDescription;
+  document.querySelector("#value-input").value =
+    response.data.items[0].unitaryValue;
+  document.querySelector("#quantity-input").value =
+    response.data.items[0].quantity;
+  document.querySelector("#total-value-input").value =
+    response.data.items[0].totalValue;
+
+  document.querySelector(".footer__total-value").innerHTML =
+    response.data.items[0].totalValue.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    });
+
+  document
+    .querySelector(".save-button")
+    .setAttribute("onclick", "updateSale()");
 };
 
 window.updateSale = async () => {
@@ -160,20 +148,16 @@ window.updateSale = async () => {
       ],
     };
 
-    let response;
+    const response = await api.put("Sale/atualizar", body);
 
-    try {
-      response = await api.put("Sale", body);
-
-      if (!response.success) throw "Error";
-
-      router.handle("/pages/lista-de-vendas.html");
-
-      alert(response.data.message);
-    } catch (error) {
-      console.log(error.message);
+    if (!response.success) {
       alert(response.notifications[0].message);
+      return;
     }
+
+    router.handle("/pages/lista-de-vendas.html");
+
+    alert(response.data.message);
   }
 };
 

@@ -3,13 +3,15 @@ import { router } from "../router/router.js";
 import { append, createError, removeLoading, validator } from "../helper.js";
 
 export const createCustomerTable = async () => {
-  try {
-    const response = await api.get("Customer");
+  const response = await api.get("Customer/listar");
 
-    if (!response.success) throw "Error";
+  if (!response.success || response.data.length === 0) {
+    createError();
+    return;
+  }
 
-    for (let customer of response.data) {
-      const template = `
+  for (let customer of response.data) {
+    const template = `
       <td class="table--left-corner">${customer.name}</td>
       <td>${customer.email}</td>
       <td>${customer.phone}</td>
@@ -31,13 +33,10 @@ export const createCustomerTable = async () => {
       </td>
     `;
 
-      append(template);
-    }
-
-    removeLoading();
-  } catch (error) {
-    createError();
+    append(template);
   }
+
+  removeLoading();
 };
 
 window.createCustomer = async () => {
@@ -49,19 +48,16 @@ window.createCustomer = async () => {
       cpf: document.querySelector("#cpf-input").value,
     };
 
-    let response;
+    const response = await api.post("Customer/adicionar", body);
 
-    try {
-      response = await api.post("Customer", body);
-
-      if (!response.success) throw "Error";
-
-      router.handle("/pages/lista-de-clientes.html");
-
-      alert(response.data.message);
-    } catch (error) {
+    if (!response.success) {
       alert(response.notifications[0].message);
+      return;
     }
+
+    router.handle("/pages/lista-de-clientes.html");
+
+    alert(response.data.message);
   }
 };
 
@@ -69,47 +65,41 @@ window.handleCustomerDelete = async (id) => {
   const answer = confirm("Deseja realmente deletar o cliente?");
 
   if (answer) {
-    let response;
+    const response = await api.delete(`Customer/remover/${id}`);
 
-    try {
-      response = await api.delete("Customer", id);
-
-      if (!response.success) throw "Error";
-
-      router.handle(`/pages/lista-de-clientes.html`);
-
-      alert(response.data.message);
-    } catch (error) {
+    if (!response.success) {
       alert(response.notifications[0].message);
+      return;
     }
+
+    router.handle(`/pages/lista-de-clientes.html`);
+
+    alert(response.data.message);
   }
 };
 
 window.handleCustomerEdit = async (id) => {
   router.handle("/pages/adicionar-cliente.html", `/atualizar-cliente?id=${id}`);
 
-  let response;
+  const response = await api.get(`Customer/obter/${id}`);
 
-  try {
-    response = await api.getById("Customer", id);
-
-    if (!response.success) throw "Error";
-
-    document.querySelector("#title").innerHTML = `${document
-      .querySelector("#title")
-      .innerHTML.replace("Adicionar", "Atualizar")}`;
-
-    document.querySelector("#name-input").value = response.data.name;
-    document.querySelector("#email-input").value = response.data.email;
-    document.querySelector("#phone-input").value = response.data.phone;
-    document.querySelector("#cpf-input").value = response.data.cpf;
-
-    document
-      .querySelector(".save-button")
-      .setAttribute("onclick", "updateCustomer()");
-  } catch (error) {
+  if (!response.success) {
     alert("Um erro inesperado aconteceu. Tente novamente mais tarde.");
+    return;
   }
+
+  document.querySelector("#title").innerHTML = `${document
+    .querySelector("#title")
+    .innerHTML.replace("Adicionar", "Atualizar")}`;
+
+  document.querySelector("#name-input").value = response.data.name;
+  document.querySelector("#email-input").value = response.data.email;
+  document.querySelector("#phone-input").value = response.data.phone;
+  document.querySelector("#cpf-input").value = response.data.cpf;
+
+  document
+    .querySelector(".save-button")
+    .setAttribute("onclick", "updateCustomer()");
 };
 
 window.updateCustomer = async () => {
@@ -124,18 +114,15 @@ window.updateCustomer = async () => {
       cpf: document.querySelector("#cpf-input").value,
     };
 
-    let response;
+    const response = await api.put("Customer/atualizar", body);
 
-    try {
-      response = await api.put("Customer", body);
-
-      if (!response.success) throw "Error";
-
-      router.handle("/pages/lista-de-clientes.html");
-
-      alert(response.data.message);
-    } catch (error) {
+    if (!response.success) {
       alert(response.notifications[0].message);
+      return;
     }
+
+    router.handle("/pages/lista-de-clientes.html");
+
+    alert(response.data.message);
   }
 };

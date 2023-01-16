@@ -3,12 +3,7 @@ import { router } from "../router/router.js";
 import { validator, removeUserData } from "../helper.js";
 import { getToken, getUsername, setToken, setUsername } from "./jwt.service.js";
 
-export const user = {
-  token: getToken(),
-  name: getUsername(),
-};
-
-window.user = user;
+export const user = { token: getToken(), name: getUsername() };
 
 window.handleLogin = async () => {
   if (validator.validateFields()) {
@@ -17,24 +12,20 @@ window.handleLogin = async () => {
       password: document.querySelector("#input-password").value,
     };
 
-    let response;
+    const response = await api.post("User/autenticar", body);
 
-    try {
-      response = await api.post("User", body, "autenticar");
-
-      if (!response.token) throw "Error";
-
-      user.token = response.token;
-      user.name = response.userName;
-
-      setToken(response.token);
-      setUsername(response.userName);
-
-      router.handle("/pages/home.html");
-    } catch (error) {
+    if (!response.token) {
       alert(response.notifications[0].message);
       return;
     }
+
+    user.token = response.token;
+    user.name = response.userName;
+
+    setToken(response.token);
+    setUsername(response.userName);
+
+    router.handle("/pages/home.html");
   }
 };
 
@@ -48,19 +39,16 @@ window.handleCreateUser = async () => {
         .value,
     };
 
-    let response;
+    const response = await api.post("User/adicionar", body);
 
-    try {
-      response = await api.post("User", body);
-
-      if (!response.success) throw "Error";
-
-      router.handle("/pages/conectar-se.html");
-
-      alert(response.data.message);
-    } catch (error) {
+    if (!response.success) {
       alert(response.notifications[0].message);
+      return;
     }
+
+    router.handle("/pages/conectar-se.html");
+
+    alert(response.data.message);
   }
 };
 

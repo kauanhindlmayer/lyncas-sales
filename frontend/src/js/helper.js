@@ -136,7 +136,7 @@ export const createError = () => {
 };
 
 const fillSelect = async () => {
-  const response = await api.get("Customer");
+  const response = await api.get("Customer/listar");
   const select = document.querySelector("#customer-input");
 
   for (let customer of response.data) {

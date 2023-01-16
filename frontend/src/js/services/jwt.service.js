@@ -16,10 +16,8 @@ export const getUsername = () => {
 
 export const removeToken = () => {
   localStorage.removeItem("lyncas-sales-token");
-}
+};
 
 export const removeUsername = () => {
   localStorage.removeItem("lyncas-sales-username");
-}
-
-
+};
