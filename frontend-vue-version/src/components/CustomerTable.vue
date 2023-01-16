@@ -92,7 +92,7 @@ export default {
       }
     },
     handleEdit(id) {
-      router.push(`/atualizar-cliente?id=${id}`);
+      router.push({ name: "update-customer", query: { id: id } });
     },
   },
   async mounted() {

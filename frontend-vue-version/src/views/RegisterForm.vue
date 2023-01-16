@@ -42,7 +42,7 @@
         <button type="submit">Registrar</button>
         <div class="login-container__footer">
           Já tem uma conta?
-          <RouterLink to="/conectar-se">Entre aqui</RouterLink>
+          <RouterLink :to="{ name: 'login' }">Entre aqui</RouterLink>
         </div>
       </vee-form>
     </div>
@@ -84,7 +84,7 @@ export default {
           passwordConfirmation: values.confirm_password,
         })
         .then((response) => {
-          router.push("/conectar-se");
+          router.push({ name: "login" });
           alert(response.data.message);
         })
         .catch((error) => {

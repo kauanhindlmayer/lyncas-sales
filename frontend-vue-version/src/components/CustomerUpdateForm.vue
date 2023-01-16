@@ -104,7 +104,7 @@ export default {
           cpf: values.cpf,
         })
         .then((response) => {
-          router.push("/lista-de-clientes");
+          router.push({ name: "customers-list" });
           alert(response.data.message);
         })
         .catch((error) => {

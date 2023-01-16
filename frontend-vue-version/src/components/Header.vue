@@ -35,7 +35,7 @@ export default {
 
         useUserStore().$reset();
 
-        router.push("/conectar-se");
+        router.push({ name: "login" });
       }
     },
   },

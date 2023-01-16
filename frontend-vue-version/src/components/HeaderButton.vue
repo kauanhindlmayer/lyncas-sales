@@ -1,6 +1,6 @@
 <template>
   <div :class="buttonClass">
-    <RouterLink :to="path">{{ title }}</RouterLink>
+    <RouterLink :to="buttonPath">{{ title }}</RouterLink>
   </div>
 </template>
 
@@ -13,6 +13,7 @@ export default {
       buttonClass: `profile__button profile__button--${
         this.title == "Adicionar" ? "add" : "back"
       }`,
+      buttonPath: { name: `${this.path}` },
     };
   },
 };

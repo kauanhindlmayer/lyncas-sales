@@ -104,7 +104,7 @@ export default {
       }
     },
     handleEdit(id) {
-      router.push(`/atualizar-venda?id=${id}`);
+      router.push({ name: "update-sale", query: { id: id } });
     },
   },
   async mounted() {

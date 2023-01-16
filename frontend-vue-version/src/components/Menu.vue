@@ -7,7 +7,10 @@
     />
 
     <nav>
-      <router-link class="menu__item menu__item--dashboard" to="/dashboard">
+      <router-link
+        class="menu__item menu__item--dashboard"
+        :to="{ name: 'dashboard' }"
+      >
         <img
           class="menu__item__icon"
           src="/src/assets/svg/dashboard-icon.svg"
@@ -18,7 +21,7 @@
 
       <router-link
         class="menu__item menu__item--customers"
-        to="/lista-de-clientes"
+        :to="{ name: 'customers-list' }"
       >
         <img
           class="menu__item__icon"
@@ -28,7 +31,10 @@
         Clientes
       </router-link>
 
-      <router-link class="menu__item menu__item--sales" to="/lista-de-vendas">
+      <router-link
+        class="menu__item menu__item--sales"
+        :to="{ name: 'sales-list' }"
+      >
         <img
           class="menu__item__icon"
           src="/src/assets/svg/sale-icon.svg"

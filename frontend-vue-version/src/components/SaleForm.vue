@@ -161,7 +161,7 @@ export default {
           ],
         })
         .then((response) => {
-          router.push("/lista-de-vendas");
+          router.push({ name: "sales-list" });
           alert(response.data.message);
         })
         .catch((error) => {

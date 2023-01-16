@@ -35,7 +35,7 @@
 
         <div class="login-container__footer">
           Não tem uma conta?
-          <RouterLink to="/criar-conta">Inscreva-se</RouterLink>
+          <RouterLink :to="{ name: 'register' }">Inscreva-se</RouterLink>
         </div>
       </vee-form>
     </div>
@@ -73,7 +73,7 @@ export default {
           this.name = response.userName;
           this.token = response.token;
           axiosInstance.defaults.headers.Authorization = `Bearer ${this.token}`;
-          router.push("/");
+          router.push({ name: "home" });
         })
         .catch((error) => {
           alert(error.response.data.notifications[0].message);
