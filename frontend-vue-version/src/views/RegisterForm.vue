@@ -11,7 +11,7 @@
           placeholder="Nome"
           label="nome"
         />
-        <ErrorMessage class="text-error" name="name" />
+        <ErrorMessage class="error-message" name="name" />
         <!-- E-mail -->
         <vee-field
           name="email"
@@ -19,7 +19,7 @@
           class="input field email"
           placeholder="E-mail"
         />
-        <ErrorMessage class="text-error" name="email" />
+        <ErrorMessage class="error-message" name="email" />
         <!-- Password -->
         <vee-field
           name="password"
@@ -28,7 +28,7 @@
           placeholder="Senha"
           label="senha"
         />
-        <ErrorMessage class="text-error" name="password" />
+        <ErrorMessage class="error-message" name="password" />
         <!-- Confirm Password -->
         <vee-field
           name="confirm_password"
@@ -37,7 +37,7 @@
           placeholder="Confirmar Senha"
           label="confirmar senha"
         />
-        <ErrorMessage class="text-error" name="confirm_password" />
+        <ErrorMessage class="error-message" name="confirm_password" />
 
         <button type="submit">Registrar</button>
         <div class="login-container__footer">
@@ -98,10 +98,6 @@ export default {
 <style>
 .margin {
   margin-bottom: 0;
-}
-
-.text-error {
-  color: #e53e3e;
 }
 
 .login-container {

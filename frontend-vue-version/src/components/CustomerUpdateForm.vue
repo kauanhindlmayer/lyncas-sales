@@ -21,7 +21,7 @@
               required
               label="nome"
             />
-            <ErrorMessage class="text-error" name="name" />
+            <ErrorMessage class="error-message" name="name" />
           </div>
           <div>
             <!-- E-mail -->
@@ -34,7 +34,7 @@
               placeholder=" "
               required
             />
-            <ErrorMessage class="text-error" name="email" />
+            <ErrorMessage class="error-message" name="email" />
           </div>
         </div>
         <div class="form__form-wrapper">
@@ -50,7 +50,7 @@
               required
               label="telefone"
             />
-            <ErrorMessage class="text-error" name="phone" />
+            <ErrorMessage class="error-message" name="phone" />
           </div>
           <div>
             <!-- CPF -->
@@ -63,7 +63,7 @@
               placeholder=" "
               required
             />
-            <ErrorMessage class="text-error" name="cpf" />
+            <ErrorMessage class="error-message" name="cpf" />
           </div>
         </div>
         <div class="align-right">
@@ -129,10 +129,6 @@ export default {
 </script>
 
 <style scoped>
-.text-error {
-  color: #e53e3e;
-}
-
 .content {
   margin: 2.3rem 0 auto 0;
 }

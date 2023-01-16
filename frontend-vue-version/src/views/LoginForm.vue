@@ -45,6 +45,7 @@
 <script>
 import { user } from "../services/user.service";
 import { mapWritableState } from "pinia";
+import { axiosInstance } from "../services/api.service";
 import useUserStore from "../stores/user";
 import router from "../router";
 
@@ -71,6 +72,7 @@ export default {
         .then((response) => {
           this.name = response.userName;
           this.token = response.token;
+          axiosInstance.defaults.headers.Authorization = `Bearer ${this.token}`;
           router.push("/");
         })
         .catch((error) => {
@@ -84,10 +86,6 @@ export default {
 <style scoped>
 .margin {
   margin-bottom: 0;
-}
-
-.error-message {
-  color: #e53e3e;
 }
 
 .login-container {

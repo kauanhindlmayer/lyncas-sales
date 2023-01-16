@@ -20,7 +20,7 @@
                 {{ name }}
               </option>
             </vee-field>
-            <ErrorMessage class="text-error" name="customer" />
+            <ErrorMessage class="error-message" name="customer" />
           </div>
           <div>
             <!-- Billing Date -->
@@ -33,7 +33,7 @@
               required
               label="data de faturamento"
             />
-            <ErrorMessage class="text-error" name="billingDate" />
+            <ErrorMessage class="error-message" name="billingDate" />
           </div>
         </div>
         <div class="form__dashed"></div>
@@ -51,7 +51,7 @@
               required
               label="descrição do item"
             />
-            <ErrorMessage class="text-error" name="itemDescription" />
+            <ErrorMessage class="error-message" name="itemDescription" />
           </div>
           <div>
             <!-- Unitary Value -->
@@ -60,8 +60,6 @@
               name="unitaryValue"
               type="number"
               step="any"
-              oninput="if (this.value.length > this.maxLength)
-                        this.value = this.value.slice(0, this.maxLength);"
               maxLength="10"
               id="value-input"
               class="input field"
@@ -69,7 +67,7 @@
               required
               label="valor unitário"
             />
-            <ErrorMessage class="text-error" name="unitaryValue" />
+            <ErrorMessage class="error-message" name="unitaryValue" />
           </div>
         </div>
         <div class="form__form-wrapper">
@@ -79,16 +77,13 @@
             <vee-field
               name="quantity"
               type="number"
-              oninput="if (this.value.length > this.maxLength)
-                        this.value = this.value.slice(0, this.maxLength);"
-              maxLength="5"
               id="quantity-input"
               class="input field"
               placeholder=" "
               required
               label="quantidade"
             />
-            <ErrorMessage class="text-error" name="quantity" />
+            <ErrorMessage class="error-message" name="quantity" />
           </div>
           <div>
             <!-- Total Value -->
@@ -97,8 +92,6 @@
               name="totalValue"
               type="number"
               step="any"
-              oninput="if (this.value.length > this.maxLength)
-                        this.value = this.value.slice(0, this.maxLength);"
               maxLength="10"
               id="total-value-input"
               class="input field"
@@ -107,7 +100,7 @@
               label="valor total"
               v-model="totalValue"
             />
-            <ErrorMessage class="text-error" name="totalValue" />
+            <ErrorMessage class="error-message" name="totalValue" />
           </div>
         </div>
         <div class="align-right">
@@ -193,10 +186,6 @@ export default {
 </script>
 
 <style scoped>
-.text-error {
-  color: #e53e3e;
-}
-
 .content {
   margin: 2rem 0 auto 0;
 }
