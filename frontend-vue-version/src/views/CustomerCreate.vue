@@ -3,7 +3,7 @@
     <app-menu />
     <div class="main">
       <app-header>
-        <header-button title="Voltar" path="customers-list" />
+        <header-button title="Voltar" routeName="customers-list" />
       </app-header>
       <customer-form />
     </div>

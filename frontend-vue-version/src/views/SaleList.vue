@@ -3,7 +3,7 @@
     <app-menu />
     <div class="main">
       <app-header>
-        <header-button title="Adicionar" path="create-sale" />
+        <header-button title="Adicionar" routeName="create-sale" />
       </app-header>
       <sales-table />
     </div>

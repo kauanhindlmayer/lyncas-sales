@@ -1,21 +1,18 @@
 <template>
-  <div :class="buttonClass">
-    <RouterLink :to="buttonPath">{{ title }}</RouterLink>
+  <div
+    :class="[
+      'profile__button',
+      { 'profile__button--add': title === 'Adicionar' },
+    ]"
+  >
+    <RouterLink :to="{ name: routeName }">{{ title }}</RouterLink>
   </div>
 </template>
 
 <script>
 export default {
   name: "HeaderButton",
-  props: ["title", "path"],
-  data() {
-    return {
-      buttonClass: `profile__button profile__button--${
-        this.title == "Adicionar" ? "add" : "back"
-      }`,
-      buttonPath: { name: `${this.path}` },
-    };
-  },
+  props: ["title", "routeName"],
 };
 </script>
 
