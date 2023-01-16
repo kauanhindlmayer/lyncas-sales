@@ -4,6 +4,7 @@ import checkAuth from "../middlewares/checkAuth.js";
 const router = createRouter({
   mode: "history",
   history: createWebHistory(import.meta.env.BASE_URL),
+  linkExactActiveClass: "menu__item--active",
   routes: [
     {
       path: "/",

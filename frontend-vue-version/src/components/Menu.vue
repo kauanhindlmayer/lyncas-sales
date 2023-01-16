@@ -7,32 +7,35 @@
     />
 
     <nav>
-      <div class="menu__item menu__item--dashboard">
+      <router-link class="menu__item menu__item--dashboard" to="/dashboard">
         <img
           class="menu__item__icon"
           src="/src/assets/svg/dashboard-icon.svg"
           alt="Dashboard Icon"
         />
-        <router-link to="/dashboard">Dashboard</router-link>
-      </div>
+        Dashboard
+      </router-link>
 
-      <div class="menu__item menu__item--customers">
+      <router-link
+        class="menu__item menu__item--customers"
+        to="/lista-de-clientes"
+      >
         <img
           class="menu__item__icon"
           src="/src/assets/svg/customer-icon.svg"
           alt="Customer Icon"
         />
-        <router-link to="/lista-de-clientes">Clientes</router-link>
-      </div>
+        Clientes
+      </router-link>
 
-      <div class="menu__item menu__item--sales">
+      <router-link class="menu__item menu__item--sales" to="/lista-de-vendas">
         <img
           class="menu__item__icon"
           src="/src/assets/svg/sale-icon.svg"
           alt="Sale Icon"
         />
-        <router-link to="/lista-de-vendas">Vendas</router-link>
-      </div>
+        Vendas
+      </router-link>
     </nav>
   </div>
 </template>
@@ -102,5 +105,9 @@ export default {
 .menu__item--sales {
   left: 1.75rem;
   top: calc(50% + 4.9rem);
+}
+
+.menu__item--active {
+  background-color: var(--border-blue);
 }
 </style>
