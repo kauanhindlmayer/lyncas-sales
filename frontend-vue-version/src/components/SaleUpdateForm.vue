@@ -129,7 +129,6 @@
 import { sale } from "../services/sale.service";
 import { customer } from "../services/customer.service";
 import { formatNumber } from "../helpers";
-import router from "../router";
 
 export default {
   name: "SalaForm",
@@ -166,7 +165,7 @@ export default {
           ],
         })
         .then((response) => {
-          router.push({ name: "sales-list" });
+          this.$router.push({ name: "sales-list" });
           alert(response.data.message);
         })
         .catch((error) => {

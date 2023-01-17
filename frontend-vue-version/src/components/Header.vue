@@ -21,7 +21,6 @@
 import { removeToken, removeUsername } from "../services/jwt.service";
 import { mapStores, mapState } from "pinia";
 import useUserStore from "../stores/user";
-import router from "../router";
 
 export default {
   name: "AppHeader",
@@ -35,7 +34,7 @@ export default {
 
         useUserStore().$reset();
 
-        router.push({ name: "login" });
+        this.$router.push({ name: "login" });
       }
     },
   },

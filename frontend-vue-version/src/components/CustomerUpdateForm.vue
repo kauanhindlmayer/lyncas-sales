@@ -78,7 +78,6 @@
 
 <script>
 import { customer } from "../services/customer.service";
-import router from "../router";
 
 export default {
   name: "CustomerUpdateForm",
@@ -104,7 +103,7 @@ export default {
           cpf: values.cpf,
         })
         .then((response) => {
-          router.push({ name: "customers-list" });
+          this.$router.push({ name: "customers-list" });
           alert(response.data.message);
         })
         .catch((error) => {

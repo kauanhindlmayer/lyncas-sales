@@ -66,7 +66,6 @@
 <script>
 import { sale } from "../services/sale.service";
 import { formatString, formatNumber } from "../helpers";
-import router from "../router";
 
 export default {
   name: "SaleTable",
@@ -104,7 +103,7 @@ export default {
       }
     },
     handleEdit(id) {
-      router.push({ name: "update-sale", query: { id: id } });
+      this.$router.push({ name: "update-sale", query: { id: id } });
     },
   },
   async mounted() {

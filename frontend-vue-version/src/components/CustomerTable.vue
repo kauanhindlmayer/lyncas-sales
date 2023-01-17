@@ -56,7 +56,6 @@
 
 <script>
 import { customer } from "../services/customer.service";
-import router from "../router";
 
 export default {
   name: "CustomerTable",
@@ -92,7 +91,7 @@ export default {
       }
     },
     handleEdit(id) {
-      router.push({ name: "update-customer", query: { id: id } });
+      this.$router.push({ name: "update-customer", query: { id: id } });
     },
   },
   async mounted() {

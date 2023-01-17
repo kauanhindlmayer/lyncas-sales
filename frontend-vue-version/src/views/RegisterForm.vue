@@ -60,7 +60,6 @@
 
 <script>
 import { user } from "../services/user.service";
-import router from "../router";
 
 export default {
   name: "RegisterForm",
@@ -84,7 +83,7 @@ export default {
           passwordConfirmation: values.confirm_password,
         })
         .then((response) => {
-          router.push({ name: "login" });
+          this.$router.push({ name: "login" });
           alert(response.data.message);
         })
         .catch((error) => {
