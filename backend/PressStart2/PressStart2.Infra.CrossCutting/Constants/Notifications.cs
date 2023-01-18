@@ -12,7 +12,8 @@
         public const string CUSTOMER_REGISTERED = "Cliente Registrado com Sucesso.";
         public const string CUSTOMER_UPDATED = "Cliente Atualizado com Sucesso.";
         public const string CUSTOMER_DELETED = "Cliente Removido com Sucesso.";
-        public const string CUSTOMER_CPF_DUPLICATE = "Já existe uma cliente com esse CPF.";
+        public const string CUSTOMER_CPF_DUPLICATE = "Já existe um cliente com esse CPF.";
+        public const string CUSTOMER_DEACTIVATE = "Cliente possui Vendas Ativas.";
 
         public const string SALE_NOT_FOUND = "Venda não Localizada.";
         public const string SALE_REGISTERED = "Venda Registrada Com Sucesso.";

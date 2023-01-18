@@ -30,8 +30,9 @@ namespace PressStart2.Domain.Commands.DeleteCustomer
 
             if (_repositorySale.CustomerHasSales(customer.Id))
             {
-                customer.Inactivate();
+                customer.Inactivate(); 
                 _repositoryCustomer.Update(customer);
+                return Task.FromResult(new CommandResponse(new DeleteCustomerResponse(NotificationsConstants.CUSTOMER_DEACTIVATE), this));
             }
             else
             {

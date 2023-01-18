@@ -24,10 +24,16 @@ namespace PressStart2.Domain.Commands.CreateCustomer
                 AddNotification(NotificationsConstants.CUSTOMER_MODULE, NotificationsConstants.INVALID_REQUEST);
                 return Task.FromResult(new CommandResponse(this));
             }
+
+            if (_repositoryCustomer.AlreadyExistsCPF(request.Cpf))
+            {
+                AddNotification(NotificationsConstants.CUSTOMER_MODULE, NotificationsConstants.CUSTOMER_CPF_DUPLICATE);
+                return Task.FromResult(new CommandResponse(this));
+            }
+
             var customer = new Customer(request.Name, request.Email, request.Phone, request.Cpf);
             AddNotifications(customer);
 
-            // Notifiable
             if (IsInvalid())
                 return Task.FromResult(new CommandResponse(this));
 
