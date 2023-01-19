@@ -129,7 +129,7 @@
 .component__header h1 {
   margin-left: 0;
   font-size: 2.4rem;
-  margin: 0 4.1rem 3.4rem 0;
+  /* margin: 0 4.1rem 3.4rem 0; */
 }
 
 .sr-only {
@@ -264,7 +264,7 @@
   width: calc(50% - 9px);
   height: 3.9rem;
 
-  margin: 1.8rem 0 2rem 0;
+  margin: 1.8rem 0 0 0;
 
   cursor: pointer;
 }
@@ -308,10 +308,6 @@
 
   .dashed {
     margin-top: 0.9rem;
-  }
-
-  .add-items-button {
-    margin: 0.9rem 0 1rem 0;
   }
 
   .footer {
