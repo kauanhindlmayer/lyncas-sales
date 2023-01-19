@@ -19,6 +19,7 @@
               placeholder=" "
               required
               label="nome"
+              @input="updateUnsavedFlag(true)"
             />
             <ErrorMessage class="error-message" name="name" />
           </div>
@@ -32,6 +33,7 @@
               class="input field email"
               placeholder=" "
               required
+              @input="updateUnsavedFlag(true)"
             />
             <ErrorMessage class="error-message" name="email" />
           </div>
@@ -48,6 +50,7 @@
               placeholder=" "
               required
               label="telefone"
+              @input="updateUnsavedFlag(true)"
             />
             <ErrorMessage class="error-message" name="phone" />
           </div>
@@ -61,6 +64,7 @@
               class="input field cpf"
               placeholder=" "
               required
+              @input="updateUnsavedFlag(true)"
             />
             <ErrorMessage class="error-message" name="cpf" />
           </div>
@@ -80,6 +84,11 @@ import { customer } from "../services/customer.service";
 
 export default {
   name: "CustomerForm",
+  props: {
+    updateUnsavedFlag: {
+      type: Function,
+    },
+  },
   data() {
     return {
       schema: {

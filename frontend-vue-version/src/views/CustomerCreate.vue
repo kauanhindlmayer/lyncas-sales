@@ -5,7 +5,7 @@
       <app-header>
         <header-button title="Voltar" routeName="customers-list" />
       </app-header>
-      <customer-form />
+      <customer-form :updateUnsavedFlag="updateUnsavedFlag" />
     </div>
   </div>
 </template>
@@ -15,6 +15,7 @@ import AppMenu from "../components/Menu.vue";
 import AppHeader from "../components/Header.vue";
 import HeaderButton from "../components/HeaderButton.vue";
 import CustomerForm from "../components/CustomerForm.vue";
+import checkUnsaved from "../middlewares/checkUnsaved.js";
 
 export default {
   name: "CustomerCreate",
@@ -23,6 +24,20 @@ export default {
     AppHeader,
     HeaderButton,
     CustomerForm,
+  },
+  data() {
+    return {
+      unsavedFlag: false,
+    };
+  },
+  methods: {
+    checkUnsaved,
+    updateUnsavedFlag(value) {
+      this.unsavedFlag = value;
+    },
+  },
+  beforeRouteLeave(to, from, next) {
+    checkUnsaved(next, this.unsavedFlag);
   },
 };
 </script>

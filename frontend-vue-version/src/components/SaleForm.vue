@@ -14,6 +14,7 @@
               id="customer-input"
               required
               label="cliente"
+              @input="updateUnsavedFlag(true)"
             >
               <option data-default disabled selected></option>
               <option v-for="{ name, id } in users" :value="id" :key="id">
@@ -32,6 +33,7 @@
               class="input-date field"
               required
               label="data de faturamento"
+              @input="updateUnsavedFlag(true)"
             />
             <ErrorMessage class="error-message" name="billingDate" />
           </div>
@@ -50,6 +52,7 @@
               placeholder=" "
               required
               label="descrição do item"
+              @input="updateUnsavedFlag(true)"
             />
             <ErrorMessage class="error-message" name="itemDescription" />
           </div>
@@ -66,6 +69,7 @@
               placeholder=" "
               required
               label="valor unitário"
+              @input="updateUnsavedFlag(true)"
             />
             <ErrorMessage class="error-message" name="unitaryValue" />
           </div>
@@ -82,6 +86,7 @@
               placeholder=" "
               required
               label="quantidade"
+              @input="updateUnsavedFlag(true)"
             />
             <ErrorMessage class="error-message" name="quantity" />
           </div>
@@ -99,6 +104,7 @@
               required
               label="valor total"
               v-model="totalValue"
+              @input="updateUnsavedFlag(true)"
             />
             <ErrorMessage class="error-message" name="totalValue" />
           </div>
@@ -129,6 +135,11 @@ import { formatNumber } from "../helpers";
 
 export default {
   name: "SalaForm",
+  props: {
+    updateUnsavedFlag: {
+      type: Function,
+    },
+  },
   data() {
     return {
       schema: {
