@@ -112,6 +112,7 @@ export default {
           cpf: values.cpf,
         })
         .then((response) => {
+          this.updateUnsavedFlag(false);
           this.$router.push({ name: "customers-list" });
           alert(response.data.message);
         })

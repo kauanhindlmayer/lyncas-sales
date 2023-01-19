@@ -176,6 +176,7 @@ export default {
           ],
         })
         .then((response) => {
+          this.updateUnsavedFlag(false);
           this.$router.push({ name: "sales-list" });
           alert(response.data.message);
         })
