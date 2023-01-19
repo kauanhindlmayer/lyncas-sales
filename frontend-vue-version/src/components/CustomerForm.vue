@@ -122,11 +122,10 @@ export default {
 
 <style scoped>
 .content {
-  margin: 2.3rem 0 auto 0;
+  margin: 4.9rem 0 auto 0;
 }
 
 .save-button--customer {
-  margin-top: 2.6rem;
-  margin-bottom: 10.2rem;
+  margin: 2.6rem 0 10.2rem 0;
 }
 </style>

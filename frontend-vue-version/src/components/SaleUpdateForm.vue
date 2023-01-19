@@ -115,7 +115,7 @@
         <div class="align-right">
           <button class="add-items-button">+ Mais itens</button>
         </div>
-        <div class="dashed"></div>
+        <div class="form__dashed"></div>
         <div class="footer">
           <div class="footer__total-value">
             <span>{{ formatNumber(totalValue) }}</span>
@@ -237,7 +237,7 @@ export default {
   width: calc(50% - 9px);
   height: 3.9rem;
 
-  margin: 1.8rem 0 2rem 0;
+  margin: 1.8rem 0 0 0;
 
   cursor: pointer;
 }
@@ -263,5 +263,11 @@ export default {
   font-weight: 700;
   font-size: 2.4rem;
   line-height: 3.5rem;
+}
+
+@media only screen and (max-width: 1366px) {
+  .footer {
+    margin: 2.6rem 0 1.3rem 0;
+  }
 }
 </style>
