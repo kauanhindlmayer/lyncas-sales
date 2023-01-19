@@ -53,14 +53,7 @@ window.createSale = async () => {
     const body = {
       customerId: document.querySelector("#customer-input").value,
       billingDate: document.querySelector("#billing-date-input").value,
-      items: [
-        {
-          itemDescription: document.querySelector("#description-input").value,
-          unitaryValue: document.querySelector("#value-input").value,
-          quantity: document.querySelector("#quantity-input").value,
-          totalValue: document.querySelector("#total-value-input").value,
-        },
-      ],
+      items: getItems(),
     };
 
     const response = await api.post("Sale/adicionar", body);
@@ -110,17 +103,22 @@ window.handleSaleEdit = async (id) => {
   document.querySelector("#customer-input").value = response.data.customerId;
   document.querySelector("#billing-date-input").value =
     response.data.billingDate.slice(0, 10);
-  document.querySelector("#description-input").value =
-    response.data.items[0].itemDescription;
-  document.querySelector("#value-input").value =
-    response.data.items[0].unitaryValue;
-  document.querySelector("#quantity-input").value =
-    response.data.items[0].quantity;
-  document.querySelector("#total-value-input").value =
-    response.data.items[0].totalValue;
+
+  for (let i = 0; i < response.data.items.length - 1; i++) plusItems();
+
+  for (let i = 0; i < response.data.items.length; i++) {
+    document.querySelectorAll("#description-input")[i].value =
+      response.data.items[i].itemDescription;
+    document.querySelectorAll("#value-input")[i].value =
+      response.data.items[i].unitaryValue;
+    document.querySelectorAll("#quantity-input")[i].value =
+      response.data.items[i].quantity;
+    document.querySelectorAll("#total-value-input")[i].value =
+      response.data.items[i].totalValue;
+  }
 
   document.querySelector(".footer__total-value").innerHTML =
-    response.data.items[0].totalValue.toLocaleString("pt-BR", {
+    getTotalValue().toLocaleString("pt-BR", {
       style: "currency",
       currency: "BRL",
     });
@@ -133,19 +131,12 @@ window.handleSaleEdit = async (id) => {
 window.updateSale = async () => {
   if (validator.validateFields()) {
     const urlParams = new URLSearchParams(window.location.search);
-
+    
     const body = {
       id: urlParams.get("id"),
       customerId: document.querySelector("#customer-input").value,
       billingDate: document.querySelector("#billing-date-input").value,
-      items: [
-        {
-          itemDescription: document.querySelector("#description-input").value,
-          unitaryValue: document.querySelector("#value-input").value,
-          quantity: document.querySelector("#quantity-input").value,
-          totalValue: document.querySelector("#total-value-input").value,
-        },
-      ],
+      items: getItems(),
     };
 
     const response = await api.put("Sale/atualizar", body);
@@ -164,8 +155,48 @@ window.updateSale = async () => {
 window.handleUpdatePrice = (input) => {
   preventNumbers(input);
 
-  const totalValue = document.querySelector("#total-value-input");
   document.querySelector(".footer__total-value").innerHTML = toLocaleString(
-    Number(totalValue.value)
+    getTotalValue()
   );
+};
+
+window.plusItems = (event) => {
+  if (event) event.preventDefault();
+  const formulary = document.querySelectorAll(".form__form-wrapper");
+
+  const template = document.createElement("div");
+
+  template.innerHTML = `
+    <div class="form__dashed"></div>
+    <div class="form__form-wrapper">${formulary[1].innerHTML}</div>
+    <div class="form__form-wrapper">${formulary[2].innerHTML}</div>
+  `;
+
+  document.querySelector(".form__items").appendChild(template);
+};
+
+const getTotalValue = () => {
+  let totalValue = 0;
+
+  const inputs = document.querySelectorAll("#total-value-input");
+
+  for (let input of inputs) totalValue += Number(input.value);
+
+  return totalValue;
+};
+
+const getItems = () => {
+  const items = [];
+  const quantityItems = document.querySelectorAll("#description-input").length;
+
+  for (let i = 0; i < quantityItems; i++) {
+    items.push({
+      itemDescription: document.querySelectorAll("#description-input")[i].value,
+      unitaryValue: document.querySelectorAll("#value-input")[i].value,
+      quantity: document.querySelectorAll("#quantity-input")[i].value,
+      totalValue: document.querySelectorAll("#total-value-input")[i].value,
+    });
+  }
+
+  return items;
 };

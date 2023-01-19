@@ -249,6 +249,11 @@
 }
 
 /* Sales Component Styles */
+.component__add-sales {
+  height: calc(100vh - 16.5rem);
+  overflow-y: auto;
+}
+
 .add-items-button {
   background-color: var(--background-secondary);
   color: var(--text-primary);
