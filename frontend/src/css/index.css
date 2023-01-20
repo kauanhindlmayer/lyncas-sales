@@ -5,94 +5,99 @@
 @import "./dashboard.css";
 
 .container {
-  height: 100vh;
   display: grid;
   grid-template-columns: 16.8rem auto;
+
+  height: 100vh;
 }
 
 .menu {
-  background-color: var(--primary-color);
   display: flex;
+
+  background-color: var(--primary-color);
 }
 
 .menu__item--logo {
-  width: 10.6rem;
-  height: 2.4rem;
-
   position: absolute;
   top: 7.6rem;
   left: 3.5rem;
+
+  width: 10.6rem;
+  height: 2.4rem;
 }
 
 .menu__item {
-  color: var(--background-secondary);
-
-  width: 12.6rem;
-  margin-bottom: 1.4rem;
-
-  border: 1px solid var(--border-blue);
-  border-radius: 4px;
+  position: absolute;
 
   display: flex;
   align-items: center;
 
-  position: absolute;
+  margin-bottom: 1.4rem;
+  border: 1px solid var(--border-blue);
+  border-radius: 4px;
+  width: 12.6rem;
+
+  color: var(--background-secondary);
 }
 
 .menu__item span a {
-  color: var(--background-secondary);
   text-decoration: none;
+  color: var(--background-secondary);
 }
 
 .menu__item:hover {
-  background-color: var(--border-blue);
   filter: brightness(0.9);
+
+  background-color: var(--border-blue);
 }
 
 .menu__item__icon {
+  margin: 0.9rem 1.2rem;
   width: 1.6rem;
   height: 1.6rem;
-  margin: 0.9rem 1.2rem;
 }
 
 .menu__item--dashboard {
-  left: 1.75rem;
   top: calc(50% - 4.9rem);
+  left: 1.75rem;
 }
 
 .menu__item--customers {
-  left: 1.75rem;
   top: 50%;
+  left: 1.75rem;
 }
 
 .menu__item--sales {
-  left: 1.75rem;
   top: calc(50% + 4.9rem);
+  left: 1.75rem;
 }
 
 .main {
   display: grid;
   grid-template-rows: 12.5rem auto;
+
   margin: 0 2rem;
 }
 
 .header {
-  border-bottom: 2px solid var(--border);
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  border-bottom: 2px solid var(--border);
 }
 
 .profile__picture {
-  width: 5rem;
-  height: 5rem;
   border: 2px solid var(--border);
   border-radius: 5px;
+  width: 5rem;
+  height: 5rem;
 }
 
 .profile__picture img {
   width: 4.8rem;
   height: 4.6rem;
+
   object-fit: contain;
 }
 
@@ -101,15 +106,17 @@
 }
 
 .profile__name {
-  color: var(--text-primary);
-  font-weight: 700;
   margin-left: 1.8rem;
+
+  font-weight: 700;
+  color: var(--text-primary);
 }
 
 .profile__name a {
-  color: var(--gray-100);
   font-weight: 500;
   text-decoration: none;
+  color: var(--gray-100);
+
   cursor: pointer;
 }
 
@@ -118,19 +125,19 @@
 }
 
 .profile__button {
-  background-color: var(--gray-100);
-  color: var(--background-secondary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   border-radius: 4px;
   width: 15rem;
   height: 5rem;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background-color: var(--gray-100);
 
   font-size: 2rem;
   font-weight: 700;
+  color: var(--background-secondary);
 }
 
 .profile__button--add {
@@ -151,16 +158,19 @@
 }
 
 .component__table-wrapper {
-  height: calc(100vh - 27.3rem);
   overflow-y: auto;
+
+  height: calc(100vh - 27.3rem);
 }
 
 .content__heading {
-  text-align: center;
   position: absolute;
   top: 50%;
   left: 50%;
+
   transform: translate(-50%, -50%);
+
+  text-align: center;
 }
 
 .content__heading h2 {
@@ -186,6 +196,7 @@
     position: absolute;
     top: 5.1rem;
     right: 3.6rem;
+
     display: inline;
   }
 
@@ -194,30 +205,33 @@
   }
 
   .menu {
-    grid-area: "menu";
-
     position: fixed;
     bottom: 0;
-    width: 100%;
-    padding: 1.5rem;
+
+    grid-area: "menu";
 
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+
+    width: 100%;
+    padding: 1.5rem;
   }
 
   .menu__item {
     position: static;
-    height: 4.5rem;
-    border: none;
-    font-size: 1.4rem;
-    margin-bottom: 7px;
 
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    margin-bottom: 7px;
+    height: 4.5rem;
+    border: none;
+
+    font-size: 1.4rem;
   }
 
   .menu__item img {
