@@ -3,11 +3,7 @@ import { createDashboard } from "./services/dashboard.service.js";
 import { createCustomerTable } from "./services/customer.service.js";
 import { createSaleTable } from "./services/sale.service.js";
 import { user } from "./services/user.service.js";
-import {
-  getToken,
-  removeToken,
-  removeUsername,
-} from "./services/jwt.service.js";
+import { getToken } from "./services/jwt.service.js";
 
 export const validator = {
   handleSubmit(event) {
@@ -135,6 +131,21 @@ export const createError = () => {
   document.querySelector(".default-message").classList.remove("hide");
 };
 
+export const toLocaleDate = (date) => {
+  return new Date(date).toLocaleDateString("pt-BR");
+};
+
+export const toLocaleCurrency = (string) => {
+  return string.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  });
+};
+
+export const isAuthenticated = () => {
+  return getToken() ? true : false;
+};
+
 const fillSelect = async () => {
   const response = await api.get("Customer/listar");
   const select = document.querySelector("#customer-input");
@@ -147,42 +158,6 @@ const fillSelect = async () => {
   }
 };
 
-export const toLocaleDateString = (date) => {
-  return new Date(date).toLocaleDateString("pt-BR");
-};
-
-export const toLocaleString = (string) => {
-  return string.toLocaleString("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-  });
-};
-
-export const sortByMonths = (response) => {
-  let sortedObject = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-  for (let sale of response) {
-    const saleMonth = new Date(sale.billingDate).getMonth();
-    sortedObject[saleMonth] += Math.round(sale.totalValue);
-  }
-
-  return sortedObject;
-};
-
-export const monthsOfTheYear = [
-  "Janeiro",
-  "Fevereiro",
-  "Março",
-  "Abril",
-  "Maio",
-  "Junho",
-  "Julho",
-  "Agosto",
-  "Setembro",
-  "Outubro",
-  "Novembro",
-  "Dezembro",
-];
-
 const disableMenu = () => {
   document.querySelector(".menu").style.display = "none";
   document.querySelector(".container").style.display = "block";
@@ -192,10 +167,6 @@ const enableMenu = () => {
   document.querySelector(".menu").style.display = "flex";
   document.querySelector(".container").style.display = "grid";
   document.querySelector(".username").innerHTML = user.name;
-};
-
-export const isAuthenticated = () => {
-  return getToken() ? true : false;
 };
 
 const toggleMenu = (route) => {
@@ -213,13 +184,6 @@ export const loadComponents = (route) => {
   if (route === "/pages/lista-de-clientes.html") createCustomerTable();
   if (route === "/pages/lista-de-vendas.html") createSaleTable();
   if (route === "/pages/adicionar-venda.html") fillSelect();
-};
-
-export const removeUserData = () => {
-  removeToken();
-  removeUsername();
-  delete user.token;
-  delete user.name;
 };
 
 window.handleSubmitOnEnter = (event) => {

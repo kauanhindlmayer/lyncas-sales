@@ -254,6 +254,16 @@
   overflow-y: auto;
 }
 
+.form__button--remove-sales {
+  background-color: var(--background-tertiary);
+  color: var(--text-tertiary);
+  border: 1px solid var(--border-light-red);
+  border-radius: 5px;
+  width: 7.5rem;
+  height: 3.5rem;
+  margin-top: 0.9rem;
+}
+
 .add-items-button {
   background-color: var(--background-secondary);
   color: var(--text-primary);

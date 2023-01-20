@@ -1,5 +1,5 @@
 import { api } from "./api.service.js";
-import { sortByMonths, monthsOfTheYear } from "../helper.js";
+import { toLocaleCurrency } from "../helper.js";
 
 export const createDashboard = async () => {
   const customerResponse = await api.get("Customer/listar");
@@ -11,15 +11,9 @@ export const createDashboard = async () => {
   }
 
   let total = 0;
-
   for (let sale of saleResponse.data) total += sale.totalValue;
-
-  document.querySelector(".highlight--billing").innerHTML = Number(
-    total
-  ).toLocaleString("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-  });
+  document.querySelector(".highlight--billing").innerHTML =
+    toLocaleCurrency(total);
 
   document.querySelector(".highlight--customers").innerHTML =
     customerResponse.data.length;
@@ -118,7 +112,6 @@ export const createDashboard = async () => {
       },
     },
   });
-
   new Chart(document.getElementById("bar-chart-grouped"), {
     type: "bar",
     data: {
@@ -148,3 +141,28 @@ export const createDashboard = async () => {
     },
   });
 };
+
+const sortByMonths = (response) => {
+  let sortedObject = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  for (let sale of response) {
+    const saleMonth = new Date(sale.billingDate).getMonth();
+    sortedObject[saleMonth] += Math.round(sale.totalValue);
+  }
+
+  return sortedObject;
+};
+
+const monthsOfTheYear = [
+  "Janeiro",
+  "Fevereiro",
+  "Março",
+  "Abril",
+  "Maio",
+  "Junho",
+  "Julho",
+  "Agosto",
+  "Setembro",
+  "Outubro",
+  "Novembro",
+  "Dezembro",
+];

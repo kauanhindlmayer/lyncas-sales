@@ -1,9 +1,9 @@
 import { api } from "./api.service.js";
 import { router } from "../router/router.js";
-import { validator, removeUserData } from "../helper.js";
-import { getToken, getUsername, setToken, setUsername } from "./jwt.service.js";
+import { validator } from "../helper.js";
+import * as storage from "./jwt.service.js";
 
-export const user = { token: getToken(), name: getUsername() };
+export const user = { token: storage.getToken(), name: storage.getUsername() };
 
 window.handleLogin = async () => {
   if (validator.validateFields()) {
@@ -22,8 +22,8 @@ window.handleLogin = async () => {
     user.token = response.token;
     user.name = response.userName;
 
-    setToken(response.token);
-    setUsername(response.userName);
+    storage.setToken(response.token);
+    storage.setUsername(response.userName);
 
     router.handle("/pages/home.html");
   }
@@ -67,4 +67,11 @@ export const handleExpiredToken = () => {
   removeUserData();
 
   router.handle("/pages/conectar-se.html");
+};
+
+const removeUserData = () => {
+  storage.removeToken();
+  storage.removeUsername();
+  delete user.token;
+  delete user.name;
 };

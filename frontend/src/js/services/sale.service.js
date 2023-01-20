@@ -2,8 +2,8 @@ import { api } from "./api.service.js";
 import { router } from "../router/router.js";
 import {
   append,
-  toLocaleDateString,
-  toLocaleString,
+  toLocaleDate,
+  toLocaleCurrency,
   createError,
   removeLoading,
   validator,
@@ -22,9 +22,9 @@ export const createSaleTable = async () => {
     const template = `
     <td class="table--left-corner">${sale.customer}</td>
     <td>${sale.quantityItems}</td>
-    <td>${toLocaleDateString(sale.saleDate)}</td>
-    <td>${toLocaleDateString(sale.billingDate)}</td>
-    <td>${toLocaleString(sale.totalValue)}</td>
+    <td>${toLocaleDate(sale.saleDate)}</td>
+    <td>${toLocaleDate(sale.billingDate)}</td>
+    <td>${toLocaleCurrency(sale.totalValue)}</td>
     <td class="table--right-corner">
       <button 
         onclick="handleSaleDelete('${sale.id}')" 
@@ -104,24 +104,20 @@ window.handleSaleEdit = async (id) => {
   document.querySelector("#billing-date-input").value =
     response.data.billingDate.slice(0, 10);
 
-  for (let i = 0; i < response.data.items.length - 1; i++) plusItems();
+  for (let saleIndex = 0; saleIndex < response.data.items.length; saleIndex++) {
+    if (saleIndex > 0) plusItems();
 
-  for (let i = 0; i < response.data.items.length; i++) {
-    document.querySelectorAll("#description-input")[i].value =
-      response.data.items[i].itemDescription;
-    document.querySelectorAll("#value-input")[i].value =
-      response.data.items[i].unitaryValue;
-    document.querySelectorAll("#quantity-input")[i].value =
-      response.data.items[i].quantity;
-    document.querySelectorAll("#total-value-input")[i].value =
-      response.data.items[i].totalValue;
+    document.querySelectorAll("#description-input")[saleIndex].value =
+      response.data.items[saleIndex].itemDescription;
+    document.querySelectorAll("#value-input")[saleIndex].value =
+      response.data.items[saleIndex].unitaryValue;
+    document.querySelectorAll("#quantity-input")[saleIndex].value =
+      response.data.items[saleIndex].quantity;
+    document.querySelectorAll("#total-value-input")[saleIndex].value =
+      response.data.items[saleIndex].totalValue;
   }
 
-  document.querySelector(".footer__total-value").innerHTML =
-    getTotalValue().toLocaleString("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-    });
+  document.querySelector(".footer__total-value").innerHTML = getTotalValue();
 
   document
     .querySelector(".save-button")
@@ -131,7 +127,7 @@ window.handleSaleEdit = async (id) => {
 window.updateSale = async () => {
   if (validator.validateFields()) {
     const urlParams = new URLSearchParams(window.location.search);
-    
+
     const body = {
       id: urlParams.get("id"),
       customerId: document.querySelector("#customer-input").value,
@@ -153,9 +149,9 @@ window.updateSale = async () => {
 };
 
 window.handleUpdatePrice = (input) => {
-  preventNumbers(input);
+  // preventNumbers(input);
 
-  document.querySelector(".footer__total-value").innerHTML = toLocaleString(
+  document.querySelector(".footer__total-value").innerHTML = toLocaleCurrency(
     getTotalValue()
   );
 };
@@ -167,22 +163,30 @@ window.plusItems = (event) => {
   const template = document.createElement("div");
 
   template.innerHTML = `
-    <div class="form__dashed"></div>
-    <div class="form__form-wrapper">${formulary[1].innerHTML}</div>
-    <div class="form__form-wrapper">${formulary[2].innerHTML}</div>
+    <div class="form__item">
+      <div class="form__dashed"></div>
+      <div class="form__form-wrapper">${formulary[1].innerHTML}</div>
+      <div class="form__form-wrapper">${formulary[2].innerHTML}</div>
+      <button 
+        class="form__button--remove-sales"
+        onclick="removeSale(this)"
+      >
+        Deletar
+      </button>
+    </div>
   `;
 
   document.querySelector(".form__items").appendChild(template);
 };
 
-const getTotalValue = () => {
+export const getTotalValue = () => {
   let totalValue = 0;
 
   const inputs = document.querySelectorAll("#total-value-input");
 
   for (let input of inputs) totalValue += Number(input.value);
 
-  return totalValue;
+  return toLocaleCurrency(totalValue);
 };
 
 const getItems = () => {
@@ -199,4 +203,10 @@ const getItems = () => {
   }
 
   return items;
+};
+
+window.removeSale = (element) => {
+  element.parentElement.remove();
+
+  handleUpdatePrice();
 };
