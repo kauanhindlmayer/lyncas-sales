@@ -96,32 +96,7 @@ window.handleSaleEdit = async (id) => {
     return;
   }
 
-  document.querySelector("#title").innerHTML = `${document
-    .querySelector("#title")
-    .innerHTML.replace("Adicionar", "Atualizar")}`;
-
-  document.querySelector("#customer-input").value = response.data.customerId;
-  document.querySelector("#billing-date-input").value =
-    response.data.billingDate.slice(0, 10);
-
-  for (let saleIndex = 0; saleIndex < response.data.items.length; saleIndex++) {
-    if (saleIndex > 0) plusItems();
-
-    document.querySelectorAll("#description-input")[saleIndex].value =
-      response.data.items[saleIndex].itemDescription;
-    document.querySelectorAll("#value-input")[saleIndex].value =
-      response.data.items[saleIndex].unitaryValue;
-    document.querySelectorAll("#quantity-input")[saleIndex].value =
-      response.data.items[saleIndex].quantity;
-    document.querySelectorAll("#total-value-input")[saleIndex].value =
-      response.data.items[saleIndex].totalValue;
-  }
-
-  updateTotalValue();
-
-  document
-    .querySelector(".save-button")
-    .setAttribute("onclick", "updateSale()");
+  loadSaleData(response);
 };
 
 window.updateSale = async () => {
@@ -150,15 +125,15 @@ window.updateSale = async () => {
 
 window.plusItems = (event) => {
   if (event) event.preventDefault();
-  const formulary = document.querySelectorAll(".form__form-wrapper");
 
+  const forms = document.querySelectorAll(".form__form-wrapper");
   const template = document.createElement("div");
 
   template.innerHTML = `
     <div class="form__item">
       <div class="form__dashed"></div>
-      <div class="form__form-wrapper">${formulary[1].innerHTML}</div>
-      <div class="form__form-wrapper">${formulary[2].innerHTML}</div>
+      <div class="form__form-wrapper">${forms[1].innerHTML}</div>
+      <div class="form__form-wrapper">${forms[2].innerHTML}</div>
       <button 
         class="form__button--remove-sales"
         onclick="removeSale(this)"
@@ -220,4 +195,33 @@ const updateTotalValue = () => {
 
   document.querySelector(".footer__total-value").innerHTML =
     toLocaleCurrency(totalValue);
+};
+
+const loadSaleData = (response) => {
+  document.querySelector("#title").innerHTML = `${document
+    .querySelector("#title")
+    .innerHTML.replace("Adicionar", "Atualizar")}`;
+
+  document.querySelector("#customer-input").value = response.data.customerId;
+  document.querySelector("#billing-date-input").value =
+    response.data.billingDate.slice(0, 10);
+
+  for (let saleIndex = 0; saleIndex < response.data.items.length; saleIndex++) {
+    if (saleIndex > 0) plusItems();
+
+    document.querySelectorAll("#description-input")[saleIndex].value =
+      response.data.items[saleIndex].itemDescription;
+    document.querySelectorAll("#value-input")[saleIndex].value =
+      response.data.items[saleIndex].unitaryValue;
+    document.querySelectorAll("#quantity-input")[saleIndex].value =
+      response.data.items[saleIndex].quantity;
+    document.querySelectorAll("#total-value-input")[saleIndex].value =
+      response.data.items[saleIndex].totalValue;
+  }
+
+  updateTotalValue();
+
+  document
+    .querySelector(".save-button")
+    .setAttribute("onclick", "updateSale()");
 };

@@ -94,18 +94,7 @@ window.handleCustomerEdit = async (id) => {
     return;
   }
 
-  document.querySelector("#title").innerHTML = `${document
-    .querySelector("#title")
-    .innerHTML.replace("Adicionar", "Atualizar")}`;
-
-  document.querySelector("#name-input").value = response.data.name;
-  document.querySelector("#email-input").value = response.data.email;
-  document.querySelector("#phone-input").value = response.data.phone;
-  document.querySelector("#cpf-input").value = response.data.cpf;
-
-  document
-    .querySelector(".save-button")
-    .setAttribute("onclick", "updateCustomer()");
+  loadCustomerData(response);
 };
 
 window.updateCustomer = async () => {
@@ -131,4 +120,19 @@ window.updateCustomer = async () => {
 
     alert(response.data.message);
   }
+};
+
+const loadCustomerData = (response) => {
+  document.querySelector("#title").innerHTML = `${document
+    .querySelector("#title")
+    .innerHTML.replace("Adicionar", "Atualizar")}`;
+
+  document.querySelector("#name-input").value = response.data.name;
+  document.querySelector("#email-input").value = response.data.email;
+  document.querySelector("#phone-input").value = response.data.phone;
+  document.querySelector("#cpf-input").value = response.data.cpf;
+
+  document
+    .querySelector(".save-button")
+    .setAttribute("onclick", "updateCustomer()");
 };
