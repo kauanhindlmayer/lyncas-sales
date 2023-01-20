@@ -28,7 +28,7 @@ export const validator = {
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
     if (email && !email.value.match(regExp)) {
-      this.createError(email, "O endereço de E-mail utilizado não é válido.");
+      this.createError(email, "O E-mail precisa ser válido.");
       return false;
     }
 
@@ -40,7 +40,7 @@ export const validator = {
     const regExp = /^(\(\d{2}\)\s*)?(9\s*)?(\d{4})-(\d{4})$/g;
 
     if (phone && !phone.value.match(regExp)) {
-      this.createError(phone, "O número de Telefone utilizado não é válido.");
+      this.createError(phone, "O Telefone precisa ser válido.");
       return false;
     }
 
@@ -51,7 +51,7 @@ export const validator = {
     const cpf = document.querySelector(".cpf");
 
     if (cpf && !validateCpf.validate(cpf.value)) {
-      this.createError(cpf, "O número de CPF utilizado não é válido");
+      this.createError(cpf, "O CPF precisa ser válido.");
       return false;
     }
 
@@ -186,12 +186,11 @@ export const loadComponents = (route) => {
   if (route === "/pages/adicionar-venda.html") fillSelect();
 };
 
-window.handleSubmitOnEnter = (event) => {
-  if (event.key === "Enter") document.querySelector("button").click();
-};
+export const alertError = (response) => {
+  let errorMessage = response.notifications[0].message;
 
-export const preventNumbers = (input) => {
-  if (!input.checkValidity()) input.value = "";
-};
+  for (let i = 1; i < response.notifications.length; i++)
+    errorMessage += `\n${response.notifications[i].message}`;
 
-window.preventNumbers = (input) => preventNumbers(input);
+  alert(errorMessage);
+};

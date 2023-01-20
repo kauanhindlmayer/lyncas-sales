@@ -67,15 +67,15 @@
               <div>
                 <label for="value-input">Valor unitário</label>
                 <input
-                  type="text"
-                  pattern="^\d{0,8}(\.\d{1,4})?$"
+                  type="number"
+                  step="any"
                   name="value-input"
                   id="value-input"
                   class="input field"
                   placeholder=" "
                   required
                   maxlength="10"
-                  oninput="preventNumbers(this)"
+                  oninput="restrictInput(this)"
                 />
               </div>
             </div>
@@ -83,29 +83,28 @@
               <div>
                 <label for="quantity-input">Quantidade</label>
                 <input
-                  type="text"
-                  pattern="\d*"
+                  type="number"
                   name="quantity-input"
                   id="quantity-input"
                   class="input field"
                   placeholder=" "
                   required
-                  maxlength="10"
-                  oninput="preventNumbers(this)"
+                  maxlength="5"
+                  oninput="restrictInput(this)"
                 />
               </div>
               <div>
                 <label for="total-value-input">Valor total</label>
                 <input
-                  type="text"
-                  pattern="^\d{0,8}(\.\d{1,4})?$"
+                  type="number"
+                  step="any"
                   name="total-value-input"
                   id="total-value-input"
                   class="input field"
                   placeholder=" "
                   required
                   maxlength="10"
-                  oninput="handleUpdatePrice(this)"
+                  oninput="restrictInput(this)"
                 />
               </div>
             </div>

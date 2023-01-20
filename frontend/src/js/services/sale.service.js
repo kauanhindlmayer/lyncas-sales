@@ -7,7 +7,7 @@ import {
   createError,
   removeLoading,
   validator,
-  preventNumbers,
+  alertError,
 } from "../helper.js";
 
 export const createSaleTable = async () => {
@@ -59,7 +59,7 @@ window.createSale = async () => {
     const response = await api.post("Sale/adicionar", body);
 
     if (!response.success) {
-      alert(response.notifications[0].message);
+      alertError(response);
       return;
     }
 
@@ -76,7 +76,7 @@ window.handleSaleDelete = async (id) => {
     const response = await api.delete(`Sale/remover/${id}`);
 
     if (!response.success) {
-      alert(response.notifications[0].message);
+      alertError(response);
       return;
     }
 
@@ -117,7 +117,7 @@ window.handleSaleEdit = async (id) => {
       response.data.items[saleIndex].totalValue;
   }
 
-  document.querySelector(".footer__total-value").innerHTML = getTotalValue();
+  updateTotalValue();
 
   document
     .querySelector(".save-button")
@@ -138,7 +138,7 @@ window.updateSale = async () => {
     const response = await api.put("Sale/atualizar", body);
 
     if (!response.success) {
-      alert(response.notifications[0].message);
+      alertError(response);
       return;
     }
 
@@ -146,14 +146,6 @@ window.updateSale = async () => {
 
     alert(response.data.message);
   }
-};
-
-window.handleUpdatePrice = (input) => {
-  // preventNumbers(input);
-
-  document.querySelector(".footer__total-value").innerHTML = toLocaleCurrency(
-    getTotalValue()
-  );
 };
 
 window.plusItems = (event) => {
@@ -179,14 +171,17 @@ window.plusItems = (event) => {
   document.querySelector(".form__items").appendChild(template);
 };
 
-export const getTotalValue = () => {
-  let totalValue = 0;
+window.removeSale = (element) => {
+  element.parentElement.remove();
 
-  const inputs = document.querySelectorAll("#total-value-input");
+  updateTotalValue();
+};
 
-  for (let input of inputs) totalValue += Number(input.value);
+window.restrictInput = (input) => {
+  if (input.value.length > input.maxLength)
+    input.value = input.value.slice(0, input.maxLength);
 
-  return toLocaleCurrency(totalValue);
+  updateTotalValue();
 };
 
 const getItems = () => {
@@ -205,8 +200,24 @@ const getItems = () => {
   return items;
 };
 
-window.removeSale = (element) => {
-  element.parentElement.remove();
+const updateTotalValue = () => {
+  let totalValue = 0;
 
-  handleUpdatePrice();
+  const quantity = document.querySelectorAll("#total-value-input").length;
+  const quantityInputs = document.querySelectorAll("#quantity-input");
+  const unitaryValueInputs = document.querySelectorAll("#value-input");
+  const totalValueInputs = document.querySelectorAll("#total-value-input");
+
+  for (let i = 0; i < quantity; i++) {
+    const itemTotalValue =
+      quantityInputs[i].value * unitaryValueInputs[i].value;
+
+    if (quantityInputs[i].value && unitaryValueInputs[i].value)
+      totalValueInputs[i].value = itemTotalValue;
+
+    totalValue += itemTotalValue;
+  }
+
+  document.querySelector(".footer__total-value").innerHTML =
+    toLocaleCurrency(totalValue);
 };

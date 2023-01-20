@@ -1,6 +1,12 @@
 import { api } from "./api.service.js";
 import { router } from "../router/router.js";
-import { append, createError, removeLoading, validator } from "../helper.js";
+import {
+  append,
+  createError,
+  removeLoading,
+  validator,
+  alertError,
+} from "../helper.js";
 
 export const createCustomerTable = async () => {
   const response = await api.get("Customer/listar");
@@ -51,7 +57,7 @@ window.createCustomer = async () => {
     const response = await api.post("Customer/adicionar", body);
 
     if (!response.success) {
-      alert(response.notifications[0].message);
+      alertError(response);
       return;
     }
 
@@ -68,7 +74,7 @@ window.handleCustomerDelete = async (id) => {
     const response = await api.delete(`Customer/remover/${id}`);
 
     if (!response.success) {
-      alert(response.notifications[0].message);
+      alertError(response);
       return;
     }
 
@@ -117,7 +123,7 @@ window.updateCustomer = async () => {
     const response = await api.put("Customer/atualizar", body);
 
     if (!response.success) {
-      alert(response.notifications[0].message);
+      alertError(response);
       return;
     }
 

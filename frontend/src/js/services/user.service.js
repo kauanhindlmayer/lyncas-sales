@@ -1,6 +1,6 @@
 import { api } from "./api.service.js";
 import { router } from "../router/router.js";
-import { validator } from "../helper.js";
+import { validator, alertError } from "../helper.js";
 import * as storage from "./jwt.service.js";
 
 export const user = { token: storage.getToken(), name: storage.getUsername() };
@@ -15,7 +15,7 @@ window.handleLogin = async () => {
     const response = await api.post("User/autenticar", body);
 
     if (!response.token) {
-      alert(response.notifications[0].message);
+      alertError(response);
       return;
     }
 
@@ -42,7 +42,7 @@ window.handleCreateUser = async () => {
     const response = await api.post("User/adicionar", body);
 
     if (!response.success) {
-      alert(response.notifications[0].message);
+      alertError(response);
       return;
     }
 
@@ -50,6 +50,10 @@ window.handleCreateUser = async () => {
 
     alert(response.data.message);
   }
+};
+
+window.handleSubmitOnEnter = (event) => {
+  if (event.key === "Enter") document.querySelector("button").click();
 };
 
 window.handleLogout = () => {
