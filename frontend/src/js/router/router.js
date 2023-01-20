@@ -1,5 +1,5 @@
 import { loadComponents } from "../helper.js";
-import { checkAuth } from "../middlewares/checkAuth.js";
+import { checkAuth } from "../middlewares/check-auth.js";
 
 export const router = {
   routes: {},
