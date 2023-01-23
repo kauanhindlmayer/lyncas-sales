@@ -1,129 +1,69 @@
 <template>
   <div class="content">
     <section class="component">
-      <h1>Adicionar venda</h1>
-      <vee-form class="form" :validation-schema="schema" @submit="createSale">
-        <div class="form__form-wrapper">
-          <div>
-            <label for="customer-input">Cliente</label>
-            <!-- Select Customer -->
-            <vee-field
-              as="select"
-              name="customer"
-              class="select field"
-              id="customer-input"
-              required
-              label="cliente"
-              @input="updateUnsavedFlag(true)"
-            >
-              <option data-default disabled selected></option>
-              <option v-for="{ name, id } in users" :value="id" :key="id">
-                {{ name }}
-              </option>
-            </vee-field>
-            <ErrorMessage class="error-message" name="customer" />
+      <div class="component__add-sales">
+        <h1>Adicionar venda</h1>
+        <vee-form class="form" :validation-schema="schema" @submit="createSale">
+          <div class="form__form-wrapper">
+            <div>
+              <label for="customer-input">Cliente</label>
+              <!-- Select Customer -->
+              <vee-field
+                as="select"
+                name="customer"
+                class="select field"
+                id="customer-input"
+                required
+                label="cliente"
+                @input="updateUnsavedFlag(true)"
+              >
+                <option data-default disabled selected></option>
+                <option v-for="{ name, id } in users" :value="id" :key="id">
+                  {{ name }}
+                </option>
+              </vee-field>
+              <ErrorMessage class="error-message" name="customer" />
+            </div>
+            <div>
+              <!-- Billing Date -->
+              <label for="billing-date-input">Data de faturamento</label>
+              <vee-field
+                name="billingDate"
+                type="date"
+                id="billing-date-input"
+                class="input-date field"
+                required
+                label="data de faturamento"
+                @input="updateUnsavedFlag(true)"
+              />
+              <ErrorMessage class="error-message" name="billingDate" />
+            </div>
           </div>
-          <div>
-            <!-- Billing Date -->
-            <label for="billing-date-input">Data de faturamento</label>
-            <vee-field
-              name="billingDate"
-              type="date"
-              id="billing-date-input"
-              class="input-date field"
-              required
-              label="data de faturamento"
-              @input="updateUnsavedFlag(true)"
-            />
-            <ErrorMessage class="error-message" name="billingDate" />
-          </div>
-        </div>
-        <div class="form__dashed"></div>
-        <h2>Itens do pedido</h2>
-        <div class="form__form-wrapper">
-          <div>
-            <!-- Item Description -->
-            <label for="description-input">Descrição do item</label>
-            <vee-field
-              name="itemDescription"
-              type="text"
-              id="description-input"
-              class="input field"
-              placeholder=" "
-              required
-              label="descrição do item"
-              @input="updateUnsavedFlag(true)"
-            />
-            <ErrorMessage class="error-message" name="itemDescription" />
-          </div>
-          <div>
-            <!-- Unitary Value -->
-            <label for="value-input">Valor unitário</label>
-            <vee-field
-              name="unitaryValue"
-              type="number"
-              step="any"
-              maxLength="10"
-              id="value-input"
-              class="input field"
-              placeholder=" "
-              required
-              label="valor unitário"
-              @input="updateUnsavedFlag(true)"
-            />
-            <ErrorMessage class="error-message" name="unitaryValue" />
-          </div>
-        </div>
-        <div class="form__form-wrapper">
-          <div>
-            <!-- Quantity -->
-            <label for="quantity-input">Quantidade</label>
-            <vee-field
-              name="quantity"
-              type="number"
-              id="quantity-input"
-              class="input field"
-              placeholder=" "
-              required
-              label="quantidade"
-              @input="updateUnsavedFlag(true)"
-            />
-            <ErrorMessage class="error-message" name="quantity" />
-          </div>
-          <div>
-            <!-- Total Value -->
-            <label for="total-value-input">Valor total</label>
-            <vee-field
-              name="totalValue"
-              type="number"
-              step="any"
-              maxLength="10"
-              id="total-value-input"
-              class="input field"
-              placeholder=" "
-              required
-              label="valor total"
-              v-model="totalValue"
-              @input="updateUnsavedFlag(true)"
-            />
-            <ErrorMessage class="error-message" name="totalValue" />
-          </div>
-        </div>
-        <div class="align-right">
-          <button class="add-items-button">+ Mais itens</button>
-        </div>
-        <div class="form__dashed"></div>
-        <div class="footer">
-          <div class="footer__total-value">
-            <span>{{ formatNumber(totalValue) }}</span>
-          </div>
+          <div class="form__dashed"></div>
+          <h2>Itens do pedido</h2>
+          <sale-item
+            v-for="(item, index) in items"
+            :key="item.id"
+            :index="index"
+          />
           <div class="align-right">
-            <button class="save-button save-button--sale" type="submit">
-              Salvar
+            <button class="add-items-button" @click.prevent="addItem">
+              + Mais itens
             </button>
           </div>
-        </div>
-      </vee-form>
+          <div class="form__dashed"></div>
+          <div class="footer">
+            <div class="footer__total-value">
+              <span>{{ formatNumber(totalValue) }}</span>
+            </div>
+            <div class="align-right">
+              <button class="save-button save-button--sale" type="submit">
+                Salvar
+              </button>
+            </div>
+          </div>
+        </vee-form>
+      </div>
     </section>
   </div>
 </template>
@@ -132,43 +72,71 @@
 import { sale } from "../services/sale.service";
 import { customer } from "../services/customer.service";
 import { formatNumber } from "../helpers";
+import SaleItem from "./SaleItem.vue";
 
 export default {
-  name: "SalaForm",
+  name: "SaleForm",
   props: {
     updateUnsavedFlag: {
       type: Function,
     },
+  },
+  components: {
+    SaleItem,
   },
   data() {
     return {
       schema: {
         customer: "required",
         billingDate: "required",
-        itemDescription: "required|min:3|max:100|",
-        unitaryValue: "required|min_value:1|max_value:100000",
-        quantity: "required|min_value:1|max_value:100",
-        totalValue: "required|min_value:1|max_value:100000",
+        "itemDescription-0": "required|min:3|max:100|",
+        "unitaryValue-0": "required|min_value:1|max_value:100000",
+        "quantity-0": "required|min_value:1|max_value:100",
+        "totalValue-0": "required|min_value:1|max_value:100000",
       },
       users: {},
       totalValue: "",
+      items: [{ id: 0, value: null }],
+      id: 1,
     };
   },
   methods: {
+    addItem() {
+      this.items.push({
+        id: this.id,
+        value: null,
+      });
+      this.buildValidations();
+      this.id++;
+    },
+    buildValidations() {
+      this.schema[`itemDescription-${this.id}`] =
+        this.schema["itemDescription-0"];
+      this.schema[`unitaryValue-${this.id}`] = this.schema["unitaryValue-0"];
+      this.schema[`quantity-${this.id}`] = this.schema["quantity-0"];
+      this.schema[`totalValue-${this.id}`] = this.schema["totalValue-0"];
+    },
+    getItems(values) {
+      const items = [];
+
+      for (let i = 0; i < this.id; i++) {
+        items.push({
+          itemDescription: values[`itemDescription-${i}`],
+          unitaryValue: values[`unitaryValue-${i}`],
+          quantity: values[`quantity-${i}`],
+          totalValue: values[`totalValue-${i}`],
+        });
+      }
+
+      return items;
+    },
     formatNumber,
     createSale(values) {
       sale
         .create({
           customerId: values.customer,
           billingDate: values.billingDate,
-          items: [
-            {
-              itemDescription: values.itemDescription,
-              unitaryValue: values.unitaryValue,
-              quantity: values.quantity,
-              totalValue: values.totalValue,
-            },
-          ],
+          items: this.getItems(values),
         })
         .then((response) => {
           this.updateUnsavedFlag(false);
@@ -197,6 +165,12 @@ export default {
 </script>
 
 <style scoped>
+.component__add-sales {
+  overflow-y: auto;
+
+  height: calc(100vh - 15rem);
+}
+
 .content {
   margin: 2.3rem 0 auto 0;
 }
