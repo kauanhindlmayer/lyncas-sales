@@ -48,10 +48,10 @@ export const createCustomerTable = async () => {
 window.createCustomer = async () => {
   if (validator.validateFields()) {
     const body = {
-      name: document.querySelector("#name-input").value,
-      email: document.querySelector("#email-input").value,
-      phone: document.querySelector("#phone-input").value,
-      cpf: document.querySelector("#cpf-input").value,
+      name: document.querySelector("#name").value,
+      email: document.querySelector("#email").value,
+      phone: document.querySelector("#phone").value,
+      cpf: document.querySelector("#cpf").value,
     };
 
     const response = await api.post("Customer/adicionar", body);
@@ -94,7 +94,17 @@ window.handleCustomerEdit = async (id) => {
     return;
   }
 
-  loadCustomerData(response);
+  const title = document.querySelector("#title");
+  title.innerHTML = `${title.innerHTML.replace("Adicionar", "Atualizar")}`;
+
+  document.querySelector("#name").value = response.data.name;
+  document.querySelector("#email").value = response.data.email;
+  document.querySelector("#phone").value = response.data.phone;
+  document.querySelector("#cpf").value = response.data.cpf;
+
+  document
+    .querySelector(".save-button")
+    .setAttribute("onclick", "updateCustomer()");
 };
 
 window.updateCustomer = async () => {
@@ -103,10 +113,10 @@ window.updateCustomer = async () => {
 
     const body = {
       id: urlParams.get("id"),
-      name: document.querySelector("#name-input").value,
-      email: document.querySelector("#email-input").value,
-      phone: document.querySelector("#phone-input").value,
-      cpf: document.querySelector("#cpf-input").value,
+      name: document.querySelector("#name").value,
+      email: document.querySelector("#email").value,
+      phone: document.querySelector("#phone").value,
+      cpf: document.querySelector("#cpf").value,
     };
 
     const response = await api.put("Customer/atualizar", body);
@@ -120,19 +130,4 @@ window.updateCustomer = async () => {
 
     alert(response.data.message);
   }
-};
-
-const loadCustomerData = (response) => {
-  document.querySelector("#title").innerHTML = `${document
-    .querySelector("#title")
-    .innerHTML.replace("Adicionar", "Atualizar")}`;
-
-  document.querySelector("#name-input").value = response.data.name;
-  document.querySelector("#email-input").value = response.data.email;
-  document.querySelector("#phone-input").value = response.data.phone;
-  document.querySelector("#cpf-input").value = response.data.cpf;
-
-  document
-    .querySelector(".save-button")
-    .setAttribute("onclick", "updateCustomer()");
 };

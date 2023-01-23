@@ -148,7 +148,7 @@ export const isAuthenticated = () => {
 
 const fillSelect = async () => {
   const response = await api.get("Customer/listar");
-  const select = document.querySelector("#customer-input");
+  const select = document.querySelector("#customer");
 
   for (let customer of response.data) {
     select.options[select.options.length] = new Option(

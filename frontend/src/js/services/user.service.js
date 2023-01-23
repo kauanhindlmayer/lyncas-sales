@@ -3,13 +3,16 @@ import { router } from "../router/router.js";
 import { validator, alertError } from "../helper.js";
 import * as storage from "./jwt.service.js";
 
-export const user = { token: storage.getToken(), name: storage.getUsername() };
+export const user = {
+  token: storage.getToken(),
+  name: storage.getUsername(),
+};
 
 window.handleLogin = async () => {
   if (validator.validateFields()) {
     const body = {
-      login: document.querySelector("#input-email").value,
-      password: document.querySelector("#input-password").value,
+      login: document.querySelector("#email").value,
+      password: document.querySelector("#password").value,
     };
 
     const response = await api.post("User/autenticar", body);
@@ -32,11 +35,10 @@ window.handleLogin = async () => {
 window.handleCreateUser = async () => {
   if (validator.validateFields()) {
     const body = {
-      name: document.querySelector("#input-name").value,
-      login: document.querySelector("#input-email").value,
-      password: document.querySelector("#input-password").value,
-      passwordConfirmation: document.querySelector("#input-confirm-password")
-        .value,
+      name: document.querySelector("#name").value,
+      login: document.querySelector("#email").value,
+      password: document.querySelector("#password").value,
+      passwordConfirmation: document.querySelector("#confirm-password").value,
     };
 
     const response = await api.post("User/adicionar", body);

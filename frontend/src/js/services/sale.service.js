@@ -51,8 +51,8 @@ export const createSaleTable = async () => {
 window.createSale = async () => {
   if (validator.validateFields()) {
     const body = {
-      customerId: document.querySelector("#customer-input").value,
-      billingDate: document.querySelector("#billing-date-input").value,
+      customerId: document.querySelector("#customer").value,
+      billingDate: document.querySelector("#billing-date").value,
       items: getItems(),
     };
 
@@ -96,7 +96,26 @@ window.handleSaleEdit = async (id) => {
     return;
   }
 
-  loadSaleData(response);
+  const title = document.querySelector("#title");
+  title.innerHTML = `${title.innerHTML.replace("Adicionar", "Atualizar")}`;
+
+  document.querySelector("#customer").value = response.data.customerId;
+  document.querySelector("#billing-date").value =
+    response.data.billingDate.slice(0, 10);
+
+  for (let [i, sale] of response.data.items.entries()) {
+    if (i > 0) plusItems();
+    document.querySelectorAll("#description")[i].value = sale.itemDescription;
+    document.querySelectorAll("#value")[i].value = sale.unitaryValue;
+    document.querySelectorAll("#quantity")[i].value = sale.quantity;
+    document.querySelectorAll("#total-value")[i].value = sale.totalValue;
+  }
+
+  updateTotalValue();
+
+  document
+    .querySelector(".save-button")
+    .setAttribute("onclick", "updateSale()");
 };
 
 window.updateSale = async () => {
@@ -105,8 +124,8 @@ window.updateSale = async () => {
 
     const body = {
       id: urlParams.get("id"),
-      customerId: document.querySelector("#customer-input").value,
-      billingDate: document.querySelector("#billing-date-input").value,
+      customerId: document.querySelector("#customer").value,
+      billingDate: document.querySelector("#billing-date").value,
       items: getItems(),
     };
 
@@ -161,14 +180,14 @@ window.restrictInput = (input) => {
 
 const getItems = () => {
   const items = [];
-  const quantityItems = document.querySelectorAll("#description-input").length;
+  const quantityItems = document.querySelectorAll("#description").length;
 
   for (let i = 0; i < quantityItems; i++) {
     items.push({
-      itemDescription: document.querySelectorAll("#description-input")[i].value,
-      unitaryValue: document.querySelectorAll("#value-input")[i].value,
-      quantity: document.querySelectorAll("#quantity-input")[i].value,
-      totalValue: document.querySelectorAll("#total-value-input")[i].value,
+      itemDescription: document.querySelectorAll("#description")[i].value,
+      unitaryValue: document.querySelectorAll("#value")[i].value,
+      quantity: document.querySelectorAll("#quantity")[i].value,
+      totalValue: document.querySelectorAll("#total-value")[i].value,
     });
   }
 
@@ -176,52 +195,21 @@ const getItems = () => {
 };
 
 const updateTotalValue = () => {
-  let totalValue = 0;
+  let amount = 0;
 
-  const quantity = document.querySelectorAll("#total-value-input").length;
-  const quantityInputs = document.querySelectorAll("#quantity-input");
-  const unitaryValueInputs = document.querySelectorAll("#value-input");
-  const totalValueInputs = document.querySelectorAll("#total-value-input");
+  const quantity = document.querySelectorAll("#quantity");
+  const unitaryValue = document.querySelectorAll("#value");
+  const totalValue = document.querySelectorAll("#total-value");
 
-  for (let i = 0; i < quantity; i++) {
-    const itemTotalValue =
-      quantityInputs[i].value * unitaryValueInputs[i].value;
+  for (let i = 0; i < quantity.length; i++) {
+    const itemTotalValue = quantity[i].value * unitaryValue[i].value;
 
-    if (quantityInputs[i].value && unitaryValueInputs[i].value)
-      totalValueInputs[i].value = itemTotalValue;
+    if (quantity[i].value && unitaryValue[i].value)
+      totalValue[i].value = itemTotalValue;
 
-    totalValue += itemTotalValue;
+    amount += itemTotalValue;
   }
 
   document.querySelector(".footer__total-value").innerHTML =
-    toLocaleCurrency(totalValue);
-};
-
-const loadSaleData = (response) => {
-  document.querySelector("#title").innerHTML = `${document
-    .querySelector("#title")
-    .innerHTML.replace("Adicionar", "Atualizar")}`;
-
-  document.querySelector("#customer-input").value = response.data.customerId;
-  document.querySelector("#billing-date-input").value =
-    response.data.billingDate.slice(0, 10);
-
-  for (let saleIndex = 0; saleIndex < response.data.items.length; saleIndex++) {
-    if (saleIndex > 0) plusItems();
-
-    document.querySelectorAll("#description-input")[saleIndex].value =
-      response.data.items[saleIndex].itemDescription;
-    document.querySelectorAll("#value-input")[saleIndex].value =
-      response.data.items[saleIndex].unitaryValue;
-    document.querySelectorAll("#quantity-input")[saleIndex].value =
-      response.data.items[saleIndex].quantity;
-    document.querySelectorAll("#total-value-input")[saleIndex].value =
-      response.data.items[saleIndex].totalValue;
-  }
-
-  updateTotalValue();
-
-  document
-    .querySelector(".save-button")
-    .setAttribute("onclick", "updateSale()");
+    toLocaleCurrency(amount);
 };
