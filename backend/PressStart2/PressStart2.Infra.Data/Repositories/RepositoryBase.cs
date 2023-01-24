@@ -41,6 +41,11 @@ namespace PressStart2.Infra.Data.Repositories
             return DbSet.AsEnumerable();
         }
 
+        public IQueryable<TEntity> Query()
+        {
+            return DbSet.AsQueryable();
+        }
+
         public void Update(TEntity entity)
         {
             DbSet.Update(entity);

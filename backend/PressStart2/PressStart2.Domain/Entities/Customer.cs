@@ -1,4 +1,4 @@
-﻿using PressStart2.Domain.Entities.Contracts;
+﻿ using PressStart2.Domain.Entities.Contracts;
 
 namespace PressStart2.Domain.Entities
 {

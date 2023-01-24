@@ -6,6 +6,7 @@ using PressStart2.Domain.Commands.DeleteCustomer;
 using PressStart2.Domain.Commands.GetAllCustomers;
 using PressStart2.Domain.Commands.GetCustomer;
 using PressStart2.Domain.Commands.UpdateCustomer;
+using prmToolkit.NotificationPattern;
 
 namespace PressStart2.Api.Controllers
 {
@@ -21,10 +22,12 @@ namespace PressStart2.Api.Controllers
             _mediator = mediator;
         }
 
+        [ProducesResponseType(typeof(GetAllCustomersResponse), 200)]
+        [ProducesResponseType(typeof(IEnumerable<Notification>), 400)]
         [HttpGet("listar")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] GetAllCustomersRequest request)
         {
-            var getAllCustomers = await _mediator.Send(new GetAllCustomersRequest());
+            var getAllCustomers = await _mediator.Send(request);
             return Ok(getAllCustomers);
         }
 

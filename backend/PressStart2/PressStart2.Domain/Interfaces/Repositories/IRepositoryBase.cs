@@ -6,6 +6,7 @@ namespace PressStart2.Domain.Interfaces.Repositories
     {
         IEnumerable<TEntity> GetAll();
         TEntity Get(Guid id);
+        IQueryable<TEntity> Query();
         void Add(TEntity entity);
         void Update(TEntity entity);
         void Delete(TEntity entity);
