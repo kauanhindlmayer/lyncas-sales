@@ -8,8 +8,8 @@ import {
   alertError,
 } from "../helper.js";
 
-export const createCustomerTable = async () => {
-  const response = await api.get("Customer/listar");
+export const createCustomerTable = async (resource) => {
+  const response = await api.get(`Customer/listar${resource ?? ""}`);
 
   if (!response.success || response.data.length === 0) {
     createError();
@@ -130,4 +130,18 @@ window.updateCustomer = async () => {
 
     alert(response.data.message);
   }
+};
+
+window.searchCustomers = async () => {
+  const searchInput = document.querySelector(".header__search-button");
+  const filterSelect = document.querySelector(".header__select");
+
+  if (!filterSelect.value) {
+    filterSelect.focus();
+    return;
+  }
+
+  document.querySelector(".component__table").innerHTML = "";
+
+  createCustomerTable(`?${filterSelect.value}=${searchInput.value}`);
 };

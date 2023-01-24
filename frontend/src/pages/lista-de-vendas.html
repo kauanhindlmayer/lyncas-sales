@@ -24,6 +24,14 @@
       <div class="component__header">
         <h1 class="header__title">Lista de vendas</h1>
         <div class="header__search">
+          <select class="header__select">
+            <option value="" disabled selected hidden>Filtros</option>
+            <option value="Name">Nome</option>
+            <option value="Quantity">Quantidade</option>
+            <option value="SaleDate">Data da Venda</option>
+            <option value="BillingDate">Data do Faturamento</option>
+            <option value="TotalValue">Valor Total</option>
+          </select>
           <label class="sr-only" for="search-button">Buscar vendas...</label>
           <input
             type="text"
@@ -31,6 +39,7 @@
             id="search-button"
             class="header__search-button"
             placeholder="Buscar vendas..."
+            onkeydown="if (event.keyCode == 13) searchSales()"
           />
         </div>
       </div>

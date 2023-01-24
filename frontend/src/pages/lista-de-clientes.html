@@ -24,6 +24,13 @@
       <div class="component__header">
         <h1 class="header__title">Lista de clientes</h1>
         <div class="header__search">
+          <select class="header__select">
+            <option value="" disabled selected hidden>Filtros</option>
+            <option value="Name">Nome</option>
+            <option value="Email">E-mail</option>
+            <option value="Phone">Telefone</option>
+            <option value="Cpf">CPF</option>
+          </select>
           <label class="sr-only" for="search-button">Buscar clientes...</label>
           <input
             type="text"
@@ -31,6 +38,7 @@
             id="search-button"
             class="header__search-button"
             placeholder="Buscar clientes..."
+            onkeydown="if (event.keyCode == 13) searchCustomers()"
           />
         </div>
       </div>

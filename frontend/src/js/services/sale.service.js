@@ -10,8 +10,8 @@ import {
   alertError,
 } from "../helper.js";
 
-export const createSaleTable = async () => {
-  const response = await api.get("Sale/listar");
+export const createSaleTable = async (resource) => {
+  const response = await api.get(`Sale/listar${resource ?? ""}`);
 
   if (!response.success || response.data.length === 0) {
     createError();
@@ -176,6 +176,20 @@ window.restrictInput = (input) => {
     input.value = input.value.slice(0, input.maxLength);
 
   updateTotalValue();
+};
+
+window.searchSales = async () => {
+  const searchInput = document.querySelector(".header__search-button");
+  const filterSelect = document.querySelector(".header__select");
+
+  if (!filterSelect.value) {
+    filterSelect.focus();
+    return;
+  }
+
+  document.querySelector(".component__table").innerHTML = "";
+
+  createSaleTable(`?${filterSelect.value}=${searchInput.value}`);
 };
 
 const getItems = () => {
