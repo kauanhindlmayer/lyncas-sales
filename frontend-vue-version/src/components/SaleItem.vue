@@ -79,7 +79,7 @@
 <script>
 export default {
   name: "SaleItem",
-  props: ["index", "modified_items"],
+  props: ["index"],
   methods: {
     removeItem() {
       this.$el.parentNode.removeChild(this.$el);

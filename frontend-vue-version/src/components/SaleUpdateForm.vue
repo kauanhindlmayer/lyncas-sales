@@ -50,7 +50,6 @@
             v-for="(item, index) in items"
             :key="item.id"
             :index="index"
-            :modified_items="modified_items"
           />
           <div class="align-right">
             <button class="add-items-button" @click.prevent="addItem">
@@ -105,7 +104,6 @@ export default {
       users: {},
       id: 1,
       items: [{ id: 0, value: null }],
-      modified_items: [...this.items],
     };
   },
   methods: {
@@ -182,8 +180,6 @@ export default {
             this.saleData[`quantity-${index}`] = item.quantity;
             this.saleData[`totalValue-${index}`] = item.totalValue;
           }
-
-          this.$validator.clean();
         })
         .catch((error) => {
           alert(error.response.data.notifications[0].message);
