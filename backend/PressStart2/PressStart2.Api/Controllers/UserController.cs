@@ -70,12 +70,5 @@ namespace PressStart2.Api.Controllers
                 return Created("", response);
             return BadRequest(response);
         }
-
-        [Authorize]
-        [HttpGet("validar")]
-        public async Task<IActionResult> Validate()
-        {
-            return Ok();
-        }
     }
 }

@@ -1,4 +1,6 @@
-﻿using MediatR;
+﻿using AspNetCore.IQueryable.Extensions;
+using AspNetCore.IQueryable.Extensions.Filter;
+using MediatR;
 using PressStart2.Domain.DTOs;
 using PressStart2.Domain.Interfaces.Repositories;
 using prmToolkit.NotificationPattern;
@@ -16,7 +18,7 @@ namespace PressStart2.Domain.Commands.GetSale
 
         public Task<CommandResponse> Handle(GetAllSalesRequest request, CancellationToken cancellationToken)
         {
-            var salesList = _repositorySale.GetAllWithDependency();
+            var salesList = _repositorySale.GetAllWithDependency().Filter(request).ToList();
 
             return Task.FromResult(
                 new CommandResponse(salesList.Select(

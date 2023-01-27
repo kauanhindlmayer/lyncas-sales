@@ -13,16 +13,16 @@ namespace PressStart2.Domain.Commands.GetAllCustomers
         [QueryOperator(Operator = WhereOperator.Contains, CaseSensitive = true)]
         public string Name { get; set; }
 
-        [QueryOperator(Operator = WhereOperator.StartsWith)]
+        [QueryOperator(Operator = WhereOperator.Contains)]
         public string Email { get; set; }
 
-        [QueryOperator(Operator = WhereOperator.StartsWith)]
+        [QueryOperator(Operator = WhereOperator.Contains)]
         public string Phone { get; set; }
 
-        [QueryOperator(Operator = WhereOperator.StartsWith)]
+        [QueryOperator(Operator = WhereOperator.Contains)]
         public string Cpf { get; set; }
 
-        [QueryOperator(Operator = WhereOperator.StartsWith)]
+        [QueryOperator(Operator = WhereOperator.Contains)]
         public bool FlagAtivo { get; set; }
 
         public string Sort { get ; set ; }

@@ -6,6 +6,7 @@ using PressStart2.Domain.Commands.DeleteSale;
 using PressStart2.Domain.Commands.GetAllCustomers;
 using PressStart2.Domain.Commands.GetSale;
 using PressStart2.Domain.Commands.UpdateSale;
+using prmToolkit.NotificationPattern;
 
 namespace PressStart2.Api.Controllers
 {
@@ -23,10 +24,13 @@ namespace PressStart2.Api.Controllers
         }
 
         [HttpGet("listar")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] GetAllSalesRequest request)
         {
-            var salesList = await _mediator.Send(new GetAllSalesRequest());
-            return Ok(salesList);
+            var response = await _mediator.Send(request);
+            if (response.Success)
+                return Ok(response);
+
+            return BadRequest(response);
         }
 
         [HttpGet("obter/{id}")]

@@ -17,9 +17,9 @@ namespace PressStart2.Infra.Data.Repositories
             return _context.SaleDbSet.Any(p => p.CustomerId == customerId);
         }
 
-        public IEnumerable<Sale> GetAllWithDependency()
+        public IQueryable<Sale> GetAllWithDependency()
         {
-            return _context.SaleDbSet.Include(p => p.Customer).AsEnumerable();
+            return _context.SaleDbSet.Include(p => p.Customer).AsQueryable();
         }
 
         public Sale GetWithDependency(Guid id)
