@@ -6,8 +6,8 @@
         <div class="header__search">
           <select class="header__select" v-model="selectedFilter" ref="select">
             <option value="Filter" disabled selected hidden>Filtros</option>
-            <option value="Name">Nome</option>
-            <option value="Quantity">Quantidade</option>
+            <option value="Customer">Cliente</option>
+            <option value="QuantityItems">Quantidade</option>
             <option value="SaleDate">Data da Venda</option>
             <option value="BillingDate">Data do Faturamento</option>
             <option value="TotalValue">Valor Total</option>
@@ -34,32 +34,22 @@
             <th>Valor total</th>
             <th>Ações</th>
           </tr>
-          <template
-            v-for="{
-              customer,
-              quantityItems,
-              saleDate,
-              billingDate,
-              totalValue,
-              id,
-            } in sales"
-            :key="id"
-          >
+          <template v-for="sale in sales" :key="sale.id">
             <tr>
-              <td class="table--left-corner">{{ customer }}</td>
-              <td>{{ quantityItems }}</td>
-              <td>{{ formatString(saleDate) }}</td>
-              <td>{{ formatString(billingDate) }}</td>
-              <td>{{ formatNumber(totalValue) }}</td>
+              <td class="table--left-corner">{{ sale.customer }}</td>
+              <td>{{ sale.quantityItems }}</td>
+              <td>{{ formatString(sale.saleDate) }}</td>
+              <td>{{ formatString(sale.billingDate) }}</td>
+              <td>{{ formatNumber(sale.totalValue) }}</td>
               <td class="table--right-corner">
                 <button
-                  @click="handleDelete(id)"
+                  @click="handleDelete(sale.id)"
                   class="table__button table__button--delete"
                 >
                   Deletar
                 </button>
                 <button
-                  @click="handleEdit(id)"
+                  @click="handleEdit(sale.id)"
                   class="table__button table__button--edit"
                 >
                   Editar
@@ -89,9 +79,9 @@ export default {
   methods: {
     formatString,
     formatNumber,
-    updateTable() {
+    updateTable(resource) {
       sale
-        .get()
+        .get(resource)
         .then((response) => {
           this.sales = response.data;
         })
@@ -122,6 +112,8 @@ export default {
         this.$refs.select.focus();
         return;
       }
+
+      console.log(`?${this.selectedFilter}=${this.searchInput}`);
 
       this.updateTable(`?${this.selectedFilter}=${this.searchInput}`);
     },
@@ -174,6 +166,23 @@ export default {
   background: url(../assets/svg/search-icon.svg) no-repeat scroll 7px 7px;
   background-position: center;
   background-position-x: calc(100% - 12px);
+  background-color: var(--background-secondary);
+
+  font-size: 1.6rem;
+  color: var(--text-secondary);
+}
+
+.header__select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  border: 1px solid var(--border);
+  border-radius: 5px 0 0 5px;
+  height: 4.1rem;
+  width: 17.8rem;
+  padding: 0 1.8rem;
+
   background-color: var(--background-secondary);
 
   font-size: 1.6rem;

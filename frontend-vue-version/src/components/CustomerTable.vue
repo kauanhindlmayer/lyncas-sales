@@ -32,24 +32,21 @@
             <th>CPF</th>
             <th>Ações</th>
           </tr>
-          <template
-            v-for="{ name, email, phone, cpf, id } in customers"
-            :key="id"
-          >
+          <template v-for="customer in customers" :key="customer.id">
             <tr>
-              <td class="table--left-corner">{{ name }}</td>
-              <td>{{ email }}</td>
-              <td>{{ phone }}</td>
-              <td>{{ cpf }}</td>
+              <td class="table--left-corner">{{ customer.name }}</td>
+              <td>{{ customer.email }}</td>
+              <td>{{ customer.phone }}</td>
+              <td>{{ customer.cpf }}</td>
               <td class="table--right-corner">
                 <button
-                  @click="handleDelete(id)"
+                  @click="handleDelete(customer.id)"
                   class="table__button table__button--delete"
                 >
                   Deletar
                 </button>
                 <button
-                  @click="handleEdit(id)"
+                  @click="handleEdit(customer.id)"
                   class="table__button table__button--edit"
                 >
                   Editar
@@ -192,6 +189,11 @@ export default {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+
+  background: url(../assets/images/arrow-down.png) no-repeat scroll 7px 7px;
+  background-position: center;
+  background-position-x: calc(100% - 12px);
+  background-color: var(--background-secondary);
 
   border: 1px solid var(--border);
   border-radius: 5px 0 0 5px;
