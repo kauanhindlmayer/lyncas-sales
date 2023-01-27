@@ -4,6 +4,14 @@
       <div class="component__header">
         <h1 class="header__title">Lista de vendas</h1>
         <div class="header__search">
+          <select class="header__select" v-model="selectedFilter" ref="select">
+            <option value="Filter" disabled selected hidden>Filtros</option>
+            <option value="Name">Nome</option>
+            <option value="Quantity">Quantidade</option>
+            <option value="SaleDate">Data da Venda</option>
+            <option value="BillingDate">Data do Faturamento</option>
+            <option value="TotalValue">Valor Total</option>
+          </select>
           <label class="sr-only" for="search-button">Buscar vendas...</label>
           <input
             type="text"
@@ -11,6 +19,8 @@
             id="search-button"
             class="header__search-button"
             placeholder="Buscar vendas..."
+            v-model="searchInput"
+            @keydown.enter="searchSales"
           />
         </div>
       </div>
@@ -72,6 +82,8 @@ export default {
   data() {
     return {
       sales: {},
+      searchInput: null,
+      selectedFilter: "Filter",
     };
   },
   methods: {
@@ -105,6 +117,14 @@ export default {
     handleEdit(id) {
       this.$router.push({ name: "update-sale", query: { id: id } });
     },
+    searchSales() {
+      if (this.selectedFilter === "Filter") {
+        this.$refs.select.focus();
+        return;
+      }
+
+      this.updateTable(`?${this.selectedFilter}=${this.searchInput}`);
+    },
   },
   async mounted() {
     this.updateTable();
@@ -136,25 +156,27 @@ export default {
   border-width: 0;
 }
 
+.header__search {
+  display: flex;
+}
+
 .header__search-button {
-  background: url(../assets/svg/search-icon.svg) no-repeat scroll 7px 7px;
-  background-position: center;
-  background-position-x: calc(100% - 12px);
-  background-color: var(--background-secondary);
-  color: var(--text-secondary);
-
-  font-size: 1.6rem;
-
-  border: 1px solid var(--border);
-  border-radius: 5px;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  padding: 0.9rem 1.8rem;
-
+  border: 1px solid var(--border);
+  border-radius: 0 5px 5px 0;
   width: 38.8rem;
   height: 4.1rem;
+  padding: 0.9rem 1.8rem;
+
+  background: url(../assets/svg/search-icon.svg) no-repeat scroll 7px 7px;
+  background-position: center;
+  background-position-x: calc(100% - 12px);
+  background-color: var(--background-secondary);
+
+  font-size: 1.6rem;
+  color: var(--text-secondary);
 }
 </style>

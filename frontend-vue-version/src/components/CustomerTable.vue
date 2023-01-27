@@ -4,6 +4,13 @@
       <div class="component__header">
         <h1 class="header__title">Lista de clientes</h1>
         <div class="header__search">
+          <select class="header__select" v-model="selectedFilter" ref="select">
+            <option value="Filter" disabled selected hidden>Filtros</option>
+            <option value="Name">Nome</option>
+            <option value="Email">E-mail</option>
+            <option value="Phone">Telefone</option>
+            <option value="Cpf">CPF</option>
+          </select>
           <label class="sr-only" for="search-button">Buscar clientes...</label>
           <input
             type="text"
@@ -11,6 +18,8 @@
             id="search-button"
             class="header__search-button"
             placeholder="Buscar clientes..."
+            v-model="searchInput"
+            @keydown.enter="searchSales"
           />
         </div>
       </div>
@@ -62,12 +71,14 @@ export default {
   data() {
     return {
       customers: {},
+      searchInput: null,
+      selectedFilter: "Filter",
     };
   },
   methods: {
-    updateTable() {
+    updateTable(resource) {
       customer
-        .get()
+        .get(resource)
         .then((response) => {
           this.customers = response.data;
         })
@@ -92,6 +103,14 @@ export default {
     },
     handleEdit(id) {
       this.$router.push({ name: "update-customer", query: { id: id } });
+    },
+    searchSales() {
+      if (this.selectedFilter === "Filter") {
+        this.$refs.select.focus();
+        return;
+      }
+
+      this.updateTable(`?${this.selectedFilter}=${this.searchInput}`);
     },
   },
   async mounted() {
@@ -145,25 +164,44 @@ export default {
   border-width: 0;
 }
 
+.header__search {
+  display: flex;
+}
+
 .header__search-button {
-  background: url(../assets/svg/search-icon.svg) no-repeat scroll 7px 7px;
-  background-position: center;
-  background-position-x: calc(100% - 12px);
-  background-color: var(--background-secondary);
-  color: var(--text-secondary);
-
-  font-size: 1.6rem;
-
-  border: 1px solid var(--border);
-  border-radius: 5px;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  padding: 0.9rem 1.8rem;
-
+  border: 1px solid var(--border);
+  border-radius: 0 5px 5px 0;
   width: 38.8rem;
   height: 4.1rem;
+  padding: 0.9rem 1.8rem;
+
+  background: url(../assets/svg/search-icon.svg) no-repeat scroll 7px 7px;
+  background-position: center;
+  background-position-x: calc(100% - 12px);
+  background-color: var(--background-secondary);
+
+  font-size: 1.6rem;
+  color: var(--text-secondary);
+}
+
+.header__select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  border: 1px solid var(--border);
+  border-radius: 5px 0 0 5px;
+  height: 4.1rem;
+  width: 17.8rem;
+  padding: 0 1.8rem;
+
+  background-color: var(--background-secondary);
+
+  font-size: 1.6rem;
+  color: var(--text-secondary);
 }
 </style>

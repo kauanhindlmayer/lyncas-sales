@@ -1,8 +1,8 @@
 import { api } from "./api.service";
 
 export const sale = {
-  async get() {
-    return await api.get("Sale/listar");
+  async get(resource) {
+    return await api.get(`Sale/listar${resource ?? ""}`);
   },
   async getById(id) {
     return await api.get(`Sale/obter/${id}`);
