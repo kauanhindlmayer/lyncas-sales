@@ -55,6 +55,32 @@
           </tr>
         </table>
       </div>
+
+      <div class="component__pagination">
+        <nav>
+          <a href="#" onclick="goback(event)"><</a>
+          <a
+            href="#"
+            onclick="handlePagination(event, this)"
+            class="pageNumber active"
+            >1</a
+          >
+          <a href="#" onclick="handlePagination(event, this)" class="pageNumber"
+            >2</a
+          >
+          <a href="#" onclick="handlePagination(event, this)" class="pageNumber"
+            >3</a
+          >
+          <a href="#" onclick="handlePagination(event, this)" class="pageNumber"
+            >4</a
+          >
+          <a href="#" onclick="handlePagination(event, this)" class="pageNumber"
+            >5</a
+          >
+          <a href="#" onclick="gofoward(event)">></a>
+        </nav>
+      </div>
+
       <div class="content__heading">
         <img
           src="../assets/svg/spinner.svg"

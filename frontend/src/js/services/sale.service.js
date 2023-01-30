@@ -1,7 +1,6 @@
 import { api } from "./api.service.js";
 import { router } from "../router/router.js";
 import {
-  append,
   toLocaleDate,
   toLocaleCurrency,
   createError,
@@ -10,8 +9,18 @@ import {
   alertError,
 } from "../helper.js";
 
+const pages = [];
+let currentPage = 0;
+let quantityCustomers = 0;
+
 export const createSaleTable = async (resource) => {
-  const response = await api.get(`Sale/listar${resource ?? ""}`);
+  await configureSalePagination();
+
+  const userWidth = document.documentElement.clientWidth;
+
+  const response = await api.get(
+    `Sale/listar?Limit=${userWidth > 1366 ? "7" : "4"}${resource}`
+  );
 
   if (!response.success || response.data.length === 0) {
     createError();
@@ -42,7 +51,9 @@ export const createSaleTable = async (resource) => {
     </td>
   `;
 
-    append(template);
+    const tr = document.createElement("tr");
+    tr.innerHTML = template;
+    document.querySelector(".component__table tbody").appendChild(tr);
   }
 
   removeLoading();
@@ -187,9 +198,9 @@ window.searchSales = async () => {
     return;
   }
 
-  document.querySelector(".component__table").innerHTML = "";
+  document.querySelector(".component__table tbody").innerHTML = "";
 
-  createSaleTable(`?${filterSelect.value}=${searchInput.value}`);
+  createSaleTable(`&${filterSelect.value}=${searchInput.value}`);
 };
 
 const getItems = () => {
@@ -226,4 +237,16 @@ const updateTotalValue = () => {
 
   document.querySelector(".footer__total-value").innerHTML =
     toLocaleCurrency(amount);
+};
+
+const configureSalePagination = async () => {
+  const customers = await api.get(`Sale/listar`);
+  quantityCustomers = customers.data.length;
+
+  const userWidth = document.documentElement.clientWidth;
+  const offset = userWidth > 1366 ? 7 : 4;
+
+  for (let i = 0; i < quantityCustomers; i++) {
+    pages.push(i * offset);
+  }
 };

@@ -115,12 +115,6 @@ const validateCpf = {
   },
 };
 
-export const append = (template) => {
-  const tr = document.createElement("tr");
-  tr.innerHTML = template;
-  document.querySelector(".component__table").appendChild(tr);
-};
-
 export const removeLoading = () => {
   document.querySelector(".spinner").classList.add("hide");
   document.querySelector(".default-message").classList.add("hide");
@@ -129,6 +123,7 @@ export const removeLoading = () => {
 export const createError = () => {
   document.querySelector(".spinner").classList.add("hide");
   document.querySelector(".default-message").classList.remove("hide");
+  // document.querySelector(".component__pagination").style.display = "none";
 };
 
 export const toLocaleDate = (date) => {
@@ -181,8 +176,8 @@ export const loadComponents = (route) => {
   toggleMenu(route);
 
   if (route === "/pages/dashboard.html") createDashboard();
-  if (route === "/pages/lista-de-clientes.html") createCustomerTable();
-  if (route === "/pages/lista-de-vendas.html") createSaleTable();
+  if (route === "/pages/lista-de-clientes.html") createCustomerTable("");
+  if (route === "/pages/lista-de-vendas.html") createSaleTable("");
   if (route === "/pages/adicionar-venda.html") fillSelect();
 };
 

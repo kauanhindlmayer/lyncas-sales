@@ -157,11 +157,11 @@
   margin: 2.3rem 0 auto 0;
 }
 
-.component__table-wrapper {
+/* .component__table-wrapper {
   overflow-y: auto;
 
   height: calc(100vh - 27.3rem);
-}
+} */
 
 .content__heading {
   position: absolute;
