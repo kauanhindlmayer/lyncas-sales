@@ -123,7 +123,6 @@ export const removeLoading = () => {
 export const createError = () => {
   document.querySelector(".spinner").classList.add("hide");
   document.querySelector(".default-message").classList.remove("hide");
-  // document.querySelector(".component__pagination").style.display = "none";
 };
 
 export const toLocaleDate = (date) => {

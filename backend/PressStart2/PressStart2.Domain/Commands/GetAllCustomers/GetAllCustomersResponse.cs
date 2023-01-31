@@ -8,8 +8,9 @@
         public string Phone { get; private set; }
         public string Cpf { get; private set; }
         public bool IsActive { get; private set; }
+        public int RecordsQuantity { get; private set; }
 
-        public GetAllCustomersResponse(Guid id, string name, string email, string phone, string cpf, bool isActive)
+        public GetAllCustomersResponse(Guid id, string name, string email, string phone, string cpf, bool isActive, int recordsQuantity)
         {
             Id = id;
             Name = name;
@@ -17,6 +18,7 @@
             Phone = phone;
             Cpf = cpf;
             IsActive = isActive;
+            RecordsQuantity = recordsQuantity;
         }
     }
 }

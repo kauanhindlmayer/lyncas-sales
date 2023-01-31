@@ -22,7 +22,7 @@ namespace PressStart2.Domain.Commands.GetSale
         [QueryOperator(Operator = WhereOperator.GreaterThanOrEqualTo)]
         public DateTime? BillingDate { get; set; }
 
-        [QueryOperator(Operator = WhereOperator.Contains)]
+        [QueryOperator(Operator = WhereOperator.Equals)]
         public decimal? TotalValue { get; set; }
 
         public string Sort { get; set; }

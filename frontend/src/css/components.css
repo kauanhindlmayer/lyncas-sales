@@ -350,40 +350,55 @@
   color: var(--text-primary);
 }
 
-/* Pagination */
-.component__pagination {
+/* Pagination Styles*/
+.pagination__conntainer {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.component__pagination nav {
+.pagination__conntainer ul {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
 
   border: 1px solid var(--border);
   border-radius: 5px;
-  background: var(--background-secondary);
-  width: 28.2rem;
   height: 4.5rem;
   padding: 0 1rem;
+
+  background: var(--background-secondary);
 }
 
-.component__pagination a {
-  color: var(--text-primary);
-  text-decoration: none;
-  padding: 0.6rem 1.2rem;
+.pagination__conntainer ul li {
+  list-style: none;
+  margin: 0 0.5rem;
+}
+
+.pagination__conntainer ul li a {
   border-radius: 5px;
+  padding: 0.6rem 1.2rem;
+
+  text-decoration: none;
+  color: var(--text-primary);
 }
 
-.component__pagination a:hover:not(.active) {
+.pagination__conntainer ul li.active a {
+  background: var(--primary-color);
+
+  color: var(--background-secondary);
+}
+
+.pagination__conntainer ul li:hover:not(.active) a {
   background: var(--background);
 }
 
-.component__pagination a.active {
-  background: var(--primary-color);
-  color: var(--background-secondary);
+.pagination__conntainer ul li:first-child {
+  margin-right: 1rem;
+}
+
+.pagination__conntainer ul li:last-child {
+  margin-left: 1rem;
 }
 
 @media only screen and (max-width: 1366px) {

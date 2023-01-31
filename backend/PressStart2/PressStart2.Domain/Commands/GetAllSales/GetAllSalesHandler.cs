@@ -1,5 +1,6 @@
 ﻿using AspNetCore.IQueryable.Extensions;
 using AspNetCore.IQueryable.Extensions.Filter;
+using AspNetCore.IQueryable.Extensions.Pagination;
 using MediatR;
 using PressStart2.Domain.DTOs;
 using PressStart2.Domain.Interfaces.Repositories;
@@ -18,7 +19,7 @@ namespace PressStart2.Domain.Commands.GetSale
 
         public Task<CommandResponse> Handle(GetAllSalesRequest request, CancellationToken cancellationToken)
         {
-            var salesList = _repositorySale.GetAllWithDependency().Filter(request).ToList();
+            var salesList = _repositorySale.GetAllWithDependency().Filter(request).Paginate(request).ToList();
 
             return Task.FromResult(
                 new CommandResponse(salesList.Select(

@@ -7,13 +7,7 @@ import {
   alertError,
 } from "../helper.js";
 
-const pages = [];
-let currentPage = 0;
-let quantityCustomers = 0;
-
 export const createCustomerTable = async (resource) => {
-  await configurePagination();
-
   const userWidth = document.documentElement.clientWidth;
 
   const response = await api.get(
@@ -142,7 +136,6 @@ window.updateCustomer = async () => {
 };
 
 window.searchCustomers = async () => {
-  // document.querySelector(".component__pagination").style.display = "flex";
   const searchInput = document.querySelector(".header__search-button");
   const filterSelect = document.querySelector(".header__select");
 
@@ -154,65 +147,4 @@ window.searchCustomers = async () => {
   document.querySelector(".component__table tbody").innerHTML = "";
 
   createCustomerTable(`&${filterSelect.value}=${searchInput.value}`);
-};
-
-const configurePagination = async () => {
-  const customers = await api.get(`Customer/listar`);
-  quantityCustomers = customers.data.length;
-
-  const userWidth = document.documentElement.clientWidth;
-  const offset = userWidth > 1366 ? 7 : 4;
-
-  for (let i = 0; i < quantityCustomers; i++) {
-    pages.push(i * offset);
-  }
-};
-
-window.gofoward = (event) => {
-  event.preventDefault();
-
-  if (currentPage === pages.length) return;
-
-  const pageNumbers = document.querySelectorAll(".pageNumber");
-  pageNumbers[currentPage].classList.remove("active");
-
-  currentPage += 1;
-
-  document.querySelector(".component__table tbody").innerHTML = "";
-
-  createCustomerTable(`&Offset=${pages[currentPage]}`);
-
-  pageNumbers[currentPage].classList.add("active");
-};
-
-window.handlePagination = (event, input) => {
-  event.preventDefault();
-
-  const pageNumbers = document.querySelectorAll(".pageNumber");
-  pageNumbers[currentPage].classList.remove("active");
-
-  currentPage = input.innerHTML - 1;
-
-  document.querySelector(".component__table tbody").innerHTML = "";
-
-  createCustomerTable(`&Offset=${pages[currentPage]}`);
-
-  pageNumbers[currentPage].classList.add("active");
-};
-
-window.goback = (event) => {
-  event.preventDefault();
-
-  if (currentPage === 0) return;
-
-  const pageNumbers = document.querySelectorAll(".pageNumber");
-  pageNumbers[currentPage].classList.remove("active");
-
-  currentPage -= 1;
-
-  document.querySelector(".component__table tbody").innerHTML = "";
-
-  createCustomerTable(`&Offset=${pages[currentPage]}`);
-
-  pageNumbers[currentPage].classList.add("active");
 };

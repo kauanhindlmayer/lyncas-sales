@@ -9,13 +9,7 @@ import {
   alertError,
 } from "../helper.js";
 
-const pages = [];
-let currentPage = 0;
-let quantityCustomers = 0;
-
 export const createSaleTable = async (resource) => {
-  await configureSalePagination();
-
   const userWidth = document.documentElement.clientWidth;
 
   const response = await api.get(
@@ -237,16 +231,4 @@ const updateTotalValue = () => {
 
   document.querySelector(".footer__total-value").innerHTML =
     toLocaleCurrency(amount);
-};
-
-const configureSalePagination = async () => {
-  const customers = await api.get(`Sale/listar`);
-  quantityCustomers = customers.data.length;
-
-  const userWidth = document.documentElement.clientWidth;
-  const offset = userWidth > 1366 ? 7 : 4;
-
-  for (let i = 0; i < quantityCustomers; i++) {
-    pages.push(i * offset);
-  }
 };

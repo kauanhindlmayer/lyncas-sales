@@ -190,18 +190,15 @@ export default {
   -moz-appearance: none;
   appearance: none;
 
-  background: url(../assets/images/arrow-down.png) no-repeat scroll 7px 7px;
-  background-position: center;
-  background-position-x: calc(100% - 12px);
-  background-color: var(--background-secondary);
-
   border: 1px solid var(--border);
   border-radius: 5px 0 0 5px;
   height: 4.1rem;
-  width: 17.8rem;
+  width: 19.8rem;
   padding: 0 1.8rem;
 
-  background-color: var(--background-secondary);
+  background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 10L12 14L16 10' stroke='%239C98A6' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
+  background-repeat: no-repeat;
+  background-position: right 1.5rem top 50%;
 
   font-size: 1.6rem;
   color: var(--text-secondary);

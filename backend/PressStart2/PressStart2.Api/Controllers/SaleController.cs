@@ -23,6 +23,8 @@ namespace PressStart2.Api.Controllers
             _mediator = mediator;
         }
 
+        [ProducesResponseType(typeof(GetAllSalesResponse), 200)]
+        [ProducesResponseType(typeof(IEnumerable<Notification>), 400)]
         [HttpGet("listar")]
         public async Task<IActionResult> GetAll([FromQuery] GetAllSalesRequest request)
         {

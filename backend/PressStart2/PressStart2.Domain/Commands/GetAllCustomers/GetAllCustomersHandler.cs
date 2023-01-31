@@ -27,7 +27,8 @@ namespace PressStart2.Domain.Commands.GetAllCustomers
                     customer.Email,
                     customer.Phone,
                     customer.Cpf,
-                    customer.IsActive)), this));
+                    customer.IsActive,
+                    listCustomers.Count())), this));
         }
     }
 }
