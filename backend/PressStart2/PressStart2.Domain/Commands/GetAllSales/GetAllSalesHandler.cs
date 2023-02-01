@@ -19,11 +19,15 @@ namespace PressStart2.Domain.Commands.GetSale
 
         public Task<CommandResponse> Handle(GetAllSalesRequest request, CancellationToken cancellationToken)
         {
-            var salesList = _repositorySale.GetAllWithDependency().Filter(request).Paginate(request).ToList();
+            var listSales = _repositorySale.GetAllWithDependency().Filter(request).Paginate(request).ToList();
+
+            var listSalesDetailsResponse = listSales.Select(
+                    sale => new GetAllSalesDetailsResponse(sale.Id, sale.Customer.Name, sale.QuantityItems, sale.SaleDate, sale.BillingDate, sale.TotalValue)).ToList();
+
+            var listSalesResponse = new GetAllSalesResponse(listSales.Count(), listSalesDetailsResponse);
 
             return Task.FromResult(
-                new CommandResponse(salesList.Select(
-                    sale => new GetAllSalesResponse(sale.Id, sale.Customer.Name, sale.QuantityItems, sale.SaleDate, sale.BillingDate, sale.TotalValue)), this));
+                new CommandResponse(listSalesResponse, this));
         }
     }
 }

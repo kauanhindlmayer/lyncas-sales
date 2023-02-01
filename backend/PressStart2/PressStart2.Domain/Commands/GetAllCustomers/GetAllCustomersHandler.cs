@@ -20,15 +20,21 @@ namespace PressStart2.Domain.Commands.GetAllCustomers
             //var listCustomers = _repositoryCustomer.Query().Filter(request).Sort(request).Paginate(request);
             var listCustomers = _repositoryCustomer.Query().Apply(request);
 
-            return Task.FromResult(new CommandResponse(listCustomers.Select(
-                customer => new GetAllCustomersResponse(
+            
+            var listCustomerDetailsResponse = listCustomers.Select(
+                customer => new GetAllCustomersDetailsResponse(
                     customer.Id,
                     customer.Name,
                     customer.Email,
                     customer.Phone,
                     customer.Cpf,
-                    customer.IsActive,
-                    listCustomers.Count())), this));
+                    customer.IsActive
+                    )).ToList();
+
+            var listCustomerResponse = new GetAllCustomersResponse(listCustomers.Count(), listCustomerDetailsResponse);
+
+
+            return Task.FromResult(new CommandResponse(listCustomerResponse, this));
         }
     }
-}
+} 
