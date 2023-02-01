@@ -11,21 +11,21 @@ export const createDashboard = async () => {
   }
 
   let total = 0;
-  for (let sale of saleResponse.data) total += sale.totalValue;
+  for (let sale of saleResponse.data.sales) total += sale.totalValue;
   document.querySelector(".highlight--billing").innerHTML =
     toLocaleCurrency(total);
 
   document.querySelector(".highlight--customers").innerHTML =
-    customerResponse.data.length;
+    customerResponse.data.customers.length;
 
   document.querySelector(".highlight--sales").innerHTML =
-    saleResponse.data.length;
+    saleResponse.data.sales.length;
 
-  const sortedArray = saleResponse.data.sort(
+  const sortedArray = saleResponse.data.sales.sort(
     (a, b) => parseFloat(b.totalValue) - parseFloat(a.totalValue)
   );
 
-  const sortedByMonthsArray = sortByMonths(saleResponse.data);
+  const sortedByMonthsArray = sortByMonths(saleResponse.data.sales);
 
   new Chart(document.getElementById("line-chart"), {
     type: "line",

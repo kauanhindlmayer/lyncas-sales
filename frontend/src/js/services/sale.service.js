@@ -16,12 +16,12 @@ export const createSaleTable = async (resource) => {
     `Sale/listar?Limit=${userWidth > 1366 ? "7" : "4"}${resource}`
   );
 
-  if (!response.success || response.data.length === 0) {
+  if (!response.success || response.data.sales.length === 0) {
     createError();
     return;
   }
 
-  for (let sale of response.data) {
+  for (let sale of response.data.sales) {
     const template = `
     <td class="table--left-corner">${sale.customer}</td>
     <td>${sale.quantityItems}</td>

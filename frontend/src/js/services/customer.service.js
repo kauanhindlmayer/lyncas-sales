@@ -5,21 +5,25 @@ import {
   removeLoading,
   validator,
   alertError,
+  createPagination,
 } from "../helper.js";
 
+export let pageSize = document.documentElement.clientWidth > 1366 ? "7" : "4";
+export let customers;
+
 export const createCustomerTable = async (resource) => {
-  const userWidth = document.documentElement.clientWidth;
+  document.querySelector(".component__table tbody").innerHTML = "";
 
   const response = await api.get(
-    `Customer/listar?Limit=${userWidth > 1366 ? "7" : "4"}${resource}`
+    `Customer/listar?Limit=${pageSize}${resource}`
   );
 
-  if (!response.success || response.data.length === 0) {
+  if (!response.success || response.data.customers.length === 0) {
     createError();
     return;
   }
 
-  for (let customer of response.data) {
+  for (let customer of response.data.customers) {
     const buttons = `
     <button onclick="handleCustomerDelete('${customer.id}')" 
     class="table__button table__button--delete">Deletar</button>
@@ -147,4 +151,13 @@ window.searchCustomers = async () => {
   document.querySelector(".component__table tbody").innerHTML = "";
 
   createCustomerTable(`&${filterSelect.value}=${searchInput.value}`);
+};
+
+export const paginate = async () => {
+  const response = await api.get(`Customer/listar`);
+  customers = response.data.recordsQuantity;
+  const element = document.querySelector(".pagination ul");
+  let totalPages = Math.ceil(customers / pageSize);
+  let page = 1;
+  element.innerHTML = createPagination(totalPages, page);
 };
