@@ -150,11 +150,13 @@
   padding: 0;
 }
 
-.header__search {
+.header__search,
+.heaader__paginate {
   display: flex;
 }
 
-.header__select {
+.header__select,
+.header__select--paginate {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -218,6 +220,12 @@
   color: var(--text-secondary);
 }
 
+.component table tr th:hover {
+  cursor: pointer;
+
+  filter: brightness(0.8);
+}
+
 .component table tr td {
   min-width: 20rem;
 }
@@ -231,6 +239,14 @@
 
   font-weight: 500;
   color: var(--text-primary);
+}
+
+.component__table-wrapper {
+  overflow-y: auto;
+
+  height: calc(100vh - 31rem);
+
+  margin-bottom: 1rem;
 }
 
 .component .table--left-corner {
@@ -278,7 +294,7 @@
 }
 
 /* Customers Component Styles */
-.save-button--client {
+.save-button--customer {
   margin-top: 2.6rem;
   margin-bottom: 10.2rem;
 }
@@ -352,20 +368,10 @@
 
 /* Pagination Styles */
 .pagination div {
-  position: absolute;
-  left: 18.8rem;
-  bottom: 1rem;
-
   font-size: 1.6rem;
   line-height: 2.3rem;
   font-weight: 400;
   color: var(--text-secondary);
-}
-
-.pagination ul {
-  position: absolute;
-  right: 2rem;
-  bottom: 1rem;
 }
 
 .pagination {
@@ -374,18 +380,27 @@
   align-items: center;
 }
 
+.pagination .header__select--paginate {
+  border: 1px solid var(--border);
+  border-radius: 5px 0 0 5px;
+  height: 4.5rem;
+  width: 9rem;
+  padding: 0 1rem;
+}
+
 .pagination ul {
   display: flex;
   justify-content: center;
   align-items: center;
 
   border: 1px solid var(--border);
-  border-radius: 5px;
+  border-radius: 0 5px 5px 0;
   height: 4.5rem;
   padding: 0 1rem;
 
   background: var(--background-secondary);
 }
+
 .pagination ul li {
   list-style: none;
 
@@ -395,21 +410,26 @@
   text-decoration: none;
   color: var(--text-primary);
 }
+
 .pagination ul li.numb {
   margin: 0 0.5rem;
 
   cursor: pointer;
 }
+
 .pagination ul li.numb.first {
   margin-right: 1rem;
 }
+
 .pagination ul li.numb.last {
   margin-left: 1rem;
 }
+
 .pagination ul li.dots {
   font-size: 2rem;
   cursor: default;
 }
+
 .pagination ul li.btn {
   border-radius: 5px;
   padding: 0.6rem 1.2rem;
@@ -463,11 +483,9 @@
     margin-left: 0;
   }
 
-  .pagination div {
-    bottom: 2rem;
-  }
+  .component__table-wrapper {
+    overflow-y: auto;
 
-  .pagination ul {
-    bottom: 2rem;
+    height: calc(100vh - 28.3rem);
   }
 }

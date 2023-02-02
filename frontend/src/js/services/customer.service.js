@@ -5,11 +5,8 @@ import {
   removeLoading,
   validator,
   alertError,
-  createPagination,
+  pageSize,
 } from "../helper.js";
-
-export let pageSize = document.documentElement.clientWidth > 1366 ? "7" : "4";
-export let customers;
 
 export const createCustomerTable = async (resource) => {
   document.querySelector(".component__table tbody").innerHTML = "";
@@ -151,13 +148,4 @@ window.searchCustomers = async () => {
   document.querySelector(".component__table tbody").innerHTML = "";
 
   createCustomerTable(`&${filterSelect.value}=${searchInput.value}`);
-};
-
-export const paginate = async () => {
-  const response = await api.get(`Customer/listar`);
-  customers = response.data.recordsQuantity;
-  const element = document.querySelector(".pagination ul");
-  let totalPages = Math.ceil(customers / pageSize);
-  let page = 1;
-  element.innerHTML = createPagination(totalPages, page);
 };

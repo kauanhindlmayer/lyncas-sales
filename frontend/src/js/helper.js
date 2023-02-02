@@ -3,12 +3,7 @@ import { user } from "./services/user.service.js";
 import { getToken } from "./services/jwt.service.js";
 import { createDashboard } from "./services/dashboard.service.js";
 import { createSaleTable } from "./services/sale.service.js";
-import {
-  createCustomerTable,
-  paginate,
-  customers,
-  pageSize,
-} from "./services/customer.service.js";
+import { createCustomerTable } from "./services/customer.service.js";
 
 export const validator = {
   handleSubmit(event) {
@@ -145,7 +140,7 @@ export const isAuthenticated = () => {
   return getToken() ? true : false;
 };
 
-const fillSelect = async () => {
+export const fillSelect = async () => {
   const response = await api.get("Customer/listar");
   const select = document.querySelector("#customer");
 
@@ -180,8 +175,8 @@ export const loadComponents = (route) => {
   toggleMenu(route);
 
   if (route === "/pages/dashboard.html") createDashboard();
-  if (route === "/pages/lista-de-clientes.html") paginate();
-  if (route === "/pages/lista-de-vendas.html") createSaleTable("");
+  if (route === "/pages/lista-de-clientes.html") paginate("Customer");
+  if (route === "/pages/lista-de-vendas.html") paginate("Sale");
   if (route === "/pages/adicionar-venda.html") fillSelect();
 };
 
@@ -194,20 +189,42 @@ export const alertError = (response) => {
   alert(errorMessage);
 };
 
-export function createPagination(totalPages, page) {
+export let pageSize = document.documentElement.clientWidth > 1366 ? "7" : "4";
+
+export const paginate = async (resource, parameter) => {
+  const response = await api.get(`${resource}/listar`);
+  const records = response.data.recordsQuantity;
+  const element = document.querySelector(".pagination ul");
+  const totalPages = Math.ceil(records / pageSize);
+  const page = 1;
+  element.innerHTML = createPagination(
+    totalPages,
+    page,
+    records,
+    resource,
+    parameter
+  );
+};
+
+window.createPagination = (
+  totalPages,
+  page,
+  recordsQuantity,
+  resource,
+  parameter
+) => {
   let liTag = "";
   let active;
   let beforePage = page - 1;
   let afterPage = page + 1;
 
   if (page > 1) {
-    liTag += `<li class="btn prev" onclick="createPagination(${totalPages}, ${
-      page - 1
-    })"><span> < </span></li>`;
+    liTag += `<li class="btn prev" onclick="createPagination(${totalPages}, 
+      ${page - 1}, ${recordsQuantity}, '${resource}')"><span> < </span></li>`;
   }
 
   if (page > 2) {
-    liTag += `<li class="first numb" onclick="createPagination(${totalPages}, 1)"><span>1</span></li>`;
+    liTag += `<li class="first numb" onclick="createPagination(${totalPages}, 1, ${recordsQuantity}, '${resource}')"><span>1</span></li>`;
     if (page > 3) {
       liTag += `<li class="dots"><span>...</span></li>`;
     }
@@ -229,28 +246,31 @@ export function createPagination(totalPages, page) {
     if (plength > totalPages) {
       continue;
     }
+
     if (plength == 0) {
       plength = plength + 1;
     }
+
     if (page == plength) {
       active = "active";
     } else {
       active = "";
     }
-    liTag += `<li class="numb ${active}" onclick="createPagination(${totalPages}, ${plength})"><span>${plength}</span></li>`;
+
+    liTag += `<li class="numb ${active}" onclick="createPagination(${totalPages}, ${plength}, ${recordsQuantity}, '${resource}')"><span>${plength}</span></li>`;
   }
 
   if (page < totalPages - 1) {
     if (page < totalPages - 2) {
       liTag += `<li class="dots"><span>...</span></li>`;
     }
-    liTag += `<li class="last numb" onclick="createPagination(${totalPages}, ${totalPages})"><span>${totalPages}</span></li>`;
+    liTag += `<li class="last numb" onclick="createPagination(${totalPages}, ${totalPages}, ${recordsQuantity}, '${resource}')"><span>${totalPages}</span></li>`;
   }
 
   if (page < totalPages) {
     liTag += `<li class="btn next" onclick="createPagination(${totalPages}, ${
       page + 1
-    })"><span> > </span></li>`;
+    }, ${recordsQuantity}, '${resource}')"><span> > </span></li>`;
   }
 
   document.querySelector(".pagination ul").innerHTML = liTag;
@@ -259,19 +279,31 @@ export function createPagination(totalPages, page) {
     document.querySelector(".active span").innerHTML
   );
   const offset = currentPageIndex * pageSize - pageSize;
-  createCustomerTable(`&Offset=${offset}`);
+  resource === "Customer"
+    ? createCustomerTable(`&Offset=${offset}${parameter ? parameter : ""}`)
+    : createSaleTable(`&Offset=${offset}${parameter ? parameter : ""}`);
 
-  document.querySelector(".quantity").innerHTML = customers;
+  document.querySelector(".quantity").innerHTML = recordsQuantity;
 
   document.querySelector(".offset").innerHTML = offset === 0 ? 1 : offset;
 
   document.querySelector(".limit").innerHTML =
-    currentPageIndex * pageSize > customers
-      ? customers
+    currentPageIndex * pageSize > recordsQuantity
+      ? recordsQuantity
       : currentPageIndex * pageSize;
 
   return liTag;
-}
+};
 
-window.createPagination = (totalPages, page) =>
-  createPagination(totalPages, page);
+window.changePageSize = (resource) => {
+  pageSize = document.querySelector(".header__select--paginate").value;
+  paginate(resource);
+};
+
+window.sortCustomersBy = (resource) => {
+  paginate("Customer", `&Sort=${resource}`);
+};
+
+window.sortSalesBy = (resource) => {
+  paginate("Sale", `&Sort=${resource}`);
+};

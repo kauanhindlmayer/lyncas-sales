@@ -7,14 +7,14 @@ import {
   removeLoading,
   validator,
   alertError,
+  pageSize,
+  fillSelect,
 } from "../helper.js";
 
 export const createSaleTable = async (resource) => {
-  const userWidth = document.documentElement.clientWidth;
+  document.querySelector(".component__table tbody").innerHTML = "";
 
-  const response = await api.get(
-    `Sale/listar?Limit=${userWidth > 1366 ? "7" : "4"}${resource}`
-  );
+  const response = await api.get(`Sale/listar?Limit=${pageSize}${resource}`);
 
   if (!response.success || response.data.sales.length === 0) {
     createError();
@@ -100,6 +100,8 @@ window.handleSaleEdit = async (id) => {
     alert("Um erro inesperado aconteceu. Tente novamente mais tarde.");
     return;
   }
+
+  await fillSelect();
 
   const title = document.querySelector("#title");
   title.innerHTML = `${title.innerHTML.replace("Adicionar", "Atualizar")}`;

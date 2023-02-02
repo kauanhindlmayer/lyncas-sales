@@ -47,10 +47,10 @@
         <table class="component__table">
           <thead>
             <tr>
-              <th>Nome</th>
-              <th>E-mail</th>
-              <th>Telefone</th>
-              <th>CPF</th>
+              <th onclick="sortCustomersBy('Name')">Nome</th>
+              <th onclick="sortCustomersBy('Email')">E-mail</th>
+              <th onclick="sortCustomersBy('Phone')">Telefone</th>
+              <th onclick="sortCustomersBy('Cpf')">CPF</th>
               <th>Ações</th>
             </tr>
           </thead>
@@ -64,7 +64,19 @@
           <span class="limit">4</span> de
           <span class="quantity">20</span> registros.
         </div>
-        <ul></ul>
+        <div class="heaader__paginate">
+          <select
+            class="header__select--paginate"
+            onchange="changePageSize('Customer')"
+          >
+            <option value="4" selected>4</option>
+            <option value="7">7</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+          </select>
+          <ul></ul>
+        </div>
       </div>
 
       <div class="content__heading">
