@@ -196,7 +196,7 @@ window.searchSales = async () => {
 
   document.querySelector(".component__table tbody").innerHTML = "";
 
-  createSaleTable(`&${filterSelect.value}=${searchInput.value}`);
+  paginate("Sale", `&${filterSelect.value}=${searchInput.value}`);
 };
 
 const getItems = () => {

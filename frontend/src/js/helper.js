@@ -189,30 +189,27 @@ export const alertError = (response) => {
   alert(errorMessage);
 };
 
+const changePageSizeDisplay = () => {
+  const pageSize = document.documentElement.clientWidth > 1366 ? "7" : "4";
+  const option = document.querySelector(".first-option");
+  option.setAttribute("value", pageSize);
+  option.innerHTML = pageSize;
+};
+
 export let pageSize = document.documentElement.clientWidth > 1366 ? "7" : "4";
 
-export const paginate = async (resource, parameter) => {
-  const response = await api.get(`${resource}/listar`);
+export const paginate = async (resource, prop) => {
+  const property = prop ? prop.slice(1) : "";
+  const response = await api.get(`${resource}/listar?${property}`);
   const records = response.data.recordsQuantity;
   const element = document.querySelector(".pagination ul");
   const totalPages = Math.ceil(records / pageSize);
-  const page = 1;
-  element.innerHTML = createPagination(
-    totalPages,
-    page,
-    records,
-    resource,
-    parameter
-  );
+  element.innerHTML = createPagination(totalPages, 1, records, resource, prop);
+
+  changePageSizeDisplay();
 };
 
-window.createPagination = (
-  totalPages,
-  page,
-  recordsQuantity,
-  resource,
-  parameter
-) => {
+window.createPagination = (totalPages, page, records, resource, prop) => {
   let liTag = "";
   let active;
   let beforePage = page - 1;
@@ -220,19 +217,17 @@ window.createPagination = (
 
   if (page > 1) {
     liTag += `<li class="btn prev" onclick="createPagination(${totalPages}, 
-      ${page - 1}, ${recordsQuantity}, '${resource}')"><span> < </span></li>`;
+      ${page - 1}, ${records}, '${resource}')"><span> < </span></li>`;
   }
 
-  if (page > 2) {
-    liTag += `<li class="first numb" onclick="createPagination(${totalPages}, 1, ${recordsQuantity}, '${resource}')"><span>1</span></li>`;
-    if (page > 3) {
-      liTag += `<li class="dots"><span>...</span></li>`;
-    }
+  if (page > 3) {
+    liTag += `<li class="first numb" onclick="createPagination(${totalPages}, 1, ${records}, '${resource}')"><span>1</span></li>`;
+    liTag += `<li class="dots"><span>...</span></li>`;
   }
 
-  if (page == totalPages) {
+  if (page == totalPages && page > 2) {
     beforePage = beforePage - 2;
-  } else if (page == totalPages - 1) {
+  } else if (page == totalPages - 1 && page > 2) {
     beforePage = beforePage - 1;
   }
 
@@ -257,20 +252,18 @@ window.createPagination = (
       active = "";
     }
 
-    liTag += `<li class="numb ${active}" onclick="createPagination(${totalPages}, ${plength}, ${recordsQuantity}, '${resource}')"><span>${plength}</span></li>`;
+    liTag += `<li class="numb ${active}" onclick="createPagination(${totalPages}, ${plength}, ${records}, '${resource}')"><span>${plength}</span></li>`;
   }
 
-  if (page < totalPages - 1) {
-    if (page < totalPages - 2) {
-      liTag += `<li class="dots"><span>...</span></li>`;
-    }
-    liTag += `<li class="last numb" onclick="createPagination(${totalPages}, ${totalPages}, ${recordsQuantity}, '${resource}')"><span>${totalPages}</span></li>`;
+  if (page < totalPages - 2) {
+    liTag += `<li class="dots"><span>...</span></li>`;
+    liTag += `<li class="last numb" onclick="createPagination(${totalPages}, ${totalPages}, ${records}, '${resource}')"><span>${totalPages}</span></li>`;
   }
 
   if (page < totalPages) {
     liTag += `<li class="btn next" onclick="createPagination(${totalPages}, ${
       page + 1
-    }, ${recordsQuantity}, '${resource}')"><span> > </span></li>`;
+    }, ${records}, '${resource}')"><span> > </span></li>`;
   }
 
   document.querySelector(".pagination ul").innerHTML = liTag;
@@ -280,16 +273,16 @@ window.createPagination = (
   );
   const offset = currentPageIndex * pageSize - pageSize;
   resource === "Customer"
-    ? createCustomerTable(`&Offset=${offset}${parameter ? parameter : ""}`)
-    : createSaleTable(`&Offset=${offset}${parameter ? parameter : ""}`);
+    ? createCustomerTable(`&Offset=${offset}${prop ? prop : ""}`)
+    : createSaleTable(`&Offset=${offset}${prop ? prop : ""}`);
 
-  document.querySelector(".quantity").innerHTML = recordsQuantity;
+  document.querySelector(".quantity").innerHTML = records;
 
   document.querySelector(".offset").innerHTML = offset === 0 ? 1 : offset;
 
   document.querySelector(".limit").innerHTML =
-    currentPageIndex * pageSize > recordsQuantity
-      ? recordsQuantity
+    currentPageIndex * pageSize > records
+      ? records
       : currentPageIndex * pageSize;
 
   return liTag;

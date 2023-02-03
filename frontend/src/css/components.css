@@ -244,9 +244,7 @@
 .component__table-wrapper {
   overflow-y: auto;
 
-  height: calc(100vh - 31rem);
-
-  margin-bottom: 1rem;
+  height: calc(100vh - 30rem);
 }
 
 .component .table--left-corner {

@@ -6,6 +6,7 @@ import {
   validator,
   alertError,
   pageSize,
+  paginate,
 } from "../helper.js";
 
 export const createCustomerTable = async (resource) => {
@@ -147,5 +148,5 @@ window.searchCustomers = async () => {
 
   document.querySelector(".component__table tbody").innerHTML = "";
 
-  createCustomerTable(`&${filterSelect.value}=${searchInput.value}`);
+  paginate("Customer", `&${filterSelect.value}=${searchInput.value}`);
 };
