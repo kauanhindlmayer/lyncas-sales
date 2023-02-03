@@ -9,6 +9,7 @@ import {
   alertError,
   pageSize,
   fillSelect,
+  paginate,
 } from "../helper.js";
 
 export const createSaleTable = async (resource) => {
@@ -193,8 +194,6 @@ window.searchSales = async () => {
     filterSelect.focus();
     return;
   }
-
-  document.querySelector(".component__table tbody").innerHTML = "";
 
   paginate("Sale", `&${filterSelect.value}=${searchInput.value}`);
 };

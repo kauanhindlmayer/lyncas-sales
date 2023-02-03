@@ -146,7 +146,5 @@ window.searchCustomers = async () => {
     return;
   }
 
-  document.querySelector(".component__table tbody").innerHTML = "";
-
   paginate("Customer", `&${filterSelect.value}=${searchInput.value}`);
 };

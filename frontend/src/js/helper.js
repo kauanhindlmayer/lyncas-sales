@@ -190,10 +190,12 @@ export const alertError = (response) => {
 };
 
 const changePageSizeDisplay = () => {
-  const pageSize = document.documentElement.clientWidth > 1366 ? "7" : "4";
+  const initialSize = document.documentElement.clientWidth > 1366 ? "7" : "4";
   const option = document.querySelector(".first-option");
-  option.setAttribute("value", pageSize);
-  option.innerHTML = pageSize;
+  option.setAttribute("value", initialSize);
+  option.innerHTML = initialSize;
+
+  document.querySelector(".header__select--paginate").value = pageSize;
 };
 
 export let pageSize = document.documentElement.clientWidth > 1366 ? "7" : "4";
