@@ -189,13 +189,27 @@ window.restrictInput = (input) => {
 window.searchSales = async () => {
   const searchInput = document.querySelector(".header__search-button");
   const filterSelect = document.querySelector(".header__select");
+  let param = filterSelect.value;
+  let value = searchInput.value;
 
-  if (!filterSelect.value) {
+  if (!param) {
     filterSelect.focus();
     return;
   }
 
-  paginate("Sale", `&${filterSelect.value}=${searchInput.value}`);
+  if (param === "SaleDate" || param === "BillingDate") {
+    const splitedDate = searchInput.value.split("/");
+    value = [splitedDate[1], splitedDate[0], splitedDate[2]].join("-");
+
+    if (!searchInput.value) value = "";
+
+    if (searchInput.value.length > 0 && searchInput.value.length < 10) {
+      alert("A data precisa ser preenchida no formato 'dd/mm/aaaa'.");
+      return;
+    }
+  }
+
+  paginate("Sale", `&${param}=${value}`);
 };
 
 const getItems = () => {

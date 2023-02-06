@@ -273,6 +273,7 @@ window.createPagination = (totalPages, page, records, resource, prop) => {
   const currentPageIndex = Number(
     document.querySelector(".active span").innerHTML
   );
+
   const offset = currentPageIndex * pageSize - pageSize;
   resource === "Customer"
     ? createCustomerTable(`&Offset=${offset}${prop ? prop : ""}`)
@@ -295,10 +296,9 @@ window.changePageSize = (resource) => {
   paginate(resource);
 };
 
-window.sortCustomersBy = (resource) => {
-  paginate("Customer", `&Sort=${resource}`);
-};
+window.sortBy = (value) => {
+  const { pathname } = window.location;
+  const resource = pathname === "/lista-de-clientes" ? "Customer" : "Sale";
 
-window.sortSalesBy = (resource) => {
-  paginate("Sale", `&Sort=${resource}`);
+  paginate(resource, `&Sort=${value}`);
 };
