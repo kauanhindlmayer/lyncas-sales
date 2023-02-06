@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import { user } from "../services/user.service";
+import user from "../services/user.service";
 
 export default {
   name: "RegisterForm",

@@ -1,17 +1,19 @@
-import { api } from "./api.service";
-import { setUsername, setToken } from "./jwt.service";
+import apiService from "./api.service";
+import jwtService from "./jwt.service";
 
-export const user = {
-  async create(data) {
-    return await api.post("User/adicionar", data);
+const userService = {
+  create(data) {
+    return apiService.post("User/adicionar", data);
   },
 
-  async authenticate(data) {
-    const response = await api.post("User/autenticar", data);
+  authenticate(data) {
+    const response = apiService.post("User/autenticar", data);
 
-    setUsername(response.userName);
-    setToken(response.token);
+    jwtService.setUsername(response.userName);
+    jwtService.setToken(response.token);
 
     return response;
   },
 };
+
+export default userService;

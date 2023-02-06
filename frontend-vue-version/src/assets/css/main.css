@@ -1,5 +1,5 @@
-@import './base.css';
-@import 'component.css';
+@import "./base.css";
+@import "component.css";
 
 * {
   margin: 0;
@@ -11,8 +11,12 @@ html {
   font-size: 62.5%;
 }
 
-body, input, button, select, textarea {
-  font-family: 'Jost', sans-serif;
+body,
+input,
+button,
+select,
+textarea {
+  font-family: "Jost", sans-serif;
 }
 
 body {
@@ -35,4 +39,8 @@ a {
   display: grid;
   grid-template-rows: 12.5rem auto;
   margin: 0 2rem;
+}
+
+#nprogress .spinner-icon {
+  display: none;
 }

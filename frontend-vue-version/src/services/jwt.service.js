@@ -1,23 +1,18 @@
-export const setToken = (token) => {
-  localStorage.setItem("lyncas-sales-token", token);
-};
+const USER_TOKEN = "lyncas-sales-token";
+const getToken = () => localStorage.getItem(USER_TOKEN);
+const setToken = (token) => localStorage.setItem(USER_TOKEN, token);
+const removeToken = () => localStorage.removeItem(USER_TOKEN);
 
-export const setUsername = (username) => {
-  localStorage.setItem("lyncas-sales-username", username);
-};
+const USER_NAME = "lyncas-sales-username";
+const getUsername = () => localStorage.getItem(USER_NAME);
+const setUsername = (username) => localStorage.setItem(USER_NAME, username);
+const removeUsername = () => localStorage.removeItem(USER_NAME);
 
-export const getToken = () => {
-  return localStorage.getItem("lyncas-sales-token");
-};
-
-export const getUsername = () => {
-  return localStorage.getItem("lyncas-sales-username");
-};
-
-export const removeToken = () => {
-  localStorage.removeItem("lyncas-sales-token");
-};
-
-export const removeUsername = () => {
-  localStorage.removeItem("lyncas-sales-username");
+export default {
+  getToken,
+  setToken,
+  removeToken,
+  getUsername,
+  setUsername,
+  removeUsername,
 };

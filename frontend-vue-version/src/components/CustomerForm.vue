@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import { customer } from "../services/customer.service";
+import customerService from "../services/customer.service";
 
 export default {
   name: "CustomerForm",
@@ -101,7 +101,7 @@ export default {
   },
   methods: {
     createCustomer(values) {
-      customer
+      customerService
         .create({
           name: values.name,
           email: values.email,

@@ -1,11 +1,12 @@
 import axios from "axios";
-import { handleExpiredToken } from "../helpers";
+import BASE_URL from "../config/config";
+import { handleExpiredToken } from "../includes/helper";
 import useUserStore from "../stores/user";
 
 const user = useUserStore();
 
 export const axiosInstance = axios.create({
-  baseURL: "https://localhost:7246/api/",
+  baseURL: BASE_URL,
   headers: { Authorization: `Bearer ${user.token}` },
 });
 
@@ -17,7 +18,7 @@ axiosInstance.interceptors.response.use(
   }
 );
 
-export const api = {
+const apiService = {
   async get(resource) {
     const response = await axiosInstance.get(resource);
     return response.data;
@@ -38,3 +39,5 @@ export const api = {
     return response.data;
   },
 };
+
+export default apiService;

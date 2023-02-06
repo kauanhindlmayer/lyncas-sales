@@ -81,7 +81,7 @@
 </template>
 
 <script>
-import { customer } from "../services/customer.service";
+import customerService from "../services/customer.service";
 
 export default {
   name: "CustomerUpdateForm",
@@ -103,7 +103,7 @@ export default {
   },
   methods: {
     updateCustomer(values) {
-      customer
+      customerService
         .update({
           id: this.$route.query.id,
           name: values.name,
@@ -121,7 +121,7 @@ export default {
         });
     },
     loadCustomerData() {
-      customer
+      customerService
         .getById(this.$route.query.id)
         .then((response) => {
           this.userData = response.data;

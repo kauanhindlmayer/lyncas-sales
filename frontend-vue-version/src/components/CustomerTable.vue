@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import { customer } from "../services/customer.service";
+import customerService from "../services/customer.service";
 
 export default {
   name: "CustomerTable",
@@ -74,10 +74,10 @@ export default {
   },
   methods: {
     updateTable(resource) {
-      customer
+      customerService
         .get(resource)
         .then((response) => {
-          this.customers = response.data;
+          this.customers = response.data.customers;
         })
         .catch((error) => {
           console.log(error);
@@ -87,7 +87,7 @@ export default {
       const answer = confirm("Deseja realmente deletar o cliente?");
 
       if (answer) {
-        customer
+        customerService
           .delete(id)
           .then((response) => {
             this.updateTable();

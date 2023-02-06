@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { user } from "../services/user.service";
+import userService from "../services/user.service";
 import { mapWritableState } from "pinia";
 import { axiosInstance } from "../services/api.service";
 import useUserStore from "../stores/user";
@@ -63,7 +63,7 @@ export default {
   },
   methods: {
     login(values) {
-      user
+      userService
         .authenticate({
           login: values.email,
           password: values.password,

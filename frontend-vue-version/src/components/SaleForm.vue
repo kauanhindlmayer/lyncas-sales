@@ -69,9 +69,9 @@
 </template>
 
 <script>
-import { sale } from "../services/sale.service";
-import { customer } from "../services/customer.service";
-import { formatNumber } from "../helpers";
+import saleService from "../services/sale.service";
+import customerService from "../services/customer.service";
+import { formatNumber } from "../includes/helper";
 import SaleItem from "./SaleItem.vue";
 
 export default {
@@ -101,6 +101,7 @@ export default {
     };
   },
   methods: {
+    formatNumber,
     addItem() {
       this.items.push({
         id: this.id,
@@ -130,9 +131,8 @@ export default {
 
       return items;
     },
-    formatNumber,
     createSale(values) {
-      sale
+      saleService
         .create({
           customerId: values.customer,
           billingDate: values.billingDate,
@@ -148,10 +148,10 @@ export default {
         });
     },
     loadCustomerData() {
-      customer
+      customerService
         .get()
         .then((response) => {
-          this.users = response.data;
+          this.users = response.data.customers;
         })
         .catch((error) => {
           console.log(error);

@@ -64,8 +64,8 @@
 </template>
 
 <script>
-import { sale } from "../services/sale.service";
-import { formatString, formatNumber } from "../helpers";
+import saleService from "../services/sale.service";
+import { formatString, formatNumber } from "../includes/helper";
 
 export default {
   name: "SaleTable",
@@ -80,10 +80,10 @@ export default {
     formatString,
     formatNumber,
     updateTable(resource) {
-      sale
+      saleService
         .get(resource)
         .then((response) => {
-          this.sales = response.data;
+          this.sales = response.data.sales;
         })
         .catch((error) => {
           console.log(error);
@@ -93,7 +93,7 @@ export default {
       const answer = confirm("Deseja realmente deletar a venda?");
 
       if (answer) {
-        sale
+        saleService
           .delete(id)
           .then((response) => {
             this.updateTable();

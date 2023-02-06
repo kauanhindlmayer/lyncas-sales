@@ -74,9 +74,9 @@
 </template>
 
 <script>
-import { sale } from "../services/sale.service";
-import { customer } from "../services/customer.service";
-import { formatNumber } from "../helpers";
+import saleService from "../services/sale.service";
+import customerService from "../services/customer.service";
+import { formatNumber } from "../includes/helper";
 import SaleItem from "./SaleItem.vue";
 
 export default {
@@ -139,7 +139,7 @@ export default {
     formatNumber,
     updateSale(values) {
       console.log(values);
-      sale
+      saleService
         .update({
           id: this.$route.query.id,
           customerId: values.customer,
@@ -156,17 +156,17 @@ export default {
         });
     },
     loadCustomerData() {
-      customer
+      customerService
         .get()
         .then((response) => {
-          this.users = response.data;
+          this.users = response.data.customers;
         })
         .catch((error) => {
           console.log(error);
         });
     },
     loadSaleData() {
-      sale
+      saleService
         .getById(this.$route.query.id)
         .then((response) => {
           this.saleData.customer = response.data.customerId;

@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { removeToken, removeUsername } from "../services/jwt.service";
+import jwtService from "../services/jwt.service";
 import { mapStores, mapState } from "pinia";
 import useUserStore from "../stores/user";
 
@@ -29,8 +29,8 @@ export default {
       const answer = confirm("Deseja realmente sair?");
 
       if (answer) {
-        removeToken();
-        removeUsername();
+        jwtService.removeToken();
+        jwtService.removeUsername();
 
         useUserStore().$reset();
 

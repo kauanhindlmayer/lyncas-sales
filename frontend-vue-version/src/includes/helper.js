@@ -1,4 +1,4 @@
-import { removeToken, removeUsername } from "../services/jwt.service";
+import jwtService from "../services/jwt.service";
 import useUserStore from "../stores/user";
 import router from "../router";
 
@@ -14,8 +14,8 @@ export const formatNumber = (string) => {
 };
 
 export const handleExpiredToken = () => {
-  removeToken();
-  removeUsername();
+  jwtService.removeToken();
+  jwtService.removeUsername();
 
   useUserStore().$reset();
 
