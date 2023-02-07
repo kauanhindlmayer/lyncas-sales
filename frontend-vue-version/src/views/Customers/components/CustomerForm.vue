@@ -1,12 +1,11 @@
 <template>
   <div class="content">
     <section class="component">
-      <h1 id="title">Atualizar cliente</h1>
+      <h1>Adicionar cliente</h1>
       <vee-form
         class="form"
         :validation-schema="schema"
-        :initial-values="userData"
-        @submit="updateCustomer"
+        @submit="createCustomer"
       >
         <div class="form__form-wrapper">
           <div>
@@ -81,10 +80,10 @@
 </template>
 
 <script>
-import customerService from "../common/services/customer.service";
+import customerService from "../../../common/services/customer.service";
 
 export default {
-  name: "CustomerUpdateForm",
+  name: "CustomerForm",
   props: {
     updateUnsavedFlag: {
       type: Function,
@@ -98,14 +97,12 @@ export default {
         phone: "required|min:9|max:16",
         cpf: "required|min:11|max:14",
       },
-      userData: {},
     };
   },
   methods: {
-    updateCustomer(values) {
+    createCustomer(values) {
       customerService
-        .update({
-          id: this.$route.query.id,
+        .create({
           name: values.name,
           email: values.email,
           phone: values.phone,
@@ -120,19 +117,6 @@ export default {
           alert(error.response.data.notifications[0].message);
         });
     },
-    loadCustomerData() {
-      customerService
-        .getById(this.$route.query.id)
-        .then((response) => {
-          this.userData = response.data;
-        })
-        .catch((error) => {
-          alert(error.response.data.notifications[0].message);
-        });
-    },
-  },
-  mounted() {
-    this.loadCustomerData();
   },
 };
 </script>

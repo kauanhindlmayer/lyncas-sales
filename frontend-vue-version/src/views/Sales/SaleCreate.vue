@@ -3,27 +3,27 @@
     <app-menu />
     <div class="main">
       <app-header>
-        <header-button title="Voltar" routeName="customers-list" />
+        <header-button title="Voltar" routeName="sales-list" />
       </app-header>
-      <customer-form :updateUnsavedFlag="updateUnsavedFlag" />
+      <sale-form :updateUnsavedFlag="updateUnsavedFlag" />
     </div>
   </div>
 </template>
 
 <script>
-import AppMenu from "../components/Menu.vue";
-import AppHeader from "../components/Header.vue";
-import HeaderButton from "../components/HeaderButton.vue";
-import CustomerForm from "../components/CustomerForm.vue";
+import AppMenu from "../../components/layouts/Menu.vue";
+import AppHeader from "../../components/layouts/Header.vue";
+import HeaderButton from "../../components/layouts/HeaderButton.vue";
+import SaleForm from "./components/SaleForm.vue";
 import checkUnsaved from "../middlewares/checkUnsaved.js";
 
 export default {
-  name: "CustomerCreate",
+  name: "SaleCreate",
   components: {
     AppMenu,
     AppHeader,
     HeaderButton,
-    CustomerForm,
+    SaleForm,
   },
   data() {
     return {

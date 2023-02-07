@@ -3,7 +3,7 @@
     <div class="profile">
       <div class="profile__picture">
         <img
-          src="../assets/images/profile-picture-placeholder.png"
+          src="../../assets/images/profile-picture-placeholder.png"
           alt="User profile picture"
         />
       </div>
@@ -18,9 +18,9 @@
 </template>
 
 <script>
-import jwtService from "../common/services/jwt.service";
+import jwtService from "../../common/services/jwt.service";
 import { mapStores, mapState } from "pinia";
-import useUserStore from "../stores/user";
+import useUserStore from "../../stores/user";
 
 export default {
   name: "AppHeader",

@@ -95,8 +95,8 @@
 </template>
 
 <script>
-import saleService from "../common/services/sale.service";
-import { formatString, formatNumber } from "../common/utils/helper";
+import saleService from "../../../common/services/sale.service";
+import { formatString, formatNumber } from "../../../common/utils/helper";
 
 export default {
   name: "SaleTable",
