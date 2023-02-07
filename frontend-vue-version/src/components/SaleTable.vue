@@ -24,7 +24,7 @@
           />
         </div>
       </div>
-      <div class="component__table-wrapper">
+      <!-- <div class="component__table-wrapper">
         <table class="component__table">
           <tr>
             <th>Cliente</th>
@@ -58,20 +58,51 @@
             </tr>
           </template>
         </table>
+      </div> -->
+      <div>
+        <DataTable
+          :value="sales"
+          :paginator="true"
+          :rows="4"
+          paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
+          :rowsPerPageOptions="[7, 10, 20, 50, 100]"
+          responsiveLayout="scroll"
+          currentPageReportTemplate="Showing {first} to {last} of {totalRecords}"
+        >
+          <Column field="customer" header="Cliente"></Column>
+          <Column field="quantityItems" header="Qtd. Itens"></Column>
+          <Column field="saleDate" header="Data da Venda"></Column>
+          <Column field="billingDate" header="Data do Faturamento"></Column>
+          <Column field="totalValue" header="Valor Total"></Column>
+          <Column field="id" header="Ações">
+            <button
+              @click="handleDelete(id)"
+              class="table__button table__button--delete"
+            >
+              Deletar
+            </button>
+            <button
+              @click="handleEdit(id)"
+              class="table__button table__button--edit"
+            >
+              Editar
+            </button>
+          </Column>
+        </DataTable>
       </div>
     </section>
   </div>
 </template>
 
 <script>
-import saleService from "../services/sale.service";
-import { formatString, formatNumber } from "../includes/helper";
+import saleService from "../common/services/sale.service";
+import { formatString, formatNumber } from "../common/utils/helper";
 
 export default {
   name: "SaleTable",
   data() {
     return {
-      sales: {},
+      sales: null,
       searchInput: null,
       selectedFilter: "Filter",
     };

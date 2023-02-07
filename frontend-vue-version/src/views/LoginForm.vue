@@ -43,9 +43,9 @@
 </template>
 
 <script>
-import userService from "../services/user.service";
+import userService from "../common/services/user.service";
 import { mapWritableState } from "pinia";
-import { axiosInstance } from "../services/api.service";
+import { axiosInstance } from "../common/api/api.service";
 import useUserStore from "../stores/user";
 
 export default {

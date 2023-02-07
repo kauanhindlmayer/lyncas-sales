@@ -74,9 +74,9 @@
 </template>
 
 <script>
-import saleService from "../services/sale.service";
-import customerService from "../services/customer.service";
-import { formatNumber } from "../includes/helper";
+import saleService from "../common/services/sale.service";
+import customerService from "../common/services/customer.service";
+import { formatNumber } from "../common/utils/helper";
 import SaleItem from "./SaleItem.vue";
 
 export default {

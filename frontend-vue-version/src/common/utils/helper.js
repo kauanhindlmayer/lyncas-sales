@@ -1,6 +1,6 @@
 import jwtService from "../services/jwt.service";
-import useUserStore from "../stores/user";
-import router from "../router";
+import useUserStore from "../../stores/user";
+import router from "../../router";
 
 export const formatString = (date) => {
   return new Date(date).toLocaleDateString("pt-BR");

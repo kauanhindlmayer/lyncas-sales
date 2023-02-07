@@ -23,51 +23,34 @@
           />
         </div>
       </div>
-      <div class="component__table-wrapper">
-        <table class="component__table">
-          <tr>
-            <th>Nome</th>
-            <th>E-mail</th>
-            <th>Telefone</th>
-            <th>CPF</th>
-            <th>Ações</th>
-          </tr>
-          <template v-for="customer in customers" :key="customer.id">
-            <tr>
-              <td class="table--left-corner">{{ customer.name }}</td>
-              <td>{{ customer.email }}</td>
-              <td>{{ customer.phone }}</td>
-              <td>{{ customer.cpf }}</td>
-              <td class="table--right-corner">
-                <button
-                  @click="handleDelete(customer.id)"
-                  class="table__button table__button--delete"
-                >
-                  Deletar
-                </button>
-                <button
-                  @click="handleEdit(customer.id)"
-                  class="table__button table__button--edit"
-                >
-                  Editar
-                </button>
-              </td>
-            </tr>
-          </template>
-        </table>
+      <div>
+        <DataTable
+          :value="customers"
+          :paginator="true"
+          :rows="4"
+          paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
+          :rowsPerPageOptions="[7, 10, 20, 50, 100]"
+          responsiveLayout="scroll"
+          currentPageReportTemplate="Showing {first} to {last} of {totalRecords}"
+        >
+          <Column field="name" header="Name"></Column>
+          <Column field="email" header="E-mail"></Column>
+          <Column field="phone" header="Telefone"></Column>
+          <Column field="cpf" header="CPF"></Column>
+        </DataTable>
       </div>
     </section>
   </div>
 </template>
 
 <script>
-import customerService from "../services/customer.service";
+import customerService from "../common/services/customer.service";
 
 export default {
   name: "CustomerTable",
   data() {
     return {
-      customers: {},
+      customers: null,
       searchInput: null,
       selectedFilter: "Filter",
     };

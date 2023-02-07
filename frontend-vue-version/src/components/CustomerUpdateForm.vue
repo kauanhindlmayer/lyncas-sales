@@ -81,7 +81,7 @@
 </template>
 
 <script>
-import customerService from "../services/customer.service";
+import customerService from "../common/services/customer.service";
 
 export default {
   name: "CustomerUpdateForm",

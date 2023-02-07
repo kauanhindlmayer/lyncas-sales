@@ -1,4 +1,4 @@
-import apiService from "./api.service";
+import apiService from "../api/api.service";
 import jwtService from "./jwt.service";
 
 const userService = {
