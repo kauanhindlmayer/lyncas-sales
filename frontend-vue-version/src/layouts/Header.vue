@@ -3,7 +3,7 @@
     <div class="profile">
       <div class="profile__picture">
         <img
-          src="@/assets/images/profile-picture-placeholder.middle"
+          src="@/assets/images/profile-picture-placeholder.png"
           alt="User profile picture"
         />
       </div>

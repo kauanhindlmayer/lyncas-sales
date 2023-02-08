@@ -14,7 +14,7 @@
 import AppMenu from "@/layouts/Menu.vue";
 import AppHeader from "@/layouts/Header.vue";
 import HeaderButton from "@/layouts/HeaderButton.vue";
-import CustomerForm from "@views/Customers/components/CustomerForm.vue";
+import CustomerForm from "@/views/Customers/components/CustomerForm.vue";
 import checkUnsaved from "@/common/middlewares/checkUnsaved.js";
 
 export default {

@@ -27,7 +27,7 @@
         <DataTable
           :value="customers"
           :paginator="true"
-          :rows="4"
+          :rows="5"
           paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
           :rowsPerPageOptions="[7, 10, 20, 50, 100]"
           responsiveLayout="scroll"
