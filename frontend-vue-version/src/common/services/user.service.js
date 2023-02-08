@@ -1,5 +1,5 @@
-import apiService from "../api/api.service";
-import jwtService from "./jwt.service";
+import apiService from "@/common/api/api.service";
+import jwtService from "@/common/services/jwt.service";
 
 const userService = {
   create(data) {

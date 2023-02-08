@@ -1,4 +1,4 @@
-import apiService from "../api/api.service";
+import apiService from "@/common/api/api.service";
 
 const customerService = {
   get(resource) {

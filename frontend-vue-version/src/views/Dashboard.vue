@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import AppMenu from "../components/layouts/Menu.vue";
-import AppHeader from "../components/layouts/Header.vue";
+import AppMenu from "@/layouts/Menu.vue";
+import AppHeader from "@/layouts/Header.vue";
 
 export default {
   name: "TheDashboard",

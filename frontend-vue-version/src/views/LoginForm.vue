@@ -2,7 +2,7 @@
   <div class="login-container">
     <div class="aside">
       <div>
-        <img src="../assets/svg/logo.svg" alt="Lyncas logo" />
+        <img src="@/assets/svg/logo.svg" alt="Lyncas logo" />
         <p>
           Bem-vindo ao Lyncas Sales, uma aplicação <br />
           simples para gerenciar vendas e clientes.
@@ -43,10 +43,10 @@
 </template>
 
 <script>
-import userService from "../common/services/user.service";
+import userService from "@/common/services/user.service";
 import { mapWritableState } from "pinia";
-import { axiosInstance } from "../common/api/api.service";
-import useUserStore from "../stores/user";
+import { axiosInstance } from "@/common/api/api.service";
+import useUserStore from "@/stores/user";
 
 export default {
   name: "LoginForm",

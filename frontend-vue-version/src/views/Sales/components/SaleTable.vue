@@ -95,8 +95,8 @@
 </template>
 
 <script>
-import saleService from "../../../common/services/sale.service";
-import { formatString, formatNumber } from "../../../common/utils/helper";
+import saleService from "@/common/services/sale.service";
+import { formatString, formatNumber } from "@/common/utils/helper";
 
 export default {
   name: "SaleTable",
@@ -194,7 +194,7 @@ export default {
   height: 4.1rem;
   padding: 0.9rem 1.8rem;
 
-  background: url(../assets/svg/search-icon.svg) no-repeat scroll 7px 7px;
+  background: url(@/assets/svg/search-icon.svg) no-repeat scroll 7px 7px;
   background-position: center;
   background-position-x: calc(100% - 12px);
   background-color: var(--background-secondary);

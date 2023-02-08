@@ -48,7 +48,7 @@
     </div>
     <div class="aside">
       <div>
-        <img src="../assets/svg/logo.svg" alt="Lyncas logo" />
+        <img src="@/assets/svg/logo.svg" alt="Lyncas logo" />
         <p>
           Bem-vindo ao Lyncas Sales, uma aplicação <br />
           simples para gerenciar vendas e clientes.
@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import user from "../services/user.service";
+import user from "@/common/services/user.service";
 
 export default {
   name: "RegisterForm",

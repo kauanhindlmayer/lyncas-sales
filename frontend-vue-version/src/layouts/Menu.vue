@@ -13,7 +13,7 @@
       >
         <img
           class="menu__item__icon"
-          src="/src/assets/svg/dashboard-icon.svg"
+          src="@/assets/svg/dashboard-icon.svg"
           alt="Dashboard Icon"
         />
         Dashboard
@@ -25,7 +25,7 @@
       >
         <img
           class="menu__item__icon"
-          src="/src/assets/svg/customer-icon.svg"
+          src="@/assets/svg/customer-icon.svg"
           alt="Customer Icon"
         />
         Clientes
@@ -37,7 +37,7 @@
       >
         <img
           class="menu__item__icon"
-          src="/src/assets/svg/sale-icon.svg"
+          src="@/assets/svg/sale-icon.svg"
           alt="Sale Icon"
         />
         Vendas

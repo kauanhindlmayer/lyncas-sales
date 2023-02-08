@@ -1,7 +1,7 @@
 import axios from "axios";
-import BASE_URL from "../config/config";
-import { handleExpiredToken } from "../utils/helper";
-import useUserStore from "../../stores/user";
+import BASE_URL from "@/common/config/config";
+import { handleExpiredToken } from "@/common/utils/helper";
+import useUserStore from "@/stores/user";
 
 const user = useUserStore();
 

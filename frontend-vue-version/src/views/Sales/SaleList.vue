@@ -11,10 +11,10 @@
 </template>
 
 <script>
-import AppMenu from "../../components/layouts/Menu.vue";
-import AppHeader from "../../components/layouts/Header.vue";
-import HeaderButton from "../../components/layouts/HeaderButton.vue";
-import SalesTable from "./components/SaleTable.vue";
+import AppMenu from "@/layouts/Menu.vue";
+import AppHeader from "@/layouts/Header.vue";
+import HeaderButton from "@/layouts/HeaderButton.vue";
+import SalesTable from "@/views/Sales/components/SaleTable.vue";
 
 export default {
   name: "SaleList",

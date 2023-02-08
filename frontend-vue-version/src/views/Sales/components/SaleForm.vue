@@ -69,10 +69,10 @@
 </template>
 
 <script>
-import saleService from "../../../common/services/sale.service";
-import customerService from "../../../common/services/customer.service";
-import { formatNumber } from "../../../common/utils/helper";
-import SaleItem from "./SaleItem.vue";
+import saleService from "@/common/services/sale.service";
+import customerService from "@/common/services/customer.service";
+import { formatNumber } from "@/common/utils/helper";
+import SaleItem from "@/views/Sales/components/SaleItem.vue";
 
 export default {
   name: "SaleForm",
