@@ -45,7 +45,7 @@
 <script>
 import userService from "@/common/services/user.service";
 import { mapWritableState } from "pinia";
-import { axiosInstance } from "@/common/api/api.service";
+import axios from "axios";
 import useUserStore from "@/stores/user";
 
 export default {
@@ -71,7 +71,7 @@ export default {
         .then((response) => {
           this.name = response.userName;
           this.token = response.token;
-          axiosInstance.defaults.headers.Authorization = `Bearer ${this.token}`;
+          axios.defaults.headers.Authorization = `Bearer ${this.token}`;
           this.$router.push({ name: "home" });
         })
         .catch((error) => {

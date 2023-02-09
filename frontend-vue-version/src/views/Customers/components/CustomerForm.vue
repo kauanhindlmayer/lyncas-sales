@@ -1,25 +1,41 @@
 <template>
   <div class="content">
     <section class="component">
-      <h1>Adicionar cliente</h1>
+      <h1>{{ title }}</h1>
       <form class="form">
         <div class="form__form-wrapper">
-          <input-text v-model="values.name" ref="name" label="Nome" required />
           <input-text
-            v-model="values.email"
+            v-model="customer.name"
+            ref="name"
+            label="Nome"
+            :value="customer.name"
+            required
+          />
+          <input-text
+            v-model="customer.email"
             ref="email"
             label="E-mail"
+            :value="customer.email"
+            email
             required
           />
         </div>
         <div class="form__form-wrapper">
           <input-text
-            v-model="values.phone"
+            v-model="customer.phone"
             ref="phone"
             label="Telefone"
+            :value="customer.phone"
+            required
+            minlength="8"
+          />
+          <input-text
+            v-model="customer.cpf"
+            ref="cpf"
+            label="CPF"
+            :value="customer.cpf"
             required
           />
-          <input-text v-model="values.cpf" ref="cpf" label="CPF" required />
         </div>
         <div class="align-right">
           <button
@@ -51,7 +67,8 @@ export default {
   },
   data() {
     return {
-      values: {
+      title: "Adicionar cliente",
+      customer: {
         name: null,
         email: null,
         phone: null,
@@ -69,16 +86,10 @@ export default {
       return validation.filter((element) => element == false).length == 0;
     },
     createCustomer() {
-      if (!this.validateFields())
-        return alert("Por favor valide o formulário.");
+      if (!this.validateFields()) return;
 
       customerService
-        .create({
-          name: this.values.name,
-          email: this.values.email,
-          phone: this.values.phone,
-          cpf: this.values.cpf,
-        })
+        .create(this.customer)
         .then((response) => {
           this.updateUnsavedFlag(false);
           this.$router.push({ name: "customers-list" });
@@ -88,6 +99,36 @@ export default {
           alert(error.response.data.notifications[0].message);
         });
     },
+    loadCustomerData() {
+      customerService
+        .getById(this.$route.query.id)
+        .then((response) => {
+          this.customer = response.data;
+        })
+        .catch((error) => {
+          alert(error.response.data.notifications[0].message);
+        });
+    },
+  },
+  watch: {
+    "customer.name"(newValue) {
+      this.updateUnsavedFlag(newValue);
+    },
+    "customer.email"(newValue) {
+      this.updateUnsavedFlag(newValue);
+    },
+    "customer.phone"(newValue) {
+      this.updateUnsavedFlag(newValue);
+    },
+    "customer.cpf"(newValue) {
+      this.updateUnsavedFlag(newValue);
+    },
+  },
+  mounted() {
+    if (this.$route.query.id) {
+      this.title = "Atualizar cliente";
+      this.loadCustomerData();
+    }
   },
 };
 </script>

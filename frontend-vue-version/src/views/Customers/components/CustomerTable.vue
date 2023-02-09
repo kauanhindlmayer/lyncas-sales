@@ -37,6 +37,20 @@
           <Column field="email" header="E-mail"></Column>
           <Column field="phone" header="Telefone"></Column>
           <Column field="cpf" header="CPF"></Column>
+          <Column field="id" header="Ações">
+            <button
+              @click="handleDelete(id)"
+              class="table__button table__button--delete"
+            >
+              Deletar
+            </button>
+            <button
+              @click="handleEdit(id)"
+              class="table__button table__button--edit"
+            >
+              Editar
+            </button>
+          </Column>
         </DataTable>
       </div>
     </section>
@@ -82,7 +96,7 @@ export default {
       }
     },
     handleEdit(id) {
-      this.$router.push({ name: "update-customer", query: { id: id } });
+      this.$router.push({ name: "create-customer", query: { id: id } });
     },
     searchSales() {
       if (this.selectedFilter === "Filter") {

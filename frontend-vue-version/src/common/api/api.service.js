@@ -5,12 +5,7 @@ import useUserStore from "@/stores/user";
 
 const user = useUserStore();
 
-export const axiosInstance = axios.create({
-  baseURL: BASE_URL,
-  headers: { Authorization: `Bearer ${user.token}` },
-});
-
-axiosInstance.interceptors.response.use(
+axios.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response.status === 401) handleExpiredToken();
@@ -19,23 +14,32 @@ axiosInstance.interceptors.response.use(
 );
 
 const apiService = {
+  init() {
+    axios.defaults.baseURL = BASE_URL;
+    axios.defaults.headers.common["Authorization"] = `Bearer ${user.token}`;
+  },
+
   async get(resource) {
-    const response = await axiosInstance.get(resource);
+    this.init();
+    const response = await axios.get(resource);
     return response.data;
   },
 
   async post(resource, data) {
-    const response = await axiosInstance.post(resource, data);
+    this.init();
+    const response = await axios.post(resource, data);
     return response.data;
   },
 
   async put(resource, data) {
-    const response = await axiosInstance.put(resource, data);
+    this.init();
+    const response = await axios.put(resource, data);
     return response.data;
   },
 
   async delete(resource) {
-    const response = await axiosInstance.delete(resource);
+    this.init();
+    const response = await axios.delete(resource);
     return response.data;
   },
 };
