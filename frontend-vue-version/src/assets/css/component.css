@@ -157,6 +157,12 @@
   padding: 2.4rem 1.2rem;
 }
 
+/* .component__table-wrapper {
+  overflow-y: auto;
+
+  height: calc(100vh - 30rem);
+} */
+
 .component .table--left-corner {
   border-radius: 5px 0 0 5px;
 }
@@ -232,9 +238,12 @@
   .component .header__title {
     margin-left: 0;
   }
-}
 
-.component__table-wrapper {
-  height: calc(100vh - 27.3rem);
-  overflow-y: auto;
+  /* .component__table-wrapper {
+    overflow-y: auto;
+
+    height: calc(100vh - 28.3rem);
+
+    margin-bottom: 1rem;
+  } */
 }

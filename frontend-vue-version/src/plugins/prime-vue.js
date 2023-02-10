@@ -4,7 +4,7 @@ import Column from "primevue/column";
 import Button from "primevue/button";
 import DataTable from "primevue/datatable";
 
-// import "primevue/resources/themes/saga-blue/theme.css";
+import "primevue/resources/themes/saga-blue/theme.css";
 import "primevue/resources/primevue.min.css";
 import "primeicons/primeicons.css ";
 

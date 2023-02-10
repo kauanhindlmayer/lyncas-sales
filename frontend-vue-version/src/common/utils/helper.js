@@ -1,19 +1,20 @@
 import jwtService from "@/common/services/jwt.service";
 import useUserStore from "@/stores/user";
 import router from "@/router";
+import moment from "moment";
 
-export const formatString = (date) => {
-  return new Date(date).toLocaleDateString("pt-BR");
+const formatDate = (date) => {
+  return moment(date).format("DD/MM/YYYY");
 };
 
-export const formatNumber = (string) => {
-  return Number(string).toLocaleString("pt-BR", {
+const formatCurrency = (money) => {
+  return Number(money).toLocaleString("pt-BR", {
     style: "currency",
     currency: "BRL",
   });
 };
 
-export const handleExpiredToken = () => {
+const handleExpiredToken = () => {
   jwtService.removeToken();
   jwtService.removeUsername();
 
@@ -22,4 +23,10 @@ export const handleExpiredToken = () => {
   alert("Sua sessão expirou.");
 
   router.push("/conectar-se");
+};
+
+export default {
+  formatDate,
+  formatCurrency,
+  handleExpiredToken,
 };

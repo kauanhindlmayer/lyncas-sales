@@ -17,37 +17,37 @@ const routes = [
   {
     path: "/lista-de-vendas",
     name: "sales-list",
-    component: () => import("@/views/Sales/SaleList.vue"),
+    component: () => import("@/views/Sales/Index.vue"),
     meta: { requiresAuth: true, title: "Lista de Vendas" },
   },
   {
     path: "/lista-de-clientes",
     name: "customers-list",
-    component: () => import("@/views/Customers/CustomerList.vue"),
+    component: () => import("@/views/Customers/Index.vue"),
     meta: { requiresAuth: true, title: "Lista de Clientes" },
   },
   {
     path: "/adicionar-cliente",
     name: "create-customer",
-    component: () => import("@/views/Customers/CustomerCreate.vue"),
+    component: () => import("@/views/Customers/Formulary.vue"),
     meta: { requiresAuth: true, title: "Adicionar Cliente" },
   },
   {
     path: "/adicionar-venda",
     name: "create-sale",
-    component: () => import("@/views/Sales/SaleCreate.vue"),
+    component: () => import("@/views/Sales/Formulary.vue"),
     meta: { requiresAuth: true, title: "Adicionar Venda" },
   },
   {
     path: "/atualizar-cliente",
     name: "update-customer",
-    component: () => import("@/views/Customers/CustomerUpdate.vue"),
+    component: () => import("@/views/Customers/Formulary.vue"),
     meta: { requiresAuth: true, title: "Atualizar Cliente" },
   },
   {
     path: "/atualizar-venda",
     name: "update-sale",
-    component: () => import("@/views/Sales/SaleUpdate.vue"),
+    component: () => import("@/views/Sales/Formulary.vue"),
     meta: { requiresAuth: true, title: "Atualizar Venda" },
   },
   {

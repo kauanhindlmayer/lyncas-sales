@@ -1,73 +1,85 @@
 <template>
-  <div class="content">
-    <section class="component">
-      <h1>{{ title }}</h1>
-      <form class="form">
-        <div class="form__form-wrapper">
-          <input-text
-            v-model="customer.name"
-            ref="name"
-            label="Nome"
-            :value="customer.name"
-            required
-          />
-          <input-text
-            v-model="customer.email"
-            ref="email"
-            label="E-mail"
-            :value="customer.email"
-            email
-            required
-          />
-        </div>
-        <div class="form__form-wrapper">
-          <input-text
-            v-model="customer.phone"
-            ref="phone"
-            label="Telefone"
-            :value="customer.phone"
-            required
-            minlength="8"
-          />
-          <input-text
-            v-model="customer.cpf"
-            ref="cpf"
-            label="CPF"
-            :value="customer.cpf"
-            required
-          />
-        </div>
-        <div class="align-right">
-          <button
-            class="save-button save-button--customer"
-            type="submit"
-            @click.prevent="submit"
-          >
-            Salvar
-          </button>
-        </div>
-      </form>
-    </section>
+  <div class="container">
+    <app-menu />
+    <div class="main">
+      <app-header>
+        <header-button title="Voltar" routeName="customers-list" />
+      </app-header>
+      <div class="content">
+        <section class="component">
+          <h1>{{ title }}</h1>
+          <form class="form">
+            <div class="form__form-wrapper">
+              <input-text
+                ref="name"
+                label="Nome"
+                v-model="customer.name"
+                :value="customer.name"
+                required
+              />
+              <input-text
+                ref="email"
+                label="E-mail"
+                v-model="customer.email"
+                :value="customer.email"
+                email
+                required
+              />
+            </div>
+            <div class="form__form-wrapper">
+              <input-text
+                ref="phone"
+                label="Telefone"
+                v-model="customer.phone"
+                :value="customer.phone"
+                required
+                minlength="8"
+              />
+              <input-text
+                ref="cpf"
+                label="CPF"
+                v-model="customer.cpf"
+                :value="customer.cpf"
+                cpf
+                required
+              />
+            </div>
+            <div class="align-right">
+              <button
+                class="save-button save-button--customer"
+                type="submit"
+                @click.prevent="submit"
+              >
+                Salvar
+              </button>
+            </div>
+          </form>
+        </section>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import AppMenu from "@/layouts/Menu.vue";
+import AppHeader from "@/layouts/Header.vue";
+import HeaderButton from "@/layouts/HeaderButton.vue";
+import checkUnsaved from "@/common/middlewares/checkUnsaved.js";
 import customerService from "@/common/services/customer.service";
 import message from "@/common/utils/message.js";
 import { InputText } from "@/components/inputs";
 
 export default {
-  name: "CustomerForm",
+  name: "CustomerCreate",
   components: {
+    AppMenu,
+    AppHeader,
+    HeaderButton,
     InputText,
-  },
-  props: {
-    updateUnsavedFlag: {
-      type: Function,
-    },
   },
   data() {
     return {
+      unsavedFlag: false,
       title: "Adicionar cliente",
       customer: {
         id: this.$route.params.id,
@@ -79,6 +91,10 @@ export default {
     };
   },
   methods: {
+    checkUnsaved,
+    updateUnsavedFlag(value) {
+      this.unsavedFlag = value;
+    },
     validateFields() {
       let validation = [];
       validation.push(this.$refs.name.validation());
@@ -131,6 +147,9 @@ export default {
       this.title = "Atualizar cliente";
       this.loadCustomerData();
     }
+  },
+  beforeRouteLeave(to, from, next) {
+    checkUnsaved(next, this.unsavedFlag);
   },
 };
 </script>

@@ -5,7 +5,7 @@
       { 'profile__button--add': title === 'Adicionar' },
     ]"
   >
-    <RouterLink :to="{ name: routeName }">{{ title }}</RouterLink>
+    <router-link :to="{ name: routeName }">{{ title }}</router-link>
   </div>
 </template>
 

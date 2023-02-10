@@ -12,8 +12,11 @@
 </template>
 
 <script>
+// import ValidateCPF from "@/components/mixins/validate-cpf.js";
+
 export default {
   name: "InputText",
+  // mixins: [ValidateCPF],
   props: {
     value: { Type: [String, Number], default: null },
     label: { Type: String },
@@ -23,6 +26,7 @@ export default {
     min: { type: [Number, String], required: false },
     max: { type: [Number, String], required: false },
     email: { type: Boolean, default: false },
+    cpf: { type: Boolean, default: false },
   },
   data() {
     return {
