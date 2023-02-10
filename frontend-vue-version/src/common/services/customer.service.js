@@ -7,11 +7,12 @@ const customerService = {
   getById(id) {
     return apiService.get(`Customer/obter/${id}`);
   },
-  create(data) {
-    return apiService.post("Customer/adicionar", data);
-  },
-  update(data) {
-    return apiService.put("Customer/atualizar", data);
+  save(customer) {
+    if (customer.id) {
+      return apiService.put("Customer/atualizar", customer);
+    } else {
+      return apiService.post("Customer/adicionar", customer);
+    }
   },
   delete(id) {
     return apiService.delete(`Customer/remover/${id}`);

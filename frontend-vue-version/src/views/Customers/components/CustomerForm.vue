@@ -41,7 +41,7 @@
           <button
             class="save-button save-button--customer"
             type="submit"
-            @click.prevent="createCustomer"
+            @click.prevent="submit"
           >
             Salvar
           </button>
@@ -53,6 +53,7 @@
 
 <script>
 import customerService from "@/common/services/customer.service";
+import message from "@/common/utils/message.js";
 import { InputText } from "@/components/inputs";
 
 export default {
@@ -69,6 +70,7 @@ export default {
     return {
       title: "Adicionar cliente",
       customer: {
+        id: this.$route.params.id,
         name: null,
         email: null,
         phone: null,
@@ -85,18 +87,18 @@ export default {
       validation.push(this.$refs.cpf.validation());
       return validation.filter((element) => element == false).length == 0;
     },
-    createCustomer() {
+    submit() {
       if (!this.validateFields()) return;
 
       customerService
-        .create(this.customer)
+        .save(this.customer)
         .then((response) => {
           this.updateUnsavedFlag(false);
           this.$router.push({ name: "customers-list" });
-          alert(response.data.message);
+          message.success(response.data.message);
         })
         .catch((error) => {
-          alert(error.response.data.notifications[0].message);
+          message.error(error.response.data.notifications[0].message);
         });
     },
     loadCustomerData() {
@@ -106,7 +108,7 @@ export default {
           this.customer = response.data;
         })
         .catch((error) => {
-          alert(error.response.data.notifications[0].message);
+          message.error(error.response.data.notifications[0].message);
         });
     },
   },
