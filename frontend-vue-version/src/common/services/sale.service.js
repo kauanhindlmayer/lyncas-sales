@@ -4,6 +4,9 @@ const saleService = {
   get(resource) {
     return apiService.get(`Sale/listar${resource ?? ""}`);
   },
+  paginate(limit, offset) {
+    return apiService.get(`Sale/listar?Limit=${limit}&Offset=${offset}`);
+  },
   getById(id) {
     return apiService.get(`Sale/obter/${id}`);
   },

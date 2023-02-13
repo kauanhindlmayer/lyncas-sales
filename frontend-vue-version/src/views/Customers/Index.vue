@@ -36,15 +36,8 @@
             </div>
           </div>
           <div class="component__table-wrapper">
-            <DataTable
-              :value="customers"
-              :paginator="true"
-              :rows="4"
-              paginatorTemplate="CurrentPageReport PrevPageLink PageLinks NextPageLink RowsPerPageDropdown"
-              :rowsPerPageOptions="[4, 10, 20, 50, 100]"
-              responsiveLayout="scroll"
-              currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
-            >
+            <DataTable :value="customers" responsiveLayout="scroll">
+              <template #empty> Nenhum registro encontrado </template>
               <Column field="name" header="Name" :sortable="true"></Column>
               <Column field="email" header="E-mail" :sortable="true"></Column>
               <Column field="phone" header="Telefone" :sortable="true"></Column>
@@ -67,6 +60,17 @@
                 </template>
               </Column>
             </DataTable>
+            <Paginator
+              :template="{
+                default:
+                  'CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink',
+              }"
+              currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
+              :rows="limit"
+              :totalRecords="totalRecords"
+              @page="onPage($event)"
+            >
+            </Paginator>
           </div>
         </section>
       </div>
@@ -79,6 +83,7 @@ import AppMenu from "@/layouts/Menu.vue";
 import AppHeader from "@/layouts/Header.vue";
 import HeaderButton from "@/layouts/HeaderButton.vue";
 import customerService from "@/common/services/customer.service";
+import message from "@/common/utils/message.js";
 
 export default {
   name: "Index",
@@ -89,34 +94,41 @@ export default {
   },
   data() {
     return {
+      limit: 4,
+      offset: 0,
+      totalRecords: null,
       customers: null,
       searchInput: null,
       selectedFilter: "Filter",
     };
   },
   methods: {
-    updateTable(resource) {
+    onPage(event) {
       customerService
-        .get(resource)
+        .paginate(this.limit, event.page * this.limit)
         .then((response) => {
           this.customers = response.data.customers;
-        })
-        .catch((error) => {
-          console.log(error);
         });
     },
-    handleDelete(id) {
-      const answer = confirm("Deseja realmente deletar o cliente?");
+    updateTable() {
+      customerService.paginate(this.limit, this.offset).then((response) => {
+        this.customers = response.data.customers;
+      });
+    },
+    async handleDelete(id) {
+      const answer = await message.confirm(
+        "Deseja realmente deletar o cliente?"
+      );
 
-      if (answer) {
+      if (answer.isConfirmed) {
         customerService
           .delete(id)
           .then((response) => {
             this.updateTable();
-            alert(response.data.message);
+            message.success(response.data.message);
           })
           .catch((error) => {
-            alert(error.response.data.notifications[0].message);
+            message.error(error.response.data.notifications[0].message);
           });
       }
     },
@@ -131,14 +143,31 @@ export default {
 
       this.updateTable(`?${this.selectedFilter}=${this.searchInput}`);
     },
+    configurePaginator() {
+      customerService.get().then((response) => {
+        this.totalRecords = response.data.recordsQuantity;
+        this.limit = 4;
+      });
+    },
   },
-  async mounted() {
+  mounted() {
+    this.configurePaginator();
     this.updateTable();
   },
 };
 </script>
 
 <style>
+.p-paginator {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.p-paginator-current {
+  position: absolute;
+  left: 18.2rem;
+}
+
 .content {
   margin: 2.3rem 0 auto 0;
 }

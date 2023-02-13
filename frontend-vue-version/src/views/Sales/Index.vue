@@ -37,15 +37,8 @@
             </div>
           </div>
           <div>
-            <DataTable
-              :value="sales"
-              :paginator="true"
-              :rows="4"
-              paginatorTemplate="CurrentPageReport PrevPageLink PageLinks NextPageLink RowsPerPageDropdown"
-              :rowsPerPageOptions="[4, 10, 20, 50, 100]"
-              responsiveLayout="scroll"
-              currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
-            >
+            <DataTable :value="sales" responsiveLayout="scroll">
+              <template #empty> Nenhum registro encontrado </template>
               <Column field="customer" header="Cliente" :sortable="true" />
               <Column
                 field="quantityItems"
@@ -85,6 +78,17 @@
                 </template>
               </Column>
             </DataTable>
+            <Paginator
+              :template="{
+                default:
+                  'CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink',
+              }"
+              currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
+              :rows="limit"
+              :totalRecords="totalRecords"
+              @page="onPage($event)"
+            >
+            </Paginator>
           </div>
         </section>
       </div>
@@ -108,21 +112,26 @@ export default {
   },
   data() {
     return {
+      limit: 4,
+      offset: 0,
+      totalRecords: null,
       sales: null,
       searchInput: null,
       selectedFilter: "Filter",
     };
   },
   methods: {
-    updateTable(resource) {
+    onPage(event) {
       saleService
-        .get(resource)
+        .paginate(this.limit, event.page * this.limit)
         .then((response) => {
           this.sales = response.data.sales;
-        })
-        .catch((error) => {
-          console.log(error);
         });
+    },
+    updateTable() {
+      saleService.paginate(this.limit, this.offset).then((response) => {
+        this.sales = response.data.sales;
+      });
     },
     async handleDelete(id) {
       const answer = await message.confirm("Deseja realmente deletar a venda?");
@@ -152,14 +161,31 @@ export default {
 
       this.updateTable(`?${this.selectedFilter}=${this.searchInput}`);
     },
+    configurePaginator() {
+      saleService.get().then((response) => {
+        this.totalRecords = response.data.recordsQuantity;
+        this.limit = 4;
+      });
+    },
   },
   async mounted() {
+    this.configurePaginator();
     this.updateTable();
   },
 };
 </script>
 
-<style scoped>
+<style>
+.p-paginator {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.p-paginator-current {
+  position: absolute;
+  left: 18.2rem;
+}
+
 .content {
   margin: 2.3rem 0 auto 0;
 }

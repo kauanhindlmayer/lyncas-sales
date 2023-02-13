@@ -21,14 +21,15 @@
 import jwtService from "@/common/services/jwt.service";
 import { mapStores, mapState } from "pinia";
 import useUserStore from "@/stores/user";
+import message from "@/common/utils/message.js";
 
 export default {
   name: "AppHeader",
   methods: {
-    handleLogout() {
-      const answer = confirm("Deseja realmente sair?");
+    async handleLogout() {
+      const answer = await message.confirm("Deseja realmente sair?");
 
-      if (answer) {
+      if (answer.isConfirmed) {
         jwtService.removeToken();
         jwtService.removeUsername();
 

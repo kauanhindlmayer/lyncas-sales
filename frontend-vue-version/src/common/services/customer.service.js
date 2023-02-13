@@ -4,6 +4,9 @@ const customerService = {
   get(resource) {
     return apiService.get(`Customer/listar${resource ?? ""}`);
   },
+  paginate(limit, offset) {
+    return apiService.get(`Customer/listar?Limit=${limit}&Offset=${offset}`);
+  },
   getById(id) {
     return apiService.get(`Customer/obter/${id}`);
   },
