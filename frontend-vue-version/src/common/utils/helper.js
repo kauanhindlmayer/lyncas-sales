@@ -4,7 +4,7 @@ import router from "@/router";
 import moment from "moment";
 
 const formatDate = (date) => {
-  return moment(date).format("DD/MM/YYYY");
+  return moment(date).format("yyyy-MM-dd");
 };
 
 const formatCurrency = (money) => {

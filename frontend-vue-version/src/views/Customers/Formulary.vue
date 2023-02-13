@@ -109,9 +109,10 @@ export default {
       customerService
         .save(this.customer)
         .then((response) => {
-          this.updateUnsavedFlag(false);
-          this.$router.push({ name: "customers-list" });
-          message.success(response.data.message);
+          message.success(response.data.message).then(() => {
+            this.updateUnsavedFlag(false);
+            this.$router.push({ name: "customers-list" });
+          });
         })
         .catch((error) => {
           message.error(error.response.data.notifications[0].message);
@@ -129,17 +130,11 @@ export default {
     },
   },
   watch: {
-    "customer.name"(newValue) {
-      this.updateUnsavedFlag(newValue);
-    },
-    "customer.email"(newValue) {
-      this.updateUnsavedFlag(newValue);
-    },
-    "customer.phone"(newValue) {
-      this.updateUnsavedFlag(newValue);
-    },
-    "customer.cpf"(newValue) {
-      this.updateUnsavedFlag(newValue);
+    customer: {
+      handler() {
+        this.updateUnsavedFlag(true);
+      },
+      deep: true,
     },
   },
   mounted() {

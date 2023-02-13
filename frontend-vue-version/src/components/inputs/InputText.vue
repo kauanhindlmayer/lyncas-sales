@@ -1,10 +1,16 @@
 <template>
   <div>
-    <label for="name-input">
+    <label for="name-input" v-if="!hideLabel">
       {{ label }}
-      <span class="error-message" v-if="required">*</span>
+      <!-- <span class="error-message" v-if="required">*</span> -->
     </label>
-    <input v-model="content" @input="input" class="input" />
+    <input
+      :type="type"
+      :placeholder="placeholder"
+      class="input"
+      v-model="content"
+      @input="input"
+    />
     <div class="error-message">
       {{ error_message }}
     </div>
@@ -18,8 +24,11 @@ export default {
   name: "InputText",
   // mixins: [ValidateCPF],
   props: {
+    type: { type: String, default: "text" },
+    placeholder: { type: String },
     value: { Type: [String, Number], default: null },
     label: { Type: String },
+    hideLabel: { type: Boolean, default: false },
     required: { type: Boolean, default: false },
     minlength: { Type: Number },
     maxlength: { Type: Number },

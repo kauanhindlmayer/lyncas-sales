@@ -8,42 +8,37 @@
       <div class="content">
         <section class="component">
           <div class="component__add-sales">
-            <h1>Adicionar venda</h1>
-            <vee-form
-              class="form"
-              :validation-schema="schema"
-              @submit="createSale"
-            >
+            <h1>{{ title }}</h1>
+            <form class="form">
               <div class="form__form-wrapper">
                 <div>
                   <label for="customer-input">Cliente</label>
-                  <!-- Select Customer -->
-                  <vee-field
-                    as="select"
+                  <select
                     name="customer"
                     class="select field"
                     id="customer-input"
                     required
                     label="cliente"
+                    v-model="sale.customerId"
                     @input="updateUnsavedFlag(true)"
                   >
                     <option data-default disabled selected></option>
                     <option v-for="{ name, id } in users" :value="id" :key="id">
                       {{ name }}
                     </option>
-                  </vee-field>
+                  </select>
                   <ErrorMessage class="error-message" name="customer" />
                 </div>
                 <div>
-                  <!-- Billing Date -->
                   <label for="billing-date-input">Data de faturamento</label>
-                  <vee-field
+                  <input
                     name="billingDate"
                     type="date"
                     id="billing-date-input"
                     class="input-date field"
                     required
                     label="data de faturamento"
+                    v-model="sale.billingDate"
                     @input="updateUnsavedFlag(true)"
                   />
                   <ErrorMessage class="error-message" name="billingDate" />
@@ -51,11 +46,72 @@
               </div>
               <div class="form__dashed"></div>
               <h2>Itens do pedido</h2>
-              <sale-item
-                v-for="(item, index) in items"
-                :key="item.id"
-                :index="index"
-              />
+
+              <template v-for="(item, index) in sale.items" :key="item.id">
+                <div class="form__item">
+                  <div class="form__dashed" v-if="index > 0"></div>
+                  <div class="form__form-wrapper">
+                    <div>
+                      <input-text
+                        ref="itemDescription"
+                        label="Descrição do item"
+                        v-model="sale.items[index].itemDescription"
+                        :value="sale.items[index].itemDescription"
+                        placeholder=" "
+                        minLength="3"
+                        maxlength="254"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <input-text
+                        ref="unitaryValue"
+                        label="Valor unitário"
+                        v-model="sale.items[index].unitaryValue"
+                        :value="sale.items[index].unitaryValue"
+                        type="number"
+                        placeholder=" "
+                        maxlength="10"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div class="form__form-wrapper">
+                    <div>
+                      <input-text
+                        ref="quantity"
+                        label="Quantidade"
+                        v-model="sale.items[index].quantity"
+                        :value="sale.items[index].quantity"
+                        type="number"
+                        placeholder=" "
+                        maxlength="5"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <input-text
+                        ref="totalValue"
+                        label="Valor total"
+                        v-model="sale.items[index].totalValue"
+                        :value="sale.items[index].totalValue"
+                        type="number"
+                        placeholder=" "
+                        maxlength="10"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <button
+                    v-if="index > 0"
+                    class="form__button--remove-sales"
+                    @click.prevent="removeItem(index)"
+                  >
+                    Deletar
+                  </button>
+                </div>
+              </template>
+
               <div class="align-right">
                 <button class="add-items-button" @click.prevent="addItem">
                   + Mais itens
@@ -67,12 +123,16 @@
                   <span>{{ totalValue }}</span>
                 </div>
                 <div class="align-right">
-                  <button class="save-button save-button--sale" type="submit">
+                  <button
+                    class="save-button save-button--sale"
+                    type="submit"
+                    @click.prevent="createSale"
+                  >
                     Salvar
                   </button>
                 </div>
               </div>
-            </vee-form>
+            </form>
           </div>
         </section>
       </div>
@@ -87,7 +147,8 @@ import HeaderButton from "@/layouts/HeaderButton.vue";
 import checkUnsaved from "@/common/middlewares/checkUnsaved.js";
 import saleService from "@/common/services/sale.service";
 import customerService from "@/common/services/customer.service";
-import SaleItem from "@/views/Sales/components/SaleItem.vue";
+import { InputText } from "@/components/inputs";
+import message from "@/common/utils/message.js";
 
 export default {
   name: "SaleCreate",
@@ -95,23 +156,29 @@ export default {
     AppMenu,
     AppHeader,
     HeaderButton,
-    SaleItem,
+    InputText,
   },
   data() {
     return {
+      title: "Adicionar venda",
       unsavedFlag: false,
-      schema: {
-        customer: "required",
-        billingDate: "required",
-        "itemDescription-0": "required|min:3|max:100|",
-        "unitaryValue-0": "required|min_value:1|max_value:100000",
-        "quantity-0": "required|min_value:1|max_value:100",
-        "totalValue-0": "required|min_value:1|max_value:100000",
+      quantityItems: 1,
+      sale: {
+        id: this.$route.params.id,
+        customerId: null,
+        billingDate: null,
+        items: [
+          {
+            id: this.quantityItems,
+            itemDescription: null,
+            unitaryValue: null,
+            quantity: null,
+            totalValue: null,
+          },
+        ],
       },
-      users: {},
+      users: null,
       totalValue: "",
-      items: [{ id: 0, value: null }],
-      id: 1,
     };
   },
   methods: {
@@ -120,48 +187,43 @@ export default {
       this.unsavedFlag = value;
     },
     addItem() {
-      this.items.push({
-        id: this.id,
-        value: null,
+      this.quantityItems += 1;
+      this.sale.items.push({
+        id: this.quantityItems,
+        itemDescription: null,
+        unitaryValue: null,
+        quantity: null,
+        totalValue: null,
       });
-      this.buildValidations();
-      this.id++;
     },
-    buildValidations() {
-      this.schema[`itemDescription-${this.id}`] =
-        this.schema["itemDescription-0"];
-      this.schema[`unitaryValue-${this.id}`] = this.schema["unitaryValue-0"];
-      this.schema[`quantity-${this.id}`] = this.schema["quantity-0"];
-      this.schema[`totalValue-${this.id}`] = this.schema["totalValue-0"];
+    removeItem(index) {
+      this.sale.items.splice(index, 1);
     },
-    getItems(values) {
-      const items = [];
-
-      for (let i = 0; i < this.id; i++) {
-        items.push({
-          itemDescription: values[`itemDescription-${i}`],
-          unitaryValue: values[`unitaryValue-${i}`],
-          quantity: values[`quantity-${i}`],
-          totalValue: values[`totalValue-${i}`],
-        });
+    validateFields() {
+      let validation = [];
+      // validation.push(this.$refs.customer.validation());
+      // validation.push(this.$refs.billingDate.validation());
+      for (let i = 0; i < this.sale.items.length; i++) {
+        validation.push(this.$refs.itemDescription[i].validation());
+        validation.push(this.$refs.unitaryValue[i].validation());
+        validation.push(this.$refs.quantity[i].validation());
+        validation.push(this.$refs.totalValue[i].validation());
       }
-
-      return items;
+      return validation.filter((element) => element == false).length == 0;
     },
-    createSale(values) {
+    createSale() {
+      if (!this.validateFields()) return;
+
       saleService
-        .create({
-          customerId: values.customer,
-          billingDate: values.billingDate,
-          items: this.getItems(values),
-        })
+        .save(this.sale)
         .then((response) => {
-          this.updateUnsavedFlag(false);
-          this.$router.push({ name: "sales-list" });
-          alert(response.data.message);
+          message.success(response.data.message).then(() => {
+            this.updateUnsavedFlag(false);
+            this.$router.push({ name: "sales-list" });
+          });
         })
         .catch((error) => {
-          alert(error.response.data.notifications[0].message);
+          message.error(error.response.data.notifications[0].message);
         });
     },
     loadCustomerData() {
@@ -171,8 +233,27 @@ export default {
           this.users = response.data.customers;
         })
         .catch((error) => {
-          console.log(error);
+          message.error(error.response.data.notifications[0].message);
         });
+    },
+    loadSaleData() {
+      saleService
+        .getById(this.$route.query.id)
+        .then((response) => {
+          this.sale = response.data;
+          this.sale.billingDate = response.data.billingDate.slice(0, 10);
+        })
+        .catch((error) => {
+          message.error(error.response.data.notifications[0].message);
+        });
+    },
+  },
+  watch: {
+    sale: {
+      handler() {
+        this.updateUnsavedFlag(true);
+      },
+      deep: true,
     },
   },
   beforeRouteLeave(to, from, next) {
@@ -180,6 +261,11 @@ export default {
   },
   mounted() {
     this.loadCustomerData();
+
+    if (this.$route.query.id) {
+      this.title = "Atualizar venda";
+      this.loadSaleData();
+    }
   },
 };
 </script>
@@ -193,6 +279,24 @@ export default {
 
 .content {
   margin: 2.3rem 0 auto 0;
+}
+
+.form__dashed {
+  margin-top: 1.8rem;
+  border-bottom: 1px dashed var(--border);
+}
+
+.form__button--remove-sales {
+  margin-top: 0.9rem;
+  border: 1px solid var(--border-light-red);
+  border-radius: 5px;
+  width: 7.5rem;
+  height: 3.5rem;
+
+  background-color: var(--background-tertiary);
+  cursor: pointer;
+
+  color: var(--text-tertiary);
 }
 
 .add-items-button {

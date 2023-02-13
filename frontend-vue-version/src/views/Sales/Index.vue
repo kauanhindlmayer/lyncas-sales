@@ -41,7 +41,7 @@
               :value="sales"
               :paginator="true"
               :rows="4"
-              paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
+              paginatorTemplate="CurrentPageReport PrevPageLink PageLinks NextPageLink RowsPerPageDropdown"
               :rowsPerPageOptions="[4, 10, 20, 50, 100]"
               responsiveLayout="scroll"
               currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
@@ -97,6 +97,7 @@ import AppMenu from "@/layouts/Menu.vue";
 import AppHeader from "@/layouts/Header.vue";
 import HeaderButton from "@/layouts/HeaderButton.vue";
 import saleService from "@/common/services/sale.service";
+import message from "@/common/utils/message.js";
 
 export default {
   name: "Index",
@@ -123,18 +124,18 @@ export default {
           console.log(error);
         });
     },
-    handleDelete(id) {
-      const answer = confirm("Deseja realmente deletar a venda?");
+    async handleDelete(id) {
+      const answer = await message.confirm("Deseja realmente deletar a venda?");
 
-      if (answer) {
+      if (answer.isConfirmed) {
         saleService
           .delete(id)
           .then((response) => {
             this.updateTable();
-            alert(response.data.message);
+            message.success(response.data.message);
           })
           .catch((error) => {
-            alert(error.response.data.notifications[0].message);
+            message.error(error.response.data.notifications[0].message);
           });
       }
     },

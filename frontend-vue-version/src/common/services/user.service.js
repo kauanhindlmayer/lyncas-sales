@@ -9,8 +9,6 @@ const userService = {
   async authenticate(data) {
     const response = await apiService.post("User/autenticar", data);
 
-    console.log(response);
-
     jwtService.setUsername(response.userName);
     jwtService.setToken(response.token);
 

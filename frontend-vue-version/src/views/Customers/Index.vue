@@ -40,7 +40,7 @@
               :value="customers"
               :paginator="true"
               :rows="4"
-              paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
+              paginatorTemplate="CurrentPageReport PrevPageLink PageLinks NextPageLink RowsPerPageDropdown"
               :rowsPerPageOptions="[4, 10, 20, 50, 100]"
               responsiveLayout="scroll"
               currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"

@@ -7,11 +7,12 @@ const saleService = {
   getById(id) {
     return apiService.get(`Sale/obter/${id}`);
   },
-  create(data) {
-    return apiService.post("Sale/adicionar", data);
-  },
-  update(data) {
-    return apiService.put("Sale/atualizar", data);
+  save(sale) {
+    if (sale.id) {
+      return apiService.put("Sale/atualizar", sale);
+    } else {
+      return apiService.post("Sale/adicionar", sale);
+    }
   },
   delete(id) {
     return apiService.delete(`Sale/remover/${id}`);
