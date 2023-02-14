@@ -2,7 +2,7 @@
   <div>
     <label v-if="!hideLabel">
       {{ label }}
-      <!-- <span class="error-message" v-if="required">*</span> -->
+      <!-- <span class="text-danger" v-if="required">*</span> -->
     </label>
     <input
       :type="type"
@@ -11,7 +11,7 @@
       v-model="content"
       @input="input"
     />
-    <div class="error-message">
+    <div class="text-danger">
       {{ error_message }}
     </div>
   </div>
@@ -26,12 +26,12 @@ export default {
   props: {
     type: { type: String, default: "text" },
     placeholder: { type: String },
-    value: { Type: [String, Number], default: null },
-    label: { Type: String },
+    value: { type: [String, Number], default: null },
+    label: { type: String, required: true },
     hideLabel: { type: Boolean, default: false },
     required: { type: Boolean, default: false },
-    minlength: { Type: Number },
-    maxlength: { Type: Number },
+    minlength: { type: [String, Number] },
+    maxlength: { type: [String, Number] },
     min: { type: [Number, String], required: false },
     max: { type: [Number, String], required: false },
     email: { type: Boolean, default: false },
@@ -78,13 +78,13 @@ export default {
 
       if (this.min && Number(this.content) < this.min) {
         this.state = false;
-        this.error_message = `Valor mínimo do ${this.label} de é ${this.min}`;
+        this.error_message = `Valor mínimo do campo ${this.label} é ${this.min}`;
         return false;
       }
 
       if (this.max && Number(this.content) > this.max) {
         this.state = false;
-        this.error_message = `Valor máximo do ${this.label} de é ${this.max}`;
+        this.error_message = `Valor máximo do campo ${this.label} é ${this.max}`;
         return false;
       }
 
@@ -94,6 +94,7 @@ export default {
         return false;
       }
 
+      this.error_message = null;
       this.state = true;
       return true;
     },

@@ -78,8 +78,9 @@
   transition: box-shadow 0.25s ease-out;
 } */
 
-.error-message {
+.text-danger {
   color: #e53e3e;
+  /* min-height: 2.3rem; */
 }
 
 .component .select {

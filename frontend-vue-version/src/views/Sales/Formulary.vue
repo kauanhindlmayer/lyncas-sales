@@ -19,19 +19,14 @@
                   :options="users"
                   required
                 />
-                <div>
-                  <label for="billing-date-input">Data de faturamento</label>
-                  <input
-                    name="billingDate"
-                    type="date"
-                    id="billing-date-input"
-                    class="input-date field"
-                    required
-                    label="data de faturamento"
-                    v-model="sale.billingDate"
-                    @input="updateUnsavedFlag(true)"
-                  />
-                </div>
+                <input-text
+                  ref="billingDate"
+                  type="date"
+                  label="Data do Faturamento"
+                  v-model="sale.billingDate"
+                  :value="sale.billingDate"
+                  required
+                />
               </div>
               <div class="form__dashed"></div>
               <h2>Itens do pedido</h2>
@@ -68,7 +63,7 @@
                       :value="sale.items[index].quantity"
                       type="number"
                       placeholder=" "
-                      maxlength="5"
+                      max="100"
                       required
                     />
                     <input-text
@@ -183,7 +178,7 @@ export default {
     validateFields() {
       let validation = [];
       validation.push(this.$refs.customer.validation());
-      // validation.push(this.$refs.billingDate.validation());
+      validation.push(this.$refs.billingDate.validation());
       for (let i = 0; i < this.sale.items.length; i++) {
         validation.push(this.$refs.itemDescription[i].validation());
         validation.push(this.$refs.unitaryValue[i].validation());

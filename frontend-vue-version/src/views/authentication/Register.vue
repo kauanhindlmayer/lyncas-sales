@@ -40,7 +40,7 @@
           hideLabel
           required
         />
-        <div class="error-message">
+        <div class="text-danger">
           {{ error_message }}
         </div>
         <button type="submit" @click.prevent="register">Registrar</button>

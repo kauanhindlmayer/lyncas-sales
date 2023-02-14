@@ -1,12 +1,15 @@
 <template>
   <div>
-    <label v-if="!hideLabel">{{ label }}</label>
+    <label v-if="!hideLabel">
+      {{ label }}
+      <!-- <span class="text-danger" v-if="required">*</span> -->
+    </label>
     <select class="select" v-model="content" @input="input">
       <option v-for="{ name, id } in options" :value="id" :key="id">
         {{ name }}
       </option>
     </select>
-    <div class="error-message">
+    <div class="text-danger">
       {{ error_message }}
     </div>
   </div>
@@ -17,7 +20,7 @@ export default {
   name: "InputSelect",
   props: {
     value: { Type: [String, Number], default: null },
-    label: { Type: String },
+    label: { Type: String, required: true },
     hideLabel: { type: Boolean, default: false },
     required: { type: Boolean, default: false },
     options: { type: Array, required: true },
