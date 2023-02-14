@@ -54,48 +54,49 @@ export default {
 
 <style scoped>
 .menu {
-  background-color: var(--primary-color);
   display: flex;
+
+  background-color: var(--primary-color);
 }
 
 .menu__item--logo {
-  width: 10.6rem;
-  height: 2.4rem;
-
   position: absolute;
   top: 7.6rem;
   left: 3.5rem;
+
+  width: 10.6rem;
+  height: 2.4rem;
 }
 
 .menu__item {
-  color: var(--background-secondary);
-
-  width: 12.6rem;
-  margin-bottom: 1.4rem;
-
-  border: 1px solid var(--border-blue);
-  border-radius: 4px;
+  position: absolute;
 
   display: flex;
   align-items: center;
 
-  position: absolute;
+  border: 1px solid var(--border-blue);
+  border-radius: 4px;
+  width: 12.6rem;
+  margin-bottom: 1.4rem;
+
+  color: var(--background-secondary);
 }
 
 .menu__item span a {
-  color: var(--background-secondary);
   text-decoration: none;
+  color: var(--background-secondary);
 }
 
 .menu__item:hover {
   background-color: var(--border-blue);
+
   filter: brightness(0.9);
 }
 
 .menu__item__icon {
+  margin: 0.9rem 1.2rem;
   width: 1.6rem;
   height: 1.6rem;
-  margin: 0.9rem 1.2rem;
 }
 
 .menu__item--dashboard {

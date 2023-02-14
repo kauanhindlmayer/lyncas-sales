@@ -54,17 +54,18 @@ export default {
 }
 
 .header {
-  border-bottom: 2px solid var(--border);
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  border-bottom: 2px solid var(--border);
 }
 
 .profile__picture {
-  width: 5rem;
-  height: 5rem;
   border: 2px solid var(--border);
   border-radius: 5px;
+  width: 5rem;
+  height: 5rem;
 }
 
 .profile {
@@ -72,16 +73,18 @@ export default {
 }
 
 .profile__name {
-  color: var(--text-primary);
-  font-weight: 700;
   margin-left: 1.8rem;
+
+  font-weight: 700;
+  color: var(--text-primary);
 }
 
 .profile__name a {
   cursor: pointer;
-  color: var(--gray-100);
+
   font-weight: 500;
   text-decoration: none;
+  color: var(--gray-100);
 }
 
 .profile__name a:hover {
@@ -89,19 +92,19 @@ export default {
 }
 
 .profile__button {
-  background-color: var(--gray-100);
-  color: var(--background-secondary);
-
-  border-radius: 4px;
-  width: 15rem;
-  height: 5rem;
-
   display: flex;
   justify-content: center;
   align-items: center;
 
+  border-radius: 0.4rem;
+  width: 15rem;
+  height: 5rem;
+
+  background-color: var(--gray-100);
+
   font-size: 2rem;
   font-weight: 700;
+  color: var(--background-secondary);
 }
 
 .profile__button--add {

@@ -51,15 +51,15 @@ a {
 }
 
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 0.6rem;
+  height: 0.6rem;
 }
 ::-webkit-scrollbar-track {
-  border-radius: 10px;
+  border-radius: 1rem;
   background: rgba(0, 0, 0, 0.1);
 }
 ::-webkit-scrollbar-thumb {
-  border-radius: 10px;
+  border-radius: 1rem;
   background: var(--gray-100);
 }
 ::-webkit-scrollbar-thumb:hover {

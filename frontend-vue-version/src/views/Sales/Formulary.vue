@@ -276,23 +276,22 @@ export default {
 }
 
 .add-items-button {
-  background-color: var(--background-secondary);
-  color: var(--text-primary);
-  border: 1px solid var(--text-primary);
-  border-radius: 4px;
-  font-weight: 700;
-  font-size: 2rem;
-
   display: flex;
   justify-content: center;
   align-items: center;
 
+  margin: 1.8rem 0 0 0;
+  border: 1px solid var(--text-primary);
+  border-radius: 4px;
   width: calc(50% - 9px);
   height: 3.9rem;
 
-  margin: 1.8rem 0 0 0;
-
+  background-color: var(--background-secondary);
   cursor: pointer;
+
+  font-weight: 700;
+  font-size: 2rem;
+  color: var(--text-primary);
 }
 
 .add-items-button:hover {
@@ -307,15 +306,16 @@ export default {
 .footer {
   display: flex;
   align-items: center;
+
   margin: 2.6rem 0 1.6rem 0;
   width: 100%;
 }
 
 .footer__total-value {
-  color: var(--text-primary);
-  font-weight: 700;
   font-size: 2.4rem;
   line-height: 3.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
 }
 
 @media only screen and (max-width: 1366px) {

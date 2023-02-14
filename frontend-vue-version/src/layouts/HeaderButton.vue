@@ -18,19 +18,19 @@ export default {
 
 <style>
 .profile__button {
-  background-color: var(--gray-100);
-  color: var(--background-secondary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   border-radius: 4px;
   width: 15rem;
   height: 5rem;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background-color: var(--gray-100);
 
   font-size: 2rem;
   font-weight: 700;
+  color: var(--background-secondary);
 }
 
 .profile__button--add {

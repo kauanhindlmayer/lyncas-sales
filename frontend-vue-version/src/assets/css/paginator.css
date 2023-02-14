@@ -1,12 +1,12 @@
 .p-component {
-  font-family: "Jost", sans-serif;
   font-size: 1.6rem;
+  font-family: "Jost", sans-serif;
   font-weight: normal;
 }
 
 .p-link {
-  font-family: "Jost", sans-serif;
   font-size: 1.6rem;
+  font-family: "Jost", sans-serif;
 }
 
 .p-paginator {
@@ -26,6 +26,7 @@
 
 .p-datatable .p-datatable-thead > tr > th {
   border: none;
+
   font-weight: normal;
   color: var(--text-secondary);
 }

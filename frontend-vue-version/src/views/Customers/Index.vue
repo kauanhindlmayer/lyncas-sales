@@ -171,19 +171,24 @@ export default {
 
 .table__button {
   margin-right: 0.8rem;
+
   cursor: pointer;
 }
 
 .table__button--edit {
-  background-color: var(--background-quaternary);
-  color: var(--text-quaternary);
   border: 1px solid var(--border-light-blue);
+
+  background-color: var(--background-quaternary);
+
+  color: var(--text-quaternary);
 }
 
 .table__button--delete {
-  background-color: var(--background-tertiary);
-  color: var(--text-tertiary);
   border: 1px solid var(--border-light-red);
+
+  background-color: var(--background-tertiary);
+
+  color: var(--text-tertiary);
 }
 
 .table__button:hover {
@@ -198,15 +203,16 @@ export default {
 
 .component__header h1 {
   margin-left: 0;
+
   font-size: 2.4rem;
 }
 
 .sr-only {
   position: absolute;
+  margin: -1px;
   width: 1px;
   height: 1px;
   padding: 0;
-  margin: -1px;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;

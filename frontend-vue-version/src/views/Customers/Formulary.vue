@@ -43,6 +43,14 @@
                 cpf
                 required
               />
+              <!-- <input-mask
+                ref="cpf"
+                label="CPF"
+                mask="'###.###.###-##'"
+                v-model="customer.cpf"
+                :value="customer.cpf"
+                required
+              /> -->
             </div>
             <div class="align-right">
               <button
