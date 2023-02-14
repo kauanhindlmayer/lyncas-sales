@@ -16,7 +16,7 @@
                 ref="select"
               >
                 <option value="Filter" disabled selected hidden>Filtros</option>
-                <option value="Customer">Cliente</option>
+                <!-- <option value="Customer">Cliente</option> -->
                 <option value="QuantityItems">Quantidade</option>
                 <option value="SaleDate">Data da Venda</option>
                 <option value="BillingDate">Data do Faturamento</option>
@@ -31,12 +31,12 @@
                 id="search-button"
                 class="header__search-button"
                 placeholder="Buscar vendas..."
-                v-model="searchInput"
+                v-model="searchParam"
                 @keydown.enter="searchSales"
               />
             </div>
           </div>
-          <div>
+          <div class="component__table-wrapper">
             <DataTable :value="sales" responsiveLayout="scroll">
               <template #empty> Nenhum registro encontrado </template>
               <Column field="customer" header="Cliente" :sortable="true" />
@@ -45,21 +45,27 @@
                 header="Qtd. Itens"
                 :sortable="true"
               />
-              <Column
-                field="saleDate"
-                header="Data da Venda"
-                :sortable="true"
-              />
-              <Column
-                field="billingDate"
-                header="Data do Faturamento"
-                :sortable="true"
-              />
-              <Column
-                field="totalValue"
-                header="Valor Total"
-                :sortable="true"
-              />
+
+              <Column :sortable="true">
+                <template #header>Data da Venda</template>
+                <template #body="slotProps">
+                  {{ formatDate(slotProps.data.saleDate) }}
+                </template>
+              </Column>
+
+              <Column :sortable="true">
+                <template #header>Data do Faturamento</template>
+                <template #body="slotProps">
+                  {{ formatDate(slotProps.data.billingDate) }}
+                </template>
+              </Column>
+
+              <Column :sortable="true">
+                <template #header>Valor Total</template>
+                <template #body="slotProps">
+                  {{ formatCurrency(slotProps.data.totalValue) }}
+                </template>
+              </Column>
               <Column>
                 <template #header>Ações</template>
                 <template #body="slotProps">
@@ -78,18 +84,16 @@
                 </template>
               </Column>
             </DataTable>
-            <Paginator
-              :template="{
-                default:
-                  'CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink',
-              }"
-              currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
-              :rows="limit"
-              :totalRecords="totalRecords"
-              @page="onPage($event)"
-            >
-            </Paginator>
           </div>
+          <Paginator
+            template="CurrentPageReport RowsPerPageDropdown FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink"
+            currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
+            :rows="limit"
+            :totalRecords="totalRecords"
+            :rowsPerPageOptions="[limit, 10, 20, 30, 50]"
+            @page="onPage($event)"
+          >
+          </Paginator>
         </section>
       </div>
     </div>
@@ -102,6 +106,7 @@ import AppHeader from "@/layouts/Header.vue";
 import HeaderButton from "@/layouts/HeaderButton.vue";
 import saleService from "@/common/services/sale.service";
 import message from "@/common/utils/message.js";
+import helper from "@/common/utils/helper.js";
 
 export default {
   name: "Index",
@@ -112,26 +117,29 @@ export default {
   },
   data() {
     return {
-      limit: 4,
-      offset: 0,
-      totalRecords: null,
       sales: null,
-      searchInput: null,
+      totalRecords: null,
+      searchParam: null,
       selectedFilter: "Filter",
     };
   },
+  computed: {
+    limit() {
+      return document.documentElement.clientWidth > 1366 ? 8 : 4;
+    },
+  },
   methods: {
+    formatDate: helper.formatDate,
+    formatCurrency: helper.formatCurrency,
     onPage(event) {
       saleService
-        .paginate(this.limit, event.page * this.limit)
+        .listPaginated(
+          event ? event.rows : this.limit,
+          event ? event.rows * event.page : 0
+        )
         .then((response) => {
           this.sales = response.data.sales;
         });
-    },
-    updateTable() {
-      saleService.paginate(this.limit, this.offset).then((response) => {
-        this.sales = response.data.sales;
-      });
     },
     async handleDelete(id) {
       const answer = await message.confirm("Deseja realmente deletar a venda?");
@@ -157,35 +165,31 @@ export default {
         return;
       }
 
-      console.log(`?${this.selectedFilter}=${this.searchInput}`);
+      if (this.searchParam.length < 1) {
+        this.onPage();
+        return;
+      }
 
-      this.updateTable(`?${this.selectedFilter}=${this.searchInput}`);
+      saleService
+        .search(this.selectedFilter, this.searchParam)
+        .then((response) => {
+          this.sales = response.data.sales;
+        });
     },
     configurePaginator() {
-      saleService.get().then((response) => {
+      saleService.list().then((response) => {
         this.totalRecords = response.data.recordsQuantity;
-        this.limit = 4;
       });
     },
   },
   async mounted() {
     this.configurePaginator();
-    this.updateTable();
+    this.onPage();
   },
 };
 </script>
 
 <style>
-.p-paginator {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.p-paginator-current {
-  position: absolute;
-  left: 18.2rem;
-}
-
 .content {
   margin: 2.3rem 0 auto 0;
 }

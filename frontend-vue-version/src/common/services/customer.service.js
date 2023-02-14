@@ -1,14 +1,17 @@
 import apiService from "@/common/api/api.service";
 
 const customerService = {
-  get(resource) {
-    return apiService.get(`Customer/listar${resource ?? ""}`);
+  list() {
+    return apiService.get(`Customer/listar`);
   },
-  paginate(limit, offset) {
+  listPaginated(limit, offset) {
     return apiService.get(`Customer/listar?Limit=${limit}&Offset=${offset}`);
   },
-  getById(id) {
-    return apiService.get(`Customer/obter/${id}`);
+  getById(customerId) {
+    return apiService.get(`Customer/obter/${customerId}`);
+  },
+  search(param, value) {
+    return apiService.get(`Customer/listar?${param}=${value}`);
   },
   save(customer) {
     if (customer.id) {
@@ -17,8 +20,8 @@ const customerService = {
       return apiService.post("Customer/adicionar", customer);
     }
   },
-  delete(id) {
-    return apiService.delete(`Customer/remover/${id}`);
+  delete(customerId) {
+    return apiService.delete(`Customer/remover/${customerId}`);
   },
 };
 

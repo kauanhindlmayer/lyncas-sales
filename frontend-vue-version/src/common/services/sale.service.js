@@ -1,14 +1,17 @@
 import apiService from "@/common/api/api.service";
 
 const saleService = {
-  get(resource) {
-    return apiService.get(`Sale/listar${resource ?? ""}`);
+  list() {
+    return apiService.get(`Sale/listar`);
   },
-  paginate(limit, offset) {
+  listPaginated(limit, offset) {
     return apiService.get(`Sale/listar?Limit=${limit}&Offset=${offset}`);
   },
-  getById(id) {
-    return apiService.get(`Sale/obter/${id}`);
+  getById(saleId) {
+    return apiService.get(`Sale/obter/${saleId}`);
+  },
+  search(param, value) {
+    return apiService.get(`Sale/listar?${param}=${value}`);
   },
   save(sale) {
     if (sale.id) {
@@ -17,8 +20,8 @@ const saleService = {
       return apiService.post("Sale/adicionar", sale);
     }
   },
-  delete(id) {
-    return apiService.delete(`Sale/remover/${id}`);
+  delete(saleId) {
+    return apiService.delete(`Sale/remover/${saleId}`);
   },
 };
 

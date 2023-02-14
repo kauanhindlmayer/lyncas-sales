@@ -10,12 +10,32 @@
 }
 
 .p-paginator {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
   background: var(--background);
+
   color: var(--text-secondary);
+}
+
+.p-paginator-current {
+  position: absolute;
+  left: 18.2rem;
 }
 
 .p-datatable .p-datatable-thead > tr > th {
   border: none;
   font-weight: normal;
   color: var(--text-secondary);
+}
+
+.p-dropdown-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: 0.15rem;
+
+  font-size: 1.6rem;
 }

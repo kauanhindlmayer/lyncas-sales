@@ -157,11 +157,11 @@
   padding: 2.4rem 1.2rem;
 }
 
-/* .component__table-wrapper {
+.component__table-wrapper {
   overflow-y: auto;
 
-  height: calc(100vh - 30rem);
-} */
+  height: calc(100vh - 28rem);
+}
 
 .component .table--left-corner {
   border-radius: 5px 0 0 5px;
@@ -239,11 +239,11 @@
     margin-left: 0;
   }
 
-  /* .component__table-wrapper {
+  .component__table-wrapper {
     overflow-y: auto;
 
-    height: calc(100vh - 28.3rem);
+    height: calc(100vh - 27.3rem);
 
-    margin-bottom: 1rem;
-  } */
+    /* margin-bottom: 1rem; */
+  }
 }

@@ -30,7 +30,7 @@
                 id="search-button"
                 class="header__search-button"
                 placeholder="Buscar clientes..."
-                v-model="searchInput"
+                v-model="searchParam"
                 @keydown.enter="search"
               />
             </div>
@@ -60,18 +60,16 @@
                 </template>
               </Column>
             </DataTable>
-            <Paginator
-              :template="{
-                default:
-                  'CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink',
-              }"
-              currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
-              :rows="limit"
-              :totalRecords="totalRecords"
-              @page="onPage($event)"
-            >
-            </Paginator>
           </div>
+          <Paginator
+            template="CurrentPageReport RowsPerPageDropdown FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink"
+            currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
+            :rows="limit"
+            :totalRecords="totalRecords"
+            :rowsPerPageOptions="[limit, 10, 20, 30, 50]"
+            @page="onPage($event)"
+          >
+          </Paginator>
         </section>
       </div>
     </div>
@@ -94,26 +92,27 @@ export default {
   },
   data() {
     return {
-      limit: 4,
-      offset: 0,
-      totalRecords: null,
       customers: null,
-      searchInput: null,
+      totalRecords: null,
+      searchParam: null,
       selectedFilter: "Filter",
     };
+  },
+  computed: {
+    limit() {
+      return document.documentElement.clientWidth > 1366 ? 8 : 4;
+    },
   },
   methods: {
     onPage(event) {
       customerService
-        .paginate(this.limit, event.page * this.limit)
+        .listPaginated(
+          event ? event.rows : this.limit,
+          event ? event.rows * event.page : 0
+        )
         .then((response) => {
           this.customers = response.data.customers;
         });
-    },
-    updateTable() {
-      customerService.paginate(this.limit, this.offset).then((response) => {
-        this.customers = response.data.customers;
-      });
     },
     async handleDelete(id) {
       const answer = await message.confirm(
@@ -141,33 +140,31 @@ export default {
         return;
       }
 
-      this.updateTable(`?${this.selectedFilter}=${this.searchInput}`);
+      if (this.searchParam.length < 1) {
+        this.onPage();
+        return;
+      }
+
+      customerService
+        .search(this.selectedFilter, this.searchParam)
+        .then((response) => {
+          this.customers = response.data.customers;
+        });
     },
     configurePaginator() {
-      customerService.get().then((response) => {
+      customerService.list().then((response) => {
         this.totalRecords = response.data.recordsQuantity;
-        this.limit = 4;
       });
     },
   },
   mounted() {
     this.configurePaginator();
-    this.updateTable();
+    this.onPage();
   },
 };
 </script>
 
 <style>
-.p-paginator {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.p-paginator-current {
-  position: absolute;
-  left: 18.2rem;
-}
-
 .content {
   margin: 2.3rem 0 auto 0;
 }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <label for="name-input" v-if="!hideLabel">
+    <label v-if="!hideLabel">
       {{ label }}
       <!-- <span class="error-message" v-if="required">*</span> -->
     </label>

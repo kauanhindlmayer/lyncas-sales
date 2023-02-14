@@ -11,24 +11,14 @@
             <h1>{{ title }}</h1>
             <form class="form">
               <div class="form__form-wrapper">
-                <div>
-                  <label for="customer-input">Cliente</label>
-                  <select
-                    name="customer"
-                    class="select field"
-                    id="customer-input"
-                    required
-                    label="cliente"
-                    v-model="sale.customerId"
-                    @input="updateUnsavedFlag(true)"
-                  >
-                    <option data-default disabled selected></option>
-                    <option v-for="{ name, id } in users" :value="id" :key="id">
-                      {{ name }}
-                    </option>
-                  </select>
-                  <ErrorMessage class="error-message" name="customer" />
-                </div>
+                <input-select
+                  ref="customer"
+                  label="Cliente"
+                  v-model="sale.customerId"
+                  :value="sale.customerId"
+                  :options="users"
+                  required
+                />
                 <div>
                   <label for="billing-date-input">Data de faturamento</label>
                   <input
@@ -41,66 +31,56 @@
                     v-model="sale.billingDate"
                     @input="updateUnsavedFlag(true)"
                   />
-                  <ErrorMessage class="error-message" name="billingDate" />
                 </div>
               </div>
               <div class="form__dashed"></div>
               <h2>Itens do pedido</h2>
-
               <template v-for="(item, index) in sale.items" :key="item.id">
                 <div class="form__item">
                   <div class="form__dashed" v-if="index > 0"></div>
                   <div class="form__form-wrapper">
-                    <div>
-                      <input-text
-                        ref="itemDescription"
-                        label="Descrição do item"
-                        v-model="sale.items[index].itemDescription"
-                        :value="sale.items[index].itemDescription"
-                        placeholder=" "
-                        minLength="3"
-                        maxlength="254"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <input-text
-                        ref="unitaryValue"
-                        label="Valor unitário"
-                        v-model="sale.items[index].unitaryValue"
-                        :value="sale.items[index].unitaryValue"
-                        type="number"
-                        placeholder=" "
-                        maxlength="10"
-                        required
-                      />
-                    </div>
+                    <input-text
+                      ref="itemDescription"
+                      label="Descrição do item"
+                      v-model="sale.items[index].itemDescription"
+                      :value="sale.items[index].itemDescription"
+                      placeholder=" "
+                      minLength="3"
+                      maxlength="254"
+                      required
+                    />
+                    <input-text
+                      ref="unitaryValue"
+                      label="Valor unitário"
+                      v-model="sale.items[index].unitaryValue"
+                      :value="sale.items[index].unitaryValue"
+                      type="number"
+                      placeholder=" "
+                      maxlength="10"
+                      required
+                    />
                   </div>
                   <div class="form__form-wrapper">
-                    <div>
-                      <input-text
-                        ref="quantity"
-                        label="Quantidade"
-                        v-model="sale.items[index].quantity"
-                        :value="sale.items[index].quantity"
-                        type="number"
-                        placeholder=" "
-                        maxlength="5"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <input-text
-                        ref="totalValue"
-                        label="Valor total"
-                        v-model="sale.items[index].totalValue"
-                        :value="sale.items[index].totalValue"
-                        type="number"
-                        placeholder=" "
-                        maxlength="10"
-                        required
-                      />
-                    </div>
+                    <input-text
+                      ref="quantity"
+                      label="Quantidade"
+                      v-model="sale.items[index].quantity"
+                      :value="sale.items[index].quantity"
+                      type="number"
+                      placeholder=" "
+                      maxlength="5"
+                      required
+                    />
+                    <input-text
+                      ref="totalValue"
+                      label="Valor total"
+                      v-model="sale.items[index].totalValue"
+                      :value="sale.items[index].totalValue"
+                      type="number"
+                      placeholder=" "
+                      maxlength="10"
+                      required
+                    />
                   </div>
                   <button
                     v-if="index > 0"
@@ -147,7 +127,7 @@ import HeaderButton from "@/layouts/HeaderButton.vue";
 import checkUnsaved from "@/common/middlewares/checkUnsaved.js";
 import saleService from "@/common/services/sale.service";
 import customerService from "@/common/services/customer.service";
-import { InputText } from "@/components/inputs";
+import { InputText, InputSelect } from "@/components/inputs";
 import message from "@/common/utils/message.js";
 
 export default {
@@ -157,6 +137,7 @@ export default {
     AppHeader,
     HeaderButton,
     InputText,
+    InputSelect,
   },
   data() {
     return {
@@ -201,7 +182,7 @@ export default {
     },
     validateFields() {
       let validation = [];
-      // validation.push(this.$refs.customer.validation());
+      validation.push(this.$refs.customer.validation());
       // validation.push(this.$refs.billingDate.validation());
       for (let i = 0; i < this.sale.items.length; i++) {
         validation.push(this.$refs.itemDescription[i].validation());
@@ -228,7 +209,7 @@ export default {
     },
     loadCustomerData() {
       customerService
-        .get()
+        .list()
         .then((response) => {
           this.users = response.data.customers;
         })
