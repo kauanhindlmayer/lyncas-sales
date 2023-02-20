@@ -63,6 +63,8 @@
 </template>
 
 <script>
+import { mapActions } from "pinia";
+import useLoaderStore from "@/stores/loader";
 import user from "@/common/services/user.service";
 import InputText from "../../components/inputs/InputText.vue";
 import message from "@/common/utils/message.js";
@@ -84,6 +86,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(useLoaderStore, ["startLoading", "stopLoading"]),
     validateFields() {
       let validation = [];
       validation.push(this.$refs.name.validation());
@@ -97,6 +100,8 @@ export default {
 
       if (this.user.password != this.user.confirm_password)
         return (this.error_message = "Senhas não conferem");
+
+      this.startLoading();
 
       user
         .create({
@@ -112,6 +117,9 @@ export default {
         })
         .catch((error) => {
           message.error(error.response.data.notifications[0].message);
+        })
+        .finally(() => {
+          this.stopLoading();
         });
     },
   },

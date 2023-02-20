@@ -4,7 +4,7 @@
       {{ label }}
       <!-- <span class="text-danger" v-if="required">*</span> -->
     </label>
-    <select class="select" v-model="content" @input="input">
+    <select class="select" v-model="selected">
       <option v-for="{ name, id } in options" :value="id" :key="id">
         {{ name }}
       </option>
@@ -27,19 +27,22 @@ export default {
   },
   data() {
     return {
-      content: this.value,
+      selected: this.value,
       state: null,
       error_message: null,
     };
   },
   watch: {
     value(newValue) {
-      this.content = newValue;
+      this.selected = newValue;
+    },
+    selected() {
+      this.$emit("update:modelValue", this.selected);
     },
   },
   methods: {
     validation() {
-      if (this.required && !this.content) {
+      if (this.required && !this.selected) {
         this.state = false;
         this.error_message = `Campo ${this.label} é obrigatório`;
         return false;
@@ -47,9 +50,6 @@ export default {
 
       this.state = true;
       return true;
-    },
-    input() {
-      this.$emit("update:modelValue", this.content);
     },
   },
 };

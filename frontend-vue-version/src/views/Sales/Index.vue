@@ -101,6 +101,8 @@
 </template>
 
 <script>
+import { mapActions } from "pinia";
+import useLoaderStore from "@/stores/loader";
 import AppMenu from "@/layouts/Menu.vue";
 import AppHeader from "@/layouts/Header.vue";
 import HeaderButton from "@/layouts/HeaderButton.vue";
@@ -131,7 +133,10 @@ export default {
   methods: {
     formatDate: helper.formatDate,
     formatCurrency: helper.formatCurrency,
+    ...mapActions(useLoaderStore, ["startLoading", "stopLoading"]),
     onPage(event) {
+      this.startLoading();
+
       saleService
         .listPaginated(
           event ? event.rows : this.limit,
@@ -139,20 +144,29 @@ export default {
         )
         .then((response) => {
           this.sales = response.data.sales;
+        })
+        .finally(() => {
+          this.stopLoading();
         });
     },
     async handleDelete(id) {
       const answer = await message.confirm("Deseja realmente deletar a venda?");
 
       if (answer.isConfirmed) {
+        this.startLoading();
+
         saleService
           .delete(id)
           .then((response) => {
-            this.updateTable();
-            message.success(response.data.message);
+            message.success(response.data.message).then(() => {
+              this.onPage();
+            });
           })
           .catch((error) => {
             message.error(error.response.data.notifications[0].message);
+          })
+          .finally(() => {
+            this.stopLoading();
           });
       }
     },

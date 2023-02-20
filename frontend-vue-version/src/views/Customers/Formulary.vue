@@ -43,14 +43,6 @@
                 cpf
                 required
               />
-              <!-- <input-mask
-                ref="cpf"
-                label="CPF"
-                mask="'###.###.###-##'"
-                v-model="customer.cpf"
-                :value="customer.cpf"
-                required
-              /> -->
             </div>
             <div class="align-right">
               <button
@@ -69,6 +61,8 @@
 </template>
 
 <script>
+import { mapActions } from "pinia";
+import useLoaderStore from "@/stores/loader";
 import AppMenu from "@/layouts/Menu.vue";
 import AppHeader from "@/layouts/Header.vue";
 import HeaderButton from "@/layouts/HeaderButton.vue";
@@ -100,6 +94,7 @@ export default {
   },
   methods: {
     checkUnsaved,
+    ...mapActions(useLoaderStore, ["startLoading", "stopLoading"]),
     updateUnsavedFlag(value) {
       this.unsavedFlag = value;
     },
@@ -114,6 +109,8 @@ export default {
     submit() {
       if (!this.validateFields()) return;
 
+      this.startLoading();
+
       customerService
         .save(this.customer)
         .then((response) => {
@@ -124,6 +121,9 @@ export default {
         })
         .catch((error) => {
           message.error(error.response.data.notifications[0].message);
+        })
+        .finally(() => {
+          this.stopLoading();
         });
     },
     loadCustomerData() {

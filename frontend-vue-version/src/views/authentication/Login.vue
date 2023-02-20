@@ -42,7 +42,8 @@
 </template>
 
 <script>
-import { mapWritableState } from "pinia";
+import { mapWritableState, mapActions } from "pinia";
+import useLoaderStore from "@/stores/loader";
 import axios from "axios";
 import userService from "@/common/services/user.service";
 import useUserStore from "@/stores/user";
@@ -66,6 +67,7 @@ export default {
     ...mapWritableState(useUserStore, ["name", "token"]),
   },
   methods: {
+    ...mapActions(useLoaderStore, ["startLoading", "stopLoading"]),
     validateFields() {
       let validation = [];
       validation.push(this.$refs.email.validation());
@@ -74,6 +76,8 @@ export default {
     },
     login() {
       if (!this.validateFields()) return;
+
+      this.startLoading();
 
       userService
         .authenticate({
@@ -88,6 +92,9 @@ export default {
         })
         .catch((error) => {
           message.error(error.response.data.notifications[0].message);
+        })
+        .finally(() => {
+          this.stopLoading();
         });
     },
   },

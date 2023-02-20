@@ -1,14 +1,17 @@
 <template>
-  <router-view />
+  <div class="main-wrapper">
+    <router-view />
+    <loader />
+  </div>
 </template>
 
 <script>
-import { RouterView } from "vue-router";
+import Loader from "@/components/loader/loader.vue";
 
 export default {
   name: "App",
   components: {
-    RouterView,
+    Loader,
   },
 };
 </script>

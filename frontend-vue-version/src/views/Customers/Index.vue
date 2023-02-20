@@ -77,6 +77,8 @@
 </template>
 
 <script>
+import { mapActions } from "pinia";
+import useLoaderStore from "@/stores/loader";
 import AppMenu from "@/layouts/Menu.vue";
 import AppHeader from "@/layouts/Header.vue";
 import HeaderButton from "@/layouts/HeaderButton.vue";
@@ -94,6 +96,7 @@ export default {
     return {
       customers: null,
       totalRecords: null,
+      current_page: 1,
       searchParam: null,
       selectedFilter: "Filter",
     };
@@ -104,7 +107,10 @@ export default {
     },
   },
   methods: {
+    ...mapActions(useLoaderStore, ["startLoading", "stopLoading"]),
     onPage(event) {
+      this.startLoading();
+
       customerService
         .listPaginated(
           event ? event.rows : this.limit,
@@ -112,6 +118,9 @@ export default {
         )
         .then((response) => {
           this.customers = response.data.customers;
+        })
+        .finally(() => {
+          this.stopLoading();
         });
     },
     async handleDelete(id) {
@@ -120,14 +129,20 @@ export default {
       );
 
       if (answer.isConfirmed) {
+        this.startLoading();
+
         customerService
           .delete(id)
           .then((response) => {
-            this.updateTable();
-            message.success(response.data.message);
+            message.success(response.data.message).then(() => {
+              this.onPage();
+            });
           })
           .catch((error) => {
             message.error(error.response.data.notifications[0].message);
+          })
+          .finally(() => {
+            this.stopLoading();
           });
       }
     },
