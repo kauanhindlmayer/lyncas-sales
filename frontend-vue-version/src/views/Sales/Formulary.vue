@@ -95,7 +95,7 @@
               <div class="form__dashed"></div>
               <div class="footer">
                 <div class="footer__total-value">
-                  <span>{{ totalValue }}</span>
+                  <span>{{ totalValue() }}</span>
                 </div>
                 <div class="align-right">
                   <button
@@ -117,6 +117,7 @@
 
 <script>
 import { mapActions } from "pinia";
+import { InputText, InputSelect } from "@/components/inputs";
 import useLoaderStore from "@/stores/loader";
 import AppMenu from "@/layouts/Menu.vue";
 import AppHeader from "@/layouts/Header.vue";
@@ -124,8 +125,8 @@ import HeaderButton from "@/layouts/HeaderButton.vue";
 import checkUnsaved from "@/common/middlewares/checkUnsaved.js";
 import saleService from "@/common/services/sale.service";
 import customerService from "@/common/services/customer.service";
-import { InputText, InputSelect } from "@/components/inputs";
 import message from "@/common/utils/message.js";
+import helper from "@/common/utils/helper.js";
 
 export default {
   name: "SaleCreate",
@@ -156,14 +157,27 @@ export default {
         ],
       },
       users: null,
-      totalValue: "",
     };
   },
   methods: {
+    formatCurrency: helper.formatCurrency,
     checkUnsaved,
     ...mapActions(useLoaderStore, ["startLoading", "stopLoading"]),
     updateUnsavedFlag(value) {
       this.unsavedFlag = value;
+    },
+    totalValue() {
+      let total = 0;
+
+      for (let item of this.sale.items) {
+        item.totalValue =
+          item.unitaryValue && item.quantity
+            ? item.unitaryValue * item.quantity
+            : null;
+        total += item.totalValue;
+      }
+
+      return `Total: ${this.formatCurrency(total)}`;
     },
     addItem() {
       this.quantityItems += 1;

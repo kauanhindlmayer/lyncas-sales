@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 
-export default defineStore("store", {
+const loader = defineStore("loader", {
   state: () => ({
     loading: false,
   }),
@@ -16,3 +16,5 @@ export default defineStore("store", {
     },
   },
 });
+
+export default loader;

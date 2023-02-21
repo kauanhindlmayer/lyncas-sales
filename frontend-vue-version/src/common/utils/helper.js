@@ -1,8 +1,9 @@
-import jwtService from "@/common/services/jwt.service";
-import useUserStore from "@/stores/user";
-import router from "@/router";
 import moment from "moment";
+// import useUserStore from "@/stores/user";
+import router from "@/router";
 import message from "@/common/utils/message.js";
+
+// const store = useUserStore();
 
 const formatDate = (date) => {
   return moment(date).format("DD/MM/YYYY");
@@ -16,14 +17,11 @@ const formatCurrency = (money) => {
 };
 
 const handleExpiredToken = () => {
-  jwtService.removeToken();
-  jwtService.removeUsername();
-
-  useUserStore().$reset();
+  // store.removeAuthenticationData();
 
   message.alert("Sua sessão expirou.");
 
-  router.push("/conectar-se");
+  router.push({ name: "login" });
 };
 
 export default {

@@ -65,7 +65,7 @@
 <script>
 import { mapActions } from "pinia";
 import useLoaderStore from "@/stores/loader";
-import user from "@/common/services/user.service";
+import userService from "@/common/services/user.service";
 import InputText from "../../components/inputs/InputText.vue";
 import message from "@/common/utils/message.js";
 
@@ -98,13 +98,17 @@ export default {
     register() {
       if (!this.validateFields()) return;
 
-      if (this.user.password != this.user.confirm_password)
-        return (this.error_message = "Senhas não conferem");
+      if (this.user.password != this.user.confirm_password) {
+        this.error_message = "Senhas não conferem";
+        return;
+      } else {
+        this.error_message = null;
+      }
 
       this.startLoading();
 
-      user
-        .create({
+      userService
+        .register({
           name: this.user.name,
           login: this.user.email,
           password: this.user.password,

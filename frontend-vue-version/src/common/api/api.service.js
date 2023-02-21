@@ -1,9 +1,7 @@
 import axios from "axios";
 import BASE_URL from "@/common/config/config";
 import handleExpiredToken from "@/common/utils/helper";
-import useUserStore from "@/stores/user";
-
-const user = useUserStore();
+import jwtService from "@/common/services/jwt.service";
 
 axios.interceptors.response.use(
   (response) => response,
@@ -16,7 +14,9 @@ axios.interceptors.response.use(
 const apiService = {
   init() {
     axios.defaults.baseURL = BASE_URL;
-    axios.defaults.headers.common["Authorization"] = `Bearer ${user.token}`;
+    axios.defaults.headers.common[
+      "Authorization"
+    ] = `Bearer ${jwtService.getToken()}`;
   },
 
   async get(resource) {

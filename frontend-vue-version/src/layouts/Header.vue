@@ -9,7 +9,7 @@
       </div>
 
       <div class="profile__name">
-        <h3>Olá, {{ name }}</h3>
+        <h3>Olá, {{ username }}</h3>
         <a @click="handleLogout">Sair</a>
       </div>
     </div>
@@ -19,29 +19,27 @@
 
 <script>
 import jwtService from "@/common/services/jwt.service";
-import { mapStores, mapState } from "pinia";
+import { mapActions } from "pinia";
 import useUserStore from "@/stores/user";
 import message from "@/common/utils/message.js";
 
 export default {
   name: "AppHeader",
+  data() {
+    return {
+      username: jwtService.getUsername(),
+    };
+  },
   methods: {
+    ...mapActions(useUserStore, ["logout"]),
     async handleLogout() {
       const answer = await message.confirm("Deseja realmente sair?");
 
       if (answer.isConfirmed) {
-        jwtService.removeToken();
-        jwtService.removeUsername();
-
-        useUserStore().$reset();
-
+        this.logout();
         this.$router.push({ name: "login" });
       }
     },
-  },
-  computed: {
-    ...mapStores(useUserStore),
-    ...mapState(useUserStore, ["name"]),
   },
 };
 </script>
