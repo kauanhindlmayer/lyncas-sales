@@ -16,7 +16,7 @@
           ref="email"
           label="E-mail"
           placeholder="E-mail"
-          v-model="user.email"
+          v-model="user.login"
           email
           hideLabel
           required
@@ -30,7 +30,7 @@
           hideLabel
           required
         />
-        <button type="submit" @click.prevent="login">Entrar</button>
+        <button type="submit" @click.prevent="signIn">Entrar</button>
 
         <div class="login-container__footer">
           Não tem uma conta?
@@ -44,8 +44,6 @@
 <script>
 import { mapActions } from "pinia";
 import useLoaderStore from "@/stores/loader";
-import axios from "axios";
-import userService from "@/common/services/user.service";
 import useUserStore from "@/stores/user";
 import InputText from "../../components/inputs/InputText.vue";
 import message from "@/common/utils/message.js";
@@ -58,33 +56,27 @@ export default {
   data() {
     return {
       user: {
-        email: null,
+        login: null,
         password: null,
       },
     };
   },
   methods: {
     ...mapActions(useLoaderStore, ["startLoading", "stopLoading"]),
-    ...mapActions(useUserStore, ["saveAuthenticationData"]),
+    ...mapActions(useUserStore, ["login"]),
     validateFields() {
       let validation = [];
       validation.push(this.$refs.email.validation());
       validation.push(this.$refs.password.validation());
       return validation.filter((element) => element == false).length == 0;
     },
-    login() {
+    signIn() {
       if (!this.validateFields()) return;
 
       this.startLoading();
 
-      userService
-        .authenticate({
-          login: this.user.email,
-          password: this.user.password,
-        })
-        .then((response) => {
-          this.saveAuthenticationData(response);
-          axios.defaults.headers.Authorization = `Bearer ${response.token}`;
+      this.login(this.user)
+        .then(() => {
           this.$router.push({ name: "home" });
         })
         .catch((error) => {

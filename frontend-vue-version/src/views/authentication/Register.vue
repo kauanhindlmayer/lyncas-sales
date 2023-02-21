@@ -15,7 +15,7 @@
           ref="email"
           label="E-mail"
           placeholder="E-mail"
-          v-model="user.email"
+          v-model="user.login"
           email
           hideLabel
           required
@@ -35,7 +35,7 @@
           type="password"
           label="Confirmar Senha"
           placeholder="Confirmar Senha"
-          v-model="user.confirm_password"
+          v-model="user.passwordConfirmation"
           minlength="8"
           hideLabel
           required
@@ -78,9 +78,9 @@ export default {
     return {
       user: {
         name: null,
-        email: null,
+        login: null,
         password: null,
-        confirm_password: null,
+        passwordConfirmation: null,
       },
       error_message: null,
     };
@@ -98,7 +98,7 @@ export default {
     register() {
       if (!this.validateFields()) return;
 
-      if (this.user.password != this.user.confirm_password) {
+      if (this.user.password != this.user.passwordConfirmation) {
         this.error_message = "Senhas não conferem";
         return;
       } else {
@@ -108,12 +108,7 @@ export default {
       this.startLoading();
 
       userService
-        .register({
-          name: this.user.name,
-          login: this.user.email,
-          password: this.user.password,
-          passwordConfirmation: this.user.confirm_password,
-        })
+        .register(this.user)
         .then((response) => {
           message.success(response.data.message).then(() => {
             this.$router.push({ name: "login" });

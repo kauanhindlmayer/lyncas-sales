@@ -9,12 +9,9 @@ const useUserStore = defineStore("user", {
   }),
   actions: {
     async login(user) {
-      return await userService.authenticate(user).then((response) => {
+      return await userService.authenticate(user).then(async (response) => {
         this.saveAuthenticationData(response);
       });
-    },
-    logout() {
-      this.removeAuthenticationData();
     },
     saveAuthenticationData(user) {
       this.userLoggedIn = true;

@@ -31,12 +31,12 @@ export default {
     };
   },
   methods: {
-    ...mapActions(useUserStore, ["logout"]),
+    ...mapActions(useUserStore, ["removeAuthenticationData"]),
     async handleLogout() {
       const answer = await message.confirm("Deseja realmente sair?");
 
       if (answer.isConfirmed) {
-        this.logout();
+        this.removeAuthenticationData();
         this.$router.push({ name: "login" });
       }
     },
