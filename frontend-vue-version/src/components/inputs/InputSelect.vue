@@ -7,9 +7,12 @@
     <dropdown
       class="select"
       v-model="selected"
+      :value="value"
       :options="options"
-      optionLabel="name"
-    />
+      :optionLabel="optionLabel"
+      :optionValue="optionValue"
+    >
+    </dropdown>
     <div class="text-danger">
       {{ error_message }}
     </div>
@@ -25,6 +28,8 @@ export default {
     hideLabel: { type: Boolean, default: false },
     required: { type: Boolean, default: false },
     options: { type: Array, required: true },
+    optionLabel: { Type: String, required: true },
+    optionValue: { Type: String, required: true },
   },
   data() {
     return {

@@ -12,7 +12,6 @@
       :id="inputId"
       class="input"
       v-model="content"
-      @input="input"
     />
     <div class="text-danger">
       {{ error_message }}
@@ -21,8 +20,6 @@
 </template>
 
 <script>
-import moment from "moment";
-
 export default {
   name: "InputDate",
   props: {
@@ -52,6 +49,9 @@ export default {
     value(newValue) {
       this.content = newValue;
     },
+    content() {
+      this.$emit("update:modelValue", this.content);
+    },
   },
   methods: {
     validation() {
@@ -64,9 +64,6 @@ export default {
       this.error_message = null;
       this.state = true;
       return true;
-    },
-    input() {
-      this.$emit("update:modelValue", moment(this.content, "YYYY-MM-DD"));
     },
   },
 };

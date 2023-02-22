@@ -14,13 +14,23 @@
                 <input-select
                   ref="customer"
                   label="Cliente"
+                  optionLabel="name"
+                  optionValue="id"
                   v-model="sale.customerId"
                   :value="sale.customerId"
                   :options="users"
                   required
                 />
-                <input-date
+                <!-- <input-date
                   ref="billingDate"
+                  label="Data do Faturamento"
+                  v-model="sale.billingDate"
+                  :value="sale.billingDate"
+                  required
+                /> -->
+                <input-text
+                  ref="billingDate"
+                  type="date"
                   label="Data do Faturamento"
                   v-model="sale.billingDate"
                   :value="sale.billingDate"
@@ -116,7 +126,7 @@
 
 <script>
 import { mapActions } from "pinia";
-import { InputText, InputSelect, InputDate } from "@/components/inputs";
+import { InputText, InputSelect } from "@/components/inputs";
 import useLoaderStore from "@/stores/loader";
 import AppMenu from "@/layouts/Menu.vue";
 import AppHeader from "@/layouts/Header.vue";
@@ -135,7 +145,6 @@ export default {
     HeaderButton,
     InputText,
     InputSelect,
-    InputDate,
   },
   data() {
     return {
