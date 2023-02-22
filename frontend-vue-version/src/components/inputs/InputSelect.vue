@@ -4,11 +4,12 @@
       {{ label }}
       <!-- <span class="text-danger" v-if="required">*</span> -->
     </label>
-    <select class="select" v-model="selected">
-      <option v-for="{ name, id } in options" :value="id" :key="id">
-        {{ name }}
-      </option>
-    </select>
+    <dropdown
+      class="select"
+      v-model="selected"
+      :options="options"
+      optionLabel="name"
+    />
     <div class="text-danger">
       {{ error_message }}
     </div>

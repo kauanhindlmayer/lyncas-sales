@@ -32,11 +32,20 @@
 }
 
 .p-dropdown-label {
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+
+  /* margin: 0.15rem; */
+
+  font-size: 1.6rem;
+  color: var(--text-secondary);
+}
+
+.p-paginator-rpp-options {
   display: flex;
   justify-content: center;
   align-items: center;
 
   margin: 0.15rem;
-
-  font-size: 1.6rem;
 }

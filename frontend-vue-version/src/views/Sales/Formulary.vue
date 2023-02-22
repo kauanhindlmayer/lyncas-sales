@@ -19,9 +19,8 @@
                   :options="users"
                   required
                 />
-                <input-text
+                <input-date
                   ref="billingDate"
-                  type="date"
                   label="Data do Faturamento"
                   v-model="sale.billingDate"
                   :value="sale.billingDate"
@@ -117,7 +116,7 @@
 
 <script>
 import { mapActions } from "pinia";
-import { InputText, InputSelect } from "@/components/inputs";
+import { InputText, InputSelect, InputDate } from "@/components/inputs";
 import useLoaderStore from "@/stores/loader";
 import AppMenu from "@/layouts/Menu.vue";
 import AppHeader from "@/layouts/Header.vue";
@@ -136,6 +135,7 @@ export default {
     HeaderButton,
     InputText,
     InputSelect,
+    InputDate,
   },
   data() {
     return {
@@ -156,7 +156,7 @@ export default {
           },
         ],
       },
-      users: null,
+      users: [],
     };
   },
   methods: {
@@ -257,7 +257,7 @@ export default {
   beforeRouteLeave(to, from, next) {
     checkUnsaved(next, this.unsavedFlag);
   },
-  mounted() {
+  beforeMount() {
     this.loadCustomerData();
 
     if (this.$route.query.id) {

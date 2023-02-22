@@ -27,17 +27,19 @@
               />
             </div>
             <div class="form__form-wrapper">
-              <input-text
+              <input-mask
                 ref="phone"
                 label="Telefone"
+                mask="(99) 9 9999-9999"
                 v-model="customer.phone"
                 :value="customer.phone"
-                required
                 minlength="8"
+                required
               />
-              <input-text
+              <input-mask
                 ref="cpf"
                 label="CPF"
+                mask="999.999.999-99"
                 v-model="customer.cpf"
                 :value="customer.cpf"
                 cpf
@@ -69,7 +71,7 @@ import HeaderButton from "@/layouts/HeaderButton.vue";
 import checkUnsaved from "@/common/middlewares/checkUnsaved.js";
 import customerService from "@/common/services/customer.service";
 import message from "@/common/utils/message.js";
-import { InputText } from "@/components/inputs";
+import { InputText, InputMask } from "@/components/inputs";
 
 export default {
   name: "CustomerCreate",
@@ -78,6 +80,7 @@ export default {
     AppHeader,
     HeaderButton,
     InputText,
+    InputMask,
   },
   data() {
     return {

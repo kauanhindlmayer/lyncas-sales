@@ -1,12 +1,14 @@
 <template>
   <div>
-    <label v-if="!hideLabel">
+    <label :for="inputId" v-if="!hideLabel">
       {{ label }}
       <!-- <span class="text-danger" v-if="required">*</span> -->
     </label>
-    <the-mask
+    <the-input-mask
       :placeholder="placeholder"
       :mask="mask"
+      :autoClear="false"
+      :id="inputId"
       class="input"
       v-model="content"
       @input="input"
@@ -36,6 +38,11 @@ export default {
       state: null,
       error_message: null,
     };
+  },
+  computed: {
+    inputId() {
+      return `input-${this.label.toLowerCase()}`;
+    },
   },
   watch: {
     value(newValue) {
