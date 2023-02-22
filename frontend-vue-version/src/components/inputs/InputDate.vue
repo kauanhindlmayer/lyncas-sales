@@ -4,7 +4,7 @@
       {{ label }}
       <!-- <span class="text-danger" v-if="required">*</span> -->
     </label>
-    <the-input-mask
+    <p-input-mask
       :placeholder="placeholder"
       :mask="mask"
       :slotChar="slotChar"
@@ -20,8 +20,13 @@
 </template>
 
 <script>
+import InputMask from "primevue/inputmask";
+
 export default {
   name: "InputDate",
+  components: {
+    "p-input-mask": InputMask,
+  },
   props: {
     placeholder: { type: String },
     mask: { type: String, default: "99/99/9999" },

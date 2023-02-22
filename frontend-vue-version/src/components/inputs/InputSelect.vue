@@ -20,8 +20,13 @@
 </template>
 
 <script>
+import Dropdown from "primevue/dropdown";
+
 export default {
   name: "InputSelect",
+  components: {
+    Dropdown,
+  },
   props: {
     value: { Type: [String, Number], default: null },
     label: { Type: String, required: true },

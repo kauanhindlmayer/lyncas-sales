@@ -4,7 +4,7 @@
       {{ label }}
       <!-- <span class="text-danger" v-if="required">*</span> -->
     </label>
-    <the-input-text
+    <p-input-text
       :type="type"
       :placeholder="placeholder"
       :id="inputId"
@@ -19,10 +19,14 @@
 </template>
 
 <script>
+import InputText from "primevue/inputtext";
 // import ValidateCPF from "@/components/mixins/validate-cpf.js";
 
 export default {
   name: "InputText",
+  components: {
+    "p-input-text": InputText,
+  },
   // mixins: [ValidateCPF],
   props: {
     type: { type: String, default: "text" },

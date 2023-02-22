@@ -64,7 +64,7 @@ export default {
   top: 7.6rem;
   left: 3.5rem;
 
-  width: 10.6rem;
+  /* width: 10.6rem; */
   height: 2.4rem;
 }
 
