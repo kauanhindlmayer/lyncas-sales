@@ -3,15 +3,12 @@
     <div class="aside">
       <div>
         <img src="@/assets/svg/logo.svg" alt="Lyncas logo" />
-        <p>
-          Bem-vindo ao Lyncas Sales, uma aplicação <br />
-          simples para gerenciar vendas e clientes.
-        </p>
+        <p v-html="$t('login.description')"></p>
       </div>
     </div>
     <div class="main">
       <form class="form">
-        <h1>Entrar</h1>
+        <h1>{{ $t("login.title") }}</h1>
         <input-text
           ref="email"
           label="E-mail"
@@ -30,7 +27,9 @@
           hideLabel
           required
         />
-        <button type="submit" @click.prevent="signIn">Entrar</button>
+        <button type="submit" @click.prevent="signIn">
+          {{ $t("login.title") }}
+        </button>
 
         <div class="login-container__footer">
           Não tem uma conta?

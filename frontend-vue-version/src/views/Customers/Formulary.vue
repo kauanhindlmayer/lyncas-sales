@@ -1,73 +1,67 @@
 <template>
-  <div class="container">
-    <app-menu />
-    <div class="main">
-      <app-header>
-        <header-button title="Voltar" routeName="customers-list" />
-      </app-header>
-      <div class="content">
-        <section class="component">
-          <h1>{{ title }}</h1>
-          <form class="form">
-            <div class="form__form-wrapper">
-              <input-text
-                ref="name"
-                label="Nome"
-                v-model="customer.name"
-                :value="customer.name"
-                required
-              />
-              <input-text
-                ref="email"
-                label="E-mail"
-                v-model="customer.email"
-                :value="customer.email"
-                email
-                required
-              />
-            </div>
-            <div class="form__form-wrapper">
-              <input-mask
-                ref="phone"
-                label="Telefone"
-                mask="(99) 9 9999-9999"
-                v-model="customer.phone"
-                :value="customer.phone"
-                minlength="8"
-                required
-              />
-              <input-mask
-                ref="cpf"
-                label="CPF"
-                mask="999.999.999-99"
-                v-model="customer.cpf"
-                :value="customer.cpf"
-                cpf
-                required
-              />
-            </div>
-            <div class="align-right">
-              <button
-                class="save-button save-button--customer"
-                type="submit"
-                @click.prevent="submit"
-              >
-                Salvar
-              </button>
-            </div>
-          </form>
-        </section>
-      </div>
-    </div>
+  <app-header>
+    <header-button title="Voltar" routeName="customers-list" />
+  </app-header>
+  <div class="content">
+    <section class="component">
+      <h1>{{ title }}</h1>
+      <form class="form">
+        <div class="form__form-wrapper">
+          <input-text
+            ref="name"
+            label="Nome"
+            v-model="customer.name"
+            :value="customer.name"
+            required
+          />
+          <input-text
+            ref="email"
+            label="E-mail"
+            v-model="customer.email"
+            :value="customer.email"
+            email
+            required
+          />
+        </div>
+        <div class="form__form-wrapper">
+          <input-mask
+            ref="phone"
+            label="Telefone"
+            mask="(99) 9 9999-9999"
+            v-model="customer.phone"
+            :value="customer.phone"
+            minlength="8"
+            required
+          />
+          <input-mask
+            ref="cpf"
+            label="CPF"
+            mask="999.999.999-99"
+            v-model="customer.cpf"
+            :value="customer.cpf"
+            cpf
+            required
+          />
+        </div>
+        <div class="align-right">
+          <button
+            class="save-button save-button--customer"
+            type="submit"
+            @click.prevent="submit"
+          >
+            Salvar
+          </button>
+        </div>
+      </form>
+    </section>
   </div>
 </template>
 
 <script>
 import { mapActions } from "pinia";
 import useLoaderStore from "@/stores/loader";
-import AppMenu from "@/layouts/Menu.vue";
-import AppHeader from "@/layouts/Header.vue";
-import HeaderButton from "@/layouts/HeaderButton.vue";
+import AppHeader from "@/layouts/components/Header.vue";
+import HeaderButton from "@/layouts/components/HeaderButton.vue";
 import checkUnsaved from "@/common/middlewares/checkUnsaved.js";
 import customerService from "@/common/services/customer.service";
 import message from "@/common/utils/message.js";
@@ -76,7 +70,6 @@ import { InputText, InputMask } from "@/components/inputs";
 export default {
   name: "CustomerCreate",
   components: {
-    AppMenu,
     AppHeader,
     HeaderButton,
     InputText,

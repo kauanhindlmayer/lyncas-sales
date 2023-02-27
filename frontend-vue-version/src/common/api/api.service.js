@@ -1,5 +1,5 @@
 import axios from "axios";
-import BASE_URL from "@/common/config/config";
+import BASE_URL from "@/config/config";
 import handleExpiredToken from "@/common/utils/helper";
 import jwtService from "@/common/services/jwt.service";
 

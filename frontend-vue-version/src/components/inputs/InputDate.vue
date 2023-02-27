@@ -21,6 +21,7 @@
 
 <script>
 import InputMask from "primevue/inputmask";
+import moment from "moment";
 
 export default {
   name: "InputDate",
@@ -55,7 +56,7 @@ export default {
       this.content = newValue;
     },
     content() {
-      this.$emit("update:modelValue", this.content);
+      this.$emit("update:modelValue", moment(this.content, "YYYY-MM-DD"));
     },
   },
   methods: {

@@ -1,126 +1,121 @@
 <template>
-  <div class="container">
-    <app-menu />
-    <div class="main">
-      <app-header>
-        <header-button title="Voltar" routeName="sales-list" />
-      </app-header>
-      <div class="content">
-        <section class="component">
-          <div class="component__add-sales">
-            <h1>{{ title }}</h1>
-            <form class="form">
-              <div class="form__form-wrapper">
-                <input-select
-                  ref="customer"
-                  label="Cliente"
-                  optionLabel="name"
-                  optionValue="id"
-                  v-model="sale.customerId"
-                  :value="sale.customerId"
-                  :options="users"
-                  required
-                />
-                <!-- <input-date
+  <app-header>
+    <header-button title="Voltar" routeName="sales-list" />
+  </app-header>
+  <div class="content">
+    <section class="component">
+      <div class="component__add-sales">
+        <h1>{{ title }}</h1>
+        <form class="form">
+          <div class="form__form-wrapper">
+            <input-select
+              ref="customer"
+              label="Cliente"
+              optionLabel="name"
+              optionValue="id"
+              v-model="sale.customerId"
+              :value="sale.customerId"
+              :options="users"
+              required
+            />
+            <!-- <input-date
                   ref="billingDate"
                   label="Data do Faturamento"
                   v-model="sale.billingDate"
                   :value="sale.billingDate"
                   required
                 /> -->
+            <input-text
+              ref="billingDate"
+              type="date"
+              label="Data do Faturamento"
+              v-model="sale.billingDate"
+              :value="sale.billingDate"
+              required
+            />
+          </div>
+          <div class="form__dashed"></div>
+          <h2>Itens do pedido</h2>
+          <template v-for="(item, index) in sale.items" :key="item.id">
+            <div class="form__item">
+              <div class="form__dashed" v-if="index > 0"></div>
+              <div class="form__form-wrapper">
                 <input-text
-                  ref="billingDate"
-                  type="date"
-                  label="Data do Faturamento"
-                  v-model="sale.billingDate"
-                  :value="sale.billingDate"
+                  ref="itemDescription"
+                  label="Descrição do item"
+                  v-model="sale.items[index].itemDescription"
+                  :value="sale.items[index].itemDescription"
+                  placeholder=" "
+                  minLength="3"
+                  maxlength="254"
+                  required
+                />
+                <input-text
+                  ref="unitaryValue"
+                  label="Valor unitário"
+                  v-model="sale.items[index].unitaryValue"
+                  :value="sale.items[index].unitaryValue"
+                  type="number"
+                  placeholder=" "
+                  maxlength="10"
                   required
                 />
               </div>
-              <div class="form__dashed"></div>
-              <h2>Itens do pedido</h2>
-              <template v-for="(item, index) in sale.items" :key="item.id">
-                <div class="form__item">
-                  <div class="form__dashed" v-if="index > 0"></div>
-                  <div class="form__form-wrapper">
-                    <input-text
-                      ref="itemDescription"
-                      label="Descrição do item"
-                      v-model="sale.items[index].itemDescription"
-                      :value="sale.items[index].itemDescription"
-                      placeholder=" "
-                      minLength="3"
-                      maxlength="254"
-                      required
-                    />
-                    <input-text
-                      ref="unitaryValue"
-                      label="Valor unitário"
-                      v-model="sale.items[index].unitaryValue"
-                      :value="sale.items[index].unitaryValue"
-                      type="number"
-                      placeholder=" "
-                      maxlength="10"
-                      required
-                    />
-                  </div>
-                  <div class="form__form-wrapper">
-                    <input-text
-                      ref="quantity"
-                      label="Quantidade"
-                      v-model="sale.items[index].quantity"
-                      :value="sale.items[index].quantity"
-                      type="number"
-                      placeholder=" "
-                      max="100"
-                      required
-                    />
-                    <input-text
-                      ref="totalValue"
-                      label="Valor total"
-                      v-model="sale.items[index].totalValue"
-                      :value="sale.items[index].totalValue"
-                      type="number"
-                      placeholder=" "
-                      maxlength="10"
-                      required
-                    />
-                  </div>
-                  <button
-                    v-if="index > 0"
-                    class="form__button--remove-sales"
-                    @click.prevent="removeItem(index)"
-                  >
-                    Deletar
-                  </button>
-                </div>
-              </template>
+              <div class="form__form-wrapper">
+                <input-text
+                  ref="quantity"
+                  label="Quantidade"
+                  v-model="sale.items[index].quantity"
+                  :value="sale.items[index].quantity"
+                  type="number"
+                  placeholder=" "
+                  max="100"
+                  required
+                />
+                <input-text
+                  ref="totalValue"
+                  label="Valor total"
+                  v-model="sale.items[index].totalValue"
+                  :value="sale.items[index].totalValue"
+                  type="number"
+                  placeholder=" "
+                  maxlength="10"
+                  required
+                />
+              </div>
+              <button
+                v-if="index > 0"
+                class="form__button--remove-sales"
+                @click.prevent="removeItem(index)"
+              >
+                Deletar
+              </button>
+            </div>
+          </template>
 
-              <div class="align-right">
-                <button class="add-items-button" @click.prevent="addItem">
-                  + Mais itens
-                </button>
-              </div>
-              <div class="form__dashed"></div>
-              <div class="footer">
-                <div class="footer__total-value">
-                  <span>{{ totalValue() }}</span>
-                </div>
-                <div class="align-right">
-                  <button
-                    class="save-button save-button--sale"
-                    type="submit"
-                    @click.prevent="createSale"
-                  >
-                    Salvar
-                  </button>
-                </div>
-              </div>
-            </form>
+          <div class="align-right">
+            <button class="add-items-button" @click.prevent="addItem">
+              + Mais itens
+            </button>
           </div>
-        </section>
+          <div class="form__dashed"></div>
+          <div class="footer">
+            <div class="footer__total-value">
+              <span>{{ totalValue() }}</span>
+            </div>
+            <div class="align-right">
+              <button
+                class="save-button save-button--sale"
+                type="submit"
+                @click.prevent="createSale"
+              >
+                Salvar
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
-    </div>
+    </section>
   </div>
 </template>
 
@@ -128,9 +123,8 @@
 import { mapActions } from "pinia";
 import { InputText, InputSelect } from "@/components/inputs";
 import useLoaderStore from "@/stores/loader";
-import AppMenu from "@/layouts/Menu.vue";
-import AppHeader from "@/layouts/Header.vue";
-import HeaderButton from "@/layouts/HeaderButton.vue";
+import AppHeader from "@/layouts/components/Header.vue";
+import HeaderButton from "@/layouts/components/HeaderButton.vue";
 import checkUnsaved from "@/common/middlewares/checkUnsaved.js";
 import saleService from "@/common/services/sale.service";
 import customerService from "@/common/services/customer.service";
@@ -140,7 +134,6 @@ import helper from "@/common/utils/helper.js";
 export default {
   name: "SaleCreate",
   components: {
-    AppMenu,
     AppHeader,
     HeaderButton,
     InputText,

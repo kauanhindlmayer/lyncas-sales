@@ -1,94 +1,83 @@
 <template>
-  <div class="container">
-    <app-menu />
-    <div class="main">
-      <app-header>
-        <header-button title="Adicionar" routeName="create-customer" />
-      </app-header>
-      <div class="content">
-        <section class="component component--background">
-          <div class="component__header">
-            <h1 class="header__title">Lista de clientes</h1>
-            <div class="header__search">
-              <select
-                class="header__select"
-                v-model="selectedFilter"
-                ref="select"
-              >
-                <option value="Filter" disabled selected hidden>Filtros</option>
-                <option value="Name">Nome</option>
-                <option value="Email">E-mail</option>
-                <option value="Phone">Telefone</option>
-                <option value="Cpf">CPF</option>
-              </select>
-              <label class="sr-only" for="search-button">
-                Buscar clientes...
-              </label>
-              <input
-                type="text"
-                name="search-button"
-                id="search-button"
-                class="header__search-button"
-                placeholder="Buscar clientes..."
-                v-model="searchParam"
-                @keydown.enter="search"
-              />
-            </div>
-          </div>
-          <div class="component__table-wrapper">
-            <DataTable :value="customers" responsiveLayout="scroll">
-              <template #empty> Nenhum registro encontrado </template>
-              <Column field="name" header="Name" :sortable="true"></Column>
-              <Column field="email" header="E-mail" :sortable="true"></Column>
-              <Column field="phone" header="Telefone" :sortable="true"></Column>
-              <Column field="cpf" header="CPF" :sortable="true"></Column>
-              <Column>
-                <template #header>Ações</template>
-                <template #body="slotProps">
-                  <button
-                    @click="handleDelete(slotProps.data.id)"
-                    class="table__button table__button--delete"
-                  >
-                    Deletar
-                  </button>
-                  <button
-                    @click="handleEdit(slotProps.data.id)"
-                    class="table__button table__button--edit"
-                  >
-                    Editar
-                  </button>
-                </template>
-              </Column>
-            </DataTable>
-          </div>
-          <Paginator
-            template="CurrentPageReport RowsPerPageDropdown FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink"
-            currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
-            :rows="limit"
-            :totalRecords="totalRecords"
-            :rowsPerPageOptions="[limit, 10, 20, 30, 50]"
-            @page="onPage($event)"
-          >
-          </Paginator>
-        </section>
+  <app-header>
+    <header-button title="Adicionar" routeName="create-customer" />
+  </app-header>
+  <div class="content">
+    <section class="component component--background">
+      <div class="component__header">
+        <h1 class="header__title">Lista de clientes</h1>
+        <div class="header__search">
+          <select class="header__select" v-model="selectedFilter" ref="select">
+            <option value="Filter" disabled selected hidden>Filtros</option>
+            <option value="Name">Nome</option>
+            <option value="Email">E-mail</option>
+            <option value="Phone">Telefone</option>
+            <option value="Cpf">CPF</option>
+          </select>
+          <label class="sr-only" for="search-button">
+            Buscar clientes...
+          </label>
+          <input
+            type="text"
+            name="search-button"
+            id="search-button"
+            class="header__search-button"
+            placeholder="Buscar clientes..."
+            v-model="searchParam"
+            @keydown.enter="search"
+          />
+        </div>
       </div>
-    </div>
+      <div class="component__table-wrapper">
+        <DataTable :value="customers" responsiveLayout="scroll">
+          <template #empty> Nenhum registro encontrado </template>
+          <Column field="name" header="Name" :sortable="true"></Column>
+          <Column field="email" header="E-mail" :sortable="true"></Column>
+          <Column field="phone" header="Telefone" :sortable="true"></Column>
+          <Column field="cpf" header="CPF" :sortable="true"></Column>
+          <Column>
+            <template #header>Ações</template>
+            <template #body="slotProps">
+              <button
+                @click="handleDelete(slotProps.data.id)"
+                class="table__button table__button--delete"
+              >
+                Deletar
+              </button>
+              <button
+                @click="handleEdit(slotProps.data.id)"
+                class="table__button table__button--edit"
+              >
+                Editar
+              </button>
+            </template>
+          </Column>
+        </DataTable>
+      </div>
+      <Paginator
+        template="CurrentPageReport RowsPerPageDropdown FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink"
+        currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
+        :rows="limit"
+        :totalRecords="totalRecords"
+        :rowsPerPageOptions="[limit, 10, 20, 30, 50]"
+        @page="onPage($event)"
+      >
+      </Paginator>
+    </section>
   </div>
 </template>
 
 <script>
 import { mapActions } from "pinia";
 import useLoaderStore from "@/stores/loader";
-import AppMenu from "@/layouts/Menu.vue";
-import AppHeader from "@/layouts/Header.vue";
-import HeaderButton from "@/layouts/HeaderButton.vue";
+import AppHeader from "@/layouts/components/Header.vue";
+import HeaderButton from "@/layouts/components/HeaderButton.vue";
 import customerService from "@/common/services/customer.service";
 import message from "@/common/utils/message.js";
 
 export default {
   name: "Index",
   components: {
-    AppMenu,
     AppHeader,
     HeaderButton,
   },

@@ -1,25 +1,18 @@
 <template>
-  <div class="container">
-    <app-menu />
-    <div class="main">
-      <app-header />
-      <div class="content">
-        <div class="content__heading">
-          <h2>Bem-vindo a Lyncas</h2>
-        </div>
-      </div>
+  <app-header />
+  <div class="content">
+    <div class="content__heading">
+      <h2>Bem-vindo a Lyncas</h2>
     </div>
   </div>
 </template>
 
 <script>
-import AppMenu from "@/layouts/Menu.vue";
-import AppHeader from "@/layouts/Header.vue";
+import AppHeader from "@/layouts/components/Header.vue";
 
 export default {
   name: "TheDashboard",
   components: {
-    AppMenu,
     AppHeader,
   },
 };

@@ -1,111 +1,95 @@
 <template>
-  <div class="container">
-    <app-menu />
-    <div class="main">
-      <app-header>
-        <header-button title="Adicionar" routeName="create-sale" />
-      </app-header>
-      <div class="content">
-        <section class="component component--background">
-          <div class="component__header">
-            <h1 class="header__title">Lista de vendas</h1>
-            <div class="header__search">
-              <select
-                class="header__select"
-                v-model="selectedFilter"
-                ref="select"
-              >
-                <option value="Filter" disabled selected hidden>Filtros</option>
-                <!-- <option value="Customer">Cliente</option> -->
-                <option value="QuantityItems">Quantidade</option>
-                <option value="SaleDate">Data da Venda</option>
-                <option value="BillingDate">Data do Faturamento</option>
-                <option value="TotalValue">Valor Total</option>
-              </select>
-              <label class="sr-only" for="search-button">
-                Buscar vendas...
-              </label>
-              <input
-                type="text"
-                name="search-button"
-                id="search-button"
-                class="header__search-button"
-                placeholder="Buscar vendas..."
-                v-model="searchParam"
-                @keydown.enter="searchSales"
-              />
-            </div>
-          </div>
-          <div class="component__table-wrapper">
-            <DataTable :value="sales" responsiveLayout="scroll">
-              <template #empty> Nenhum registro encontrado </template>
-              <Column field="customer" header="Cliente" :sortable="true" />
-              <Column
-                field="quantityItems"
-                header="Qtd. Itens"
-                :sortable="true"
-              />
-
-              <Column :sortable="true">
-                <template #header>Data da Venda</template>
-                <template #body="slotProps">
-                  {{ formatDate(slotProps.data.saleDate) }}
-                </template>
-              </Column>
-
-              <Column :sortable="true">
-                <template #header>Data do Faturamento</template>
-                <template #body="slotProps">
-                  {{ formatDate(slotProps.data.billingDate) }}
-                </template>
-              </Column>
-
-              <Column :sortable="true">
-                <template #header>Valor Total</template>
-                <template #body="slotProps">
-                  {{ formatCurrency(slotProps.data.totalValue) }}
-                </template>
-              </Column>
-              <Column>
-                <template #header>Ações</template>
-                <template #body="slotProps">
-                  <button
-                    @click="handleDelete(slotProps.data.id)"
-                    class="table__button table__button--delete"
-                  >
-                    Deletar
-                  </button>
-                  <button
-                    @click="handleEdit(slotProps.data.id)"
-                    class="table__button table__button--edit"
-                  >
-                    Editar
-                  </button>
-                </template>
-              </Column>
-            </DataTable>
-          </div>
-          <Paginator
-            template="CurrentPageReport RowsPerPageDropdown FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink"
-            currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
-            :rows="limit"
-            :totalRecords="totalRecords"
-            :rowsPerPageOptions="[limit, 10, 20, 30, 50]"
-            @page="onPage($event)"
-          >
-          </Paginator>
-        </section>
+  <app-header>
+    <header-button title="Adicionar" routeName="create-sale" />
+  </app-header>
+  <div class="content">
+    <section class="component component--background">
+      <div class="component__header">
+        <h1 class="header__title">Lista de vendas</h1>
+        <div class="header__search">
+          <select class="header__select" v-model="selectedFilter" ref="select">
+            <option value="Filter" disabled selected hidden>Filtros</option>
+            <!-- <option value="Customer">Cliente</option> -->
+            <option value="QuantityItems">Quantidade</option>
+            <option value="SaleDate">Data da Venda</option>
+            <option value="BillingDate">Data do Faturamento</option>
+            <option value="TotalValue">Valor Total</option>
+          </select>
+          <label class="sr-only" for="search-button"> Buscar vendas... </label>
+          <input
+            type="text"
+            name="search-button"
+            id="search-button"
+            class="header__search-button"
+            placeholder="Buscar vendas..."
+            v-model="searchParam"
+            @keydown.enter="searchSales"
+          />
+        </div>
       </div>
-    </div>
+      <div class="component__table-wrapper">
+        <DataTable :value="sales" responsiveLayout="scroll">
+          <template #empty> Nenhum registro encontrado </template>
+          <Column field="customer" header="Cliente" :sortable="true" />
+          <Column field="quantityItems" header="Qtd. Itens" :sortable="true" />
+
+          <Column :sortable="true">
+            <template #header>Data da Venda</template>
+            <template #body="slotProps">
+              {{ formatDate(slotProps.data.saleDate) }}
+            </template>
+          </Column>
+
+          <Column :sortable="true">
+            <template #header>Data do Faturamento</template>
+            <template #body="slotProps">
+              {{ formatDate(slotProps.data.billingDate) }}
+            </template>
+          </Column>
+
+          <Column :sortable="true">
+            <template #header>Valor Total</template>
+            <template #body="slotProps">
+              {{ formatCurrency(slotProps.data.totalValue) }}
+            </template>
+          </Column>
+          <Column>
+            <template #header>Ações</template>
+            <template #body="slotProps">
+              <button
+                @click="handleDelete(slotProps.data.id)"
+                class="table__button table__button--delete"
+              >
+                Deletar
+              </button>
+              <button
+                @click="handleEdit(slotProps.data.id)"
+                class="table__button table__button--edit"
+              >
+                Editar
+              </button>
+            </template>
+          </Column>
+        </DataTable>
+      </div>
+      <Paginator
+        template="CurrentPageReport RowsPerPageDropdown FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink"
+        currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
+        :rows="limit"
+        :totalRecords="totalRecords"
+        :rowsPerPageOptions="[limit, 10, 20, 30, 50]"
+        @page="onPage($event)"
+      >
+      </Paginator>
+    </section>
   </div>
 </template>
 
 <script>
 import { mapActions } from "pinia";
 import useLoaderStore from "@/stores/loader";
-import AppMenu from "@/layouts/Menu.vue";
-import AppHeader from "@/layouts/Header.vue";
-import HeaderButton from "@/layouts/HeaderButton.vue";
+import AppHeader from "@/layouts/components/Header.vue";
+import HeaderButton from "@/layouts/components/HeaderButton.vue";
 import saleService from "@/common/services/sale.service";
 import message from "@/common/utils/message.js";
 import helper from "@/common/utils/helper.js";
@@ -113,7 +97,6 @@ import helper from "@/common/utils/helper.js";
 export default {
   name: "Index",
   components: {
-    AppMenu,
     AppHeader,
     HeaderButton,
   },
