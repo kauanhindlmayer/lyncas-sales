@@ -3,53 +3,42 @@
   font-family: "Jost", sans-serif;
   font-weight: normal;
 }
-
 .p-link {
   font-size: 1.6rem;
   font-family: "Jost", sans-serif;
 }
-
 .p-paginator {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-
-  background: var(--background);
-
-  color: var(--text-secondary);
+  background: $background;
+  color: $text-secondary;
 }
-
 .p-paginator-current {
   position: absolute;
   left: 18.2rem;
 }
-
-.p-datatable .p-datatable-thead > tr > th {
-  border: none;
-
-  font-weight: normal;
-  color: var(--text-secondary);
+.p-datatable {
+  .p-datatable-thead {
+    & > tr {
+      & > th {
+        border: none;
+        font-weight: normal;
+        color: $text-secondary;
+      }
+    }
+  }
 }
-
 .p-dropdown-label {
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
-
-  /* margin: 0.15rem; */
-
   font-size: 1.6rem;
-  color: var(--text-secondary);
+  color: $text-secondary;
 }
-
 .p-paginator-rpp-options {
   display: flex;
   justify-content: center;
   align-items: center;
-
   margin: 0.15rem;
 }
-
 .p-inputtext {
   font-family: "Jost", sans-serif;
 }

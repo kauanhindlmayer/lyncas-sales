@@ -5,7 +5,7 @@ import router from "@/router";
 import progressBar from "@/plugins/progress-bar";
 import PrimeVue from "@/plugins/prime-vue";
 
-import "@/assets/css/main.css";
+import "@/assets/scss/style.scss";
 import "nprogress/nprogress.css";
 
 progressBar(router);

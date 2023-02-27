@@ -277,76 +277,59 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .component__add-sales {
   overflow-y: auto;
-
   height: calc(100vh - 15rem);
 }
-
 .content {
   margin: 2.3rem 0 auto 0;
 }
-
 .form__dashed {
   margin-top: 1.8rem;
-  border-bottom: 1px dashed var(--border);
+  border-bottom: 1px dashed $border;
+  margin-top: 1.8rem;
+  border-bottom: 1px dashed $border;
 }
-
 .form__button--remove-sales {
   margin-top: 0.9rem;
-  border: 1px solid var(--border-light-red);
+  border: 1px solid $border-light-red;
   border-radius: 5px;
   width: 7.5rem;
   height: 3.5rem;
-
-  background-color: var(--background-tertiary);
+  background-color: $background-tertiary;
   cursor: pointer;
-
-  color: var(--text-tertiary);
+  color: $text-tertiary;
 }
-
 .add-items-button {
   display: flex;
   justify-content: center;
   align-items: center;
-
   margin: 1.8rem 0 0 0;
-  border: 1px solid var(--text-primary);
+  border: 1px solid $text-primary;
   border-radius: 4px;
   width: calc(50% - 9px);
   height: 3.9rem;
-
-  background-color: var(--background-secondary);
+  background-color: $background-secondary;
   cursor: pointer;
-
   font-weight: 700;
   font-size: 2rem;
-  color: var(--text-primary);
+  color: $text-primary;
+  &:hover {
+    filter: brightness(0.9);
+  }
 }
-
-.add-items-button:hover {
-  filter: brightness(0.9);
-}
-
-.form__dashed {
-  margin-top: 1.8rem;
-  border-bottom: 1px dashed var(--border);
-}
-
 .footer {
   display: flex;
   align-items: center;
-
   margin: 2.6rem 0 1.6rem 0;
   width: 100%;
 }
-
 .footer__total-value {
   font-size: 2.4rem;
   line-height: 3.5rem;
   font-weight: 700;
-  color: var(--text-primary);
+  color: $text-primary;
 }
 
 @media only screen and (max-width: 1366px) {

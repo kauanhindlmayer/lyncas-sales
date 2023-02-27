@@ -1,17 +1,11 @@
-@import "@/assets/css/base.css";
-@import "@/assets/css/components.css";
-@import "@/assets/css/p-components.css";
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-
 html {
   font-size: 62.5%;
 }
-
 body,
 input,
 button,
@@ -19,37 +13,32 @@ select,
 textarea {
   font-family: "Jost", sans-serif;
 }
-
 body {
-  background: var(--background);
+  background: $background;
   font-size: 1.6rem;
 }
-
 a {
   text-decoration: none;
-  color: var(--background-secondary);
+  color: $background-secondary;
 }
-
 .container {
   height: 100vh;
   display: grid;
   grid-template-columns: 16.8rem auto;
 }
-
 .main {
   display: grid;
   grid-template-rows: 12.5rem auto;
   margin: 0 2rem;
 }
-
-#nprogress .spinner-icon {
-  display: none;
+#nprogress {
+  .spinner-icon {
+    display: none;
+  }
 }
-
 .swal2-popup {
   font-size: 1.6rem !important;
 }
-
 ::-webkit-scrollbar {
   width: 0.6rem;
   height: 0.6rem;
@@ -60,11 +49,11 @@ a {
 }
 ::-webkit-scrollbar-thumb {
   border-radius: 1rem;
-  background: var(--gray-100);
-}
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 0, 0, 0.2);
-}
-::-webkit-scrollbar-thumb:active {
-  background: rgba(0, 0, 0, 0.9);
+  background: $gray-100;
+  &:hover {
+    background: rgba(0, 0, 0, 0.2);
+  }
+  &:active {
+    background: rgba(0, 0, 0, 0.9);
+  }
 }

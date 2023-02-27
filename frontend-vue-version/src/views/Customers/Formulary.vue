@@ -160,7 +160,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .content {
   margin: 4.9rem 0 auto 0;
 }

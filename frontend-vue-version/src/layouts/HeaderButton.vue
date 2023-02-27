@@ -16,27 +16,22 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .profile__button {
   display: flex;
   justify-content: center;
   align-items: center;
-
   border-radius: 4px;
   width: 15rem;
   height: 5rem;
-
-  background-color: var(--gray-100);
-
+  background-color: $gray-100;
   font-size: 2rem;
   font-weight: 700;
-  color: var(--background-secondary);
+  color: $background-secondary;
 }
-
 .profile__button--add {
-  background-color: var(--secondary-color);
+  background-color: $secondary-color;
 }
-
 .profile__button--back:hover,
 .profile__button--add:hover {
   filter: brightness(0.9);

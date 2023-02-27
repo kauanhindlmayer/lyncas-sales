@@ -203,23 +203,19 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .content {
   margin: 2.3rem 0 auto 0;
 }
-
 .component__header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  h1 {
+    margin-left: 0;
+    font-size: 2.4rem;
+  }
 }
-
-.component__header h1 {
-  margin-left: 0;
-
-  font-size: 2.4rem;
-}
-
 .sr-only {
   position: absolute;
   margin: -1px;
@@ -231,47 +227,38 @@ export default {
   white-space: nowrap;
   border-width: 0;
 }
-
 .header__search {
   display: flex;
 }
-
 .header__search-button {
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  border: 1px solid var(--border);
+  border: 1px solid $border;
   border-radius: 0 5px 5px 0;
   width: 38.8rem;
   height: 4.1rem;
   padding: 0.9rem 1.8rem;
-
   background: url(@/assets/svg/search-icon.svg) no-repeat scroll 7px 7px;
   background-position: center;
   background-position-x: calc(100% - 12px);
-  background-color: var(--background-secondary);
-
+  background-color: $background-secondary;
   font-size: 1.6rem;
-  color: var(--text-secondary);
+  color: $text-secondary;
 }
-
 .header__select {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-
-  border: 1px solid var(--border);
+  border: 1px solid $border;
   border-radius: 5px 0 0 5px;
   height: 4.1rem;
   width: 19.8rem;
   padding: 0 1.8rem;
-
   background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 10L12 14L16 10' stroke='%239C98A6' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
   background-repeat: no-repeat;
   background-position: right 1.5rem top 50%;
-
   font-size: 1.6rem;
-  color: var(--text-secondary);
+  color: $text-secondary;
 }
 </style>

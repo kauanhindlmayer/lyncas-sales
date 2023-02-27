@@ -25,19 +25,17 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .content {
   margin: 4.9rem 0 auto 0;
 }
-
 .content__heading {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-}
-
-.content__heading h2 {
-  font-weight: 500;
+  h2 {
+    font-weight: 500;
+  }
 }
 </style>
