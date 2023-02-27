@@ -1,28 +1,30 @@
 <template>
   <app-header>
-    <header-button title="Adicionar" routeName="create-customer" />
+    <header-button :title="$t('GENERAL.ADD')" routeName="create-customer" />
   </app-header>
   <div class="content">
     <section class="component component--background">
       <div class="component__header">
-        <h1 class="header__title">Lista de clientes</h1>
+        <h1 class="header__title">{{ $t("CUSTOMER.CUSTOMER_LIST") }}</h1>
         <div class="header__search">
           <select class="header__select" v-model="selectedFilter" ref="select">
-            <option value="Filter" disabled selected hidden>Filtros</option>
-            <option value="Name">Nome</option>
-            <option value="Email">E-mail</option>
-            <option value="Phone">Telefone</option>
-            <option value="Cpf">CPF</option>
+            <option value="Filter" disabled selected hidden>
+              {{ $t("CUSTOMER.FILTERS") }}
+            </option>
+            <option value="Name">{{ $t("GENERAL.NAME") }}</option>
+            <option value="Email">{{ $t("GENERAL.EMAIL") }}</option>
+            <option value="Phone">{{ $t("CUSTOMER.PHONE") }}</option>
+            <option value="Cpf">{{ $t("CUSTOMER.CPF") }}</option>
           </select>
           <label class="sr-only" for="search-button">
-            Buscar clientes...
+            {{ $t("CUSTOMER.SEARCH") }}
           </label>
           <input
             type="text"
             name="search-button"
             id="search-button"
             class="header__search-button"
-            placeholder="Buscar clientes..."
+            :placeholder="$t('CUSTOMER.SEARCH')"
             v-model="searchParam"
             @keydown.enter="search"
           />
@@ -31,24 +33,32 @@
       <div class="component__table-wrapper">
         <DataTable :value="customers" responsiveLayout="scroll">
           <template #empty> Nenhum registro encontrado </template>
-          <Column field="name" header="Name" :sortable="true"></Column>
-          <Column field="email" header="E-mail" :sortable="true"></Column>
-          <Column field="phone" header="Telefone" :sortable="true"></Column>
-          <Column field="cpf" header="CPF" :sortable="true"></Column>
+          <Column field="name" :header="$t('GENERAL.NAME')" :sortable="true" />
+          <Column
+            field="email"
+            :header="$t('GENERAL.EMAIL')"
+            :sortable="true"
+          />
+          <Column
+            field="phone"
+            :header="$t('CUSTOMER.PHONE')"
+            :sortable="true"
+          />
+          <Column field="cpf" :header="$t('CUSTOMER.CPF')" :sortable="true" />
           <Column>
-            <template #header>Ações</template>
+            <template #header>{{ $t("CUSTOMER.ACTIONS") }}</template>
             <template #body="slotProps">
               <button
                 @click="handleDelete(slotProps.data.id)"
                 class="table__button table__button--delete"
               >
-                Deletar
+                {{ $t("GENERAL.DELETE") }}
               </button>
               <button
                 @click="handleEdit(slotProps.data.id)"
                 class="table__button table__button--edit"
               >
-                Editar
+                {{ $t("GENERAL.EDIT") }}
               </button>
             </template>
           </Column>

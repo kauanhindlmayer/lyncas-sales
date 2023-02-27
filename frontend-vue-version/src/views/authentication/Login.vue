@@ -3,16 +3,16 @@
     <div class="aside">
       <div>
         <img src="@/assets/svg/logo.svg" alt="Lyncas logo" />
-        <p v-html="$t('login.description')"></p>
+        <p v-html="$t('GENERAL.DESCRIPTION')"></p>
       </div>
     </div>
     <div class="main">
       <form class="form">
-        <h1>{{ $t("login.title") }}</h1>
+        <h1>{{ $t("GENERAL.SIGN_IN") }}</h1>
         <input-text
           ref="email"
           label="E-mail"
-          placeholder="E-mail"
+          :placeholder="$t('GENERAL.EMAIL')"
           v-model="user.login"
           email
           hideLabel
@@ -22,18 +22,20 @@
           ref="password"
           type="password"
           label="Senha"
-          placeholder="Senha"
+          :placeholder="$t('GENERAL.PASSWORD')"
           v-model="user.password"
           hideLabel
           required
         />
         <button type="submit" @click.prevent="signIn">
-          {{ $t("login.title") }}
+          {{ $t("GENERAL.LOGIN") }}
         </button>
 
         <div class="login-container__footer">
-          Não tem uma conta?
-          <RouterLink :to="{ name: 'register' }">Inscreva-se</RouterLink>
+          {{ $t("GENERAL.DONT_HAVE_AN_ACCOUNT") }}
+          <RouterLink :to="{ name: 'register' }">
+            {{ $t("GENERAL.SIGN_UP") }}
+          </RouterLink>
         </div>
       </form>
     </div>

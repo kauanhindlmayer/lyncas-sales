@@ -1,27 +1,33 @@
 <template>
   <app-header>
-    <header-button title="Adicionar" routeName="create-sale" />
+    <header-button :title="$t('GENERAL.ADD')" routeName="create-sale" />
   </app-header>
   <div class="content">
     <section class="component component--background">
       <div class="component__header">
-        <h1 class="header__title">Lista de vendas</h1>
+        <h1 class="header__title">{{ $t("SALE.SALE_LIST") }}</h1>
         <div class="header__search">
           <select class="header__select" v-model="selectedFilter" ref="select">
-            <option value="Filter" disabled selected hidden>Filtros</option>
-            <!-- <option value="Customer">Cliente</option> -->
-            <option value="QuantityItems">Quantidade</option>
-            <option value="SaleDate">Data da Venda</option>
-            <option value="BillingDate">Data do Faturamento</option>
-            <option value="TotalValue">Valor Total</option>
+            <option value="Filter" disabled selected hidden>
+              {{ $t("SALE.FILTERS") }}
+            </option>
+            <!-- <option value="Customer">{{ $t("SALE.CUSTOMER") }}</option> -->
+            <option value="QuantityItems">
+              {{ $t("SALE.QUANTITY_ITEMS") }}
+            </option>
+            <option value="SaleDate">{{ $t("SALE.SALE_DATE") }}</option>
+            <option value="BillingDate">{{ $t("SALE.BILLING_DATE") }}</option>
+            <option value="TotalValue">{{ $t("SALE.TOTAL_VALUE") }}</option>
           </select>
-          <label class="sr-only" for="search-button"> Buscar vendas... </label>
+          <label class="sr-only" for="search-button">
+            {{ $t("SALE.SEARCH") }}
+          </label>
           <input
             type="text"
             name="search-button"
             id="search-button"
             class="header__search-button"
-            placeholder="Buscar vendas..."
+            :placeholder="$t('SALE.SEARCH')"
             v-model="searchParam"
             @keydown.enter="searchSales"
           />
@@ -30,43 +36,51 @@
       <div class="component__table-wrapper">
         <DataTable :value="sales" responsiveLayout="scroll">
           <template #empty> Nenhum registro encontrado </template>
-          <Column field="customer" header="Cliente" :sortable="true" />
-          <Column field="quantityItems" header="Qtd. Itens" :sortable="true" />
+          <Column
+            field="customer"
+            :header="$t('SALE.CUSTOMER')"
+            :sortable="true"
+          />
+          <Column
+            field="quantityItems"
+            :header="$t('SALE.QUANTITY_ITEMS')"
+            :sortable="true"
+          />
 
           <Column :sortable="true">
-            <template #header>Data da Venda</template>
+            <template #header>{{ $t("SALE.SALE_DATE") }}</template>
             <template #body="slotProps">
               {{ formatDate(slotProps.data.saleDate) }}
             </template>
           </Column>
 
           <Column :sortable="true">
-            <template #header>Data do Faturamento</template>
+            <template #header>{{ $t("SALE.BILLING_DATE") }}</template>
             <template #body="slotProps">
               {{ formatDate(slotProps.data.billingDate) }}
             </template>
           </Column>
 
           <Column :sortable="true">
-            <template #header>Valor Total</template>
+            <template #header>{{ $t("SALE.TOTAL_VALUE") }}</template>
             <template #body="slotProps">
               {{ formatCurrency(slotProps.data.totalValue) }}
             </template>
           </Column>
           <Column>
-            <template #header>Ações</template>
+            <template #header>{{ $t("SALE.ACTIONS") }}</template>
             <template #body="slotProps">
               <button
                 @click="handleDelete(slotProps.data.id)"
                 class="table__button table__button--delete"
               >
-                Deletar
+                {{ $t("GENERAL.DELETE") }}
               </button>
               <button
                 @click="handleEdit(slotProps.data.id)"
                 class="table__button table__button--edit"
               >
-                Editar
+                {{ $t("GENERAL.EDIT") }}
               </button>
             </template>
           </Column>

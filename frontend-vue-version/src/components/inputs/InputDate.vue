@@ -4,14 +4,16 @@
       {{ label }}
       <!-- <span class="text-danger" v-if="required">*</span> -->
     </label>
-    <p-input-mask
+    <calendar
       :placeholder="placeholder"
-      :mask="mask"
-      :slotChar="slotChar"
-      :autoClear="false"
       :id="inputId"
-      class="input"
+      :dateFormat="dateFormat"
+      :showIcon="showIcon"
+      class="input-date"
+      inputClass="input"
       v-model="content"
+      @input="input"
+      @date-select="input"
     />
     <div class="text-danger">
       {{ error_message }}
@@ -20,24 +22,25 @@
 </template>
 
 <script>
-import InputMask from "primevue/inputmask";
+import Calendar from "primevue/calendar";
 import moment from "moment";
 
 export default {
   name: "InputDate",
   components: {
-    "p-input-mask": InputMask,
+    Calendar,
   },
   props: {
     placeholder: { type: String },
-    mask: { type: String, default: "99/99/9999" },
-    slotChar: { type: String, default: "dd/mm/aaaa" },
     value: { Type: [String, Number], default: null },
     label: { Type: String, required: true },
     hideLabel: { type: Boolean, default: false },
     required: { type: Boolean, default: false },
-    minlength: { Type: Number },
-    maxlength: { Type: Number },
+    disabled: { type: Boolean, default: false },
+    maxDate: { type: Date, default: null },
+    minDate: { type: Date, default: null },
+    dateFormat: { type: String, default: "dd/mm/yy" },
+    showIcon: { type: Boolean, default: false },
   },
   data() {
     return {
@@ -55,9 +58,13 @@ export default {
     value(newValue) {
       this.content = newValue;
     },
-    content() {
-      this.$emit("update:modelValue", moment(this.content, "YYYY-MM-DD"));
-    },
+    // modelValue: {
+    //   handler(modelValue) {
+    //     this.content = moment(modelValue, "DD/MM/YYYY");
+    //   },
+    //   deep: true,
+    //   immediate: true,
+    // },
   },
   methods: {
     validation() {
@@ -70,6 +77,9 @@ export default {
       this.error_message = null;
       this.state = true;
       return true;
+    },
+    input() {
+      this.$emit("update:modelValue", moment(this.content, "YYYY-MM-DD"));
     },
   },
 };

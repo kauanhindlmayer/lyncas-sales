@@ -2,7 +2,7 @@
   <div
     :class="[
       'profile__button',
-      { 'profile__button--add': title === 'Adicionar' },
+      { 'profile__button--add': title === $t('GENERAL.ADD') },
     ]"
   >
     <router-link :to="{ name: routeName }">{{ title }}</router-link>

@@ -1,7 +1,7 @@
 <template>
   <div class="content__heading">
-    <h1>Página não encontrada :(</h1>
-    <p>A página que você tentou acessar está indisponível ou não existe.</p>
+    <h1>{{ $t("GENERAL.PAGE_NOT_FOUND") }}</h1>
+    <p>{{ $t("GENERAL.PAGE_NOT_FOUND_DESCRIPTION") }}</p>
   </div>
 </template>
 

@@ -2,11 +2,11 @@
   <div class="login-container">
     <div class="main">
       <form class="form">
-        <h1>Criar conta</h1>
+        <h1>{{ $t("GENERAL.CREATE_ACCOUNT") }}</h1>
         <input-text
           ref="name"
           label="Nome"
-          placeholder="Nome"
+          :placeholder="$t('GENERAL.NAME')"
           v-model="user.name"
           hideLabel
           required
@@ -14,7 +14,7 @@
         <input-text
           ref="email"
           label="E-mail"
-          placeholder="E-mail"
+          :placeholder="$t('GENERAL.EMAIL')"
           v-model="user.login"
           email
           hideLabel
@@ -24,7 +24,7 @@
           ref="password"
           type="password"
           label="Senha"
-          placeholder="Senha"
+          :placeholder="$t('GENERAL.PASSWORD')"
           v-model="user.password"
           minlength="8"
           hideLabel
@@ -34,7 +34,7 @@
           ref="confirm_password"
           type="password"
           label="Confirmar Senha"
-          placeholder="Confirmar Senha"
+          :placeholder="$t('GENERAL.CONFIRM_PASSWORD')"
           v-model="user.passwordConfirmation"
           minlength="8"
           hideLabel
@@ -43,20 +43,21 @@
         <div class="text-danger">
           {{ error_message }}
         </div>
-        <button type="submit" @click.prevent="register">Registrar</button>
+        <button type="submit" @click.prevent="register">
+          {{ $t("GENERAL.CREATE") }}
+        </button>
         <div class="login-container__footer">
-          Já tem uma conta?
-          <RouterLink :to="{ name: 'login' }">Entre aqui</RouterLink>
+          {{ $t("GENERAL.ALREADY_HAVE_AN_ACCOUNT") }}
+          <RouterLink :to="{ name: 'login' }">
+            {{ $t("GENERAL.SIGN_IN") }}
+          </RouterLink>
         </div>
       </form>
     </div>
     <div class="aside">
       <div>
         <img src="@/assets/svg/logo.svg" alt="Lyncas logo" />
-        <p>
-          Bem-vindo ao Lyncas Sales, uma aplicação <br />
-          simples para gerenciar vendas e clientes.
-        </p>
+        <p v-html="$t('GENERAL.DESCRIPTION')"></p>
       </div>
     </div>
   </div>

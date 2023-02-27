@@ -9,8 +9,8 @@
       </div>
 
       <div class="profile__name">
-        <h3>Olá, {{ username }}</h3>
-        <a @click="handleLogout">Sair</a>
+        <h3>{{ $t("GENERAL.GREET") }} {{ username }}</h3>
+        <a @click="handleLogout">{{ $t("GENERAL.LOGOUT") }}</a>
       </div>
     </div>
     <slot></slot>

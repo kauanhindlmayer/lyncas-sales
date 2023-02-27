@@ -2,7 +2,7 @@
   <app-header />
   <div class="content">
     <div class="content__heading">
-      <h2>Bem-vindo a Lyncas</h2>
+      <h2>{{ $t("GENERAL.WELCOME") }}</h2>
     </div>
   </div>
 </template>

@@ -16,7 +16,7 @@
           src="@/assets/svg/dashboard-icon.svg"
           alt="Dashboard Icon"
         />
-        Dashboard
+        {{ $t("GENERAL.DASHBOARD") }}
       </router-link>
 
       <router-link
@@ -28,7 +28,7 @@
           src="@/assets/svg/customer-icon.svg"
           alt="Customer Icon"
         />
-        Clientes
+        {{ $t("GENERAL.CUSTOMERS") }}
       </router-link>
 
       <router-link
@@ -40,7 +40,7 @@
           src="@/assets/svg/sale-icon.svg"
           alt="Sale Icon"
         />
-        Vendas
+        {{ $t("GENERAL.SALES") }}
       </router-link>
     </nav>
   </div>

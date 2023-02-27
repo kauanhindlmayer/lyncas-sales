@@ -4,7 +4,7 @@ import App from "@/App.vue";
 import router from "@/router";
 import progressBar from "@/plugins/progress-bar";
 import PrimeVue from "@/plugins/prime-vue";
-import i18n from "@/plugins/i18n.js";
+import i18n from "@/i18n/i18n.js";
 
 import "@/assets/scss/style.scss";
 import "nprogress/nprogress.css";

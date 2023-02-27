@@ -1,13 +1,13 @@
 import { createI18n } from "vue-i18n";
-import en from "@/i18n/en.json";
-import pt from "@/i18n/pt-br.json";
+import { en } from "@/i18n/en.js";
+import { br } from "@/i18n/pt-br.js";
 
 export default createI18n({
   locale: "en",
-  fallbackLocale: "pt-BR",
+  fallbackLocale: "br",
   messages: {
     en,
-    pt,
+    br,
   },
   numberFormats: {
     en: {
@@ -16,7 +16,7 @@ export default createI18n({
         currency: "USD",
       },
     },
-    "pt-BR": {
+    br: {
       currency: {
         style: "currency",
         currency: "R$",

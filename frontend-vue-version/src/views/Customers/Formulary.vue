@@ -1,6 +1,6 @@
 <template>
   <app-header>
-    <header-button title="Voltar" routeName="customers-list" />
+    <header-button :title="$t('GENERAL.BACK')" routeName="customers-list" />
   </app-header>
   <div class="content">
     <section class="component">
@@ -9,14 +9,14 @@
         <div class="form__form-wrapper">
           <input-text
             ref="name"
-            label="Nome"
+            :label="$t('GENERAL.NAME')"
             v-model="customer.name"
             :value="customer.name"
             required
           />
           <input-text
             ref="email"
-            label="E-mail"
+            :label="$t('GENERAL.EMAIL')"
             v-model="customer.email"
             :value="customer.email"
             email
@@ -26,7 +26,7 @@
         <div class="form__form-wrapper">
           <input-mask
             ref="phone"
-            label="Telefone"
+            :label="$t('CUSTOMER.PHONE')"
             mask="(99) 9 9999-9999"
             v-model="customer.phone"
             :value="customer.phone"
@@ -35,7 +35,7 @@
           />
           <input-mask
             ref="cpf"
-            label="CPF"
+            :label="$t('CUSTOMER.CPF')"
             mask="999.999.999-99"
             v-model="customer.cpf"
             :value="customer.cpf"
@@ -49,7 +49,7 @@
             type="submit"
             @click.prevent="submit"
           >
-            Salvar
+            {{ $t("GENERAL.SAVE") }}
           </button>
         </div>
       </form>
@@ -78,7 +78,7 @@ export default {
   data() {
     return {
       unsavedFlag: false,
-      title: "Adicionar cliente",
+      title: this.$t("CUSTOMER.ADD_CUSTOMER"),
       customer: {
         id: this.$route.params.id,
         name: null,
@@ -143,7 +143,7 @@ export default {
   },
   mounted() {
     if (this.$route.query.id) {
-      this.title = "Atualizar cliente";
+      this.title = this.$t("CUSTOMER.UPDATE_CUSTOMER");
       this.loadCustomerData();
     }
   },

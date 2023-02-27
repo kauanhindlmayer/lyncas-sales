@@ -1,6 +1,6 @@
 <template>
   <app-header>
-    <header-button title="Voltar" routeName="sales-list" />
+    <header-button :title="$t('GENERAL.BACK')" routeName="sales-list" />
   </app-header>
   <div class="content">
     <section class="component">
@@ -10,7 +10,7 @@
           <div class="form__form-wrapper">
             <input-select
               ref="customer"
-              label="Cliente"
+              :label="$t('SALE.CUSTOMER')"
               optionLabel="name"
               optionValue="id"
               v-model="sale.customerId"
@@ -18,21 +18,21 @@
               :options="users"
               required
             />
-            <!-- <input-date
-                  ref="billingDate"
-                  label="Data do Faturamento"
-                  v-model="sale.billingDate"
-                  :value="sale.billingDate"
-                  required
-                /> -->
-            <input-text
+            <input-date
+              ref="billingDate"
+              :label="$t('SALE.BILLING_DATE')"
+              v-model="sale.billingDate"
+              :value="sale.billingDate"
+              required
+            />
+            <!-- <input-text
               ref="billingDate"
               type="date"
               label="Data do Faturamento"
               v-model="sale.billingDate"
               :value="sale.billingDate"
               required
-            />
+            /> -->
           </div>
           <div class="form__dashed"></div>
           <h2>Itens do pedido</h2>
@@ -109,7 +109,7 @@
                 type="submit"
                 @click.prevent="createSale"
               >
-                Salvar
+                {{ $t("GENERAL.SAVE") }}
               </button>
             </div>
           </div>
@@ -121,7 +121,7 @@
 
 <script>
 import { mapActions } from "pinia";
-import { InputText, InputSelect } from "@/components/inputs";
+import { InputText, InputSelect, InputDate } from "@/components/inputs";
 import useLoaderStore from "@/stores/loader";
 import AppHeader from "@/layouts/components/Header.vue";
 import HeaderButton from "@/layouts/components/HeaderButton.vue";
@@ -138,10 +138,11 @@ export default {
     HeaderButton,
     InputText,
     InputSelect,
+    InputDate,
   },
   data() {
     return {
-      title: "Adicionar venda",
+      title: this.$t("SALE.ADD_SALE"),
       unsavedFlag: false,
       quantityItems: 1,
       sale: {
@@ -263,7 +264,7 @@ export default {
     this.loadCustomerData();
 
     if (this.$route.query.id) {
-      this.title = "Atualizar venda";
+      this.title = this.$t("SALE.UPDATE_SALE");
       this.loadSaleData();
     }
   },
