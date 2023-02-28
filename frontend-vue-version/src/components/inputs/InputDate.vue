@@ -23,7 +23,7 @@
 
 <script>
 import Calendar from "primevue/calendar";
-import moment from "moment";
+import helper from "@/common/utils/helper.js";
 
 export default {
   name: "InputDate",
@@ -56,15 +56,8 @@ export default {
   },
   watch: {
     value(newValue) {
-      this.content = newValue;
+      this.content = helper.formatDate(newValue);
     },
-    // modelValue: {
-    //   handler(modelValue) {
-    //     this.content = moment(modelValue, "DD/MM/YYYY");
-    //   },
-    //   deep: true,
-    //   immediate: true,
-    // },
   },
   methods: {
     validation() {
@@ -73,13 +66,12 @@ export default {
         this.error_message = `Campo ${this.label} é obrigatório`;
         return false;
       }
-
       this.error_message = null;
       this.state = true;
       return true;
     },
     input() {
-      this.$emit("update:modelValue", moment(this.content, "YYYY-MM-DD"));
+      this.$emit("update:modelValue", this.content);
     },
   },
 };
