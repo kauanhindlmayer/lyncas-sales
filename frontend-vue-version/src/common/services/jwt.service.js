@@ -8,6 +8,11 @@ const getUsername = () => localStorage.getItem(USER_NAME);
 const setUsername = (username) => localStorage.setItem(USER_NAME, username);
 const removeUsername = () => localStorage.removeItem(USER_NAME);
 
+const LOCALE = "lyncas-sales-locale";
+const getLocale = () => localStorage.getItem(LOCALE);
+const setLocale = (locale) => localStorage.setItem(LOCALE, locale);
+const removeLocale = () => localStorage.removeItem(LOCALE);
+
 export default {
   getToken,
   setToken,
@@ -15,4 +20,7 @@ export default {
   getUsername,
   setUsername,
   removeUsername,
+  getLocale,
+  setLocale,
+  removeLocale,
 };

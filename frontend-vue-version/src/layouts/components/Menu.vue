@@ -42,13 +42,27 @@
         />
         {{ $t("GENERAL.SALES") }}
       </router-link>
+      <a class="current-locale" href="#" @click.prevent="changeLocale">
+        {{ currentLocale }}
+      </a>
     </nav>
   </div>
 </template>
 
 <script>
+import { mapActions } from "pinia";
+import useLocaleStore from "@/stores/locale";
+
 export default {
   name: "AppMenu",
+  computed: {
+    currentLocale() {
+      return this.$i18n.locale === "br" ? "Português" : "English";
+    },
+  },
+  methods: {
+    ...mapActions(useLocaleStore, ["changeLocale"]),
+  },
 };
 </script>
 
@@ -102,5 +116,10 @@ export default {
 }
 .menu__item--active {
   background-color: $border-blue;
+}
+.current-locale {
+  position: absolute;
+  left: 5.4rem;
+  bottom: 1.75rem;
 }
 </style>

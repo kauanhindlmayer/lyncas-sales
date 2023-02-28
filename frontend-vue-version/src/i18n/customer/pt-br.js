@@ -7,4 +7,5 @@ export const Customer = {
   SEARCH: "Buscar clientes...",
   CUSTOMER_LIST: "Lista de clientes",
   FILTERS: "Filtros",
+  CONFIRM_DELETE: "Deseja realmente deletar o cliente?",
 };

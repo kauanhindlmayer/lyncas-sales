@@ -123,9 +123,7 @@ export default {
         });
     },
     async handleDelete(id) {
-      const answer = await message.confirm(
-        "Deseja realmente deletar o cliente?"
-      );
+      const answer = await message.confirm(this.$t("CUSTOMER.CONFIRM_DELETE"));
 
       if (answer.isConfirmed) {
         this.startLoading();

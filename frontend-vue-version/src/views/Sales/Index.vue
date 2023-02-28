@@ -147,7 +147,7 @@ export default {
         });
     },
     async handleDelete(id) {
-      const answer = await message.confirm("Deseja realmente deletar a venda?");
+      const answer = await message.confirm(this.$t("SALE.CONFIRM_DELETE"));
 
       if (answer.isConfirmed) {
         this.startLoading();

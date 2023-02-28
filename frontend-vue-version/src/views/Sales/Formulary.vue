@@ -28,7 +28,7 @@
             <!-- <input-text
               ref="billingDate"
               type="date"
-              label="Data do Faturamento"
+              :label="$t('SALE.BILLING_DATE')"
               v-model="sale.billingDate"
               :value="sale.billingDate"
               required
@@ -42,7 +42,7 @@
               <div class="form__form-wrapper">
                 <input-text
                   ref="itemDescription"
-                  label="Descrição do item"
+                  :label="$t('SALE.ITEM_DESCRIPTION')"
                   v-model="sale.items[index].itemDescription"
                   :value="sale.items[index].itemDescription"
                   placeholder=" "
@@ -52,7 +52,7 @@
                 />
                 <input-text
                   ref="unitaryValue"
-                  label="Valor unitário"
+                  :label="$t('SALE.UNITARY_VALUE')"
                   v-model="sale.items[index].unitaryValue"
                   :value="sale.items[index].unitaryValue"
                   type="number"
@@ -64,7 +64,7 @@
               <div class="form__form-wrapper">
                 <input-text
                   ref="quantity"
-                  label="Quantidade"
+                  :label="$t('SALE.QUANTITY')"
                   v-model="sale.items[index].quantity"
                   :value="sale.items[index].quantity"
                   type="number"
@@ -74,7 +74,7 @@
                 />
                 <input-text
                   ref="totalValue"
-                  label="Valor total"
+                  :label="$t('SALE.TOTAL_VALUE')"
                   v-model="sale.items[index].totalValue"
                   :value="sale.items[index].totalValue"
                   type="number"
@@ -95,7 +95,7 @@
 
           <div class="align-right">
             <button class="add-items-button" @click.prevent="addItem">
-              + Mais itens
+              {{ $t("SALE.PLUS_ITEMS") }}
             </button>
           </div>
           <div class="form__dashed"></div>

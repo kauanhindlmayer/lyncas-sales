@@ -24,6 +24,7 @@ const useUserStore = defineStore("user", {
       this.user = {};
       jwtService.removeToken();
       jwtService.removeUsername();
+      jwtService.removeLocale();
     },
   },
 });

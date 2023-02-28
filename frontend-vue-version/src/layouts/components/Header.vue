@@ -33,7 +33,7 @@ export default {
   methods: {
     ...mapActions(useUserStore, ["removeAuthenticationData"]),
     async handleLogout() {
-      const answer = await message.confirm("Deseja realmente sair?");
+      const answer = await message.confirm(this.$t("GENERAL.WANT_TO_LEAVE"));
 
       if (answer.isConfirmed) {
         this.removeAuthenticationData();
