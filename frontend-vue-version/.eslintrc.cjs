@@ -8,6 +8,19 @@ module.exports = {
     "eslint:recommended",
     "@vue/eslint-config-prettier",
   ],
+  overrides: [
+    {
+      files: ["src/components/__tests__/**.spec.js"],
+      globals: {
+        test: "readonly",
+        describe: "readonly",
+        expect: "readonly",
+        vi: "readonly",
+        beforeEach: "readonly",
+        it: "readonly",
+      },
+    },
+  ],
   env: {
     node: true,
   },
