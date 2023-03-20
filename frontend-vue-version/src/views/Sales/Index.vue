@@ -88,7 +88,13 @@
       </div>
       <Paginator
         template="CurrentPageReport RowsPerPageDropdown FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink"
-        currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
+        :currentPageReportTemplate="
+          $t('GENERAL.CURRENT_PAGE_REPORT', {
+            first: '{first}',
+            last: `{last}`,
+            totalRecords: '{totalRecords}',
+          })
+        "
         :rows="limit"
         :totalRecords="totalRecords"
         :rowsPerPageOptions="[limit, 10, 20, 30, 50]"

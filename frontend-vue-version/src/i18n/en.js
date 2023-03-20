@@ -47,5 +47,6 @@ export const en = {
     NO: "No",
     WANT_TO_LEAVE: "Do you really want to leave?",
     CHECK_UNSAVED: "You have unsaved changes. do you really want to leave?",
+    CURRENT_PAGE_REPORT: "Showing {first} to {last} of {totalRecords} records",
   },
 };

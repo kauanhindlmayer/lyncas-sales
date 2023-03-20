@@ -47,5 +47,7 @@ export const br = {
     NO: "Não",
     WANT_TO_LEAVE: "Deseja realmente sair?",
     CHECK_UNSAVED: "Você tem alterações não salvas. deseja realmente sair?",
+    CURRENT_PAGE_REPORT:
+      "Mostrando {first} a {last} de {totalRecords} registros",
   },
 };
