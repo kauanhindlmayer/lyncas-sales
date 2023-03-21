@@ -49,4 +49,17 @@ export const en = {
     CHECK_UNSAVED: "You have unsaved changes. do you really want to leave?",
     CURRENT_PAGE_REPORT: "Showing {first} to {last} of {totalRecords} records",
   },
+  VALIDATION_FIELDS: {
+    INVALID: "The {label} field is invalid",
+    REQUIRED: "Please enter the field {label}",
+    TOS: "Accepting terms & conditions are required",
+    LOGIN_INVALIDO: "The login detail is incorrect",
+    MIN_LENGTH: "Minimum field length of {length} characters",
+    MAX_LENGTH: "Maximum field length of {length} characters",
+    MIN_VALUE: "Minimum value of field is {min}",
+    MAX_VALUE: "Maximum value of field is {max}",
+    PASSWORD_CONFIRMATION: "The passwords entered do not match",
+    CAMPOS_NAO_PREENCHIDOS:
+      "There are still required fields which are not filled.",
+  },
 };

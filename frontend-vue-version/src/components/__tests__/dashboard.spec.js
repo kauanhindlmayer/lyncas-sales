@@ -1,27 +1,26 @@
-import { shallowMount, config } from "@vue/test-utils";
-import { expect } from "vitest";
-import { setActivePinia, createPinia } from "pinia";
-import { useI18n } from "vue-i18n";
-import Index from "@/views/dashboard/Index.vue";
-
-vi.mock("vue-i18n");
-
-useI18n.mockReturnValue({
-  t: (tKey) => tKey,
-});
-
-config.global.mocks = {
-  $t: (tKey) => tKey,
-};
+import { beforeEach, afterEach } from "vitest";
+import { shallowMount } from "@vue/test-utils";
+import i18n from "@/i18n/i18n";
+import Dashboard from "@/views/dashboard/Index.vue";
 
 describe("Dashboard/Index.vue", () => {
+  let wrapper = null;
+
   beforeEach(() => {
-    setActivePinia(createPinia());
+    i18n.global.t = (key) => key;
+
+    wrapper = shallowMount(Dashboard, {
+      global: {
+        plugins: [i18n],
+      },
+    });
+  });
+
+  afterEach(() => {
+    wrapper.unmount();
   });
 
   test("Should renders inner text properly", () => {
-    const wrapper = shallowMount(Index);
-
     expect(wrapper.text()).toContain("GENERAL.WELCOME");
   });
 });

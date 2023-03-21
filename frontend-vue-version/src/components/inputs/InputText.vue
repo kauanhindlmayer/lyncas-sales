@@ -20,6 +20,7 @@
 
 <script>
 import InputText from "primevue/inputtext";
+import i18n from "@/i18n/i18n";
 // import ValidateCPF from "@/components/mixins/validate-cpf.js";
 
 export default {
@@ -68,37 +69,49 @@ export default {
     validation() {
       if (this.required && !this.content) {
         this.state = false;
-        this.error_message = `Campo ${this.label} é obrigatório`;
+        this.error_message = i18n.global.t("VALIDATION_FIELDS.REQUIRED", {
+          label: this.label,
+        });
         return false;
       }
 
       if (this.minlength && this.content.length < this.minlength) {
         this.state = false;
-        this.error_message = `Campo ${this.label} precisa ter no mínimo ${this.minlength} caracteres`;
+        this.error_message = i18n.global.t("VALIDATION_FIELDS.MIN_LENGTH", {
+          length: this.minlength,
+        });
         return false;
       }
 
       if (this.maxlength && this.content.length > this.maxlength) {
         this.state = false;
-        this.error_message = `Campo ${this.label} pode ter no máximo ${this.maxlength} caracteres`;
+        this.error_message = i18n.global.t("VALIDATION_FIELDS.MAX_LENGTH", {
+          length: this.maxlength,
+        });
         return false;
       }
 
       if (this.min && Number(this.content) < this.min) {
         this.state = false;
-        this.error_message = `Valor mínimo do campo ${this.label} é ${this.min}`;
+        this.error_message = i18n.global.t("VALIDATION_FIELDS.MIN_VALUE", {
+          min: this.min,
+        });
         return false;
       }
 
       if (this.max && Number(this.content) > this.max) {
         this.state = false;
-        this.error_message = `Valor máximo do campo ${this.label} é ${this.max}`;
+        this.error_message = i18n.global.t("VALIDATION_FIELDS.MAX_VALUE", {
+          max: this.max,
+        });
         return false;
       }
 
       if (this.email && !this.validEmail) {
         this.state = false;
-        this.error_message = `Campo ${this.label} inválido`;
+        this.error_message = i18n.global.t("VALIDATION_FIELDS.INVALID", {
+          label: this.label,
+        });
         return false;
       }
 

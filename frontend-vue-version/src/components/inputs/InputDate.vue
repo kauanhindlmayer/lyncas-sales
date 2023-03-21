@@ -24,6 +24,7 @@
 <script>
 import Calendar from "primevue/calendar";
 import helper from "@/common/utils/helper.js";
+import i18n from "@/i18n/i18n";
 
 export default {
   name: "InputDate",
@@ -63,7 +64,9 @@ export default {
     validation() {
       if (this.required && !this.content) {
         this.state = false;
-        this.error_message = `Campo ${this.label} é obrigatório`;
+        this.error_message = i18n.global.t("VALIDATION_FIELDS.REQUIRED", {
+          label: this.label,
+        });
         return false;
       }
       this.error_message = null;

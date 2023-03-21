@@ -50,4 +50,17 @@ export const br = {
     CURRENT_PAGE_REPORT:
       "Mostrando {first} a {last} de {totalRecords} registros",
   },
+  VALIDATION_FIELDS: {
+    INVALID: "O campo {label} é inválido",
+    REQUIRED: "Por favor informe o campo {label}",
+    TOS: "É necessário aceitar os termos e condições",
+    LOGIN_INVALIDO: "Login inválido",
+    MIN_LENGTH: "Comprimento mínimo do campo de {length} caracteres",
+    MAX_LENGTH: "Comprimento máximo do campo de {length} caracteres",
+    MIN_VALUE: "Valor mínimo do campo é de {min}",
+    MAX_VALUE: "Valor máximo do campo é de {max}",
+    PASSWORD_CONFIRMATION: "As senhas digitadas não são iguais",
+    CAMPOS_NAO_PREENCHIDOS:
+      "Ainda existem campos obrigatórios que não foram preenchidos.",
+  },
 };

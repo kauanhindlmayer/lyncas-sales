@@ -21,6 +21,7 @@
 
 <script>
 import Dropdown from "primevue/dropdown";
+import i18n from "@/i18n/i18n";
 
 export default {
   name: "InputSelect",
@@ -55,7 +56,9 @@ export default {
     validation() {
       if (this.required && !this.selected) {
         this.state = false;
-        this.error_message = `Campo ${this.label} é obrigatório`;
+        this.error_message = i18n.global.t("VALIDATION_FIELDS.REQUIRED", {
+          label: this.label,
+        });
         return false;
       }
 

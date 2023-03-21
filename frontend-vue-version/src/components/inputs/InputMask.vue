@@ -21,6 +21,7 @@
 
 <script>
 import InputMask from "primevue/inputmask";
+import i18n from "@/i18n/i18n";
 
 export default {
   name: "InputMask",
@@ -58,7 +59,9 @@ export default {
     validation() {
       if (this.required && !this.content) {
         this.state = false;
-        this.error_message = `Campo ${this.label} é obrigatório`;
+        this.error_message = i18n.global.t("VALIDATION_FIELDS.REQUIRED", {
+          label: this.label,
+        });
         return false;
       }
 
